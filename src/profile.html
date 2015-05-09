@@ -1,0 +1,68 @@
+<style>
+  #profilePicture {
+    width: 6em;
+    border-radius: 6em;
+    border: aqua 0.25em solid;
+  	display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: border-radius;
+    transition-property: border-radius;
+    background: transparent;
+    margin-top: -8em;
+  }
+  
+  #profilePicture:hover {
+    border-radius: 1em;
+  }
+  
+  #banner {
+    background: #fff;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-bottom: 1px solid #ccc;
+    display: block;
+    height: 300px;
+    width: 100%;
+  }
+</style>
+<template>
+  <section class="au-animate">
+    <h2>${fullName}</h2>
+    <form role="form" submit.delegate="profile()" class="pure-form pure-form-aligned">
+      <div id="banner" style="background-image: url(src/${coverPhoto});"></div>
+      <img id="profilePicture" src="src/${profilePicture}" />
+      <p>
+        <i class="fa fa-${accountTypeIcon}"></i>
+        <a href="http://${domainVerified}">${domainVerified}</a>
+      </p>
+      <ul>
+        <li><strong>Following:</strong> ${followerCount}</li>
+        <li><strong>Followers:</strong> ${followingCount}</li>
+        <li><strong>Post:</strong> ${postCount}</li>
+      </ul>
+      <fieldset>
+        <div class="pure-control-group">
+          <label for="fn">Display Name</label>
+          <input type="text" value.bind="displayName" class="form-control" id="fn" placeholder="first name">
+        </div>
+        <div class="pure-control-group">
+          <label for="ln">Username</label>
+          <input type="text" value.bind="userName" class="form-control" id="ln" placeholder="last name">
+        </div>
+        <p>${bio}</p>
+        <div class="pure-control-group"></div>
+        <div class="pure-controls">
+          <button type="submit" class="pure-button pure-button-primary">Submit</button>
+        </div>
+      </fieldset>
+    </form>
+  </section>
+</template>

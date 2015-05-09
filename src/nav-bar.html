@@ -1,0 +1,16 @@
+<template>
+  <nav class="pure-menu pure-menu-horizontal" role="navigation">
+    <a href="#" class="pure-menu-heading pure-menu-link">
+        <i class="fa fa-adn"></i>
+        <span>${router.title}</span>
+    </a>
+    <ul class="pure-menu-list">
+      <li repeat.for="row of router.navigation" class="pure-menu-item ${row.isActive ? 'pure-menu-selected' : ''}">
+        <a class="pure-menu-link" data-target="#bs-example-navbar-collapse-1.in" href.bind="row.href">${row.title}</a>
+      </li>
+      <li class="pure-menu-item loader" if.bind="router.isNavigating">
+        <i class="fa fa-spinner fa-spin fa-2x"></i>
+      </li>      
+    </ul>
+  </nav>
+</template>
