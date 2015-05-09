@@ -1,13 +1,11 @@
-# aurelia-skeleton-navigation
+# Dark Social
+Not sure why I've called it that other than preferring dark themes, in IDEs, Apps but not so much in life.
 
-[![ZenHub](https://raw.githubusercontent.com/ZenHubIO/support/master/zenhub-badge.png)](https://zenhub.io)
-[![Join the chat at https://gitter.im/aurelia/discuss](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aurelia/discuss?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-This skeleton is part of the [Aurelia](http://www.aurelia.io/) platform. It sets up a standard navigation-style app using gulp to build your ES6 code with the Babel compiler. Karma/Protractor/Jasmine testing is also configured.
-
-> To keep up to date on [Aurelia](http://www.aurelia.io/), please visit and subscribe to [the official blog](http://blog.durandal.io/). If you have questions, we invite you to [join us on Gitter](https://gitter.im/aurelia/discuss). If you would like to have deeper insight into our development process, please install the [ZenHub](https://zenhub.io) Chrome Extension and visit any of our repository's boards. You can get an overview of all Aurelia work by visiting [the framework board](https://github.com/aurelia/framework#boards).
+This is based on the [Aurelia Skeleton Navigation](https://github.com/aurelia/skeleton-navigation).
 
 ## Running The App
+
+> In Progress, some steps are little different, atlhough I want to figure out how to keep it like this.
 
 To run the app, follow these steps.
 
@@ -49,6 +47,8 @@ To run the app, follow these steps.
 
 ## Running The Unit Tests
 
+> I doubt these work right now
+
 To run the unit tests, first ensure that you have followed the steps above in order to install all dependencies and successfully build the library. Once you have done that, proceed with these additional steps:
 
 1. Ensure that the [Karma](http://karma-runner.github.io/) CLI is installed. If you need to install it, use the following command:
@@ -70,6 +70,9 @@ jspm install aurelia-router
   ```
 
 ## Running The E2E Tests
+
+> These Probably don't work either.
+
 Integration tests are performed with [Protractor](http://angular.github.io/protractor/#/).
 
 1. Place your E2E-Tests into the folder ```test/e2e/src```
