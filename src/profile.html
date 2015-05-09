@@ -1,8 +1,14 @@
 <style>
+  html, button, input, select, textarea,
+  .pure-g [class *= "pure-u"] {
+      /* Set your content font stack here: */
+      font-family: 'Trebuchet MS', Helvetica, sans-serif;
+  }
   #profilePicture {
-    width: 6em;
-    border-radius: 6em;
-    border: aqua 0.25em solid;
+    box-sizing: border-box;
+    border-radius: 40% 0 0 40%;
+    border: #00B2B2 0.25em solid;
+    border-right-width: 0;
   	display: inline-block;
     vertical-align: middle;
     -webkit-transform: translateZ(0);
@@ -16,53 +22,93 @@
     -webkit-transition-property: border-radius;
     transition-property: border-radius;
     background: transparent;
-    margin-top: -8em;
   }
   
   #profilePicture:hover {
-    border-radius: 1em;
+    border-radius: 0;
   }
   
   #banner {
     background: #fff;
     background-size: cover;
     background-repeat: no-repeat;
-    border-bottom: 1px solid #ccc;
     display: block;
     height: 300px;
     width: 100%;
+    border-radius: 0 3em 3em 3em;
+    border: #00B2B2 0.25em solid;
+    position: relative;
   }
+  
+  #profileDetails {
+    margin-left: 2em;    
+  }
+  
+  #profileDetails h2 {
+    background-color:aqua;
+    padding: 0.25em 1em;
+    margin-bottom: 0;
+    margin-left: 0;
+    border-radius: 2em 2em 0 0;
+  }
+  
+  #profileDetails p {
+    background:#fff;
+    padding: 1em 1.5em 1.5em 1.5em;
+    margin-top: 0;
+    border-radius: 0 0 2em 0;
+    opacity: 0.8;
+    margin-bottom: 0;
+  }
+
+  #profileDetails ul li a {
+    background: #E6FFFF;
+    border-radius: 0 0 1em 1em;
+    opacity: 0.8;
+    cursor: pointer;
+  }
+  
+  #profileDetails ul li a:hover {
+    opacity: 1;
+  }
+  
+  body { background-color: black; }
 </style>
 <template>
   <section class="au-animate">
-    <h2>${fullName}</h2>
-    <form role="form" submit.delegate="profile()" class="pure-form pure-form-aligned">
-      <div id="banner" style="background-image: url(src/${coverPhoto});"></div>
-      <img id="profilePicture" src="src/${profilePicture}" />
-      <p>
-        <i class="fa fa-${accountTypeIcon}"></i>
-        <a href="http://${domainVerified}">${domainVerified}</a>
-      </p>
-      <ul>
-        <li><strong>Following:</strong> ${followerCount}</li>
-        <li><strong>Followers:</strong> ${followingCount}</li>
-        <li><strong>Post:</strong> ${postCount}</li>
-      </ul>
-      <fieldset>
-        <div class="pure-control-group">
-          <label for="fn">Display Name</label>
-          <input type="text" value.bind="displayName" class="form-control" id="fn" placeholder="first name">
+    <div class="pure-g">
+      <div class="pure-u-1-6">
+        <img id="profilePicture" src="src/${profilePicture}" class="pure-img" />
+      </div>
+      <div class="pure-u-5-6">
+        <div id="banner" style="background-image: url(src/${coverPhoto});">
+          <div class="pure-g">
+            <div class="pure-u-1 pure-u-md-2-3  pure-u-lg-1-2">
+              <div id="profileDetails">
+                <h2><i class="fa fa-${accountTypeIcon}"></i> ${displayName}
+                  <small>@${userName}</small>
+                </h2>
+                <p>${bio}<br /><br />
+                  <i class="fa fa-check-circle"></i> <a href="http://${domainVerified}">${domainVerified}</a>
+                </p>
+                <nav class="pure-menu pure-menu-horizontal">
+                  <ul class="pure-menu-list">
+                    <li class="pure-menu-item">
+                      <a class="pure-menu-link"><i class="fa fa-arrow-circle-left"></i> ${followerCount}</a>
+                    </li>
+                    <li class="pure-menu-item">
+                      <a class="pure-menu-link"><i class="fa fa-arrow-circle-right"></i> ${followingCount}</a>
+                    </li>
+                    <li class="pure-menu-item">
+                      <a class="pure-menu-link"><i class="fa fa-pencil-square-o"></i> ${postCount}</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="pure-control-group">
-          <label for="ln">Username</label>
-          <input type="text" value.bind="userName" class="form-control" id="ln" placeholder="last name">
-        </div>
-        <p>${bio}</p>
-        <div class="pure-control-group"></div>
-        <div class="pure-controls">
-          <button type="submit" class="pure-button pure-button-primary">Submit</button>
-        </div>
-      </fieldset>
-    </form>
+      </div>
+    </div>
   </section>
 </template>
