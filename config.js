@@ -7,6 +7,7 @@ System.config({
       "es7.classProperties"
     ]
   },
+  "baseUrl": "http://darksocial.azurewebsites.net",
   "paths": {
     "*": "dist/*.js",
     "github:*": "jspm_packages/github/*.js",
