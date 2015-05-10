@@ -1,0 +1,115 @@
+<style>
+  #profilePicture {
+    box-sizing: border-box;
+    border-radius: 40% 0 0 40%;
+    border: #00B2B2 0.25em solid;
+    border-right-width: 0;
+  	display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: border-radius;
+    transition-property: border-radius;
+    background: transparent;
+  }
+  
+  #profilePicture:hover {
+    border-radius: 0;
+  }
+  
+  #banner {
+    background: #fff;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: block;
+    height: 300px;
+    width: 100%;
+    border-radius: 0 3em 3em 3em;
+    border: #00B2B2 0.25em solid;
+    position: relative;
+  }
+  
+  #profileDetails {
+    margin-left: 2em;    
+  }
+  
+  #profileDetails h2 {
+    background-color:aqua;
+    padding: 0.25em 1em;
+    margin-bottom: 0;
+    margin-left: 0;
+    border-radius: 2em 2em 0 0;
+  }
+  
+  #profileDetails p {
+    background:#fff;
+    padding: 1em 1.5em 1.5em 1.5em;
+    margin-top: 0;
+    border-radius: 0 0 2em 0;
+    opacity: 0.8;
+    margin-bottom: 0;
+  }
+
+  #profileDetails ul li a {
+    background: #E6FFFF;
+    border-radius: 0 0 1em 1em;
+    opacity: 0.8;
+    cursor: pointer;
+  }
+  
+  #profileDetails ul li a:hover {
+    opacity: 1;
+  }
+</style>
+<template>
+  <section class="au-animate">
+    <div class="pure-g">
+      <div class="pure-u-1-6">
+        <img id="profilePicture" src.bind="avatarImageUrl" class="pure-img" />
+      </div>
+      <div class="pure-u-5-6">
+        <div id="banner" css="background-image: url(${coverImageUrl});">
+          <div class="pure-g">
+            <div class="pure-u-1 pure-u-md-2-3  pure-u-lg-1-2">
+              <div id="profileDetails">
+                <h2>
+                  <i class="fa fa-${userTypeIcon}"></i>${displayName}
+                  <small>@${userName}</small>
+                </h2>
+                <p>
+                  <span innerHTML.bind="bioHtml"></span>
+                  <br />
+                  <br />
+                  <i class="fa fa-check-circle"></i>
+                  <a href="${verifiedLink}">${verifiedDomain}</a>
+                </p>
+                <nav class="pure-menu pure-menu-horizontal">
+                  <ul class="pure-menu-list">
+                    <li class="pure-menu-item">
+                      <a class="pure-menu-link" href="#"><i class="fa fa-arrow-circle-left"></i> ${following}</a>
+                    </li>
+                    <li class="pure-menu-item">
+                      <a class="pure-menu-link" href="#"><i class="fa fa-arrow-circle-right"></i> ${followers}</a>
+                    </li>
+                    <li class="pure-menu-item">
+                      <a class="pure-menu-link" href="#"><i class="fa fa-pencil-square-o"></i> ${posts}</a>
+                    </li>
+                    <li class="pure-menu-item">
+                      <a class="pure-menu-link" href="#"><i class="fa fa-star"></i> ${stars}</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>

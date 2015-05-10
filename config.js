@@ -11,7 +11,7 @@ System.config({
     "*": "dist/*.js",
     "github:*": "jspm_packages/github/*.js",
     "npm:*": "jspm_packages/npm/*.js",
-    "aurelia-skeleton-navigation/*": "dist/*.js"
+    "dark-social/*": "dist/*.js"
   },
   "bundles": {
     "app-bundle": [
@@ -226,14 +226,7 @@ System.config({
       "github:aurelia/framework@0.11.0/index",
       "github:aurelia/framework@0.11.0",
       "github:aurelia/bootstrapper@0.12.0/index",
-      "github:aurelia/bootstrapper@0.12.0",
-      "welcome",
-      "profile",
-      "nav-bar",
-      "github:yahoo/pure@0.6.0/build/pure.css!github:systemjs/plugin-css@0.1.10",
-      "github:yahoo/pure@0.6.0/build/grids-responsive.css!github:systemjs/plugin-css@0.1.10",
-      "app",
-      "animation-main"
+      "github:aurelia/bootstrapper@0.12.0"
     ]
   }
 });
