@@ -1,9 +1,4 @@
 <style>
-  html, button, input, select, textarea,
-  .pure-g [class *= "pure-u"] {
-      /* Set your content font stack here: */
-      font-family: 'Trebuchet MS', Helvetica, sans-serif;
-  }
   #profilePicture {
     box-sizing: border-box;
     border-radius: 40% 0 0 40%;
@@ -71,8 +66,6 @@
   #profileDetails ul li a:hover {
     opacity: 1;
   }
-  
-  body { background-color: black; }
 </style>
 <template>
   <section class="au-animate">
@@ -93,16 +86,10 @@
                 </p>
                 <nav class="pure-menu pure-menu-horizontal">
                   <ul class="pure-menu-list">
-                    <li class="pure-menu-item">
-                      <a class="pure-menu-link"><i class="fa fa-arrow-circle-left"></i> ${followerCount}</a>
+                    <li repeat.for="row of profileCount" class="pure-menu-item">
+                      <a class="pure-menu-link" href.bind="row.href"><i class="fa fa-${row.icon}"></i>${row.count}</a>
                     </li>
-                    <li class="pure-menu-item">
-                      <a class="pure-menu-link"><i class="fa fa-arrow-circle-right"></i> ${followingCount}</a>
-                    </li>
-                    <li class="pure-menu-item">
-                      <a class="pure-menu-link"><i class="fa fa-pencil-square-o"></i> ${postCount}</a>
-                    </li>
-                  </ul>
+                  </ul>                  
                 </nav>
               </div>
             </div>

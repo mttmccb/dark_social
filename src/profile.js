@@ -1,6 +1,14 @@
 import { computedFrom } from 'aurelia-framework';
 
 export class Profile {
+  constructor(){
+    this.profileCount = [];
+    this.addProfileCount({ title: 'followers', icon: 'arrow-circle-left', count: 228 });
+    this.addProfileCount({ title: 'following', icon: 'arrow-circle-right', count: 199 });
+    this.addProfileCount({ title: 'posts', icon: 'pencil-square-o', count: 17000 });
+    console.log('hello');
+  } 
+  
   profilePicture = 'profilePicture.png';
   coverPhoto = 'coverPhoto.jpeg';
   heading = 'You Profile';
@@ -20,14 +28,17 @@ export class Profile {
     return `${this.displayName} @${this.userName}`;
   }
 
+  addProfileCount (count) {
+    this.profileCount.push(count);
+  }
   get accountTypeIcon() {
     switch (this.accountType) {
       case 'human':
         return 'user';
-      
+
       case 'feed':
         return 'rss';
-        
+
       case 'bot':
         return 'meh-o';
     }
