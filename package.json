@@ -10,6 +10,7 @@
     "navigation",
     "skeleton"
   ],
+  "baseUrl": "http://darksocial.azurewebsites.com",
   "homepage": "http://mttmccb.net",
   "bugs": {
     "url": "https://github.com/mttmccb/dark-social/issues"
