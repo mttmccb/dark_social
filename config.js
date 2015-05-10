@@ -7,7 +7,6 @@ System.config({
       "es7.classProperties"
     ]
   },
-  "baseUrl": "http://darksocial.azurewebsites.net",
   "paths": {
     "*": "dist/*.js",
     "github:*": "jspm_packages/github/*.js",
@@ -229,7 +228,8 @@ System.config({
       "github:aurelia/bootstrapper@0.12.0/index",
       "github:aurelia/bootstrapper@0.12.0"
     ]
-  }
+  },
+  "baseUrl": "http://darksocial.azurewebsites.net"
 });
 
 System.config({
