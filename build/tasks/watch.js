@@ -18,3 +18,10 @@ gulp.task('watch', ['serve'], function() {
 });
 
 
+gulp.task('copy-bundle', function (done) {
+  if (fs.existsSync('app-bundle.js')) {
+    fs.rename('app-bundle.js', 'dist/app-bundle.js', done);
+  } else {
+    bundleIt()
+  }
+});
