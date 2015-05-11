@@ -1,5 +1,3 @@
-import 'yahoo/pure/build/pure.css!';
-import 'yahoo/pure/build/grids-responsive.css!';
 export class App {
   configureRouter(config, router){
     config.title = 'Dark.Social';

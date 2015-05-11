@@ -246,10 +246,8 @@ System.config({
     "core-js": "npm:core-js@0.9.6",
     "css": "github:systemjs/plugin-css@0.1.10",
     "font-awesome": "npm:font-awesome@4.3.0",
-    "purecss": "npm:purecss@0.6.1-test-2",
     "traceur": "github:jmcriffey/bower-traceur@0.0.88",
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88",
-    "yahoo/pure": "github:yahoo/pure@0.6.0",
     "github:aurelia/animator-css@0.2.0": {
       "aurelia-templating": "github:aurelia/templating@0.11.2"
     },
