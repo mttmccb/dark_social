@@ -13,7 +13,7 @@ export class Profile {
   last_valid_user_id = '';
   loadPosts() {
 
-    return this.http.get(`${this.apiURL}/users/@${this.user_id}/posts`).then(get => {
+    return this.http.get(`${this.apiURL}/users/@${this.user_id}/posts?count=200`).then(get => {
       this.profile = JSON.parse(get.response);
       this.last_valid_user_id = this.user_id;
     }).catch(get => {

@@ -158,10 +158,14 @@
                 <li>Posts replied to ${numReplies}</li>
                 <li>Posts reposted ${numReposts}</li>
                 <li>Posts starred ${numStars}</li>
+                <li>Oldest Post</li>
+                <li>Most Recent Post</li>
               </ul>
             </div>
             <div class="pure-u-1-2">
-              <p><strong>Mentions</strong> <span class="mention" repeat.for="men of mentionByUsername">@${men}</span>
+              <ul>
+                <li class="mention" repeat.for="men of mentionByUsername">@${men}</li>
+              </ul>
               </p>
             </div>
           </div>
