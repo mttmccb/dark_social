@@ -8,23 +8,24 @@ export class Profile {
   }
 
   heading = 'Your Profile';
-  apiURL = 'https://api.app.net';  
+  apiURL = 'https://api.app.net';
   user_id = 'mttmccb';
   last_valid_user_id = '';
   loadPosts() {
 
     return this.http.get(`${this.apiURL}/users/@${this.user_id}/posts`).then(get => {
-      console.log(get);
       this.profile = JSON.parse(get.response);
       this.last_valid_user_id = this.user_id;
     }).catch(get => {
-      this.user_id = this.last_valid_user_id
-    });    
+      this.user_id = this.last_valid_user_id;
+    });
   }
-  
+
   activate() {
     return this.loadPosts();
   }
+
+  showBanner = false;
 
   get postArray() { return this.profile.data; }
   get displayName() { return this.profile.data[0].user.name; }
@@ -40,6 +41,20 @@ export class Profile {
   get following() { return this.profile.data[0].user.counts.following; }
   get posts() { return this.profile.data[0].user.counts.posts; }
   get stars() { return this.profile.data[0].user.counts.stars; }
+
+  get numPosts() { return this.profile.data.length; }
+  get numReplies() { return this.profile.data.reduce(function (a, b) { return a + (b.num_replies > 0 ? 1 : 0); }, 0); }
+  get numReposts() { return this.profile.data.reduce(function (a, b) { return a + (b.num_reposts > 0 ? 1 : 0); }, 0); }
+  get numStars() { return this.profile.data.reduce(function (a, b) { return a + (b.num_stars > 0 ? 1 : 0); }, 0); }
+  get mentionByUsername() { 
+    var mentions = this.profile.data.reduce(function(a, b) { return a.concat(b.entities.mentions); }, []); 
+    var result = [];
+    for (var i = 0; i < mentions.length; i++) {
+        if (result.indexOf(mentions[i].name) == -1) {
+            result.push(mentions[i].name);
+        }
+    }
+    return result; } 
 
   @computedFrom('displayName', 'userName')
   get fullName() { return `${this.displayName} @${this.userName}`; }
@@ -60,8 +75,11 @@ export class Profile {
   profile() {
     alert(`Welcome, ${this.fullName}!`);
   }
-  welcome(){
+  welcome() {
     return this.loadPosts();
+  }
+  toggleVisible(e) {
+    this.showBanner = !this.showBanner;
   }
 }
 

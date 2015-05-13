@@ -3,7 +3,7 @@
     box-sizing: border-box;
     border-radius: 50%;
     border: #00B2B2 0.25em solid;
-  	display: inline-block;
+    float: right;
     vertical-align: middle;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
@@ -19,7 +19,17 @@
   }
   
   #profilePicture:hover {
+    cursor: pointer;
+  }
+
+  #profilePicture.clean,
+  #banner.clean {
     border-radius: 0;
+  } 
+  
+  #profileDetails.clean {
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
   }
   
   #banner {
@@ -27,15 +37,22 @@
     background-size: cover;
     background-repeat: no-repeat;
     display: block;
-    height: 300px;
+    height: 350px;
     width: 100%;
     border-radius: 3em 3em 3em 3em;
     border: #00B2B2 0.25em solid;
     position: relative;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: border-radius;
+    transition-property: border-radius;
   }
   
   #profileDetails {
-    margin: 0em;    
+    margin: 0em;
+        
   }
   
   #profileDetails h2 {
@@ -72,22 +89,35 @@
     opacity: 0.8;
     margin: 1em 0 1em 0;
   }
-
+  #un {
+    width: 6em;
+    background: rgba(255,255,255,0.8);
+    border-width: 0;
+    border-radius: 0.25em;
+    padding-left: 0.25em;
+  }
+  .mention {
+    background: #fff;
+    margin-right: 0.25em;
+  }
 </style>
 <template>
   <section class="au-animate">
     <div class="pure-g">
       <div class="pure-u-1-6">
-        <img id="profilePicture" src.bind="avatarImageUrl" class="pure-img" />
+        <img id="profilePicture" src.bind="avatarImageUrl" class="pure-img ${showBanner? 'clean' : ''}" click.trigger="toggleVisible($event)"
+        />
       </div>
       <div class="pure-u-5-6">
-        <div id="banner" css="background-image: url(${coverImageUrl});">
+        <div id="banner" css="background-image: url(${coverImageUrl});" class="${showBanner? 'clean' : ''}">
           <div class="pure-g">
             <div class="pure-u-1 pure-u-md-4-5  pure-u-lg-2-3">
-              <div id="profileDetails">
+              <div id="profileDetails" class="${showBanner? 'clean' : ''}">
                 <h2>
                   <i class="fa fa-${userTypeIcon}"></i>${displayName}
-                  <small>@<input type="text" value.bind="user_id" change.delegate="welcome()" /></small>
+                  <small>@
+                    <input type="text" id="un" value.bind="user_id" change.delegate="welcome()" />
+                  </small>
                 </h2>
                 <p>
                   <span innerHTML.bind="bioHtml"></span>
@@ -118,21 +148,25 @@
         </div>
       </div>
     </div>
-<!--    <div class="pure-g">
+    <div class="pure-g">
       <div class="pure-u-1">
         <div class="stats">
-          <ul>
-            <li>X of Last X Post has no mentions</li>
-            <li>Last Mention</li>
-            <li>Last Reply</li>
-            <li>Last Repost</li>
-          </ul>
-          <label>First Mention</label>
-          <select>
-            <option repeat.for="post of postArray" value="post.id">${post.created_at} ${post.entities.mentions[0].name? post.entities.mentions[0].name : 'none' }</option>
-          </select>
+          <h2>Last ${numPosts} Posts</h2>
+          <div class="pure-g">
+            <div class="pure-u-1-2">
+              <ul>
+                <li>Posts replied to ${numReplies}</li>
+                <li>Posts reposted ${numReposts}</li>
+                <li>Posts starred ${numStars}</li>
+              </ul>
+            </div>
+            <div class="pure-u-1-2">
+              <p><strong>Mentions</strong> <span class="mention" repeat.for="men of mentionByUsername">@${men}</span>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>-->
+    </div>
   </section>
 </template>
