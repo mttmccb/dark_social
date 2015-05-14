@@ -41,20 +41,34 @@ export class Profile {
   get following() { return this.profile.data[0].user.counts.following; }
   get posts() { return this.profile.data[0].user.counts.posts; }
   get stars() { return this.profile.data[0].user.counts.stars; }
-
   get numPosts() { return this.profile.data.length; }
   get numReplies() { return this.profile.data.reduce(function (a, b) { return a + (b.num_replies > 0 ? 1 : 0); }, 0); }
   get numReposts() { return this.profile.data.reduce(function (a, b) { return a + (b.num_reposts > 0 ? 1 : 0); }, 0); }
   get numStars() { return this.profile.data.reduce(function (a, b) { return a + (b.num_stars > 0 ? 1 : 0); }, 0); }
+  get latestPost() { return Math.round(( new Date() - Date.parse(this.profile.data[0].created_at) ) /3600000); }
+  get oldestPost() { return Math.round(( new Date() - Date.parse(this.profile.data[this.profile.data.length-1].created_at) ) /3600000); }
+  
   get mentionByUsername() { 
     var mentions = this.profile.data.reduce(function(a, b) { return a.concat(b.entities.mentions); }, []); 
-    var result = [];
-    for (var i = 0; i < mentions.length; i++) {
-        if (result.indexOf(mentions[i].name) == -1) {
-            result.push(mentions[i].name);
-        }
-    }
-    return result; } 
+    
+    var mentionMap = [];
+    mentionMap.push({name: mentions[0].name, count: 0});
+    
+    mentions.forEach(function(mention) {
+      var index = functiontofindIndexByKeyValue(mentionMap,'name',mention.name);
+      if (index ===-1) {
+        mentionMap.push({ name: mention.name, count: 1});
+      } else {
+        mentionMap[index].count++;        
+      }
+    });
+    
+    mentionMap.sort(function (a, b) {
+      if (a.count > b.count) { return -1; }
+      if (a.count < b.count) { return 1; }
+      return 0;
+    });
+    return  mentionMap; } 
 
   @computedFrom('displayName', 'userName')
   get fullName() { return `${this.displayName} @${this.userName}`; }
@@ -81,6 +95,17 @@ export class Profile {
   toggleVisible(e) {
     this.showBanner = !this.showBanner;
   }
+}
+
+function functiontofindIndexByKeyValue(arraytosearch, key, valuetosearch) {
+ 
+  for (var i = 0; i < arraytosearch.length; i++) {
+   
+    if (arraytosearch[i][key] == valuetosearch) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 export class UpperValueConverter {
