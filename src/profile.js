@@ -2,7 +2,7 @@ import { computedFrom } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
 
 export class Profile {
-  static inject() { return [HttpClient]; };
+  static inject() { return [HttpClient]; }
   constructor(http) {
     this.http = http;
   }
@@ -32,8 +32,8 @@ export class Profile {
   get userName() { return this.profile.data[0].user.username; }
   get coverImageUrl() { return this.profile.data[0].user.cover_image.url; }
   get avatarImageUrl() { return this.profile.data[0].user.avatar_image.url; }
-  get bio() { return this.profile.data[0].user.description.text }
-  get bioHtml() { return this.profile.data[0].user.description.html }
+  get bio() { return this.profile.data[0].user.description.text; }
+  get bioHtml() { return this.profile.data[0].user.description.html; }
   get verifiedLink() { return this.profile.data[0].user.verified_link; }
   get verifiedDomain() { return this.profile.data[0].user.verified_domain; }
   get userType() { return this.profile.data[0].user.type; }

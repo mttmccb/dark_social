@@ -1,6 +1,6 @@
 {
   "name": "Dark-Social",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "engines": {
     "node": "0.12.2"
   },
@@ -12,14 +12,14 @@
   ],
   "homepage": "http://mttmccb.net",
   "bugs": {
-    "url": "https://github.com/mttmccb/dark-social/issues"
+    "url": "https://github.com/mttmccb/dark_social/issues"
   },
   "license": "MIT",
   "author": "Matt McCabe <matt.mccabe.pro@gmail.com> (http://mttmccb.net/)",
   "main": "dist/commonjs/index.js",
   "repository": {
     "type": "git",
-    "url": "http://github.com/mttmccb/dark-social"
+    "url": "http://github.com/mttmccb/dark_social"
   },
   "devDependencies": {
     "aurelia-tools": "^0.1.3",

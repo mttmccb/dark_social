@@ -7,9 +7,7 @@ export class AdnAPI {
   slug = 'conversations';
 
 
-  tokenEndPoints = {
-    following: '${apiURL}/users/${user_id}/following',
-  };
+  tokenEndPoints = { following: '${apiURL}/users/${user_id}/following' };
 
   explore = {
     "meta": { "code": 200 },
