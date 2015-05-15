@@ -8,12 +8,13 @@ export class Profile {
   }
 
   heading = 'Your Profile';
-  apiURL = 'https://api.app.net';
-  user_id = 'mttmccb';
+  adnURL = 'https://api.app.net';
+  niceURL: 'https://api.nice.social';
+  user_id = localStorage.getItem('user_id',this.user_id) || 'mttmccb';
   last_valid_user_id = '';
   loadPosts() {
 
-    return this.http.get(`${this.apiURL}/users/@${this.user_id}/posts?count=200`).then(get => {
+    return this.http.get(`${this.adnURL}/users/@${this.user_id}/posts?count=200`).then(get => {
       this.profile = JSON.parse(get.response);
       this.last_valid_user_id = this.user_id;
     }).catch(get => {
@@ -89,7 +90,8 @@ export class Profile {
   profile() {
     alert(`Welcome, ${this.fullName}!`);
   }
-  welcome() {
+  loadNewUser() {
+    localStorage.setItem('user_id',this.user_id);
     return this.loadPosts();
   }
   toggleVisible(e) {
