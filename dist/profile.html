@@ -52,7 +52,6 @@
   
   #profileDetails {
     margin: 0em;
-        
   }
   
   #profileDetails h2 {
@@ -69,6 +68,8 @@
     border-radius: 0 0 2em 0;
     opacity: 0.8;
     margin-bottom: 0;
+    max-height: 200px;
+    overflow-y: scroll;    
   }
 
   #profileDetails ul li a {
@@ -90,7 +91,7 @@
     margin: 1em 0 1em 0;
   }
   #un {
-    width: 6em;
+    width: 12em;
     background: rgba(255,255,255,0.8);
     border-width: 0;
     border-radius: 0.25em;
@@ -116,7 +117,7 @@
                 <h2>
                   <i class="fa fa-${userTypeIcon}"></i>${displayName}
                   <small>@
-                    <input type="text" id="un" value.bind="user_id" change.delegate="welcome()" />
+                    <input type="text" id="un" value.bind="user_id" change.delegate="loadNewUser()" />
                   </small>
                 </h2>
                 <p>
