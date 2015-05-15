@@ -1,20 +1,20 @@
-import {Flickr} from '../../src/flickr';
+import {Profile} from '../../src/profile';
 
 class HttpStub {
-  jsonp(url) {
+  get(url) {
     var response = this.itemStub;
     this.url = url;
     return new Promise((resolve) => {
-      resolve({ content: { items: response } });
+      resolve({ content: { data: response } });
     })
   }
 }
 
-describe('the Flickr module', () => {
+describe('the Profile module', () => {
 
   it('sets jsonp response to images', (done) => {
     var http = new HttpStub(),
-        sut = new Flickr(http),
+        sut = new Profile(http),
         itemStubs = [1],
         itemFake = [2];
 
@@ -24,13 +24,5 @@ describe('the Flickr module', () => {
       expect(sut.images).not.toBe(itemFake);
       done();
     });
-  });
-
-  it('calls confirm on canDeactivate', () => {
-    var sut = new Flickr(),
-        global = jasmine.getGlobal();
-    spyOn(global, "confirm");
-    sut.canDeactivate();
-    expect(global.confirm).toHaveBeenCalled();
   });
 });
