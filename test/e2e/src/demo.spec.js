@@ -1,13 +1,13 @@
-import {PageObject_Welcome} from './welcome.po.js';
+import {PageObject_Profile} from './profile.po.js';
 import {PageObject_Skeleton} from './skeleton.po.js';
 
-describe('aurelia skeleton app', function() {
-  var po_welcome,
+describe('dark.social app', function() {
+  var po_profile,
       po_skeleton;
 
   beforeEach( () => {
     po_skeleton = new PageObject_Skeleton();
-    po_welcome = new PageObject_Welcome();
+    po_profile = new PageObject_Profile();
 
     browser.loadAndWaitForAureliaPage("http://localhost:9000");
   });
@@ -16,26 +16,21 @@ describe('aurelia skeleton app', function() {
     expect(po_skeleton.getCurrentPageTitle()).toBe('Dark.Social');
   });
 
-  it('should display greeting', () => {
-    expect(po_welcome.getGreeting()).toBe('Welcome to the Aurelia Navigation App!');
+  it('should display defaul profile', () => {
+    expect(po_profile.getGreeting()).toBe('Matt Mccabe');
   });
 
-  it('should automatically write down the fullname', () => {
-    po_welcome.setFirstname('Rob');
-    po_welcome.setLastname('Eisenberg');
+  it('should switch users', () => {
+    po_profile.setUseName('dalton');
 
     // For now there is a timing issue with the binding.
     // Until resolved we will use a short sleep to overcome the issue.
     browser.sleep(200);
-    expect(po_welcome.getFullname()).toBe('ROB EISENBERG');
+    expect(po_profile.getGreeting()).toBe('Dalton Caldwell');
   });
 
-  it('should show alert message when clicking submit button', () => {
-    expect(po_welcome.openAlertDialog()).toBe(true);
-  });
-
-  it('should navigate to flickr page', () => {
-    po_skeleton.navigateTo('#/flickr');
-    expect(po_skeleton.getCurrentPageTitle()).toBe('Flickr | Aurelia');
+  it('should navigate to profile page', () => {
+    po_skeleton.navigateTo('#/profile');
+    expect(po_skeleton.getCurrentPageTitle()).toBe('Profile | Dark.Social');
   });
 });

@@ -1,43 +1,38 @@
 'use strict';
 
-var _welcomePoJs = require('./welcome.po.js');
+var _profilePoJs = require('./profile.po.js');
 
 var _skeletonPoJs = require('./skeleton.po.js');
 
-describe('aurelia skeleton app', function () {
-  var po_welcome, po_skeleton;
+describe('dark.social app', function () {
+  var po_profile, po_skeleton;
 
   beforeEach(function () {
     po_skeleton = new _skeletonPoJs.PageObject_Skeleton();
-    po_welcome = new _welcomePoJs.PageObject_Welcome();
+    po_profile = new _profilePoJs.PageObject_Profile();
 
     browser.loadAndWaitForAureliaPage('http://localhost:9000');
   });
 
   it('should load the page and display the initial page title', function () {
-    expect(po_skeleton.getCurrentPageTitle()).toBe('Welcome | Aurelia');
+    expect(po_skeleton.getCurrentPageTitle()).toBe('Dark.Social');
   });
 
-  it('should display greeting', function () {
-    expect(po_welcome.getGreeting()).toBe('Welcome to the Aurelia Navigation App!');
+  it('should display defaul profile', function () {
+    expect(po_profile.getGreeting()).toBe('Matt Mccabe');
   });
 
-  it('should automatically write down the fullname', function () {
-    po_welcome.setFirstname('Rob');
-    po_welcome.setLastname('Eisenberg');
+  it('should switch users', function () {
+    po_profile.setUseName('dalton');
 
     // For now there is a timing issue with the binding.
     // Until resolved we will use a short sleep to overcome the issue.
     browser.sleep(200);
-    expect(po_welcome.getFullname()).toBe('ROB EISENBERG');
+    expect(po_profile.getGreeting()).toBe('Dalton Caldwell');
   });
 
-  it('should show alert message when clicking submit button', function () {
-    expect(po_welcome.openAlertDialog()).toBe(true);
-  });
-
-  it('should navigate to flickr page', function () {
-    po_skeleton.navigateTo('#/flickr');
-    expect(po_skeleton.getCurrentPageTitle()).toBe('Flickr | Aurelia');
+  it('should navigate to profile page', function () {
+    po_skeleton.navigateTo('#/profile');
+    expect(po_skeleton.getCurrentPageTitle()).toBe('Profile | Dark.Social');
   });
 });

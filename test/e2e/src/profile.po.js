@@ -1,4 +1,4 @@
-export class PageObject_Welcome {
+export class PageObject_Profile {
 
   constructor() {
 
@@ -8,12 +8,8 @@ export class PageObject_Welcome {
     return element(by.tagName('h2')).getText();
   }
 
-  setFirstname(value) {
-    return element(by.valueBind('firstName')).clear().sendKeys(value);
-  }
-
-  setLastname(value) {
-    return element(by.valueBind('lastName')).clear().sendKeys(value);
+  setUseName(value) {
+    return element(by.valueBind('user_id')).clear().sendKeys(value);
   }
 
   getFullname() {
