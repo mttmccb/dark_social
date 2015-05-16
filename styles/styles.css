@@ -1,3 +1,10 @@
+a,
+a:hover,
+a:visited {
+  text-decoration: none;
+  color: #4183c4;
+}
+
 body {
   margin: 0;
 }
