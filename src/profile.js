@@ -17,6 +17,9 @@ export class Profile {
     return this.http.get(`${this.adnURL}/users/@${this.user_id}/posts?count=200`).then(get => {
       this.profile = JSON.parse(get.response);
       this.last_valid_user_id = this.user_id;
+      this.userType = this.profile.data[0].user.type;
+      this.latestPostDate = this.profile.data[0].created_at;
+      this.oldestPostDate = this.profile.data[this.profile.data.length-1].created_at;
     }).catch(get => {
       this.user_id = this.last_valid_user_id;
     });
@@ -28,27 +31,22 @@ export class Profile {
 
   showBanner = false;
 
-  get postArray() { return this.profile.data; }
-  get displayName() { return this.profile.data[0].user.name; }
-  get userName() { return this.profile.data[0].user.username; }
-  get coverImageUrl() { return this.profile.data[0].user.cover_image.url; }
-  get avatarImageUrl() { return this.profile.data[0].user.avatar_image.url; }
-  get bio() { return this.profile.data[0].user.description.text; }
-  get bioHtml() { return this.profile.data[0].user.description.html; }
-  get verifiedLink() { return this.profile.data[0].user.verified_link; }
-  get verifiedDomain() { return this.profile.data[0].user.verified_domain; }
-  get userType() { return this.profile.data[0].user.type; }
-  get followers() { return this.profile.data[0].user.counts.followers; }
-  get following() { return this.profile.data[0].user.counts.following; }
-  get posts() { return this.profile.data[0].user.counts.posts; }
-  get stars() { return this.profile.data[0].user.counts.stars; }
-  get numPosts() { return this.profile.data.length; }
+  @computedFrom('profile')
   get numReplies() { return this.profile.data.reduce(function (a, b) { return a + (b.num_replies > 0 ? 1 : 0); }, 0); }
+
+  @computedFrom('profile')
   get numReposts() { return this.profile.data.reduce(function (a, b) { return a + (b.num_reposts > 0 ? 1 : 0); }, 0); }
+
+  @computedFrom('profile')
   get numStars() { return this.profile.data.reduce(function (a, b) { return a + (b.num_stars > 0 ? 1 : 0); }, 0); }
-  get latestPost() { return Math.round(( new Date() - Date.parse(this.profile.data[0].created_at) ) /3600000); }
-  get oldestPost() { return Math.round(( new Date() - Date.parse(this.profile.data[this.profile.data.length-1].created_at) ) /3600000); }
   
+  @computedFrom('latestPostDate')
+  get latestPost() { return parseDate(this.latestPostDate); }
+  
+  @computedFrom('oldestPostDate')
+  get oldestPost() { return parseDate(this.oldestPostDate); }
+  
+  @computedFrom('profile')
   get mentionByUsername() { 
     var mentions = this.profile.data.reduce(function(a, b) { return a.concat(b.entities.mentions); }, []); 
     
@@ -71,9 +69,7 @@ export class Profile {
     });
     return  mentionMap; } 
 
-  @computedFrom('displayName', 'userName')
-  get fullName() { return `${this.displayName} @${this.userName}`; }
-
+  @computedFrom('userType')
   get userTypeIcon() {
     switch (this.userType) {
       case 'human':
@@ -87,16 +83,18 @@ export class Profile {
     }
   }
 
-  profile() {
-    alert(`Welcome, ${this.fullName}!`);
-  }
   loadNewUser() {
     localStorage.setItem('user_id',this.user_id);
     return this.loadPosts();
   }
+  
   toggleVisible(e) {
     this.showBanner = !this.showBanner;
   }
+}
+
+function parseDate(dateToParse) {
+  return Math.round(( new Date() - Date.parse(dateToParse) ) /3600000)
 }
 
 function functiontofindIndexByKeyValue(arraytosearch, key, valuetosearch) {

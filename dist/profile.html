@@ -106,40 +106,40 @@
   <section class="au-animate">
     <div class="pure-g">
       <div class="pure-u-1-6">
-        <img id="profilePicture" src.bind="avatarImageUrl" class="pure-img ${showBanner? 'clean' : ''}" click.trigger="toggleVisible($event)"
+        <img id="profilePicture" src.bind="profile.data[0].user.avatar_image.url" class="pure-img ${showBanner? 'clean' : ''}" click.trigger="toggleVisible($event)"
         />
       </div>
       <div class="pure-u-5-6">
-        <div id="banner" css="background-image: url(${coverImageUrl});" class="${showBanner? 'clean' : ''}">
+        <div id="banner" css="background-image: url(${profile.data[0].user.cover_image.url});" class="${showBanner? 'clean' : ''}">
           <div class="pure-g">
             <div class="pure-u-1 pure-u-md-4-5  pure-u-lg-2-3">
               <div id="profileDetails" class="${showBanner? 'clean' : ''}">
                 <h2>
-                  <i class="fa fa-${userTypeIcon}"></i>${displayName}
+                  <i class="fa fa-${userTypeIcon}"></i> ${profile.data[0].user.name}
                   <small>@
                     <input type="text" id="un" value.bind="user_id" change.delegate="loadNewUser()" />
                   </small>
                 </h2>
                 <p>
-                  <span innerHTML.bind="bioHtml"></span>
+                  <span innerHTML.bind="profile.data[0].user.description.html"></span>
                   <br />
                   <br />
                   <i class="fa fa-check-circle"></i>
-                  <a href="${verifiedLink}">${verifiedDomain}</a>
+                  <a href="${profile.data[0].user.verified_link}">${profile.data[0].user.verified_domain}</a>
                 </p>
                 <nav class="pure-menu pure-menu-horizontal">
                   <ul class="pure-menu-list">
                     <li class="pure-menu-item">
-                      <a class="pure-menu-link" href="#"><i class="fa fa-arrow-circle-left"></i> ${following}</a>
+                      <a class="pure-menu-link" href="#"><i class="fa fa-arrow-circle-left"></i> ${profile.data[0].user.counts.followeing}</a>
                     </li>
                     <li class="pure-menu-item">
-                      <a class="pure-menu-link" href="#"><i class="fa fa-arrow-circle-right"></i> ${followers}</a>
+                      <a class="pure-menu-link" href="#"><i class="fa fa-arrow-circle-right"></i> ${profile.data[0].user.counts.followers}</a>
                     </li>
                     <li class="pure-menu-item">
-                      <a class="pure-menu-link" href="#"><i class="fa fa-pencil-square-o"></i> ${posts}</a>
+                      <a class="pure-menu-link" href="#"><i class="fa fa-pencil-square-o"></i> ${profile.data[0].user.counts.posts}</a>
                     </li>
                     <li class="pure-menu-item">
-                      <a class="pure-menu-link" href="#"><i class="fa fa-star"></i> ${stars}</a>
+                      <a class="pure-menu-link" href="#"><i class="fa fa-star"></i> ${profile.data[0].user.counts.stars}</a>
                     </li>
                   </ul>
                 </nav>
@@ -152,7 +152,7 @@
     <div class="pure-g">
       <div class="pure-u-1">
         <div class="stats">
-          <h2>Last ${numPosts} Posts</h2>
+          <h2>Last ${profile.data.length} Posts</h2>
           <div class="pure-g">
             <div class="pure-u-1-2">
               <ul>
