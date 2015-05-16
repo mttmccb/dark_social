@@ -55,23 +55,26 @@ export class Profile {
     var mentions = this.profile.data.reduce(function(a, b) { return a.concat(b.entities.mentions); }, []); 
     
     var mentionMap = [];
-    mentionMap.push({name: mentions[0].name, count: 0});
-    
-    mentions.forEach(function(mention) {
-      var index = functiontofindIndexByKeyValue(mentionMap,'name',mention.name);
-      if (index ===-1) {
-        mentionMap.push({ name: mention.name, count: 1});
-      } else {
-        mentionMap[index].count++;        
-      }
-    });
-    
-    mentionMap.sort(function (a, b) {
-      if (a.count > b.count) { return -1; }
-      if (a.count < b.count) { return 1; }
-      return 0;
-    });
-    return mentionMap.splice(0,5);; } 
+    if (mentions.length>0) {
+      mentionMap.push({name: mentions[0].name, count: 0});
+      
+      mentions.forEach(function(mention) {
+        var index = functiontofindIndexByKeyValue(mentionMap,'name',mention.name);
+        if (index ===-1) {
+          mentionMap.push({ name: mention.name, count: 1});
+        } else {
+          mentionMap[index].count++;        
+        }
+      });
+      
+      mentionMap.sort(function (a, b) {
+        if (a.count > b.count) { return -1; }
+        if (a.count < b.count) { return 1; }
+        return 0;
+      });
+      
+    }
+    return mentionMap.splice(0,5); } 
 
   @computedFrom('userType')
   get userTypeIcon() {
