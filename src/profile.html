@@ -173,7 +173,7 @@
               <p>Last Posted <strong>${latestPost}</strong> hours ago and 200 posts before that it was <strong>${oldestPost}</strong> hours ago.</p>
             </div>
             <div class="pure-u-1-2">
-              <p>Mostly mentioning <span repeat.for="men of mentionByUsername"> ${$index ===4 ? 'and': ''}
+              <p>Mostly mentioning <span if.bind="mentionByUsername.length==0">nobody.</span><span repeat.for="men of mentionByUsername"> ${$index ===4 ? 'and': ''}
                    <a href="#" click.delegate="$parent.loadMentionUser(men)">@${men.name}</a>(<strong>${men.count}</strong>)${$index <=2 ? ',': ''}${$index ===4 ? '.': ''}</span>
               </ul>
               </p>
