@@ -58,7 +58,7 @@
     background-color:aqua;
     padding: 0.25em 1em;
     margin: 0;
-    border-radius: 2em 2em 0 0;
+    border-radius: 3em 3em 0 0;
   }
   
   #profileDetails p {
@@ -83,12 +83,21 @@
     opacity: 1;
   }
 
+  .stats-header h2 {
+    background-color:burlywood; 
+    margin-bottom: 0;
+    border-radius: 2em 2em 0 0;
+    padding: 0.25em 1em;
+  }
  .stats {
     background:#fff;
     padding: 1em 1.5em 1em 1.5em;
-    border-radius: 2em;
+    border-radius: 0 0 2em 2em;
     opacity: 0.8;
-    margin: 1em 0 1em 0;
+    margin: 0 0 1em 0;
+   }
+  .stats p {
+    margin-top: 0;
   }
   #un {
     width: 12em;
@@ -115,7 +124,7 @@
             <div class="pure-u-1 pure-u-md-4-5  pure-u-lg-2-3">
               <div id="profileDetails" class="${showBanner? 'clean' : ''}">
                 <h2>
-                  <i class="fa fa-${userTypeIcon}"></i> ${profile.data[0].user.name}
+                  <i class="fa fa-${userTypeIcon}"></i>${profile.data[0].user.name}
                   <small>@
                     <input type="text" id="un" value.bind="user_id" change.delegate="loadNewUser()" />
                   </small>
@@ -151,21 +160,20 @@
     </div>
     <div class="pure-g">
       <div class="pure-u-1">
-        <div class="stats">
+        <div class="stats-header">
           <h2>Last ${profile.data.length} Posts</h2>
+        </div>
+      </div>
+      <div class="pure-u-1">
+        <div class="stats">
           <div class="pure-g">
             <div class="pure-u-1-2">
-              <ul>
-                <li>Posts replied to ${numReplies}</li>
-                <li>Posts reposted ${numReposts}</li>
-                <li>Posts starred ${numStars}</li>
-                <li>Most Recent Post ${latestPost} hours ago</li>
-                <li>Oldest Post ${oldestPost} hours ago</li>
-              </ul>
+              <p><strong>${numReplies}</strong> replied to, <strong>${numReposts}</strong> reposted and <strong>${numStars}</strong> starred.</p>
+              <p>Last Posted <strong>${latestPost}</strong> hours ago and 200 posts before that it was <strong>${oldestPost}</strong> hours ago.</p>
             </div>
             <div class="pure-u-1-2">
-              <ul>
-                <li class="mention" repeat.for="men of mentionByUsername">@${men.name}(${men.count})</li>
+              <p>Mostly mentioning <span repeat.for="men of mentionByUsername"> ${$index ===4 ? 'and': ''}
+                   @${men.name}(<strong>${men.count}</strong>)${$index <=2 ? ',': ''} </span>.
               </ul>
               </p>
             </div>

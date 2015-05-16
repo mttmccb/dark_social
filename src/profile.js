@@ -71,7 +71,7 @@ export class Profile {
       if (a.count < b.count) { return 1; }
       return 0;
     });
-    return  mentionMap; } 
+    return mentionMap.splice(0,5);; } 
 
   @computedFrom('userType')
   get userTypeIcon() {
