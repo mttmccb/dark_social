@@ -246,6 +246,7 @@ System.config({
     "core-js": "npm:core-js@0.9.9",
     "css": "github:systemjs/plugin-css@0.1.10",
     "font-awesome": "npm:font-awesome@4.3.0",
+    "nprogress": "github:rstacruz/nprogress@0.2.0",
     "traceur": "github:jmcriffey/bower-traceur@0.0.88",
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88",
     "github:aurelia/animator-css@0.2.0": {
@@ -387,6 +388,9 @@ System.config({
     },
     "github:jspm/nodelibs-util@0.1.0": {
       "util": "npm:util@0.10.3"
+    },
+    "github:rstacruz/nprogress@0.2.0": {
+      "css": "github:systemjs/plugin-css@0.1.10"
     },
     "github:systemjs/plugin-css@0.1.10": {
       "clean-css": "npm:clean-css@3.1.9",

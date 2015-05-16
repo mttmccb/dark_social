@@ -1,5 +1,9 @@
 <template>
+  <require from="./loading-indicator"></require>
+      
   <require from='./nav-bar'></require>
+
+  <loading-indicator loading.bind="router.isNavigating || api.isRequesting"></loading-indicator>
 
   <nav-bar router.bind="router"></nav-bar>
 

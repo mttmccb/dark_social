@@ -8,9 +8,6 @@
       <li repeat.for="row of router.navigation" class="pure-menu-item ${row.isActive ? 'pure-menu-selected' : ''}">
         <a class="pure-menu-link" href.bind="row.href">${row.title}</a>
       </li>
-      <li class="pure-menu-item loader" if.bind="router.isNavigating">
-        <i class="fa fa-spinner fa-spin fa-2x"></i>
-      </li>      
     </ul>
   </nav>
 </template>

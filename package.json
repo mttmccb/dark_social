@@ -43,6 +43,7 @@
     "karma-chrome-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.5",
     "karma-jspm": "^1.1.4",
+    "nprogress": "^0.2.0",
     "object.assign": "^1.0.3",
     "require-dir": "^0.1.0",
     "run-sequence": "^1.0.2",
@@ -57,7 +58,8 @@
       "aurelia-framework": "github:aurelia/framework@^0.11.0",
       "aurelia-http-client": "github:aurelia/http-client@^0.8.1",
       "aurelia-router": "github:aurelia/router@^0.8.1",
-      "css": "github:systemjs/plugin-css@^0.1.9"
+      "css": "github:systemjs/plugin-css@^0.1.9",
+      "nprogress": "github:rstacruz/nprogress@^0.2.0"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.1.13",

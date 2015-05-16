@@ -1,26 +1,30 @@
 import { computedFrom } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
+import { AdnAPI } from './adn-api';
 
 export class Profile {
-  static inject() { return [HttpClient]; }
-  constructor(http) {
+  static inject() { return [AdnAPI, HttpClient]; }
+  constructor(api, http) {
+    this.api = api;
     this.http = http;
   }
 
   heading = 'Your Profile';
   adnURL = 'https://api.app.net';
-  niceURL: 'https://api.nice.social';
+  niceURL = 'https://api.nice.social';
   user_id = localStorage.getItem('user_id',this.user_id) || 'mttmccb';
   last_valid_user_id = '';
   loadPosts() {
-
+    this.api.isRequesting = true;
     return this.http.get(`${this.adnURL}/users/@${this.user_id}/posts?count=200`).then(get => {
+      this.api.isRequesting = false;
       this.profile = JSON.parse(get.response);
       this.last_valid_user_id = this.user_id;
       this.userType = this.profile.data[0].user.type;
       this.latestPostDate = this.profile.data[0].created_at;
       this.oldestPostDate = this.profile.data[this.profile.data.length-1].created_at;
     }).catch(get => {
+      this.api.isRequesting = false;
       this.user_id = this.last_valid_user_id;
     });
   }
