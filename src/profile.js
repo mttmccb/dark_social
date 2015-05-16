@@ -94,6 +94,12 @@ export class Profile {
     localStorage.setItem('user_id',this.user_id);
     return this.loadPosts();
   }
+
+  loadMentionUser(user) {
+    this.user_id = user.name;
+    localStorage.setItem('user_id',user.name);
+    return this.loadPosts();
+  }
   
   toggleVisible(e) {
     this.showBanner = !this.showBanner;
