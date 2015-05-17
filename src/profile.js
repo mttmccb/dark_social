@@ -50,6 +50,14 @@ export class Profile {
   @computedFrom('oldestPostDate')
   get oldestPost() { return parseDate(this.oldestPostDate); }
   
+  
+  @computedFrom('oldestPost','lastestPost')
+  get daysUntil100k() { 
+    var postRemaining = 100000 - this.profile.data[0].user.counts.posts;
+    var dailyRate = 200/ (this.oldestPost-this.latestPost);
+    return Math.round(postRemaining/(dailyRate*24));
+  }
+  
   @computedFrom('profile')
   get mentionByUsername() { 
     var mentions = this.profile.data.reduce(function(a, b) { return a.concat(b.entities.mentions); }, []); 

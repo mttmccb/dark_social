@@ -57,12 +57,9 @@
           <div class="pure-g">
             <div class="pure-u-1 pure-u-sm-1-2">
               <p>
-                <strong>${numReplies}</strong>replied to,
-                <strong>${numReposts}</strong>reposted and
-                <strong>${numStars}</strong>starred.</p>
-              <p>Last Posted
-                <strong>${latestPost}</strong>hours ago and 200 posts before that it was
-                <strong>${oldestPost}</strong>hours ago.</p>
+                <strong>${numReplies}</strong> replied to, <strong>${numReposts}</strong> reposted and <strong>${numStars}</strong> starred.</p>
+              <p>Last Posted <strong>${latestPost}</strong> hours ago and 200 posts before that it was <strong>${oldestPost}</strong> hours ago.</p>
+                <p if.bind="profile.data[0].user.counts.posts<100000">Based on your current rate you have ${daysUntil100k} days until you reach 100,000 posts. Yay for arbitrary milestones!</p>
             </div>
             <div class="pure-u-1 pure-u-sm-1-2">
               <p>Mostly mentioning
