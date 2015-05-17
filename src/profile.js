@@ -14,6 +14,7 @@ export class Profile {
   niceURL = 'https://api.nice.social';
   user_id = localStorage.getItem('user_id',this.user_id) || 'mttmccb';
   last_valid_user_id = '';
+
   loadPosts() {
     this.api.isRequesting = true;
     return this.http.get(`${this.adnURL}/users/@${this.user_id}/posts?count=200`).then(get => {
@@ -27,7 +28,19 @@ export class Profile {
       this.api.isRequesting = false;
       this.user_id = this.last_valid_user_id;
     });
-      convertPostMentionsAndHashtagsToLinks();
+  }
+
+  loadMorePosts() {
+    this.api.isRequesting = true;
+    return this.http.get(`${this.adnURL}/users/@${this.user_id}/posts?before_id=${this.profile.meta.min_id}&count=200`).then(get => {
+      this.api.isRequesting = false;
+      this.moreProfile = JSON.parse(get.response);
+      this.profile.meta = this.moreProfile.meta;
+      this.profile.data = this.profile.data.concat(this.moreProfile.data);
+      this.oldestPostDate = this.profile.data[this.profile.data.length-1].created_at;
+    }).catch(get => {
+      this.api.isRequesting = false;
+    });
   }
 
   activate() {
@@ -36,13 +49,14 @@ export class Profile {
 
   showBanner = false;
 
-  @computedFrom('profile')
+  // Disable computerFrom as it does seem to pickup that profile.data has changed
+  //@computedFrom('profile.data')
   get numReplies() { return this.profile.data.reduce(function (a, b) { return a + (b.num_replies > 0 ? 1 : 0); }, 0); }
 
-  @computedFrom('profile')
+  //@computedFrom('profile.data')
   get numReposts() { return this.profile.data.reduce(function (a, b) { return a + (b.num_reposts > 0 ? 1 : 0); }, 0); }
 
-  @computedFrom('profile')
+  //@computedFrom('profile.data')
   get numStars() { return this.profile.data.reduce(function (a, b) { return a + (b.num_stars > 0 ? 1 : 0); }, 0); }
   
   @computedFrom('latestPostDate')
@@ -55,12 +69,12 @@ export class Profile {
   @computedFrom('oldestPost','lastestPost')
   get daysUntil100k() { 
     var postRemaining = 100000 - this.profile.data[0].user.counts.posts;
-    var dailyRate = 200/ (this.oldestPost-this.latestPost);
+    var dailyRate = this.profile.data.length/ (this.oldestPost-this.latestPost);
     return Math.round(postRemaining/(dailyRate*24));
   }
   
   numberOfTopMentions = 5;
-  @computedFrom('profile','numberOfTopMentions')
+  //@computedFrom('profile','numberOfTopMentions')
   get mentionByUsername() { 
     var mentions = this.profile.data.reduce(function(a, b) { return a.concat(b.entities.mentions); }, []); 
     
