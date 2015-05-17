@@ -136,7 +136,7 @@ export class Profile {
   	
 		if (nodeType === 'mention') {
   		var mentionName = node.getAttribute('data-mention-name');
-  		window.location.href = 'http://alpha.app.net/' + mentionName;
+      this.loadMentionUser({name: mentionName});
 		} else if (nodeType === 'hashtag') {
       var hashtagName = node.getAttribute('data-hashtag-name');
   		window.location.href = 'http://alpha.app.net/hashtags/' + hashtagName;
@@ -150,7 +150,7 @@ export class Profile {
 }
 
 function parseDate(dateToParse) {
-  return Math.round(( new Date() - Date.parse(dateToParse) ) /3600000)
+  return Math.round(( new Date() - Date.parse(dateToParse) ) /3600000);
 }
 
 function functiontofindIndexByKeyValue(arraytosearch, key, valuetosearch) {
