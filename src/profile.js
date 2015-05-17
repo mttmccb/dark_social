@@ -59,7 +59,8 @@ export class Profile {
     return Math.round(postRemaining/(dailyRate*24));
   }
   
-  @computedFrom('profile')
+  numberOfTopMentions = 5;
+  @computedFrom('profile','numberOfTopMentions')
   get mentionByUsername() { 
     var mentions = this.profile.data.reduce(function(a, b) { return a.concat(b.entities.mentions); }, []); 
     
@@ -83,8 +84,12 @@ export class Profile {
       });
       
     }
-    return mentionMap.splice(0,5); } 
+    return mentionMap.splice(0,this.numberOfTopMentions); } 
 
+  moreMentions() {
+    this.numberOfTopMentions += 5;
+  }
+  
   @computedFrom('userType')
   get userTypeIcon() {
     switch (this.userType) {
