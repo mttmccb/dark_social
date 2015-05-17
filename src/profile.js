@@ -27,6 +27,7 @@ export class Profile {
       this.api.isRequesting = false;
       this.user_id = this.last_valid_user_id;
     });
+      convertPostMentionsAndHashtagsToLinks();
   }
 
   activate() {
@@ -109,6 +110,21 @@ export class Profile {
     return this.loadPosts();
   }
   
+  bioClicks(e) {
+    
+    var node = e.target;
+		var nodeType = node.getAttribute('itemprop');
+  	
+		if (nodeType === 'mention') {
+  		var mentionName = node.getAttribute('data-mention-name');
+  		window.location.href = 'http://alpha.app.net/' + mentionName;
+		} else if (nodeType === 'hashtag') {
+      var hashtagName = node.getAttribute('data-hashtag-name');
+  		window.location.href = 'http://alpha.app.net/hashtags/' + hashtagName;
+		}
+    return true;
+  }
+  
   toggleVisible(e) {
     this.showBanner = !this.showBanner;
   }
@@ -134,4 +150,3 @@ export class UpperValueConverter {
     return value && value.toUpperCase();
   }
 }
-

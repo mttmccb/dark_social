@@ -17,7 +17,7 @@
                   </small>
                 </h2>
                 <p>
-                  <span innerHTML.bind="profile.data[0].user.description.html"></span>
+                  <span innerHTML.one-way="profile.data[0].user.description.html" click.delegate="bioClicks($event)"></span>
                   <br />
                   <br />
                   <i class="fa fa-check-circle"></i>
