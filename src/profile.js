@@ -122,10 +122,7 @@ export class Profile {
       var hashtagName = node.getAttribute('data-hashtag-name');
   		window.location.href = 'http://alpha.app.net/hashtags/' + hashtagName;
 		}
-<<<<<<< HEAD
     return true;
-=======
->>>>>>> origin/master
   }
   
   toggleVisible(e) {
