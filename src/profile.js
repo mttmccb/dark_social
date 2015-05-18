@@ -1,7 +1,7 @@
 import { computedFrom } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
 import { AdnAPI } from './adn-api';
-import { parseDate, functiontofindIndexByKeyValue } from './utility';
+import { parseDate, findIndexByKeyValue } from './utility';
 
 export class Profile {
   static inject() { return [AdnAPI, HttpClient]; }
@@ -25,8 +25,6 @@ export class Profile {
       this.meta = this.response.meta;
       this.last_valid_user_id = this.user_id;
       this.userType = this.data[0].user.type;
-      this.latestPostDate = this.data[0].created_at;
-      this.oldestPostDate = this.data[this.data.length-1].created_at;
     }).catch(get => {
       this.api.isRequesting = false;
       this.user_id = this.last_valid_user_id;
@@ -40,7 +38,6 @@ export class Profile {
       this.response = JSON.parse(get.response);
       this.meta = this.response.meta;
       this.data = this.data.concat(this.response.data);
-      this.oldestPostDate = this.data[this.data.length-1].created_at;
     }).catch(get => {
       this.api.isRequesting = false;
     });
@@ -52,22 +49,11 @@ export class Profile {
 
   showBanner = false;
 
-  // Disable computerFrom as it does seem to pickup that data has changed
-  //@computedFrom('data')
   get numReplies() { return this.data.reduce(function (a, b) { return a + (b.num_replies > 0 ? 1 : 0); }, 0); }
-
-  //@computedFrom('data')
   get numReposts() { return this.data.reduce(function (a, b) { return a + (b.num_reposts > 0 ? 1 : 0); }, 0); }
-
-  //@computedFrom('data')
   get numStars() { return this.data.reduce(function (a, b) { return a + (b.num_stars > 0 ? 1 : 0); }, 0); }
-  
-  @computedFrom('latestPostDate')
-  get latestPost() { return parseDate(this.latestPostDate); }
-  
-  @computedFrom('oldestPostDate')
-  get oldestPost() { return parseDate(this.oldestPostDate); }
-  
+  get latestPost() { return parseDate(this.data[0].created_at); }
+  get oldestPost() { return parseDate(this.data[this.data.length-1].created_at); }  
   
   @computedFrom('oldestPost','lastestPost')
   get daysUntil100k() { 
@@ -86,12 +72,10 @@ export class Profile {
       mentionMap.push({name: mentions[0].name, count: 0});
       
       mentions.forEach(function(mention) {
-        var index = functiontofindIndexByKeyValue(mentionMap,'name',mention.name);
-        if (index ===-1) {
-          mentionMap.push({ name: mention.name, count: 1});
-        } else {
+        var index = findIndexByKeyValue(mentionMap,'name',mention.name);
+        index ===-1?
+          mentionMap.push({ name: mention.name, count: 1}) :
           mentionMap[index].count++;        
-        }
       });
       
       mentionMap.sort(function (a, b) {
@@ -101,7 +85,8 @@ export class Profile {
       });
       
     }
-    return mentionMap.splice(0,this.numberOfTopMentions); } 
+    return mentionMap.splice(0,this.numberOfTopMentions);
+  } 
 
   moreMentions() {
     this.numberOfTopMentions += 5;
@@ -139,6 +124,7 @@ export class Profile {
 		if (nodeType === 'mention') {
   		var mentionName = node.getAttribute('data-mention-name');
       this.loadMentionUser({name: mentionName});
+      
 		} else if (nodeType === 'hashtag') {
       var hashtagName = node.getAttribute('data-hashtag-name');
   		window.location.href = 'http://alpha.app.net/hashtags/' + hashtagName;

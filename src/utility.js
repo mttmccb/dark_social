@@ -7,7 +7,7 @@ export function parseDate(dateToParse) {
   return Math.round(( new Date() - Date.parse(dateToParse) ) /3600000);
 }
 
-export function functiontofindIndexByKeyValue(arraytosearch, key, valuetosearch) {
+export function findIndexByKeyValue(arraytosearch, key, valuetosearch) {
  
   for (var i = 0; i < arraytosearch.length; i++) {
    
