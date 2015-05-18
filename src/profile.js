@@ -20,11 +20,13 @@ export class Profile {
     this.api.isRequesting = true;
     return this.http.get(`${this.adnURL}/users/@${this.user_id}/posts?count=200`).then(get => {
       this.api.isRequesting = false;
-      this.profile = JSON.parse(get.response);
+      this.response = JSON.parse(get.response);
+      this.data = this.response.data;
+      this.meta = this.response.meta;
       this.last_valid_user_id = this.user_id;
-      this.userType = this.profile.data[0].user.type;
-      this.latestPostDate = this.profile.data[0].created_at;
-      this.oldestPostDate = this.profile.data[this.profile.data.length-1].created_at;
+      this.userType = this.data[0].user.type;
+      this.latestPostDate = this.data[0].created_at;
+      this.oldestPostDate = this.data[this.data.length-1].created_at;
     }).catch(get => {
       this.api.isRequesting = false;
       this.user_id = this.last_valid_user_id;
@@ -33,12 +35,12 @@ export class Profile {
 
   loadMorePosts() {
     this.api.isRequesting = true;
-    return this.http.get(`${this.adnURL}/users/@${this.user_id}/posts?before_id=${this.profile.meta.min_id}&count=200`).then(get => {
+    return this.http.get(`${this.adnURL}/users/@${this.user_id}/posts?before_id=${this.meta.min_id}&count=200`).then(get => {
       this.api.isRequesting = false;
-      this.moreProfile = JSON.parse(get.response);
-      this.profile.meta = this.moreProfile.meta;
-      this.profile.data = this.profile.data.concat(this.moreProfile.data);
-      this.oldestPostDate = this.profile.data[this.profile.data.length-1].created_at;
+      this.response = JSON.parse(get.response);
+      this.meta = this.response.meta;
+      this.data = this.data.concat(this.response.data);
+      this.oldestPostDate = this.data[this.data.length-1].created_at;
     }).catch(get => {
       this.api.isRequesting = false;
     });
@@ -50,15 +52,15 @@ export class Profile {
 
   showBanner = false;
 
-  // Disable computerFrom as it does seem to pickup that profile.data has changed
-  //@computedFrom('profile.data')
-  get numReplies() { return this.profile.data.reduce(function (a, b) { return a + (b.num_replies > 0 ? 1 : 0); }, 0); }
+  // Disable computerFrom as it does seem to pickup that data has changed
+  //@computedFrom('data')
+  get numReplies() { return this.data.reduce(function (a, b) { return a + (b.num_replies > 0 ? 1 : 0); }, 0); }
 
-  //@computedFrom('profile.data')
-  get numReposts() { return this.profile.data.reduce(function (a, b) { return a + (b.num_reposts > 0 ? 1 : 0); }, 0); }
+  //@computedFrom('data')
+  get numReposts() { return this.data.reduce(function (a, b) { return a + (b.num_reposts > 0 ? 1 : 0); }, 0); }
 
-  //@computedFrom('profile.data')
-  get numStars() { return this.profile.data.reduce(function (a, b) { return a + (b.num_stars > 0 ? 1 : 0); }, 0); }
+  //@computedFrom('data')
+  get numStars() { return this.data.reduce(function (a, b) { return a + (b.num_stars > 0 ? 1 : 0); }, 0); }
   
   @computedFrom('latestPostDate')
   get latestPost() { return parseDate(this.latestPostDate); }
@@ -69,15 +71,15 @@ export class Profile {
   
   @computedFrom('oldestPost','lastestPost')
   get daysUntil100k() { 
-    var postRemaining = 100000 - this.profile.data[0].user.counts.posts;
-    var dailyRate = this.profile.data.length/ (this.oldestPost-this.latestPost);
+    var postRemaining = 100000 - this.data[0].user.counts.posts;
+    var dailyRate = this.data.length/ (this.oldestPost-this.latestPost);
     return Math.round(postRemaining/(dailyRate*24));
   }
   
   numberOfTopMentions = 5;
-  //@computedFrom('profile','numberOfTopMentions')
+  //@computedFrom('data','numberOfTopMentions')
   get mentionByUsername() { 
-    var mentions = this.profile.data.reduce(function(a, b) { return a.concat(b.entities.mentions); }, []); 
+    var mentions = this.data.reduce(function(a, b) { return a.concat(b.entities.mentions); }, []); 
     
     var mentionMap = [];
     if (mentions.length>0) {
@@ -131,7 +133,6 @@ export class Profile {
   }
   
   bioClicks(e) {
-    
     var node = e.target;
 		var nodeType = node.getAttribute('itemprop');
   	
@@ -147,11 +148,5 @@ export class Profile {
   
   toggleVisible(e) {
     this.showBanner = !this.showBanner;
-  }
-}
-
-export class UpperValueConverter {
-  toView(value) {
-    return value && value.toUpperCase();
   }
 }
