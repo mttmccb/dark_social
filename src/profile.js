@@ -15,30 +15,28 @@ export class Profile {
   niceURL = 'https://api.nice.social';
   user_id = localStorage.getItem('user_id',this.user_id) || 'mttmccb';
   last_valid_user_id = '';
+  numberOfTopMentions = 5;
 
   loadPosts() {
     this.api.isRequesting = true;
-    return this.http.get(`${this.adnURL}/users/@${this.user_id}/posts?count=200`).then(get => {
-      this.api.isRequesting = false;
+    return this.http.get(this.api.getPostsURL(this.user_id)).then(get => {
       this.response = JSON.parse(get.response);
       this.data = this.response.data;
       this.meta = this.response.meta;
       this.last_valid_user_id = this.user_id;
-      this.userType = this.data[0].user.type;
-    }).catch(get => {
       this.api.isRequesting = false;
-      this.user_id = this.last_valid_user_id;
+    }).catch(get => {
+      this.user_id = this.last_valid_user_id;      
+      this.api.isRequesting = false;
     });
   }
 
   loadMorePosts() {
     this.api.isRequesting = true;
-    return this.http.get(`${this.adnURL}/users/@${this.user_id}/posts?before_id=${this.meta.min_id}&count=200`).then(get => {
-      this.api.isRequesting = false;
+    return this.http.get(this.api.getMorePostsURL(this.user_id,this.meta.min_id)).then(get => {
       this.response = JSON.parse(get.response);
       this.meta = this.response.meta;
       this.data = this.data.concat(this.response.data);
-    }).catch(get => {
       this.api.isRequesting = false;
     });
   }
@@ -46,8 +44,6 @@ export class Profile {
   activate() {
     return this.loadPosts();
   }
-
-  showBanner = false;
 
   get numReplies() { return this.data.reduce(function (a, b) { return a + (b.num_replies > 0 ? 1 : 0); }, 0); }
   get numReposts() { return this.data.reduce(function (a, b) { return a + (b.num_reposts > 0 ? 1 : 0); }, 0); }
@@ -62,8 +58,6 @@ export class Profile {
     return Math.round(postRemaining/(dailyRate*24));
   }
   
-  numberOfTopMentions = 5;
-  //@computedFrom('data','numberOfTopMentions')
   get mentionByUsername() { 
     var mentions = this.data.reduce(function(a, b) { return a.concat(b.entities.mentions); }, []); 
     
@@ -92,9 +86,8 @@ export class Profile {
     this.numberOfTopMentions += 5;
   }
   
-  @computedFrom('userType')
   get userTypeIcon() {
-    switch (this.userType) {
+    switch (this.data[0].user.type) {
       case 'human':
         return 'user';
 
@@ -132,6 +125,7 @@ export class Profile {
     return true;
   }
   
+  showBanner = false;
   toggleVisible(e) {
     this.showBanner = !this.showBanner;
   }

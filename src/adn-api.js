@@ -1,15 +1,23 @@
 export class AdnAPI {
-   apiURL = 'https://api.app.net';
+  
+  apiURL = 'https://api.app.net';
   user_id = '';
   post_id = 100;
   hashtag = 'team256';
-
   slug = 'conversations';
 
   tokenEndPoints = { following: '${apiURL}/users/${user_id}/following' };
 
   isRequesting = false;
   
+  getPostsURL(id, count = 200) {
+    return `${this.apiURL}/users/@${id}/posts?count=${count}`;
+  }
+  
+  getMorePostsURL(id, min_id, count = 200) {
+    return `${this.apiURL}/users/@${id}/posts?before_id=${min_id}&count=${count}`;
+  }
+
   explore = {
     "meta": { "code": 200 },
     "data": [
