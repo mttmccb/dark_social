@@ -10,19 +10,13 @@ export class Profile {
   }
 
   heading = 'Your Profile';
-  adnURL = 'https://api.app.net';
   niceURL = 'https://api.nice.social';
   user_id = localStorage.getItem('user_id',this.user_id) || 'mttmccb';
-  last_valid_user_id = '';
   
   loadPosts() {
     return this.api.loadPosts(this.user_id).then(data => {
       this.data = data;
     });
-  }
-
-  activate() {
-    return this.loadPosts();
   }
 
   loadMorePosts() {
@@ -44,6 +38,11 @@ export class Profile {
     localStorage.setItem('user_id',user.name);
     return this.loadPosts();
   }
+  
+  activate() {
+    return this.loadPosts();
+  }
+
   
   numberOfTopMentions = 5;
   moreMentions() {
