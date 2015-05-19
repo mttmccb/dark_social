@@ -80,7 +80,7 @@ export class AdnAPI {
 
   loadPosts(id, more) {
     this.isRequesting = true;
-    console.log("loading");
+    console.log(this.isRequesting);
     let url = more===true ? this.getMorePostsURL(id, this.meta.min_id) : this.getPostsURL(id);
     let self = this;
     return new Promise(resolve => {
@@ -95,7 +95,7 @@ export class AdnAPI {
       });
       resolve(results);
       this.isRequesting = false;
-      console.log("loaded");
+    console.log(this.isRequesting);
     });
   }
 

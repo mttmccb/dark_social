@@ -389,6 +389,9 @@ System.config({
     "github:jspm/nodelibs-util@0.1.0": {
       "util": "npm:util@0.10.3"
     },
+    "github:rstacruz/nprogress@0.1.6": {
+      "css": "github:systemjs/plugin-css@0.1.10"
+    },
     "github:rstacruz/nprogress@0.2.0": {
       "css": "github:systemjs/plugin-css@0.1.10"
     },
