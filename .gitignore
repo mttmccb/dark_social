@@ -4,4 +4,4 @@ bower_components
 .idea
 .DS_STORE
 sample.json
-/dist
+dist
