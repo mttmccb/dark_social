@@ -13,8 +13,10 @@ export class Profile {
   niceURL = 'https://api.nice.social';
   user_id = localStorage.getItem('user_id',this.user_id) || 'mttmccb';
   
-  loadPosts() {
+  loadPostsIntoData() {
+    this.api.isRequesting = true;
     return this.api.loadPosts(this.user_id).then(data => {
+      this.api.isRequesting = false;
       this.data = data;
     });
   }
@@ -27,17 +29,17 @@ export class Profile {
   
   loadNewUser() {
     localStorage.setItem('user_id',this.user_id);
-    return this.loadPosts();
+    return this.loadPostsIntoData();
   }
 
   loadMentionUser(user) {
     this.user_id = user.name;
     localStorage.setItem('user_id',user.name);
-    return this.loadPosts();
+    return this.loadPostsIntoData();
   }
   
   activate() {
-    return this.loadPosts();
+    return this.loadPostsIntoData();
   }
   
   numberOfTopMentions = 5;

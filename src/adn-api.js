@@ -27,7 +27,7 @@ let nouser = {
           "height": 200
         },
         "description": {
-          "html": "<span itemscope=\"https://app.net/schemas/Post\">Oh Crap! you found me, Icecream?<br><br><span data-hashtag-name=\"snow\" itemprop=\"hashtag\">#snow</span> </span>",
+          "html": "<span itemscope=\"https://app.net/schemas/Post\">Oh Crap! you found me... Snowcone?<br><br><span data-hashtag-name=\"snow\" itemprop=\"hashtag\">#snow</span> </span>",
           "entities": {
             "mentions": [],
             "hashtags": [
@@ -79,24 +79,18 @@ export class AdnAPI {
   tokenEndPoints = { following: '${apiURL}/users/${user_id}/following' };
 
   loadPosts(id, more) {
+    var self = this;
     this.isRequesting = true;
-    console.log(this.isRequesting);
-    let url = more===true ? this.getMorePostsURL(id, this.meta.min_id) : this.getPostsURL(id);
-    let self = this;
-    return new Promise(resolve => {
-      let results = this.http.get(url).then(function (get) {
-        return JSON.parse(get.response);
-      }).then(function (response) {
-        self.meta = response.meta;
-        return response.data;
-      }).catch(function (err) {
+    let url = more? this.getMorePostsURL(id, this.meta.min_id) : this.getPostsURL(id);
+    return this.http.get(url).then((response) => {
+        self.meta = response.content.meta;      
+        self.isRequesting = false;
+        return response.content.data;
+    }).catch(function (err) {
         console.log("Username not found, restoring known user");
+        self.isRequesting = false;
         return nouser.data;
-      });
-      resolve(results);
-      this.isRequesting = false;
-    console.log(this.isRequesting);
-    });
+  	});
   }
 
   getPostsURL(id, count = 200) {
