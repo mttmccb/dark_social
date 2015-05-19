@@ -20,20 +20,17 @@ export class Profile {
   }
 
   loadMorePosts() {
-    this.api.isRequesting = true;
     return this.api.loadPosts(this.user_id, true).then(data => {
       this.data = this.data.concat(data);
     });
   }
   
   loadNewUser() {
-    this.api.isRequesting = true;
     localStorage.setItem('user_id',this.user_id);
     return this.loadPosts();
   }
 
   loadMentionUser(user) {
-    this.api.isRequesting = true;
     this.user_id = user.name;
     localStorage.setItem('user_id',user.name);
     return this.loadPosts();
@@ -42,7 +39,6 @@ export class Profile {
   activate() {
     return this.loadPosts();
   }
-
   
   numberOfTopMentions = 5;
   moreMentions() {
