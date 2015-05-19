@@ -1,48 +1,53 @@
 import { computedFrom } from 'aurelia-framework';
-import { HttpClient } from 'aurelia-http-client';
 import { AdnAPI } from './adn-api';
 import { parseDate, findIndexByKeyValue } from './utility';
 
 export class Profile {
-  static inject() { return [AdnAPI, HttpClient]; }
-  constructor(api, http) {
+  static inject() { return [AdnAPI]; }
+  constructor(api) {
     this.api = api;
-    this.http = http;
+    this.data = [];
   }
 
   heading = 'Your Profile';
   adnURL = 'https://api.app.net';
   niceURL = 'https://api.nice.social';
-  user_id = localStorage.getItem('user_id',this.user_id) || 'mttmccb';
+  user_id = localStorage.getItem('user_id',this.user_id) || 'mttmcc';
   last_valid_user_id = '';
-  numberOfTopMentions = 5;
-
+  
   loadPosts() {
-    this.api.isRequesting = true;
-    return this.http.get(this.api.getPostsURL(this.user_id)).then(get => {
-      this.response = JSON.parse(get.response);
-      this.data = this.response.data;
-      this.meta = this.response.meta;
-      this.last_valid_user_id = this.user_id;
-      this.api.isRequesting = false;
-    }).catch(get => {
-      this.user_id = this.last_valid_user_id;      
-      this.api.isRequesting = false;
-    });
-  }
-
-  loadMorePosts() {
-    this.api.isRequesting = true;
-    return this.http.get(this.api.getMorePostsURL(this.user_id,this.meta.min_id)).then(get => {
-      this.response = JSON.parse(get.response);
-      this.meta = this.response.meta;
-      this.data = this.data.concat(this.response.data);
-      this.api.isRequesting = false;
+    return this.api.loadPosts(this.user_id).then(data => {
+      this.data = data;
     });
   }
 
   activate() {
     return this.loadPosts();
+  }
+
+  loadMorePosts() {
+    this.api.isRequesting = true;
+    return this.api.loadPosts(this.user_id, true).then(data => {
+      this.data = this.data.concat(data);
+    });
+  }
+  
+  loadNewUser() {
+    this.api.isRequesting = true;
+    localStorage.setItem('user_id',this.user_id);
+    return this.loadPosts();
+  }
+
+  loadMentionUser(user) {
+    this.api.isRequesting = true;
+    this.user_id = user.name;
+    localStorage.setItem('user_id',user.name);
+    return this.loadPosts();
+  }
+  
+  numberOfTopMentions = 5;
+  moreMentions() {
+    this.numberOfTopMentions += 5;
   }
 
   get numReplies() { return this.data.reduce(function (a, b) { return a + (b.num_replies > 0 ? 1 : 0); }, 0); }
@@ -58,6 +63,7 @@ export class Profile {
     return Math.round(postRemaining/(dailyRate*24));
   }
   
+  //TODO: Refactor this, maybe use promises to chain the 3 sections (reduce, count, sort)
   get mentionByUsername() { 
     var mentions = this.data.reduce(function(a, b) { return a.concat(b.entities.mentions); }, []); 
     
@@ -81,34 +87,6 @@ export class Profile {
     }
     return mentionMap.splice(0,this.numberOfTopMentions);
   } 
-
-  moreMentions() {
-    this.numberOfTopMentions += 5;
-  }
-  
-  get userTypeIcon() {
-    switch (this.data[0].user.type) {
-      case 'human':
-        return 'user';
-
-      case 'feed':
-        return 'rss';
-
-      case 'bot':
-        return 'meh-o';
-    }
-  }
-
-  loadNewUser() {
-    localStorage.setItem('user_id',this.user_id);
-    return this.loadPosts();
-  }
-
-  loadMentionUser(user) {
-    this.user_id = user.name;
-    localStorage.setItem('user_id',user.name);
-    return this.loadPosts();
-  }
   
   bioClicks(e) {
     var node = e.target;
@@ -129,4 +107,22 @@ export class Profile {
   toggleVisible(e) {
     this.showBanner = !this.showBanner;
   }
+
+  @computedFrom('data')
+  get userTypeIcon() {
+    switch (this.data[0].user.type) {
+      case 'human':
+        return 'user';
+
+      case 'feed':
+        return 'rss';
+
+      case 'bot':
+        return 'meh-o';
+
+      case 'snowman':
+        return 'user-secret';
+    }
+  }
+
 }
