@@ -12,7 +12,7 @@ export class Profile {
   heading = 'Your Profile';
   adnURL = 'https://api.app.net';
   niceURL = 'https://api.nice.social';
-  user_id = localStorage.getItem('user_id',this.user_id) || 'mttmcc';
+  user_id = localStorage.getItem('user_id',this.user_id) || 'mttmccb';
   last_valid_user_id = '';
   
   loadPosts() {

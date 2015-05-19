@@ -71,7 +71,6 @@ export class AdnAPI {
     });
   }
 
-  apiURL = 'https://api.app.net/';
   user_id = '';
   post_id = 100;
   hashtag = 'team256';
@@ -81,20 +80,22 @@ export class AdnAPI {
 
   loadPosts(id, more) {
     this.isRequesting = true;
-    let url = more? this.getPostsURL(id) : this.getMorePostsURL(id, this.meta.min_id);
-    let self = this
+    console.log("loading");
+    let url = more===true ? this.getMorePostsURL(id, this.meta.min_id) : this.getPostsURL(id);
+    let self = this;
     return new Promise(resolve => {
-      let results = this.http.get(this.getPostsURL(id)).then(function(get) {
+      let results = this.http.get(url).then(function (get) {
         return JSON.parse(get.response);
-      }).then(function(response) {
+      }).then(function (response) {
         self.meta = response.meta;
         return response.data;
-      }).catch(function(err) {
+      }).catch(function (err) {
         console.log("Username not found, restoring known user");
         return nouser.data;
       });
       resolve(results);
-      self.isRequesting = false;
+      this.isRequesting = false;
+      console.log("loaded");
     });
   }
 
