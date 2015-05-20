@@ -79,16 +79,15 @@ export class AdnAPI {
   tokenEndPoints = { following: '${apiURL}/users/${user_id}/following' };
 
   loadPosts(id, more) {
-    var self = this;
     this.isRequesting = true;
     let url = more? this.getMorePostsURL(id, this.meta.min_id) : this.getPostsURL(id);
     return this.http.get(url).then((response) => {
-        self.meta = response.content.meta;      
-        self.isRequesting = false;
+        this.meta = response.content.meta;      
+        this.isRequesting = false;
         return response.content.data;
-    }).catch(function (err) {
+    }).catch((err) => {
         console.log("Username not found, restoring known user");
-        self.isRequesting = false;
+        this.isRequesting = false;
         return nouser.data;
   	});
   }

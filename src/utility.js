@@ -17,3 +17,19 @@ export function findIndexByKeyValue(arraytosearch, key, valuetosearch) {
   }
   return -1;
 }
+
+export function sortDescending(data) {
+  return data.sort((a, b) => {
+    if (a.count > b.count) { return -1; }
+    if (a.count < b.count) { return 1; }
+    return 0;
+  });
+}
+  
+export function take(data, count) {
+  return data.splice(0,count);
+}
+
+export function sumKey(data, key) {
+  return data.reduce((a, b) => a + b[key], 0)
+}
