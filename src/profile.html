@@ -59,8 +59,8 @@
             <div class="pure-u-1 pure-u-sm-1-2">
               <p>
                 <strong>${numReplies}</strong> replied to, <strong>${numReposts}</strong> reposted and <strong>${numStars}</strong> starred.</p>
-              <p>Last Posted <strong>${data[0].created_at | date }</strong> hours ago and ${data.length} posts before that it was <strong>${data[data.length-1].created_at | date}</strong> hours ago.</p>
-                <p if.bind="data[0].user.counts.posts<100000">Based on your current rate you have ${daysUntil100k} days until you reach 100,000 posts. Yay for arbitrary milestones!</p>
+              <p>Last Posted <strong>${data[0].created_at | date }</strong> hours ago<span if.bind='data.length>1'> and ${data.length} posts before that it was <strong>${data[data.length-1].created_at | date}</strong> hours ago</span>.</p>
+                <p if.bind="data[0].user.counts.posts<100000">Based on the current rate it will be ${daysUntil100k} days before 100,000 posts is reached. Yay for arbitrary milestones!</p>
             </div>
             <div class="pure-u-1 pure-u-sm-1-2">
               <p>Mostly mentioning
