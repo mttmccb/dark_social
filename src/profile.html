@@ -62,9 +62,8 @@
               <p>Last Posted <strong>${data[0].created_at | date }</strong> hours ago<span if.bind='data.length>1'> and ${data.length} posts before that it was <strong>${data[data.length-1].created_at | date}</strong> hours ago</span>.</p>
                 <p if.bind="data[0].user.counts.posts<100000 && data[0].user.counts.posts>1">Based on the current rate it will be ${daysUntil100k} days before 100,000 posts is reached. Yay for arbitrary milestones!</p>
             </div>
-            <div class="pure-u-1 pure-u-sm-1-2">
+            <div class="pure-u-1 pure-u-sm-1-2" if.bind="mentionByUsername.length>0">
               <p>Mostly mentioning
-                <span if.bind="mentionByUsername.length==0">nobody.</span>
                 <span repeat.for="men of mentionByUsername">
                   <a href="#" click.delegate="$parent.loadMentionUser(men)">@${men.name}</a>(<strong>${men.count}</strong>)${$index
                   <=numberOfTopMentions ? ',': ''}</span> <a href="#" click.delegate="moreMentions()">more...</a>
