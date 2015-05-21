@@ -47,7 +47,7 @@
         </div>
       </div>
     </div>
-    <div class="pure-g">
+    <div class="pure-g" if.bind="data[0].user.counts.posts>0">
       <div class="pure-u-1">
         <div class="stats-header">
           <h2>Last ${data.length} Posts <a href="#" click.delegate="loadMorePosts()">more...</a></h2>
