@@ -20,7 +20,7 @@ let nouser = {
         "links": []
       },
       "user": {
-        "username": "theaboninablesnowman",
+        "username": "theabominablesnowman",
         "avatar_image": {
           "url": "src/abominablesnowman.jpg",
           "width": 200,
