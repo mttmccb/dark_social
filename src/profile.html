@@ -14,13 +14,14 @@
                   <i class="fa fa-${userTypeIcon}"></i> ${data[0].user.name}
                   <small>@
                     <input type="text" id="un" value.bind="user_id" change.delegate="loadNewUser()" />
-                  </small>
+                  </small> 
+                  <i class="fa fa-random randomize" click.delegate="randomize()"></i>
                 </h2>
                 <p>
                   <span innerHTML.one-way="data[0].user.description.html" click.delegate="bioClicks($event)"></span>
                   <br />
                   <br />
-                  <i class="fa fa-check-circle"></i>
+                  <i if.bind='data[0].user.verified_link' class="fa fa-check-circle"></i>
                   <a href="${data[0].user.verified_link}">${data[0].user.verified_domain}</a>
                   <a href="https://app.net/${user_id}"><i class="fa fa-adn"></i></a>
                 </p>

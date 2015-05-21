@@ -1,4 +1,5 @@
 import { HttpClient } from 'aurelia-http-client';
+import { NiceAPI } from './nice-api';
 
 let nouser = {
   meta: {
@@ -66,9 +67,7 @@ let nouser = {
 export class AdnAPI {
   static inject() { return [HttpClient]; }
   constructor(http) {
-    this.http = http.configure(x => {
-      x.withBaseUrl('https://api.app.net/');
-    });
+    this.http = http;
   }
 
   user_id = '';
@@ -77,27 +76,41 @@ export class AdnAPI {
   slug = 'conversations';
   meta = [];
   tokenEndPoints = { following: '${apiURL}/users/${user_id}/following' };
+  apiURL ='https://api.app.net';
 
   loadPosts(id, more) {
     this.isRequesting = true;
-    let url = more? this.getMorePostsURL(id, this.meta.min_id) : this.getPostsURL(id);
-    return this.http.get(url).then((response) => {
-        this.meta = response.content.meta;      
-        this.isRequesting = false;
-        return response.content.data;
+    return this.getRandomUserId().then((user) => {
+     let getUser = localStorage.getItem('user_id') || user;
+     return this.http.get(more? this.getMorePostsURL(getUser, this.meta.min_id) : this.getPostsURL(getUser))
+     .then((response) => {
+          this.meta = response.content.meta;      
+          this.isRequesting = false;
+          return response.content.data;
+      }).catch((err) => {
+          console.log("Username not found, restoring known user");
+          this.isRequesting = false;
+          return nouser.data;
+    	});
+    });
+  }
+  
+  getRandomUserId() {
+    return this.http.get('https://api.nice.social/user/nicesummary').then((response) => {
+        var randomUserId = Math.floor((Math.random() * response.content.data.length) + 1);
+        return response.content.data[randomUserId].name;
     }).catch((err) => {
-        console.log("Username not found, restoring known user");
-        this.isRequesting = false;
-        return nouser.data;
+        console.log("Nice.Social API Issue");
+        return 'berg';
   	});
   }
-
+  
   getPostsURL(id, count = 200) {
-    return `users/@${id}/posts?count=${count}`;
+    return `${this.apiURL}/users/@${id}/posts?count=${count}`;
   }
 
   getMorePostsURL(id, min_id, count = 200) {
-    return `users/@${id}/posts?count=${count}&before_id=${min_id}`;
+    return `${this.apiURL}/users/@${id}/posts?count=${count}&before_id=${min_id}`;
   }
 
   explore = {

@@ -1,21 +1,20 @@
-import { computedFrom } from 'aurelia-framework';
+import { computedFrom, inject } from 'aurelia-framework';
 import { AdnAPI } from './adn-api';
 import { parseDate, findIndexByKeyValue, sortDescending, take, sumKey } from './utility';
 
+@inject(AdnAPI)
 export class Profile {
-  static inject() { return [AdnAPI]; }
   constructor(api) {
     this.api = api;
-    this.data = [];
   }
 
   heading = 'Your Profile';
   niceURL = 'https://api.nice.social';
-  user_id = localStorage.getItem('user_id',this.user_id) || 'mttmccb';
   
   loadPostsIntoData() {
     return this.api.loadPosts(this.user_id).then(data => {
       this.data = data;
+      this.user_id = this.data[0].user.username;
     });
   }
 
@@ -36,8 +35,16 @@ export class Profile {
     return this.loadPostsIntoData();
   }
   
+  randomize() {
+    localStorage.removeItem('user_id');
+    return this.loadPostsIntoData();    
+  }
+  
   activate() {
-    return this.loadPostsIntoData();
+    return this.api.loadPosts(this.user_id).then(data => {
+      this.data = data;
+      this.user_id = this.data[0].user.username;
+    });
   }
   
   numberOfTopMentions = 5;
@@ -45,9 +52,18 @@ export class Profile {
     this.numberOfTopMentions += 5;
   }
 
-  get numReplies() { return sumKey(this.data,'num_replies') }
-  get numReposts() { return sumKey(this.data,'num_reposts') }
-  get numStars() { return sumKey(this.data,'num_stars') }
+  get numReplies() { 
+    if (!this.data) { return 0; }
+    return sumKey(this.data,'num_replies');
+  }
+  get numReposts() { 
+    if (!this.data) { return 0; }
+    return sumKey(this.data,'num_reposts');
+  }
+  get numStars() { 
+    if (!this.data) { return 0; }
+    return sumKey(this.data,'num_stars');
+  }
 
   get daysUntil100k() { 
     let daysInLastPosts = parseDate(this.data[this.data.length-1].created_at)-parseDate(this.data[0].created_at);
@@ -58,6 +74,8 @@ export class Profile {
   
   //TODO: Refactor this to use promises to chain the 4 sections (reduce, count, sort, take x)
   get mentionByUsername() {
+    if (!this.data) { return [{ name: 'matt', count: 1}]; }
+    
     let array = reduceToMentions(this.data);
     array = getMentionFrequency(array);
     array = sortDescending(array);
@@ -85,14 +103,14 @@ export class Profile {
     this.showBanner = !this.showBanner;
   }
 
-  @computedFrom('data')
   get userTypeIcon() {
     let icons = {
       'human': 'user',
       'feed': 'rss',
       'bot': 'meh-o',
       'snowman': 'user-secret'
-    }
+    };
+    if (!this.data) { return 'bot'; }
     return icons[this.data[0].user.type];
   }
 }

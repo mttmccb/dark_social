@@ -235,6 +235,17 @@ section {
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
+
+.randomize {
+  cursor: pointer;
+  color: #4183c4;
+}
+
+.randomize:hover {
+  -webkit-animation: fa-spin 2s infinite linear;
+  animation: fa-spin 2s infinite linear;
+}
+
 .hvr-sweep-to-bottom:hover, .hvr-sweep-to-bottom:focus, .hvr-sweep-to-bottom:active {
   color: white;
 }

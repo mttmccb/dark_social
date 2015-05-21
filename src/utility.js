@@ -31,5 +31,5 @@ export function take(data, count) {
 }
 
 export function sumKey(data, key) {
-  return data.reduce((a, b) => a + b[key], 0)
+  return data.reduce((a, b) => a + b[key], 0);
 }
