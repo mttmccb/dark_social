@@ -1,4 +1,4 @@
-body { background-color: black; }
+body { background-color: #FFE4C4; }
 html, button, input, select, textarea,
 .pure-g [class *= "pure-u"] {
   /* Set your content font stack here: */
@@ -6,9 +6,9 @@ html, button, input, select, textarea,
 }
 
 .splash {
-  color: white;
+  color: #FFE4C4;
 }
 
 #main-nav {
-  background: lightgray;
+  background: #414A4C;
 }

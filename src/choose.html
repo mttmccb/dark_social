@@ -1,0 +1,98 @@
+<template>
+    <div class="splash-container">
+        <div class="splash">
+            <form class="pure-form splash-subhead">
+                <fieldset>
+                    <label class="splash-head" for="choice">I want to</label>
+                    <select id="choice" change.delegate="navigate($event)">
+                        <option>...</option>
+                        <option value="1">explore random profiles</option>
+                        <option value="2" disabled>explore interesting profiles</option>
+                        <option value="3" disabled>explore hashtags</option>
+                        <option value="4" disabled>explore streams</option>
+                        <option value="5" disabled>post</option>
+                        <option value="6" disabled>have a kebab</option>
+                    </select>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="content-wrapper ">
+        <div class="content ">
+            <h2 class="content-head is-center ">What we got here is a failure to communicate</h2>
+            <div class="pure-g ">
+                <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 ">
+                    <h3 class="content-subhead ">
+                        <i class="fa fa-bolt grow"></i>Why bother?</h3>
+                    <p>There aren't many
+                        <a href="https://app.net">app.net</a> web clients that show off what's out there and I'm hoping to highlight things that may have been overlooked.</p>
+                    <p>I'm building it using the fairly new framework,
+                        <a href="http://aurelia.io
+                    ">Aurelia</a>, so far it's fun. The first thing I did was get rid of bootstrap and drop in
+                        <a href="http://purecss.io
+                    ">Pure.CSS</a> which is very minimal. View the
+                        <a href="https://github.com/mttmccb/dark_social
+                    ">source code</a> if you want to know more.</p>
+                </div>
+                <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 ">
+                    <h3 class="content-subhead ">
+                        <i class="fa fa-child fa-spin"></i>Plans</h3>
+                    <ul>
+                        <li>Make it load faster</li>
+                        <li>Explore streams</li>
+                        <li>Logging in</li>
+                        <li>Posting</li>
+                        <li>Hashtag Browsing</li>
+                    </ul>
+                    <p>You can view the
+                        <a href="https://github.com/mttmccb/dark_social/milestones">project milestones</a> if you want more detail. And if you want to help or fork the project that'd be great too.</p>
+                </div>
+                <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-3 ">
+                    <h3 class="content-subhead ">
+                        <i class="fa fa-beer jingle"></i>Feedback?</h3>
+                    <p>I hope you find Dark.Social useful, if you spot anything out of place or can think of ways to improve it then please
+                        <a href="https://github.com/mttmccb/dark_social/issues/new ">raise an issue</a> on GitHub or drop me a message.</p>
+                     <p>Or even better you could fork the project, do all the hard parts and send me a pull request &#x1F61C;</p>
+                </div>
+            </div>
+        </div>
+        <div class="ribbon l-box-lrg pure-g ">
+            <div class="l-box-lrg is-center pure-u-1 pure-u-md-1-2 pure-u-lg-2-5 ">
+                <img class="pure-img-responsive" id="profilePicture" alt="File Icons" width="200" src="/styles/profile.png">
+            </div>
+            <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5 ">
+                <h2 class="content-head content-head-ribbon ">Build by
+                    <a href="http://mttmccb.net">@mtttmcb</a>
+                </h2>
+                <p>I wanted to give something back to the community while learning a bit along the way. Inspired in part by the work
+                    <a href="https://jasonirwin.ca"
+                    target="_blank">@matigo</a> has done with
+                    <a href="https://nice.social">Nice.Social</a> I had a poke around the source code and thought "I can do that", so I did.</p>
+                <p>It's very likely I'll continue to work on this until it's 'feature-complete', what that means is a bit sketchy but it's not
+                    going to be an everything-and-the-kitchen-sink client.</p>
+            </div>
+        </div>
+        <div class="content ">
+            <h2 class="content-head is-center ">Nothing else to see here...</h2>
+            <div class="pure-g ">
+                <div class="l-box-lrg pure-u-1 pure-u-md-2-5 ">
+                    <p>Seriously...</p>
+                    <p>The slightly bright colours scheme is brought to you by the colors:</p>
+                    <ul>
+                        <li>Jet #343434 represents the mineraloid
+                            <a href="http://en.wikipedia.org/wiki/Jet_(lignite)">Jet</a>, which has a surprisingly colourful history.</li>
+                        <li><a href="http://en.wikipedia.org/wiki/Navajo_white">Navajo White</a> #FFDEAD, it's the colour of the Navajo flag, let's just call the exact choice of Hex triplet tone #FFDEAF.</li>
+                        <li><a href="http://www.crayola.co.uk/explore-colors/outer-space.aspx">Outer Space</a> #414A4C, formulated by Crayola in 1998</li>
+                        <li>Bisque #FFE4C4, isn't it some kind of food? Ah yes, <a href="http://en.wikipedia.org/wiki/Bisque_%28food%29">a soup</a> that sounds pretty unappealing.</li>
+                    </ul>
+                    <p></p>
+                    <p>See I told you.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer l-box is-center ">View the source on
+            <a href="https://github.com/mttmccb/dark_social
+                    " target="_blank "><i class="fa fa-github-alt"></i> Github</a>
+        </div>
+    </div>
+</template>

@@ -9,8 +9,8 @@ export class App {
   configureRouter(config, router) {
     config.title = 'Dark.Social';
     config.map([
-      { route: ['', 'profile'], moduleId: './profile', nav: true, title: 'Profile' },
-      { route: ['about'], moduleId: './about', nav: true, title: 'About' }
+      { route: ['', 'choose'], moduleId: './choose', nav: false, title: 'Choose' },
+      { route: ['profile'], moduleId: './profile', nav: true, title: 'Profile' }
     ]);
 
     this.router = router;
