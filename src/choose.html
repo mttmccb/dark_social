@@ -1,9 +1,9 @@
 <template>
-    <div class="splash-container">
-        <div class="splash">
-            <form class="pure-form splash-subhead">
+    <div class="selector-container">
+        <div class="selector">
+            <form class="pure-form">
                 <fieldset>
-                    <label class="splash-head" for="choice">I want to</label>
+                    <label for="choice">I want to</label>
                     <select id="choice" change.delegate="navigate($event)">
                         <option>...</option>
                         <option value="1">explore random profiles</option>
@@ -11,7 +11,7 @@
                         <option value="3" disabled>explore hashtags</option>
                         <option value="4" disabled>explore streams</option>
                         <option value="5" disabled>post</option>
-                        <option value="6" disabled>have a kebab</option>
+                        <option value="6">have a kebab</option>
                     </select>
                 </fieldset>
             </form>

@@ -1,3 +1,14 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* General Styling */
 [itemprop='mention'],
 [itemprop='hashtag'],
 a,
@@ -11,33 +22,44 @@ a:visited {
 [itemprop='hashtag']:hover {
   cursor: pointer;  
 }
-* {
-  -webkit-box-sizing: border-box;
--moz-box-sizing: border-box;
-box-sizing: border-box;
-}
-body {
-  margin: 0;
+
+/* Nav Bar */
+.pure-menu-link,
+.pure-menu-link:hover,
+.pure-menu-link:visited {
+  color: #7ba9d6;
 }
 
+.pure-menu.pure-menu-fixed {
+  /* Fixed menus normally have a border at the bottom. */
+  border-bottom: none;
+  /* I need a higher z-index here because of the scroll-over effect. */
+  z-index: 4;
+}
+
+.pure-menu-selected .pure-menu-link.hvr-sweep-to-bottom {
+  color: #fff;
+  background:  #343434;  
+}
+.pure-menu-link.hvr-sweep-to-bottom:before,
+.pure-menu-header.hvr-sweep-to-bottom:before {
+  background:  #343434;  
+}
+
+.selector,
 .splash {
   text-align: center;
   margin: 10% 0 0 0;
   box-sizing: border-box;
 }
 
-.content-subhead i {
-  margin-right: 7px;
-}
-
+/* Loading */
 .splash .message {
   font-size: 72px;
   line-height: 72px;
-  text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
   color:#343434;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Trebuchet MS', Helvetica, sans-serif;
 }
-
 .splash .fa-spinner {
   text-align: center;
   display: inline-block;
@@ -46,33 +68,36 @@ body {
   margin-top: 50px;
 }
 
-.pure-menu-link,
-.pure-menu-link:hover,
-.pure-menu-link:visited {
-  color: #7ba9d6;
-}
-
-.jingle {
- -webkit-animation-name: shake-rotate; -ms-animation-name: shake-rotate; animation-name: shake-rotate; -webkit-animation-duration: 400ms; -ms-animation-duration: 400ms; animation-duration: 400ms; -webkit-animation-iteration-count: 5; -ms-animation-iteration-count: 5; animation-iteration-count: 5; -webkit-animation-timing-function: ease-in-out; -ms-animation-timing-function: ease-in-out; animation-timing-function: ease-in-out; -webkit-animation-delay: 3s; -ms-animation-delay: 3s; animation-delay: 3s; -webkit-animation-play-state: running; -ms-animation-play-state: running; animation-play-state: running; }
-
-.grow {
-  -webkit-animation: growFade 2s 5 5s linear;
-  animation: growFade 2s 5 5s linear;
-}
-
-.navbar-nav li.loader {
-  margin: 12px 24px 0 6px;
-}
-
 .pictureDetail {
   max-width: 425px;
 }
 
-.pure-menu.pure-menu-fixed {
-  /* Fixed menus normally have a border at the bottom. */
-border-bottom: none;
-/* I need a higher z-index here because of the scroll-over effect. */
-z-index: 4;
+.selector-container {
+  background-color: #FFE4C4;
+  background-image: url(kyoto.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 1;
+  overflow: hidden;
+
+  /* The following styles are required for the "scroll-over" effect */
+  width: 100%;
+  height: 45%;
+  top: 0;
+  left: 0;
+  position: fixed !important;
+  border-radius: 3em;
+}
+
+.selector form {
+  color: #343434;
+  background:#FFA343;
+  padding: 1em 1.5em 1em 1.5em;
+  border-radius: 2em;
+  opacity: 0.9;
+  max-width: 24em;
+  margin: 0 auto;
+  font-size: 130%;
 }
 
 .content-wrapper {
@@ -107,6 +132,10 @@ z-index: 2;
   margin: 1em 0 1em;
 }
 
+.content-subhead i {
+  margin-right: 7px;
+}
+
 .content-head-ribbon {
   color: #343434;
 }
@@ -116,49 +145,10 @@ z-index: 2;
   color: #343434;
 }
 
-.splash-subhead {
-  color: #343434;
-  background:#FFA343;
-  padding: 1em 1.5em 1em 1.5em;
-  border-radius: 2em;
-  opacity: 0.9;
-  max-width: 24em;
-  margin: 0 auto;
-  font-size: 130%;
-}
-
-.footer {
-  background: #343434;
-  color: #aaa;
-}
-.is-center {
-  text-align: center;
-}
 .l-box { padding: 1em; }
-.splash-container {
-  background-color: #FFE4C4;
-  background-image: url(kyoto.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  z-index: 1;
-  overflow: hidden;
-
-  /* The following styles are required for the "scroll-over" effect */
-  width: 100%;
-  height: 45%;
-  top: 0;
-  left: 0;
-  position: fixed !important;
-  border-radius: 3em;
-}
-
-.is-center {
-  text-align: center;
-}
-
-.l-box-lrg {
-    padding: 1em;
- }
+.l-box-lrg { padding: 1em; }
+.is-center { text-align: center; }
+.floatme { float: right; }
 
 #profilePicture {
   box-sizing: border-box;
@@ -176,34 +166,17 @@ z-index: 2;
   -webkit-transition-property: border-radius;
   transition-property: border-radius;
   background: white;
-
 }
+  #profilePicture:hover {
+    cursor: pointer;
+  }
 
-.floatme {
-    float: right;
-}
-
-#profilePicture:hover {
-  cursor: pointer;
-}
-
-#profilePicture.clean,
-#banner.clean {
-  border-radius: 0;
-} 
-  
-#profileDetails.clean {
-  opacity: 0;
-  transition: opacity .3s ease-in-out;
-}
-  
 #banner {
   background: #fff;
   background-size: cover;
   background-repeat: no-repeat;
   display: block;
   height: 350px;
-  width: 100%;
   border-radius: 3em 3em 3em 3em;
   border: #00B2B2 0.25em solid;
   position: relative;
@@ -218,35 +191,44 @@ z-index: 2;
 #profileDetails {
   margin: 0em;
 }
+  #profileDetails h2 {
+    background-color:aqua;
+    padding: 0.25em 1em;
+    margin: 0;
+    border-radius: 1.5em 1.5em 0 0;
+  }   
+  #profileDetails p {
+    background:#fff;
+    padding: 1em 1.5em 1.5em 1.5em;
+    margin-top: 0;
+    border-radius: 0 0 2em 0;
+    opacity: 0.8;
+    margin-bottom: 0;
+    max-height: 200px;
+    overflow-y: scroll;    
+  }
+  #profileDetails ul li a {
+    background: #E6FFFF;
+    border-radius: 0 0 1em 1em;
+    opacity: 0.8;
+    cursor: pointer;
+  }
+    #profileDetails ul li a:hover {
+      opacity: 1;
+    }
 
-#profileDetails h2 {
-  background-color:aqua;
-  padding: 0.25em 1em;
-  margin: 0;
-  border-radius: 1.5em 1.5em 0 0;
-}
+/* Clean View */
+#profilePicture.clean,
+#banner.clean {
+  border-radius: 0;
+} 
   
-#profileDetails p {
-  background:#fff;
-  padding: 1em 1.5em 1.5em 1.5em;
-  margin-top: 0;
-  border-radius: 0 0 2em 0;
-  opacity: 0.8;
-  margin-bottom: 0;
-  max-height: 200px;
-  overflow-y: scroll;    
+#profileDetails.clean {
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
 }
 
-#profileDetails ul li a {
-  background: #E6FFFF;
-  border-radius: 0 0 1em 1em;
-  opacity: 0.8;
-  cursor: pointer;
-}
-
-#profileDetails ul li a:hover {
-  opacity: 1;
-}
+/* Stats */
 
 .stats-header h2 {
   background-color:burlywood; 
@@ -261,11 +243,10 @@ z-index: 2;
   border-radius: 0 0 2em 2em;
   opacity: 0.8;
   margin: 0 0 1em 0;
-}
- 
-.stats p {
-  margin-top: 0;
-}
+} 
+  .stats p {
+    margin-top: 0;
+  }
 
 #un {
   width: 12em;
@@ -280,16 +261,23 @@ z-index: 2;
   margin-right: 0.25em;
 }
 
-/* Shutter In Horizontal */
+/* Randomize button */
+.randomize {
+  cursor: pointer;
+  color: #4183c4;
+}
+  .randomize:hover {
+    -webkit-animation: fa-spin 2s infinite linear;
+    animation: fa-spin 2s infinite linear;
+  }
 
-.pure-menu-selected .pure-menu-link.hvr-sweep-to-bottom {
-  color: #fff;
-  background:  #343434;  
+/* Footer */
+.footer {
+  background: #343434;
+  color: #aaa;
 }
-.pure-menu-link.hvr-sweep-to-bottom:before,
-.pure-menu-header.hvr-sweep-to-bottom:before {
-  background:  #343434;  
-}
+
+/* Sweep to bottom transtion */
 /* Sweep To Bottom */
 .hvr-sweep-to-bottom {
   display: inline-block;
@@ -327,15 +315,6 @@ z-index: 2;
   transition-timing-function: ease-out;
 }
 
-.randomize {
-  cursor: pointer;
-  color: #4183c4;
-}
-
-.randomize:hover {
-  -webkit-animation: fa-spin 2s infinite linear;
-  animation: fa-spin 2s infinite linear;
-}
 
 .hvr-sweep-to-bottom:hover, .hvr-sweep-to-bottom:focus, .hvr-sweep-to-bottom:active {
   color: white;
@@ -345,6 +324,7 @@ z-index: 2;
   -webkit-transform: scaleY(1);
   transform: scaleY(1);
 }
+
 
 @media screen and (max-width: 35.5em) {
     
@@ -374,64 +354,35 @@ z-index: 2;
 }
 
 /* animation definitions */
+.jingle {
+  -webkit-animation: shake-rotate 400ms 5 3s ease-in-out;
+  animation: shake-rotate 400ms 5 3s ease-in-out;
+}
+
+.grow {
+  -webkit-animation: growFade 2s 5 5s linear;
+  animation: growFade 2s 5 5s linear;
+}
+
+
 @-webkit-keyframes fadeInRight {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(100%, 0, 0);
-    transform: translate3d(100%, 0, 0)
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none
-  }
+  0% { opacity: 0; -webkit-transform: translate3d(100%, 0, 0); transform: translate3d(100%, 0, 0); }
+  100% { opacity: 1; -webkit-transform: none; transform: none; }
 }
 @keyframes fadeInRight {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(100%, 0, 0);
-    -ms-transform: translate3d(100%, 0, 0);
-    transform: translate3d(100%, 0, 0)
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    -ms-transform: none;
-    transform: none
-  }
+  0% { opacity: 0; -webkit-transform: translate3d(100%, 0, 0); -ms-transform: translate3d(100%, 0, 0); transform: translate3d(100%, 0, 0); }
+  100% { opacity: 1; -webkit-transform: none; -ms-transform: none; transform: none; }
 }
 
 @-webkit-keyframes growFade {
-  0%, 20%, 40%, 50% {
-    opacity: 1;
-    -webkit-transform: scale(1, 1);
-  }
-
-  10%, 30% {
-    opacity: 1;
-    -webkit-transform: scale(1.3, 1.3) ;
-  }
-
-  100% {
-    opacity: 0;
-    -webkit-transform: scale(1, 1);
-  }
+  0%, 20%, 40%, 50% {  opacity: 1; -webkit-transform: scale(1, 1); }
+  10%, 30% { opacity: 1; -webkit-transform: scale(1.3, 1.3); }
+  100% { opacity: 0; -webkit-transform: scale(1, 1); }
 }
 @keyframes growFade {
-  0%, 20%, 40%, 50% {
-    opacity: 1;
-    transform: scale(1, 1) ;
-  }
-
-  10%, 30% {
-    opacity: 1;
-    transform: scale(1.3, 1.3);
-  }
-
-  100% {
-    opacity: 0;
-    transform: scale(1, 1);
-  }
+  0%, 20%, 40%, 50% { opacity: 1; transform: scale(1, 1); }
+  10%, 30% { opacity: 1; transform: scale(1.3, 1.3); }
+  100% { opacity: 0; transform: scale(1, 1); }
 }
 
 @-webkit-keyframes shake-rotate { 0% { -webkit-transform: translate(0px, 0px) rotate(0deg); }

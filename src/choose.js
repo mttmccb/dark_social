@@ -8,9 +8,17 @@ export class Choose {
 	}
 
 	navigate(e) {
-		console.log(e);
-		if (e.target.value==="1") {
-			this.theRouter.navigate("profile");			
+		switch (e.target.value) {
+			case "1":
+				this.theRouter.navigate("profile");
+				break;
+
+			case "6":
+				window.location.href = "http://en.wikipedia.org/wiki/Kebab"
+				break;
+
+			default:
+				break;
 		}
 	}
 }
