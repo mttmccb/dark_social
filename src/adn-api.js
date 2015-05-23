@@ -99,7 +99,6 @@ export class AdnAPI {
     this.isRequesting = true;
     return this.http.get(more ? this.getMoreTrendingURL(this.meta.min_id) : this.getTrendingURL())
       .then((response) => {
-        console.log(response);
       this.meta = response.content.meta;
       this.isRequesting = false;
       return response.content.data;
