@@ -52,19 +52,25 @@ export class Profile {
     this.numberOfTopMentions += 5;
   }
 
+  @computedFrom('data')
   get numReplies() { 
     if (!this.data) { return 0; }
     return sumKey(this.data,'num_replies');
   }
+
+  @computedFrom('data')
   get numReposts() { 
     if (!this.data) { return 0; }
     return sumKey(this.data,'num_reposts');
   }
+
+  @computedFrom('data')
   get numStars() { 
     if (!this.data) { return 0; }
     return sumKey(this.data,'num_stars');
   }
 
+  @computedFrom('data')
   get daysUntil100k() { 
     let daysInLastPosts = parseDate(this.data[this.data.length-1].created_at)-parseDate(this.data[0].created_at);
     let postRemaining = 100000 - this.data[0].user.counts.posts;
@@ -73,6 +79,7 @@ export class Profile {
   }
   
   //TODO: Refactor this to use promises to chain the 4 sections (reduce, count, sort, take x)
+  @computedFrom('data')
   get mentionByUsername() {
     if (!this.data) { return [{ name: 'matt', count: 1}]; }
     
@@ -103,6 +110,7 @@ export class Profile {
     this.showBanner = !this.showBanner;
   }
 
+  @computedFrom('data')
   get userTypeIcon() {
     let icons = {
       'human': 'user',
