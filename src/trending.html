@@ -1,0 +1,26 @@
+<template>
+	<section class="au-animate main-content-wrapper">
+		<div class="pure-g">
+			<div class="pure-u-1-4 post" repeat.for="post of posts">
+				<div class="pure-g">
+					<div class="pure-u-1-5">
+						<img id="profilePicture" src.bind="post.user.avatar_image.url" class="pure-img" click.trigger="$parent.toggleDetails($event, post)"
+						/>
+					</div>
+					<div class="pure-u-4-5 post-details ${post.hidePost? '' : 'showMe'}" ">
+						<p innerHTML.one-way="post.html "  click.delegate="$parent.postClicks($event) "></p>
+					</div>
+					<div class="pure-u-4-5 post-details ${post.hidePost? 'showMe' : ''} "">
+						<p><strong>${post.user.name}</strong> <a href="#" click.trigger="$parent.openProfile(post.user.username)">@${post.user.username}</a></p>
+						<p>
+							${post.num_replies} <i class="fa fa-reply
+					"></i> ${post.num_reposts}
+							<i class="fa fa-retweet "></i> ${post.num_stars}
+							<i class="fa fa-star "></i>
+						</p>
+						<p><a href.bind="post.canonical_url"><i class="fa fa-adn "></i> Post</a></p>
+					</div>
+				</div>
+			</div>
+	</section>
+</template>

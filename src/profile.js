@@ -8,9 +8,6 @@ export class Profile {
     this.api = api;
   }
 
-  heading = 'Your Profile';
-  niceURL = 'https://api.nice.social';
-  
   loadPostsIntoData() {
     return this.api.loadPosts(this.user_id).then(data => {
       this.data = data;

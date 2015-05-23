@@ -118,6 +118,7 @@ top: 8%;
 width: 100%;
 min-height: 12%;
 z-index: 2;
+padding: 0 1em;
 }
 
 .content {
@@ -271,10 +272,54 @@ z-index: 2;
     animation: fa-spin 2s infinite linear;
   }
 
+/* Post Formatting */
+.post {
+  padding: 0 1em 0 0;
+  background: white;
+  opacity: 0.8;
+  border-radius: 2em;
+  margin-bottom: 1%;
+    	perspective: 1000;
+	transform-style: preserve-3d;
+
+}
+
+.post.pure-u-1-4 {
+  width: 24%;
+  margin-right: 1%;
+}
+
+.post-details {
+  padding: 0 0 0 1em;
+  -ms-word-break: break-all;
+  /* Be VERY careful with this, breaks normal words wh_erever */
+  word-break: break-all;
+  
+  /* Non standard for webkit */
+  word-break: break-word;
+
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;  
+	transition: opacity 1s ease-out;
+  display: none;
+}
+
 /* Footer */
 .footer {
   background: #343434;
   color: #aaa;
+}
+
+.post-details.showMe {
+  display: block;
+   -webkit-animation: showNav 500ms ease-in-out both;
+   -animation: showNav 500ms ease-in-out both;
+}
+
+@-webkit-keyframes showNav {
+    from {opacity: 0; transform: rotateY(360deg);}
+    to {opacity: 1; transform: rotateY(0deg);}
 }
 
 /* Sweep to bottom transtion */

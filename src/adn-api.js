@@ -76,35 +76,58 @@ export class AdnAPI {
   slug = 'conversations';
   meta = [];
   tokenEndPoints = { following: '${apiURL}/users/${user_id}/following' };
-  apiURL ='https://api.app.net';
+  apiURL = 'https://api.app.net';
 
   loadPosts(id, more) {
     this.isRequesting = true;
     return this.getRandomUserId().then((user) => {
-     let getUser = localStorage.getItem('user_id') || user;
-     return this.http.get(more? this.getMorePostsURL(getUser, this.meta.min_id) : this.getPostsURL(getUser))
-     .then((response) => {
-          this.meta = response.content.meta;      
-          this.isRequesting = false;
-          return response.content.data;
+      let getUser = localStorage.getItem('user_id') || user;
+      return this.http.get(more ? this.getMorePostsURL(getUser, this.meta.min_id) : this.getPostsURL(getUser))
+        .then((response) => {
+        this.meta = response.content.meta;
+        this.isRequesting = false;
+        return response.content.data;
       }).catch((err) => {
-          console.log("Username not found, restoring known user");
-          this.isRequesting = false;
-          return nouser.data;
-    	});
+        console.log("Username not found, restoring known user");
+        this.isRequesting = false;
+        return nouser.data;
+      });
     });
   }
-  
+
+  loadTrendingPosts(more) {
+    this.isRequesting = true;
+    return this.http.get(more ? this.getMoreTrendingURL(this.meta.min_id) : this.getTrendingURL())
+      .then((response) => {
+        console.log(response);
+      this.meta = response.content.meta;
+      this.isRequesting = false;
+      return response.content.data;
+    }).catch((err) => {
+      console.log("Data data round");
+      this.isRequesting = false;
+      return {};
+    });
+  }
+
   getRandomUserId() {
     return this.http.get('https://api.nice.social/user/nicesummary').then((response) => {
-        var randomUserId = Math.floor((Math.random() * response.content.data.length) + 1);
-        return response.content.data[randomUserId].name;
+      var randomUserId = Math.floor((Math.random() * response.content.data.length) + 1);
+      return response.content.data[randomUserId].name;
     }).catch((err) => {
-        console.log("Nice.Social API Issue");
-        return 'berg';
-  	});
+      console.log("Nice.Social API Issue");
+      return 'berg';
+    });
   }
-  
+
+  getTrendingURL(count = 200) {
+    return `${this.apiURL}/posts/stream/explore/trending?count=${count}`;
+  }
+
+  getMoreTrendingURL(min_id, count = 200) {
+    return `${this.apiURL}/posts/stream/explore/trending?count=${count}&before_id=${min_id}`;
+  }
+
   getPostsURL(id, count = 200) {
     return `${this.apiURL}/users/@${id}/posts?count=${count}`;
   }
