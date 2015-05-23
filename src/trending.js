@@ -1,6 +1,7 @@
 import { computedFrom, inject } from 'aurelia-framework';
 import { AdnAPI } from './adn-api';
 import { Router } from 'aurelia-router';
+import moment from 'moment';
 
 export class Trending {
 	static inject() { return [AdnAPI, Router]; }
@@ -43,5 +44,11 @@ export class Trending {
     } else {
       post.hidePost = true;      
     }
+  }
+}
+
+export class DateFormatValueConverter {
+  toView(value, format){
+    return moment(value).format(format);
   }
 }

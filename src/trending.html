@@ -19,6 +19,7 @@
 							<i class="fa fa-star "></i>
 						</p>
 						<p><a href.bind="post.canonical_url"><i class="fa fa-adn "></i> Post</a></p>
+						<p>Posted on ${post.created_at | dateFormat:'DD-MMM-YYYY'} at ${post.created_at | dateFormat:'HH:mm'} with <a href.bind="post.source.link">${post.source.name}</a></p>
 					</div>
 				</div>
 			</div>
