@@ -10,7 +10,7 @@ export class App {
     config.title = 'Dark.Social';
     config.map([
       { route: ['', 'choose'], moduleId: './choose', nav: false, title: 'Choose' },
-      { route: ['profile'], moduleId: './profile', nav: true, title: 'Profile' },
+      { route: ['profile'], moduleId: './profile', nav: true, title: 'Profile', name: 'profile' },
       { route: ['trending'], moduleId: './trending', nav: true, title: 'Trending' }
     ]);
 

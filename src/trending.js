@@ -20,7 +20,8 @@ export class Trending {
   
   openProfile(name) {
       localStorage.setItem('user_id',name);
-			this.theRouter.navigate("profile");    
+			this.theRouter.navigate("profile");  
+      // this.theRouter.navigateToRoute("profile", { user_id: name });  
   }
 
   postClicks(e) {
