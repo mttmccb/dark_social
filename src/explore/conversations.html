@@ -10,7 +10,8 @@
 						/>
 					</div>
 					<div class="pure-u-4-5 post-details ${post.hidePost? '' : 'showMe'}" ">
-						<p innerHTML.one-way="post.html "  click.delegate="$parent.postClicks($event) "></p>
+						<p innerHTML.one-way="post.html"  click.delegate="$parent.postClicks($event)"></p>
+						<p><a href="http://treeview.us/home/thread/${post.id}" target="_blank"><i class="fa fa-tree"></i> View</a></p>
 					</div>
 					<div class="pure-u-4-5 post-details ${post.hidePost? 'showMe' : ''} "">
 						<p>By <strong>${post.user.name}</strong> <a href="#" click.trigger="$parent.openProfile(post.user.username)">@${post.user.username}</a></p>
