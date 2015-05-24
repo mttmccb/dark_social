@@ -7,6 +7,12 @@ export class Choose {
 		this.theRouter = router;
 	}
 
+	openProfile(name) {
+		localStorage.setItem('user_id', name);
+		this.theRouter.navigate("profile");  
+		// this.theRouter.navigateToRoute("profile", { user_id: name });  
+	}
+
 	navigate(e) {
 		switch (e.target.value) {
 			case "1":

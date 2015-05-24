@@ -102,6 +102,14 @@ export class Profile {
     return true;
   }
   
+  toggleDetails(e, post) {
+    if (post.hidePost) {
+      post.hidePost = false;
+    } else {
+      post.hidePost = true;
+    }
+  }
+  
   showBanner = false;
   toggleVisible(e) {
     this.showBanner = !this.showBanner;
