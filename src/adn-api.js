@@ -109,6 +109,51 @@ export class AdnAPI {
     });
   }
 
+  loadPhotos(more) {
+    this.isRequesting = true;
+    return this.http.get(more ? this.getMorePhotosURL(this.meta.min_id) : this.getPhotosURL())
+      .then((response) => {
+      console.log(response);
+      this.meta = response.content.meta;
+      this.isRequesting = false;
+      return response.content.data;
+    }).catch((err) => {
+      console.log("Data data round");
+      this.isRequesting = false;
+      return {};
+    });
+  }
+
+  loadConversations(more) {
+    this.isRequesting = true;
+    return this.http.get(more ? this.getMoreConversationsURL(this.meta.min_id) : this.getConversationsURL())
+      .then((response) => {
+      console.log(response);
+      this.meta = response.content.meta;
+      this.isRequesting = false;
+      return response.content.data;
+    }).catch((err) => {
+      console.log("Data data round");
+      this.isRequesting = false;
+      return {};
+    });
+  }
+  
+    loadCheckins(more) {
+    this.isRequesting = true;
+    return this.http.get(more ? this.getMoreCheckinsURL(this.meta.min_id) : this.getCheckinsURL())
+      .then((response) => {
+      console.log(response);
+      this.meta = response.content.meta;
+      this.isRequesting = false;
+      return response.content.data;
+    }).catch((err) => {
+      console.log("Data data round");
+      this.isRequesting = false;
+      return {};
+    });
+  }
+
   getRandomUserId() {
     return this.http.get('https://api.nice.social/user/nicesummary').then((response) => {
       var randomUserId = Math.floor((Math.random() * response.content.data.length) + 1);
@@ -117,6 +162,29 @@ export class AdnAPI {
       console.log("Nice.Social API Issue");
       return 'berg';
     });
+  }
+
+  getConversationsURL(count = 200) {
+    return `${this.apiURL}/posts/stream/explore/conversations?count=${count}`;
+  }
+
+  getMoreConversationURL(min_id, count = 200) {
+    return `${this.apiURL}/posts/stream/explore/conversations?count=${count}&before_id=${min_id}`;
+  }
+
+  getCheckinsURL(count = 200) {
+    return `${this.apiURL}/posts/stream/explore/checkins?count=${count}`;
+  }
+
+  getMoreCheckinsURL(min_id, count = 200) {
+    return `${this.apiURL}/posts/stream/explore/checkins?count=${count}&before_id=${min_id}`;
+  }
+  getPhotosURL(count = 200) {
+    return `${this.apiURL}/posts/stream/explore/photos?count=${count}`;
+  }
+
+  getMorePhotosURL(min_id, count = 200) {
+    return `${this.apiURL}/posts/stream/explore/photos?count=${count}&before_id=${min_id}`;
   }
 
   getTrendingURL(count = 200) {

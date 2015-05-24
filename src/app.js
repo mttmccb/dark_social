@@ -11,7 +11,10 @@ export class App {
     config.map([
       { route: ['', 'choose'], moduleId: './choose', nav: false, title: 'Choose' },
       { route: ['profile'], moduleId: './profile', nav: true, title: 'Profile', name: 'profile' },
-      { route: ['trending'], moduleId: './trending', nav: true, title: 'Trending' }
+      { route: ['trending'], moduleId: './explore/trending', nav: true, title: 'Trending' },
+      { route: ['photos'], moduleId: './explore/photos', nav: true, title: 'Photos' },
+      { route: ['checkins'], moduleId: './explore/checkins', nav: true, title: 'Checkins' },
+      { route: ['conversations'], moduleId: './explore/conversations', nav: true, title: 'Conversations' }
     ]);
 
     this.router = router;

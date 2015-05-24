@@ -1,10 +1,9 @@
 import { computedFrom, inject } from 'aurelia-framework';
-import { AdnAPI } from './adn-api';
+import { AdnAPI } from '../adn-api';
 import { Router } from 'aurelia-router';
-import moment from 'moment';
 
-export class Trending {
-	static inject() { return [AdnAPI, Router]; }
+export class Conversations {
+  static inject() { return [AdnAPI, Router]; }
 
   constructor(api, router) {
     this.api = api;
@@ -13,15 +12,14 @@ export class Trending {
   }
 
   activate() {
-    return this.api.loadTrendingPosts().then(posts => {
+    return this.api.loadConversations().then(posts => {
       this.posts = posts;
     });
   }
-  
   openProfile(name) {
-      localStorage.setItem('user_id',name);
-			this.theRouter.navigate("profile");  
-      // this.theRouter.navigateToRoute("profile", { user_id: name });  
+    localStorage.setItem('user_id', name);
+    this.theRouter.navigate("profile");  
+    // this.theRouter.navigateToRoute("profile", { user_id: name });  
   }
 
   postClicks(e) {
@@ -29,7 +27,7 @@ export class Trending {
     let nodeType = node.getAttribute('itemprop');
 
     if (nodeType === 'mention') {
-      let mentionName = node.getAttribute('data-mention-name');      
+      let mentionName = node.getAttribute('data-mention-name');
       this.openProfile(mentionName);
 
     } else if (nodeType === 'hashtag') {
@@ -38,18 +36,12 @@ export class Trending {
     }
     return true;
   }
-  
+
   toggleDetails(e, post) {
     if (post.hidePost) {
       post.hidePost = false;
     } else {
-      post.hidePost = true;      
+      post.hidePost = true;
     }
-  }
-}
-
-export class DateFormatValueConverter {
-  toView(value, format){
-    return moment(value).format(format);
   }
 }

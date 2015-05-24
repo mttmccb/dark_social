@@ -13,12 +13,24 @@ export class Choose {
 				this.theRouter.navigate("profile");
 				break;
 
-			case "2":
+			case "3":
 				this.theRouter.navigate("trending");
 				break;
 
-			case "7":
-				window.location.href = "http://en.wikipedia.org/wiki/Kebab"
+			case "4":
+				this.theRouter.navigate("photos");
+				break;
+
+			case "6":
+				this.theRouter.navigate("checkins");
+				break;
+
+			case "8":
+				this.theRouter.navigate("conversations");
+				break;
+
+			case "11":
+				window.location.href = "http://en.wikipedia.org/wiki/Kebab";
 				break;
 
 			default:
