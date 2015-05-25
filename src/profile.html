@@ -22,9 +22,9 @@
             <h2>
               <i class="fa fa-${data[0].user.type | userIcon}"></i> ${data[0].user.name}
               <small>@
-                <input type="text" id="un" value.bind="user_id" change.delegate="loadUser(this.value)" />
+                <input type="text" id="un" value.bind="user_id" change.delegate="loadUserRoute()" />
               </small> 
-              <i class="fa fa-random randomize" click.delegate="loadUser(' ')"></i>
+              <i class="fa fa-random randomize" click.delegate="loadRandomUserRoute()"></i>
             </h2>
             <p>
               <span innerHTML.one-way="data[0].user.description.html" click.delegate="postclicks.handler($event)"></span>
@@ -69,7 +69,7 @@
           <div class="pure-u-1 pure-u-sm-1-2">
             <p>Mostly mentioning
               <span repeat.for="men of data | reduceEntity:'mentions' | propertyFrequency:'name' | sort: { propertyName: 'count', direction: 'descending' } | take:numberOfTopMentions">
-                <a href="#" click.delegate="$parent.loadUser(men.name)">@${men.name}</a>(<strong>${men.count}</strong>)${$index
+                <a href="#" click.delegate="$parent.loadUserRoute(men.name)">@${men.name}</a>(<strong>${men.count}</strong>)${$index
                 <=numberOfTopMentions ? ',': ''}</span> <a href="#" click.delegate="moreMentions()">more...</a>
             </p>
           </div>

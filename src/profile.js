@@ -2,20 +2,19 @@ import { computedFrom, inject } from 'aurelia-framework';
 import { AdnAPI } from './adn-api';
 import { parseDate, findIndexByKeyValue, sumKey } from './resources/utility';
 import { PostClicks } from './resources/post-clicks';
+import { Router } from 'aurelia-router'; 
+import {activationStrategy} from 'aurelia-router';
 
-@inject(AdnAPI, PostClicks)
+@inject(AdnAPI, PostClicks, Router)
 export class Profile {
-  constructor(api, postclicks) {
+  determineActivationStrategy(){
+    return activationStrategy.replace;
+  }
+   
+  constructor(api, postclicks, router) {
     this.api = api;
     this.postclicks = postclicks;
-  }
-
-  loadUser(user) {
-    return this.api.loadPosts(user || this.user_id).then(data => {
-      this.data = data;
-      this.user_id = this.data[0].user.username;
-      localStorage.setItem('user_id', this.user_id);
-    });
+    this.theRouter = router;
   }
 
   loadMorePosts() {
@@ -23,15 +22,30 @@ export class Profile {
       this.data = this.data.concat(data);
     });
   }
-
+  
   getPost(id) {
     return this.api.loadPost(id).then(post => {
       this.post = post;
     });
   }
 
-  activate(params) {
-    return this.loadUser(params.user_id || this.user_id);
+  loadRandomUserRoute() {
+		this.theRouter.navigateToRoute("randomprofile");  
+  }
+  
+  loadUserRoute(user) {
+		this.theRouter.navigateToRoute("userprofile", {user_id: user || this.user_id});  
+  }
+
+  activate(params, query, route) {
+      if (route.fragment ==="profile/random") {
+        this.user_id = " ";  
+      }
+      return this.api.loadPosts(params.user_id || this.user_id).then(data => {
+      this.data = data;
+      this.user_id = this.data[0].user.username;
+      localStorage.setItem('user_id', this.user_id);
+    });
   }
 
   numberOfTopMentions = 5;

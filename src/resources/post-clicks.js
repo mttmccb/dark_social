@@ -8,7 +8,6 @@ export class PostClicks {
   }
 
 	openProfile(name) {
-    console.log(name);
 		localStorage.setItem('user_id', name);
 		this.theRouter.navigateToRoute("userprofile", {user_id: name});  
 	}
