@@ -1,0 +1,16 @@
+<template>
+	<a href="#" click.trigger="toggleDetails($event, post)"><i class="fa fa-repeat"></i></a>
+	<div class="pure-g">
+		<div class="pure-u-1 post-details ${post.hidePost? '' : 'showMe'}" ">
+	    <p innerHTML.one-way="post.html "  click.delegate="postclicks.handler($event) "></p>
+					<p>Posted on ${post.created_at | timeAgo}</p>
+				</div>
+				<div class="pure-u-1 post-details ${post.hidePost? 'showMe' : ''} "">
+			<p>${post.num_replies} <i class="fa fa-reply"></i> ${post.num_reposts}<i class="fa fa-retweet "></i> ${post.num_stars}<i class="fa fa-star "></i> <a href.bind="post.canonical_url" target="_blank"><i class="fa fa-adn "></i> Post</a>
+			</p>
+			<p>Posted with
+				<a href.bind="post.source.link" target="_blank">${post.source.name}</a>
+			</p>
+		</div>
+	</div>
+</template>
