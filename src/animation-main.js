@@ -4,7 +4,7 @@ export function configure(aurelia) {
     .developmentLogging()
     .plugin('aurelia-animator-css');
 
-  aurelia.globalizeResources(['./resources/date-format','../resources/time']);
+  aurelia.globalizeResources(['./resources/date-format','../resources/time','../resources/sum']);
 
   aurelia.start().then(a => a.setRoot());
 }

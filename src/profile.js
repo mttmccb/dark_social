@@ -6,6 +6,7 @@ import { activationStrategy } from 'aurelia-router';
 
 @inject(AdnAPI, PostClicks, Router)
 export class Profile {
+  
   determineActivationStrategy() {
     return activationStrategy.replace;
   }
@@ -14,6 +15,7 @@ export class Profile {
     this.api = api;
     this.postclicks = postclicks;
     this.theRouter = router;
+    this.numberOfTopMentions = 5;
   }
 
   activate(params, query, route) {
@@ -47,7 +49,6 @@ export class Profile {
     this.theRouter.navigateToRoute("userprofile", { user_id: user || this.user_id });
   }
 
-  numberOfTopMentions = 5;
   moreMentions() {
     this.numberOfTopMentions += 5;
   }

@@ -2,11 +2,12 @@
  	<require from='../resources/filter-on-property'></require>
  	<require from='../resources/take'></require>
  	<require from='../resources/sort'></require>
- 	<require from='../resources/sum'></require>
  	<require from='../resources/user-icon'></require>
  	<require from='../resources/days-until-milestone'></require>
  	<require from='../resources/property-frequency'></require>
+ 	<require from='../resources/object-property-frequency'></require>
  	<require from='../resources/reduce-object'></require>
+ 	<require from='../resources/reduce-array'></require>
        
   <section class="au-animate main-content-wrapper">
     <div class="pure-g">
@@ -69,6 +70,9 @@
               <span repeat.for="men of data | reduceObject:'entities':'mentions' | propertyFrequency:'name' | sort: { propertyName: 'count', direction: 'descending' } | take:numberOfTopMentions">
                 <a href="#" click.delegate="$parent.loadUserRoute(men.name)">@${men.name}</a>(<strong>${men.count}</strong>)${$index
                 <=numberOfTopMentions ? ',': ''}</span> <a href="#" click.delegate="moreMentions()">more...</a>
+            </p>
+            <p>Mostly using 
+  							<span repeat.for="client of data | objectPropertyFrequency:'source':'name' | sort: { propertyName: 'count', direction: 'descending' } | take:1">${client.name}(<strong>${client.count}</strong>).</span>
             </p>
           </div>
         </div>
