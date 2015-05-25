@@ -203,7 +203,7 @@ padding: 0 1em;
     padding: 1em 1.5em 1.5em 1.5em;
     margin-top: 0;
     border-radius: 0 0 2em 0;
-    opacity: 0.8;
+    opacity: 0.9;
     margin-bottom: 0;
     max-height: 200px;
     overflow-y: scroll;    
@@ -211,7 +211,7 @@ padding: 0 1em;
   #profileDetails ul li a {
     background: #E6FFFF;
     border-radius: 0 0 1em 1em;
-    opacity: 0.8;
+    opacity: 0.9;
     cursor: pointer;
   }
     #profileDetails ul li a:hover {
