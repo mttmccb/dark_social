@@ -1,3 +1,4 @@
+import { inject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
 import { NiceAPI } from './nice-api';
 
@@ -64,8 +65,8 @@ let nouser = {
   ]
 }
 
+@inject(HttpClient)
 export class AdnAPI {
-  static inject() { return [HttpClient]; }
   constructor(http) {
     this.http = http;
   }
@@ -165,7 +166,6 @@ export class AdnAPI {
       return {};
     });
   }
-
 
   getRandomUserId() {
     return this.http.get('https://api.nice.social/user/nicesummary').then((response) => {

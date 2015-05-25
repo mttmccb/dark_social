@@ -1,6 +1,5 @@
-import { computedFrom, inject } from 'aurelia-framework';
+import { inject } from 'aurelia-framework';
 import { AdnAPI } from './adn-api';
-import { parseDate, findIndexByKeyValue, sumKey } from './resources/utility';
 import { PostClicks } from './resources/post-clicks';
 import { Router } from 'aurelia-router'; 
 import { activationStrategy } from 'aurelia-router';

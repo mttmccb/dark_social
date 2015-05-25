@@ -1,7 +1,8 @@
+import { inject } from 'aurelia-framework';
 import { AdnAPI } from './adn-api';
 
+@inject(AdnAPI)
 export class App {
-  static inject = [AdnAPI];
   constructor(api) {
    this.api = api;
   }

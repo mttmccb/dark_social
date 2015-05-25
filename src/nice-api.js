@@ -1,7 +1,8 @@
+import { inject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
 
+@inject(HttpClient)
 export class NiceAPI {
-  static inject() { return [HttpClient]; }
   constructor(http) {
     this.http = http.configure(x => {
       x.withBaseUrl('https://api.nice.social/');

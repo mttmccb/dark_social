@@ -1,8 +1,9 @@
+import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { PostClicks } from '../resources/post-clicks';
 
+@inject(Router, PostClicks)
 export class Choose {
-	static inject() { return [Router, PostClicks]; }
 
 	constructor(router, postclicks) {
 		this.theRouter = router;
