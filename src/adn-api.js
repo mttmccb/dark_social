@@ -2,69 +2,6 @@ import { inject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
 import { NiceAPI } from './nice-api';
 
-let nouser = {
-  meta: {
-    "min_id": "2",
-    "code": 200,
-    "max_id": "1",
-    "more": true
-  },
-  data: [
-    {
-      "created_at": "1790-05-10T15:16:44Z",
-      "num_stars": 0,
-      "num_replies": 0,
-      "num_reposts": 0,
-      "entities": {
-        "mentions": [],
-        "hashtags": [],
-        "links": []
-      },
-      "user": {
-        "username": "theabominablesnowman",
-        "avatar_image": {
-          "url": "styles/abominablesnowman.jpg",
-          "width": 200,
-          "is_default": false,
-          "height": 200
-        },
-        "description": {
-          "html": "<span itemscope=\"https://app.net/schemas/Post\">Oh Crap! you found me... Snowcone?<br><br><span data-hashtag-name=\"snow\" itemprop=\"hashtag\">#snow</span> </span>",
-          "entities": {
-            "mentions": [],
-            "hashtags": [
-              {
-                "name": "snow",
-                "len": 15,
-                "pos": 65
-              }
-            ],
-            "links": []
-          }
-        },
-        "verified_link": "http://en.wikipedia.org/wiki/Yeti",
-        "canonical_url": "https://alpha.app.net/",
-        "verified_domain": "en.wikipedia.org/wiki/Yeti",
-        "cover_image": {
-          "url": "styles/adventure-journal-abominable-snowman.jpg",
-          "width": 3356,
-          "is_default": false,
-          "height": 988
-        },
-        "counts": {
-          "following": 3,
-          "posts": 1,
-          "followers": 0,
-          "stars": 102045
-        },
-        "type": "snowman",
-        "id": "59521",
-        "name": "The Abominable Snowman"
-      }
-    }
-  ]
-}
-
 @inject(HttpClient)
 export class AdnAPI {
   constructor(http) {
@@ -243,4 +180,67 @@ export class AdnAPI {
     getConfig: `${this.apiURL}/config`
   };
 
+}
+
+let nouser = {
+  meta: {
+    "min_id": "2",
+    "code": 200,
+    "max_id": "1",
+    "more": true
+  },
+  data: [
+    {
+      "created_at": "1790-05-10T15:16:44Z",
+      "num_stars": 0,
+      "num_replies": 0,
+      "num_reposts": 0,
+      "entities": {
+        "mentions": [],
+        "hashtags": [],
+        "links": []
+      },
+      "user": {
+        "username": "theabominablesnowman",
+        "avatar_image": {
+          "url": "styles/abominablesnowman.jpg",
+          "width": 200,
+          "is_default": false,
+          "height": 200
+        },
+        "description": {
+          "html": "<span itemscope=\"https://app.net/schemas/Post\">Oh Crap! you found me... Snowcone?<br><br><span data-hashtag-name=\"snow\" itemprop=\"hashtag\">#snow</span> </span>",
+          "entities": {
+            "mentions": [],
+            "hashtags": [
+              {
+                "name": "snow",
+                "len": 15,
+                "pos": 65
+              }
+            ],
+            "links": []
+          }
+        },
+        "verified_link": "http://en.wikipedia.org/wiki/Yeti",
+        "canonical_url": "https://alpha.app.net/",
+        "verified_domain": "en.wikipedia.org/wiki/Yeti",
+        "cover_image": {
+          "url": "styles/adventure-journal-abominable-snowman.jpg",
+          "width": 3356,
+          "is_default": false,
+          "height": 988
+        },
+        "counts": {
+          "following": 3,
+          "posts": 1,
+          "followers": 0,
+          "stars": 102045
+        },
+        "type": "snowman",
+        "id": "59521",
+        "name": "The Abominable Snowman"
+      }
+    }
+  ]
 }

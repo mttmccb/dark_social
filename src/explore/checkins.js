@@ -17,10 +17,6 @@ export class Checkins {
   }
 
   toggleDetails(e, post) {
-    if (post.hidePost) {
-      post.hidePost = false;
-    } else {
-      post.hidePost = true;
-    }
+    post.hidePost = post.hidePost ? false : true;
   }
 }

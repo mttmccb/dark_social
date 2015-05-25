@@ -12,15 +12,12 @@ export class Conversations {
 
   activate() {
     return this.api.loadConversations().then(posts => {
+      console.log(posts);
       this.posts = posts;
     });
   }
 
   toggleDetails(e, post) {
-    if (post.hidePost) {
-      post.hidePost = false;
-    } else {
-      post.hidePost = true;
-    }
+    post.hidePost = post.hidePost ? false : true;
   }
 }

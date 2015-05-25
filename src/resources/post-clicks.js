@@ -22,7 +22,7 @@ export class PostClicks {
 
     } else if (nodeType === 'hashtag') {
       let hashtagName = node.getAttribute('data-hashtag-name');
-      window.location.href = 'http://alpha.app.net/hashtags/' + hashtagName;
+      window.location.href = `http://alpha.app.net/hashtags/${hashtagName}`;
     }
     return true;
   }
