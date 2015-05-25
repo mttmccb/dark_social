@@ -1,6 +1,6 @@
 import { computedFrom, inject } from 'aurelia-framework';
 import { AdnAPI } from './adn-api';
-import { parseDate, findIndexByKeyValue, sortDescending, take, sumKey } from './utility';
+import { parseDate, findIndexByKeyValue, sumKey } from './resources/utility';
 
 @inject(AdnAPI)
 export class Profile {
@@ -48,32 +48,6 @@ export class Profile {
   moreMentions() {
     this.numberOfTopMentions += 5;
   }
-
-  @computedFrom('data')
-  get numReplies() { 
-    if (!this.data) { return 0; }
-    return sumKey(this.data,'num_replies');
-  }
-
-  @computedFrom('data')
-  get numReposts() { 
-    if (!this.data) { return 0; }
-    return sumKey(this.data,'num_reposts');
-  }
-
-  @computedFrom('data')
-  get numStars() { 
-    if (!this.data) { return 0; }
-    return sumKey(this.data,'num_stars');
-  }
-
-  @computedFrom('data')
-  get daysUntil100k() { 
-    let daysInLastPosts = parseDate(this.data[this.data.length-1].created_at)-parseDate(this.data[0].created_at);
-    let postRemaining = 100000 - this.data[0].user.counts.posts;
-    let dailyRate = this.data.length/ daysInLastPosts;
-    return Math.round(postRemaining/(dailyRate*24));
-  }
   
   //TODO: Refactor this to use promises to chain the 4 sections (reduce, count, sort, take x)
   @computedFrom('data')
@@ -82,8 +56,7 @@ export class Profile {
     
     let array = reduceToMentions(this.data);
     array = getMentionFrequency(array);
-    array = sortDescending(array);
-    return take(array, this.numberOfTopMentions);
+    return array;
   } 
     
   //TODO: Refactor this when I have hashtag viewing setup
@@ -114,23 +87,19 @@ export class Profile {
   toggleVisible(e) {
     this.showBanner = !this.showBanner;
   }
-
-  @computedFrom('data')
-  get userTypeIcon() {
-    let icons = {
-      'human': 'user',
-      'feed': 'rss',
-      'bot': 'meh-o',
-      'snowman': 'user-secret'
-    };
-    if (!this.data) { return 'bot'; }
-    return icons[this.data[0].user.type];
+  
+  @computedFrom('post')
+  get loadImages(){
+    if (!this.post) {
+      return [];
+    }    
+    return this.post.annotations;
   }
-}
-
-export class DateValueConverter {
-  toView(value){
-    return Math.round(( new Date() - Date.parse(value) ) /3600000);
+  
+  getPost(id) {
+    return this.api.loadPost(id).then(post => {
+      this.post = post;
+    });
   }
 }
 

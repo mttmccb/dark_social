@@ -1,18 +1,19 @@
 import { Router } from 'aurelia-router';
+import { PostClicks } from '../resources/post-clicks';
 
 export class Choose {
-	static inject() { return [Router]; }
+	static inject() { return [Router, PostClicks]; }
 
-	constructor(router) {
+	constructor(router, postclicks) {
 		this.theRouter = router;
+		this.postclicks = postclicks;
 	}
-
+	
 	openProfile(name) {
 		localStorage.setItem('user_id', name);
 		this.theRouter.navigate("profile");  
-		// this.theRouter.navigateToRoute("profile", { user_id: name });  
 	}
-
+	
 	navigate(e) {
 		switch (e.target.value) {
 			case "1":

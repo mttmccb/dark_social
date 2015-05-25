@@ -1,6 +1,13 @@
 <template>
- 	<require from='../date-format'></require> 
-  
+ 	<require from='../resources/date-format'></require>
+ 	<require from='../resources/filter-on-property'></require>
+ 	<require from='../resources/time'></require>
+ 	<require from='../resources/take'></require>
+ 	<require from='../resources/sort'></require>
+ 	<require from='../resources/sum'></require>
+ 	<require from='../resources/user-icon'></require>
+ 	<require from='../resources/days-until-milestone'></require>
+       
   <section class="au-animate main-content-wrapper">
     <div class="pure-g">
       <div class="pure-u-1-4 pure-u-sm-1-6">
@@ -11,7 +18,7 @@
         <div class="pure-g">
           <div id="profileDetails" class="pure-u-1 pure-u-md-4-5  pure-u-lg-2-3 ${showBanner? 'clean' : ''}">
             <h2>
-              <i class="fa fa-${userTypeIcon}"></i> ${data[0].user.name}
+              <i class="fa fa-${data[0].user.type | userIcon}"></i> ${data[0].user.name}
               <small>@
                 <input type="text" id="un" value.bind="user_id" change.delegate="loadNewUser()" />
               </small> 
@@ -53,13 +60,13 @@
         <div class="pure-g">
           <div class="pure-u-1 pure-u-sm-1-2">
             <p>
-              <strong>${numReplies}</strong> replied to, <strong>${numReposts}</strong> reposted and <strong>${numStars}</strong> starred.</p>
-            <p>Last Posted <strong>${data[0].created_at | date }</strong> hours ago<span if.bind='data.length>1'> and ${data.length} posts before that it was <strong>${data[data.length-1].created_at | date}</strong> hours ago</span>.</p>
-              <p if.bind="data[0].user.counts.posts<100000 && data[0].user.counts.posts>1">Based on the current rate it will be ${daysUntil100k} days before 100,000 posts is reached. Yay for arbitrary milestones!</p>
+              <strong>${data | sum:'num_replies'}</strong> replied to, <strong>${data | sum:'num_reposts'}</strong> reposted and <strong>${data | sum:'num_stars'}</strong> starred.</p>
+            <p>Last Posted <strong>${data[0].created_at | time }</strong> hours ago<span if.bind='data.length>1'> and ${data.length} posts before that it was <strong>${data[data.length-1].created_at | time}</strong> hours ago</span>.</p>
+              <p if.bind="data[0].user.counts.posts<100000 && data[0].user.counts.posts>1">Based on the current rate it will be ${data | daysUntilMilestone:100000} days before 100,000 posts is reached. Yay for arbitrary milestones!</p>
           </div>
           <div class="pure-u-1 pure-u-sm-1-2" if.bind="mentionByUsername.length>0">
             <p>Mostly mentioning
-              <span repeat.for="men of mentionByUsername">
+              <span repeat.for="men of mentionByUsername | sort: { propertyName: 'count', direction: 'descending' } | take:numberOfTopMentions">
                 <a href="#" click.delegate="$parent.loadMentionUser(men)">@${men.name}</a>(<strong>${men.count}</strong>)${$index
                 <=numberOfTopMentions ? ',': ''}</span> <a href="#" click.delegate="moreMentions()">more...</a>
             </p>
@@ -67,12 +74,21 @@
         </div>
       </div>
     </div>
+    <div class="modal">
+      <p repeat.for="image of loadImages | filterOnProperty:'type':'net.app.core.oembed'"><img src="${image.value.thumbnail_url}" /></p>
+      <p>html</p>
+      <p>Post Date</p>
+      <p>Interactions</p>
+      <p>Files</p>
+      <p>Annotations</p>
+    </div>    
 		<div class="pure-g posts">
 			<div class="pure-u-lg-1-3 pure-u-sm-1-2 pure-u-1 post" repeat.for="post of data">
         <a href="#" click.trigger="$parent.toggleDetails($event, post)"><i class="fa fa-repeat"></i></a>
 				<div class="pure-g">
 					<div class="pure-u-1 post-details ${post.hidePost? '' : 'showMe'}" ">
-						<p innerHTML.one-way="post.html "  click.delegate="$parent.postClicks($event) "></p>
+						<p><a href="#" click.trigger="$parent.getPost(post.id)">Open Post</a></p>
+            <p innerHTML.one-way="post.html"  click.delegate="$parent.postClicks($event) "></p>
 						<p>Posted on ${post.created_at | dateFormat:'DD-MMM-YYYY'} at ${post.created_at | dateFormat:'HH:mm'}</p>
 					</div>
 					<div class="pure-u-1 post-details ${post.hidePost? 'showMe' : ''} "">

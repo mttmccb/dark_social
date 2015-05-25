@@ -1,5 +1,5 @@
 <template>
-	<require from='../date-format'></require>
+	<require from='../resources/date-format'></require>
 	
 	<section class="au-animate main-content-wrapper">
 		<div class="pure-g posts">
@@ -10,7 +10,7 @@
 						/>
 					</div>
 					<div class="pure-u-4-5 post-details ${post.hidePost? '' : 'showMe'}" ">
-						<p innerHTML.one-way="post.html "  click.delegate="$parent.postClicks($event) "></p>
+						<p innerHTML.one-way="post.html "  click.delegate="$parent.postclicks.handler($event) "></p>
 					</div>
 					<div class="pure-u-4-5 post-details ${post.hidePost? 'showMe' : ''} "">
 						<p>By <strong>${post.user.name}</strong> <a href="#" click.trigger="$parent.openProfile(post.user.username)">@${post.user.username}</a></p>

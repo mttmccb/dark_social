@@ -22,7 +22,7 @@ let nouser = {
       "user": {
         "username": "theabominablesnowman",
         "avatar_image": {
-          "url": "src/abominablesnowman.jpg",
+          "url": "styles/abominablesnowman.jpg",
           "width": 200,
           "is_default": false,
           "height": 200
@@ -45,7 +45,7 @@ let nouser = {
         "canonical_url": "https://alpha.app.net/",
         "verified_domain": "en.wikipedia.org/wiki/Yeti",
         "cover_image": {
-          "url": "src/adventure-journal-abominable-snowman.jpg",
+          "url": "styles/adventure-journal-abominable-snowman.jpg",
           "width": 3356,
           "is_default": false,
           "height": 988
@@ -81,7 +81,9 @@ export class AdnAPI {
   loadPosts(id, more) {
     this.isRequesting = true;
     return this.getRandomUserId().then((user) => {
-      let getUser = localStorage.getItem('user_id') || user;
+      let getUser = localStorage.getItem('user_id');
+      if (getUser === 'undefined') { getUser = user; }
+      console.log(getUser);
       return this.http.get(more ? this.getMorePostsURL(getUser, this.meta.min_id) : this.getPostsURL(getUser))
         .then((response) => {
         this.meta = response.content.meta;
@@ -103,7 +105,7 @@ export class AdnAPI {
       this.isRequesting = false;
       return response.content.data;
     }).catch((err) => {
-      console.log("Data data round");
+      console.log("Data not found");
       this.isRequesting = false;
       return {};
     });
@@ -118,7 +120,7 @@ export class AdnAPI {
       this.isRequesting = false;
       return response.content.data;
     }).catch((err) => {
-      console.log("Data data round");
+      console.log("Data not round");
       this.isRequesting = false;
       return {};
     });
@@ -133,26 +135,40 @@ export class AdnAPI {
       this.isRequesting = false;
       return response.content.data;
     }).catch((err) => {
-      console.log("Data data round");
+      console.log("Data not found");
       this.isRequesting = false;
       return {};
     });
   }
-  
-    loadCheckins(more) {
+
+  loadCheckins(more) {
     this.isRequesting = true;
     return this.http.get(more ? this.getMoreCheckinsURL(this.meta.min_id) : this.getCheckinsURL())
       .then((response) => {
-      console.log(response);
       this.meta = response.content.meta;
       this.isRequesting = false;
       return response.content.data;
     }).catch((err) => {
-      console.log("Data data round");
+      console.log("Data not found");
       this.isRequesting = false;
       return {};
     });
   }
+
+  loadPost(id) {
+    this.isRequesting = true;
+    return this.http.get(`https://api.app.net/posts/${id}?include_post_annotations=1`)
+      .then((response) => {
+      this.meta = response.content.meta;
+      this.isRequesting = false;
+      return response.content.data;
+    }).catch((err) => {
+      console.log("Data not found");
+      this.isRequesting = false;
+      return {};
+    });
+  }
+
 
   getRandomUserId() {
     return this.http.get('https://api.nice.social/user/nicesummary').then((response) => {
