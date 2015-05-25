@@ -1,5 +1,44 @@
-<template>	
+<template>
+	<require from='../resources/filter-on-property'></require>
+	<require from='../resources/take'></require>
+	<require from='../resources/sort'></require>
+	<require from='../resources/user-icon'></require>
+	<require from='../resources/object-property-frequency'></require>
+	<require from='../resources/property-frequency'></require>
+	<require from='../resources/reduce-array'></require>
+	<require from='../resources/reduce-object'></require>		 
+
 	<section class="au-animate main-content-wrapper">
+		<div class="pure-g posts">
+			<div class="pure-u-1 stats-header">
+				<h2>Last ${posts.length} Trending</h2>
+			</div>
+			<div class="pure-u-1 stats">
+				<div class="pure-g">
+					<div class="pure-u-1">
+						<p>
+							<strong>${posts | sum:'num_replies'}</strong> replied to,
+							<strong>${posts | sum:'num_reposts'}</strong> reposted and
+							<strong>${posts | sum:'num_stars'}</strong> starred.</p>
+						<p><strong>Top clients</strong>
+							<span repeat.for="client of posts | objectPropertyFrequency:'source':'name' | sort: { propertyName: 'count', direction: 'descending' } | take:5">${client.name}(<strong>${client.count}</strong>)${$index
+								<4 ? ', ': ''}</span>.</p>
+						<p><strong>Top Posters</strong>
+							<span repeat.for="user of posts | objectPropertyFrequency:'user':'username' | sort: { propertyName: 'count', direction: 'descending' } | take:5">
+								<a href="#" click.delegate="$parent.loadUserRoute(user.name)">@${user.name}</a>(<strong>${user.count}</strong>)${$index
+								<4 ? ', ': ''}</span>.</p>
+						<p><strong>Top Mentions</strong>
+							<span repeat.for="men of posts | reduceObject:'entities':'mentions' | propertyFrequency:'name' | sort: { propertyName: 'count', direction: 'descending' } | take:5">
+								<a href="#" click.delegate="$parent.loadUserRoute(men.name)">@${men.name}</a>(<strong>${men.count}</strong>)${$index
+								<4 ? ', ': ''}</span>.</p>
+						<p><strong>Top Hashtags</strong>
+						<span repeat.for="men of posts | reduceObject:'entities':'hashtags' | propertyFrequency:'name' | sort: { propertyName: 'count', direction: 'descending' } | take:5">
+							<a href="http://alpha.app.net/hashtags/${men.name}">#${men.name}</a>(<strong>${men.count}</strong>)${$index
+							<4 ? ', ': ''}</span>.</p>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="pure-g posts">
 			<div class="pure-u-lg-1-3 pure-u-sm-1-2 pure-u-1 post" repeat.for="post of posts">
 				<div class="pure-g">

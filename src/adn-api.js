@@ -92,7 +92,7 @@ export class AdnAPI {
 
   loadPost(id) {
     this.isRequesting = true;
-    return this.http.get(`https://api.app.net/posts/${id}?include_post_annotations=1`)
+    return this.http.get(`https://api.app.net/posts/${id}?include_post_annotations=1&include_deleted=0`)
       .then((response) => {
       this.meta = response.content.meta;
       this.isRequesting = false;
@@ -115,42 +115,42 @@ export class AdnAPI {
   }
 
   getConversationsURL(count = 200) {
-    return `${this.apiURL}/posts/stream/explore/conversations?count=${count}`;
+    return `${this.apiURL}/posts/stream/explore/conversations?count=${count}&include_deleted=0`;
   }
 
   getMoreConversationURL(min_id, count = 200) {
-    return `${this.apiURL}/posts/stream/explore/conversations?count=${count}&before_id=${min_id}`;
+    return `${this.apiURL}/posts/stream/explore/conversations?count=${count}&before_id=${min_id}&include_deleted=0`;
   }
 
   getCheckinsURL(count = 200) {
-    return `${this.apiURL}/posts/stream/explore/checkins?count=${count}`;
+    return `${this.apiURL}/posts/stream/explore/checkins?count=${count}&include_deleted=0`;
   }
 
   getMoreCheckinsURL(min_id, count = 200) {
-    return `${this.apiURL}/posts/stream/explore/checkins?count=${count}&before_id=${min_id}`;
+    return `${this.apiURL}/posts/stream/explore/checkins?count=${count}&before_id=${min_id}&include_deleted=0`;
   }
   getPhotosURL(count = 200) {
-    return `${this.apiURL}/posts/stream/explore/photos?count=${count}`;
+    return `${this.apiURL}/posts/stream/explore/photos?count=${count}&include_post_annotations=1&include_deleted=0`;
   }
 
   getMorePhotosURL(min_id, count = 200) {
-    return `${this.apiURL}/posts/stream/explore/photos?count=${count}&before_id=${min_id}`;
+    return `${this.apiURL}/posts/stream/explore/photos?count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
   }
 
   getTrendingURL(count = 200) {
-    return `${this.apiURL}/posts/stream/explore/trending?count=${count}`;
+    return `${this.apiURL}/posts/stream/explore/trending?count=${count}&include_deleted=0`;
   }
 
   getMoreTrendingURL(min_id, count = 200) {
-    return `${this.apiURL}/posts/stream/explore/trending?count=${count}&before_id=${min_id}`;
+    return `${this.apiURL}/posts/stream/explore/trending?count=${count}&before_id=${min_id}&include_deleted=0`;
   }
 
   getPostsURL(id, count = 200) {
-    return `${this.apiURL}/users/@${id}/posts?count=${count}`;
+    return `${this.apiURL}/users/@${id}/posts?count=${count}&include_deleted=0`;
   }
 
   getMorePostsURL(id, min_id, count = 200) {
-    return `${this.apiURL}/users/@${id}/posts?count=${count}&before_id=${min_id}`;
+    return `${this.apiURL}/users/@${id}/posts?count=${count}&before_id=${min_id}&include_deleted=0`;
   }
 
   explore = {

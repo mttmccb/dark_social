@@ -6,6 +6,7 @@ export class ObjectPropertyFrequencyValueConverter {
     if (array.length>0) {
       mentionMap.push({name: array[0][object][property], count: 0});
       array.forEach((mention) => {
+        console.log(mention);
         var index = findIndexByKeyValue(mentionMap,'name',mention[object][property]);
         index ===-1?
           mentionMap.push({ name: mention[object][property], count: 1}) :
