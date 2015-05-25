@@ -16,3 +16,7 @@ export function findIndexByKeyValue(arraytosearch, key, valuetosearch) {
   }
   return -1;
 }
+
+export function randomInteger(max) {
+  return Math.floor((Math.random() * max) + 1);
+}

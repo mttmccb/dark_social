@@ -6,10 +6,8 @@ export class LoadingIndicator {
   @bindable loading = false;
 
   loadingChanged(newValue){
-    if(newValue){
-      nprogress.start();
-    }else{
+    newValue ?
+      nprogress.start() :
       nprogress.done();
-    }
   }
 }

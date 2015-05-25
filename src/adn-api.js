@@ -106,8 +106,7 @@ export class AdnAPI {
 
   getRandomUserId() {
     return this.http.get('https://api.nice.social/user/nicesummary').then((response) => {
-      var randomUserId = Math.floor((Math.random() * response.content.data.length) + 1);
-      return response.content.data[randomUserId].name;
+      return response.content.data[randomInteger(response.content.data.length)].name;
     }).catch((err) => {
       console.log("Nice.Social API Issue");
       return 'berg';

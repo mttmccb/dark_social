@@ -1,5 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
+import { randomInteger } from './resources/utility'
 
 @inject(HttpClient)
 export class NiceAPI {
@@ -12,9 +13,8 @@ export class NiceAPI {
   getRandomUserId() {
     this.isRequesting = true;
     return this.http.get('user/nicesummary').then((response) => {
-        let randomUserId = Math.floor((Math.random() * response.content.data.length) + 1);
         this.isRequesting = false;
-        return response.content.data[randomUserId].name;
+        return response.content.data[randomInteger(response.content.data.length)].name;
     }).catch((err) => {
         console.log("Nice.Social API Issue");
         this.isRequesting = false;
