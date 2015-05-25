@@ -7,6 +7,8 @@
  	<require from='../resources/sum'></require>
  	<require from='../resources/user-icon'></require>
  	<require from='../resources/days-until-milestone'></require>
+ 	<require from='../resources/property-frequency'></require>
+ 	<require from='../resources/reduce-entity'></require>
        
   <section class="au-animate main-content-wrapper">
     <div class="pure-g">
@@ -64,9 +66,9 @@
             <p>Last Posted <strong>${data[0].created_at | time }</strong> hours ago<span if.bind='data.length>1'> and ${data.length} posts before that it was <strong>${data[data.length-1].created_at | time}</strong> hours ago</span>.</p>
               <p if.bind="data[0].user.counts.posts<100000 && data[0].user.counts.posts>1">Based on the current rate it will be ${data | daysUntilMilestone:100000} days before 100,000 posts is reached. Yay for arbitrary milestones!</p>
           </div>
-          <div class="pure-u-1 pure-u-sm-1-2" if.bind="mentionByUsername.length>0">
+          <div class="pure-u-1 pure-u-sm-1-2">
             <p>Mostly mentioning
-              <span repeat.for="men of mentionByUsername | sort: { propertyName: 'count', direction: 'descending' } | take:numberOfTopMentions">
+              <span repeat.for="men of data | reduceEntity:'mentions' | propertyFrequency:'name' | sort: { propertyName: 'count', direction: 'descending' } | take:numberOfTopMentions">
                 <a href="#" click.delegate="$parent.loadMentionUser(men)">@${men.name}</a>(<strong>${men.count}</strong>)${$index
                 <=numberOfTopMentions ? ',': ''}</span> <a href="#" click.delegate="moreMentions()">more...</a>
             </p>

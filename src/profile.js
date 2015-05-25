@@ -38,10 +38,7 @@ export class Profile {
   }
   
   activate() {
-    return this.api.loadPosts(this.user_id).then(data => {
-      this.data = data;
-      this.user_id = this.data[0].user.username;
-    });
+    return this.loadPostsIntoData();  
   }
   
   numberOfTopMentions = 5;
@@ -49,16 +46,6 @@ export class Profile {
     this.numberOfTopMentions += 5;
   }
   
-  //TODO: Refactor this to use promises to chain the 4 sections (reduce, count, sort, take x)
-  @computedFrom('data')
-  get mentionByUsername() {
-    if (!this.data) { return [{ name: 'matt', count: 1}]; }
-    
-    let array = reduceToMentions(this.data);
-    array = getMentionFrequency(array);
-    return array;
-  } 
-    
   //TODO: Refactor this when I have hashtag viewing setup
   bioClicks(e) {
     let node = e.target;
@@ -76,24 +63,11 @@ export class Profile {
   }
   
   toggleDetails(e, post) {
-    if (post.hidePost) {
-      post.hidePost = false;
-    } else {
-      post.hidePost = true;
-    }
+    post.hidePost? false : true;
   }
   
-  showBanner = false;
   toggleVisible(e) {
-    this.showBanner = !this.showBanner;
-  }
-  
-  @computedFrom('post')
-  get loadImages(){
-    if (!this.post) {
-      return [];
-    }    
-    return this.post.annotations;
+    this.showBanner? false : true;
   }
   
   getPost(id) {
@@ -101,23 +75,4 @@ export class Profile {
       this.post = post;
     });
   }
-}
-
-function reduceToMentions(data) {
-  return data.reduce(function(a, b) { return a.concat(b.entities.mentions); }, []); 
-}
-  
-function getMentionFrequency(data) {
-  var mentionMap = [];
-  if (data.length>0) {
-    mentionMap.push({name: data[0].name, count: 0});
-    
-    data.forEach((mention) => {
-      var index = findIndexByKeyValue(mentionMap,'name',mention.name);
-      index ===-1?
-        mentionMap.push({ name: mention.name, count: 1}) :
-        mentionMap[index].count++;        
-    });
-  }
-  return mentionMap;
 }
