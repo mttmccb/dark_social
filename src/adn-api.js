@@ -81,9 +81,8 @@ export class AdnAPI {
   loadPosts(id, more) {
     this.isRequesting = true;
     return this.getRandomUserId().then((user) => {
-      let getUser = localStorage.getItem('user_id');
-      if (getUser === 'undefined') { getUser = user; }
-      console.log(getUser);
+      let getUser = id || localStorage.getItem('user_id');
+      if (getUser === 'undefined' || getUser ===' ') { getUser = user; }
       return this.http.get(more ? this.getMorePostsURL(getUser, this.meta.min_id) : this.getPostsURL(getUser))
         .then((response) => {
         this.meta = response.content.meta;
@@ -115,7 +114,6 @@ export class AdnAPI {
     this.isRequesting = true;
     return this.http.get(more ? this.getMorePhotosURL(this.meta.min_id) : this.getPhotosURL())
       .then((response) => {
-      console.log(response);
       this.meta = response.content.meta;
       this.isRequesting = false;
       return response.content.data;
@@ -130,7 +128,6 @@ export class AdnAPI {
     this.isRequesting = true;
     return this.http.get(more ? this.getMoreConversationsURL(this.meta.min_id) : this.getConversationsURL())
       .then((response) => {
-      console.log(response);
       this.meta = response.content.meta;
       this.isRequesting = false;
       return response.content.data;
