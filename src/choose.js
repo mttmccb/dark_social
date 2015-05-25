@@ -10,33 +10,20 @@ export class Choose {
 	}
 	
 	openProfile(name) {
-		localStorage.setItem('user_id', name);
-		this.theRouter.navigate("profile");  
+		this.theRouter.navigateToRoute("userprofile", {user_id: name});  
 	}
 	
 	navigate(e) {
 		switch (e.target.value) {
-			case "1":
-				this.theRouter.navigate("profile");
+			case "profile/random":
+			case "trending":
+			case "photos":
+			case "conversations":
+			case "checkins":
+				this.theRouter.navigate(e.target.value);
 				break;
 
-			case "3":
-				this.theRouter.navigate("trending");
-				break;
-
-			case "4":
-				this.theRouter.navigate("photos");
-				break;
-
-			case "6":
-				this.theRouter.navigate("checkins");
-				break;
-
-			case "8":
-				this.theRouter.navigate("conversations");
-				break;
-
-			case "11":
+			case "kebab":
 				window.location.href = "http://en.wikipedia.org/wiki/Kebab";
 				break;
 
