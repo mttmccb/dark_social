@@ -62,8 +62,8 @@
           <div class="pure-u-1 pure-u-sm-1-2">
             <p>
               <strong>${data | sum:'num_replies'}</strong> replied to, <strong>${data | sum:'num_reposts'}</strong> reposted and <strong>${data | sum:'num_stars'}</strong> starred.</p>
-            <p>Last Posted <strong>${data[0].created_at | time }</strong> hours ago<span if.bind='data.length>1'> and ${data.length} posts before that it was <strong>${data[data.length-1].created_at | time}</strong> hours ago</span>.</p>
-              <p if.bind="data[0].user.counts.posts<100000 && data[0].user.counts.posts>1">Based on the current rate it will be ${data | daysUntilMilestone:100000} days before 100,000 posts is reached. Yay for arbitrary milestones!</p>
+            <p>Last Posted <strong>${data[0].created_at | timeAgo }</strong><span if.bind='data.length>1'> and ${data.length} posts before that it was <strong>${data[data.length-1].created_at | timeAgo}</strong></span>.</p>
+              <p if.bind="data[0].user.counts.posts<100000 && data[0].user.counts.posts>1">Based on the current rate ${data | daysUntilMilestone:100000 | timeTo } 100,000 posts will be reached. Yay for arbitrary milestones!</p>
           </div>
           <div class="pure-u-1 pure-u-sm-1-2">
             <p>Mostly mentioning
@@ -84,7 +84,7 @@
 				<div class="pure-g">
 					<div class="pure-u-1 post-details ${post.hidePost? '' : 'showMe'}" ">
             <p innerHTML.one-way="post.html"  click.delegate="$parent.postclicks.handler($event) "></p>
-						<p>Posted on ${post.created_at | dateFormat:'DD-MMM-YYYY'} at ${post.created_at | dateFormat:'HH:mm'}</p>
+						<p>Posted on ${post.created_at | timeAgo}</p>
 					</div>
 					<div class="pure-u-1 post-details ${post.hidePost? 'showMe' : ''} "">
 						<p>

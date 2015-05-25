@@ -57,7 +57,7 @@
 					"></i> ${post.num_reposts}
 							<i class="fa fa-retweet "></i> ${post.num_stars}
 							<i class="fa fa-star "></i> <a href.bind="post.canonical_url" target="_blank"><i class="fa fa-adn "></i> Post</a></p>
-						<p>Posted on ${post.created_at | dateFormat:'DD-MMM-YYYY'} at ${post.created_at | dateFormat:'HH:mm'} with <a href.bind="post.source.link" target="_blank">${post.source.name}</a></p>
+						<p>Posted on ${post.created_at | timeAgo} with <a href.bind="post.source.link" target="_blank">${post.source.name}</a></p>
 					</div>
 				</div>
 			</div>
