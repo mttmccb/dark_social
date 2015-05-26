@@ -1,11 +1,18 @@
 <template>
-	<a href="#" click.trigger="toggleDetails($event, post)"><i class="fa fa-repeat"></i></a>
+	<require from='../resources/filter-on-property'></require>
+		
+	<a href="#" if.bind="!includeAvatar" click.trigger="toggleDetails($event, post)"><i class="fa fa-repeat"></i></a>
 	<div class="pure-g">
-		<div class="pure-u-1 post-details ${post.hidePost? '' : 'showMe'}" ">
-	    <p innerHTML.one-way="post.html "  click.delegate="postclicks.handler($event) "></p>
-					<p>Posted on ${post.created_at | timeAgo}</p>
-				</div>
-				<div class="pure-u-1 post-details ${post.hidePost? 'showMe' : ''} "">
+		<div if.bind="includeAvatar" class="pure-u-1-5">
+			<img id="profilePicture" src.bind="post.user.avatar_image.url" class="pure-img" click.trigger="toggleDetails($event, post)" />
+		</div>
+		<div class="${includeAvatar ? 'pure-u-4-5' : 'pure-u-1'} post-details ${post.hidePost? '' : 'showMe'}" ">
+			<a repeat.for="image of post.annotations | filterOnProperty:'type':'net.app.core.oembed'" href="${image.value.url}" target="_blank" ><img src="${image.value.thumbnail_url}" class="pure-img" /></a>
+	    	<p innerHTML.one-way="post.html "  click.delegate="postclicks.handler($event) "></p>
+			<p>Posted on ${post.created_at | timeAgo}</p>
+			<p><a if.bind="post.num_replies>0" href="http://treeview.us/home/thread/${post.id} " target="_blank "><i class="fa fa-tree "></i> View</a></p>
+		</div>
+		<div class="pure-u-1 post-details ${post.hidePost? 'showMe' : ''} "">
 			<p>${post.num_replies} <i class="fa fa-reply"></i> ${post.num_reposts}<i class="fa fa-retweet "></i> ${post.num_stars}<i class="fa fa-star "></i> <a href.bind="post.canonical_url" target="_blank"><i class="fa fa-adn "></i> Post</a>
 			</p>
 			<p>Posted with

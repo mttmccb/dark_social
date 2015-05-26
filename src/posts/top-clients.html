@@ -1,0 +1,7 @@
+<template>
+	<require from='../resources/take'></require>
+	<require from='../resources/sort'></require>
+	<require from='../resources/object-property-frequency'></require>
+
+	<strong>Top clients</strong> <span repeat.for="client of posts | objectPropertyFrequency:'source':'name' | sort: { propertyName: 'count', direction: 'descending' } | take:5">${client.name}(<strong>${client.count}</strong>)${$index<4 ? ', ': ''}</span>.
+</template>

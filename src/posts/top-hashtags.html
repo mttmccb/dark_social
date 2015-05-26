@@ -1,0 +1,8 @@
+<template>
+	<require from='../resources/take'></require>
+	<require from='../resources/sort'></require>
+	<require from='../resources/reduce-object'></require>
+	<require from='../resources/property-frequency'></require>
+
+	<strong>Top Hashtags</strong> <span repeat.for="men of posts | reduceObject:'entities':'hashtags' | propertyFrequency:'name' | sort: { propertyName: 'count', direction: 'descending' } | take:5"> <a href="http://alpha.app.net/hashtags/${men.name}">#${men.name}</a>(<strong>${men.count}</strong>)${$index<4 ? ', ': ''}</span>.
+</template>

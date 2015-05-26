@@ -114,19 +114,19 @@ export class AdnAPI {
   }
 
   getConversationsURL(count = 200) {
-    return `${this.apiURL}/posts/stream/explore/conversations?count=${count}&include_deleted=0`;
+    return `${this.apiURL}/posts/stream/explore/conversations?count=${count}&include_post_annotations=1&include_deleted=0`;
   }
 
   getMoreConversationURL(min_id, count = 200) {
-    return `${this.apiURL}/posts/stream/explore/conversations?count=${count}&before_id=${min_id}&include_deleted=0`;
+    return `${this.apiURL}/posts/stream/explore/conversations?count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
   }
 
   getCheckinsURL(count = 200) {
-    return `${this.apiURL}/posts/stream/explore/checkins?count=${count}&include_deleted=0`;
+    return `${this.apiURL}/posts/stream/explore/checkins?count=${count}&include_post_annotations=1&include_deleted=0`;
   }
 
   getMoreCheckinsURL(min_id, count = 200) {
-    return `${this.apiURL}/posts/stream/explore/checkins?count=${count}&before_id=${min_id}&include_deleted=0`;
+    return `${this.apiURL}/posts/stream/explore/checkins?count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
   }
   getPhotosURL(count = 200) {
     return `${this.apiURL}/posts/stream/explore/photos?count=${count}&include_post_annotations=1&include_deleted=0`;
@@ -137,19 +137,19 @@ export class AdnAPI {
   }
 
   getTrendingURL(count = 200) {
-    return `${this.apiURL}/posts/stream/explore/trending?count=${count}&include_deleted=0`;
+    return `${this.apiURL}/posts/stream/explore/trending?count=${count}&include_post_annotations=1&include_deleted=0`;
   }
 
   getMoreTrendingURL(min_id, count = 200) {
-    return `${this.apiURL}/posts/stream/explore/trending?count=${count}&before_id=${min_id}&include_deleted=0`;
+    return `${this.apiURL}/posts/stream/explore/trending?count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
   }
 
   getPostsURL(id, count = 200) {
-    return `${this.apiURL}/users/@${id}/posts?count=${count}&include_deleted=0`;
+    return `${this.apiURL}/users/@${id}/posts?count=${count}&include_post_annotations=1&include_deleted=0`;
   }
 
   getMorePostsURL(id, min_id, count = 200) {
-    return `${this.apiURL}/users/@${id}/posts?count=${count}&before_id=${min_id}&include_deleted=0`;
+    return `${this.apiURL}/users/@${id}/posts?count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
   }
 
   explore = {
