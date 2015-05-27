@@ -11,7 +11,6 @@ export class Conversations {
   
   activate() {
     return this.api.loadConversations().then(posts => {
-      console.log(posts);
       this.posts = posts;
     });
   }

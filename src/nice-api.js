@@ -1,6 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
-import { randomInteger } from './resources/utility'
+import { randomInteger } from './resources/utility';
 
 @inject(HttpClient)
 export class NiceAPI {

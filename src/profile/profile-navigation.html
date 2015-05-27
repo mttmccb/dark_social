@@ -1,0 +1,9 @@
+<template>
+ 	<require from='../resources/user-icon'></require>
+	
+	<i class="fa fa-${user.type | userIcon}"></i> ${user.name}
+	<small>@
+		<input type="text" id="un" value.bind="user.username" change.delegate="loadUserRoute()" />
+	</small>
+	<i class="fa fa-random randomize" click.delegate="loadRandomUserRoute()"></i>
+</template>

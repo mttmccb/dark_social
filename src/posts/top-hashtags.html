@@ -4,5 +4,5 @@
 	<require from='../resources/reduce-object'></require>
 	<require from='../resources/property-frequency'></require>
 
-	<strong>Top Hashtags</strong> <span repeat.for="men of posts | reduceObject:'entities':'hashtags' | propertyFrequency:'name' | sort: { propertyName: 'count', direction: 'descending' } | take:5"> <a href="http://alpha.app.net/hashtags/${men.name}">#${men.name}</a>(<strong>${men.count}</strong>)${$index<4 ? ', ': ''}</span>.
+	<strong>Top Hashtags</strong> <span repeat.for="hashtag of posts | reduceObject:'entities':'hashtags' | propertyFrequency:'name' | sort: { propertyName: 'count', direction: 'descending' } | take:5"> <a href="http://alpha.app.net/hashtags/${hashtag.name}">#${hashtag.name}</a>(<strong>${hashtag.count}</strong>)${$index<4 ? ', ': ''}</span>.
 </template>

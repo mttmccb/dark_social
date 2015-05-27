@@ -1,19 +1,17 @@
 import { inject } from 'aurelia-framework';
 import { AdnAPI } from './adn-api';
-import { PostClicks } from './resources/post-clicks';
 import { Router } from 'aurelia-router'; 
 import { activationStrategy } from 'aurelia-router';
 
-@inject(AdnAPI, PostClicks, Router)
+@inject(AdnAPI, Router)
 export class Profile {
   
   determineActivationStrategy() {
     return activationStrategy.replace;
   }
 
-  constructor(api, postclicks, router) {
+  constructor(api, router) {
     this.api = api;
-    this.postclicks = postclicks;
     this.theRouter = router;
     this.numberOfTopMentions = 5;
   }
@@ -51,10 +49,6 @@ export class Profile {
 
   moreMentions() {
     this.numberOfTopMentions += 5;
-  }
-
-  toggleDetails(e, post) {
-    post.hidePost = post.hidePost ? false : true;
   }
 
   toggleVisible(e) {
