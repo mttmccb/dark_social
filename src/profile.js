@@ -13,7 +13,6 @@ export class Profile {
   constructor(api, router) {
     this.api = api;
     this.theRouter = router;
-    this.numberOfTopMentions = 5;
   }
 
   activate(params, query, route) {
@@ -45,10 +44,6 @@ export class Profile {
 
   loadUserRoute(user) {
     this.theRouter.navigateToRoute("userprofile", { user_id: user || this.user_id });
-  }
-
-  moreMentions() {
-    this.numberOfTopMentions += 5;
   }
 
   toggleVisible(e) {
