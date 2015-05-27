@@ -1,9 +1,8 @@
 import { inject } from 'aurelia-framework';
 import { AdnAPI } from './adn-api';
-import { Router } from 'aurelia-router'; 
 import { activationStrategy } from 'aurelia-router';
 
-@inject(AdnAPI, Router)
+@inject(AdnAPI)
 export class Profile {
   
   determineActivationStrategy() {
@@ -12,7 +11,6 @@ export class Profile {
 
   constructor(api, router) {
     this.api = api;
-    this.theRouter = router;
   }
 
   activate(params, query, route) {
@@ -36,14 +34,6 @@ export class Profile {
     return this.api.loadPost(id).then(post => {
       this.post = post;
     });
-  }
-
-  loadRandomUserRoute() {
-    this.theRouter.navigateToRoute("randomprofile");
-  }
-
-  loadUserRoute(user) {
-    this.theRouter.navigateToRoute("userprofile", { user_id: user || this.user_id });
   }
 
   toggleVisible(e) {

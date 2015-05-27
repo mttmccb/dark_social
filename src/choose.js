@@ -1,13 +1,11 @@
 import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { PostClicks } from '../resources/post-clicks';
 
-@inject(Router, PostClicks)
+@inject(Router)
 export class Choose {
 
 	constructor(router, postclicks) {
 		this.theRouter = router;
-		this.postclicks = postclicks;
 	}
 	
 	openProfile(name) {
