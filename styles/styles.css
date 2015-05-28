@@ -274,7 +274,6 @@ padding: 0 1em;
 
 /* Post Formatting */
 .posts {
-  max-width: 68em;
   margin: 0 auto;
 }
 .post {
@@ -318,6 +317,10 @@ padding: 0 1em;
   hyphens: auto;  
 	transition: opacity 1s ease-out;
   display: none;
+}
+.post-images {
+  max-height: 15em;
+  overflow: scroll;
 }
 
 /* Footer */

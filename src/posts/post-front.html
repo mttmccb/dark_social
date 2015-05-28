@@ -1,8 +1,9 @@
 <template>
 	<require from='./annotation-images'></require>
 	
-	<annotation-images annotations.bind="post.annotations"></annotation-images>
+	<div class="post-images">
+			<annotation-images annotations.bind="post.annotations"></annotation-images>
+	</div>
 	<p innerHTML.one-way="post.html "  click.delegate="postclicks.handler($event) "></p>
-	<p>Posted on ${post.created_at | timeAgo}</p>
-	<p><a if.bind="post.num_replies>0" href="http://treeview.us/home/thread/${post.id} " target="_blank "><i class="fa fa-tree "></i> View</a></p>	
+	<p>Posted ${post.created_at | timeAgo} <a if.bind="post.num_replies>0" href="http://treeview.us/home/thread/${post.id} " target="_blank "><i class="fa fa-tree "></i> View</a></p>	
 </template>
