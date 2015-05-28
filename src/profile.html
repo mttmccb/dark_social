@@ -38,9 +38,8 @@
           <profile-stats posts.bind="data"></profile-stats>
       </div>
     </div>   
-		<div class="pure-g posts">
-			<div class="pure-u-lg-1-3 pure-u-sm-1-2 pure-u-1 post" repeat.for="post of data">
-        <post post.bind="post"></post>   
-			</div>
+    <div id="posts" class="posts">
+      <post post.bind="post" repeat.for="post of data"></post>        
+    </div>
   </section>
 </template>

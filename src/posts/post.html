@@ -1,9 +1,8 @@
 <template>
 	<require from='./post-front'></require>
 	<require from='./post-back'></require>
-		
-	<a href="#" if.bind="!includeAvatar" click.trigger="toggleDetails($event, post)"><i class="fa fa-repeat"></i></a>
-	<div class="pure-g">
+	<div class="post">	
+		<a href="#" if.bind="!includeAvatar" click.trigger="toggleDetails($event, post)"><i class="fa fa-repeat"></i></a>
 		<div if.bind="includeAvatar" class="pure-u-1-5">
 			<img id="profilePicture" src.bind="post.user.avatar_image.url" class="pure-img" click.trigger="toggleDetails($event, post)" />
 		</div>
