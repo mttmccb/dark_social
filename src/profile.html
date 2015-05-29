@@ -39,7 +39,7 @@
       </div>
     </div>   
     <div id="posts" class="posts">
-      <post post.bind="post" repeat.for="post of data"></post>        
+      <post post.bind="{ data: post, avatar: false}" repeat.for="post of data"></post>        
     </div>
   </section>
 </template>

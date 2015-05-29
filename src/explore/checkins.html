@@ -24,7 +24,7 @@
 			</div>
 		</div>
 	    <div id="posts" class="posts">
-	      <post post.bind="post" repeat.for="post of posts"></post>        
+	      <post post.bind="{ data: post, avatar:true }" repeat.for="post of posts"></post>        
 	    </div>
 	</section>
 </template>

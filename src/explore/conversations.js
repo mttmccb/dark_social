@@ -23,15 +23,14 @@ export class Conversations {
 
   createMasonry() {
     var container = document.querySelector('#posts');
-    var msnry = new Masonry(container, {
-      columnWidth: ".post",
-      itemSelector: '.post',
-      percentPosition: true,
-      gutter: 10
-    });
     
     imagesLoaded( container, function() {
-      msnry.layout();
-    });    
+      var msnry = new Masonry(container, {
+        columnWidth: ".post",
+        itemSelector: '.post',
+        percentPosition: true,
+        gutter: 10
+      });
+    });     
   }  
 }

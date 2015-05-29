@@ -274,7 +274,6 @@ padding: 0 1em;
 
 /* Post Formatting */
 .posts {
-  margin: 0 auto;
 }
 .post {
   padding: 0 1em 0 0;
@@ -282,9 +281,9 @@ padding: 0 1em;
   border-radius: 2em;
   width: calc(100% - 10px);
   margin-bottom: 10px; 
-  	perspective: 1000;
+	perspective: 1000;
 	transform-style: preserve-3d;
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 @media screen and (min-width: 35.5em) {

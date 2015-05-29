@@ -1,16 +1,16 @@
 <template>
 	<require from='./post-front'></require>
 	<require from='./post-back'></require>
-	<div class="post">	
-		<a href="#" if.bind="!includeAvatar" click.trigger="toggleDetails($event, post)"><i class="fa fa-repeat"></i></a>
-		<div if.bind="includeAvatar" class="pure-u-1-5">
-			<img id="profilePicture" src.bind="post.user.avatar_image.url" class="pure-img" click.trigger="toggleDetails($event, post)" />
+	<div class="pure-g post">	
+		<a href="#" if.bind="!post.avatar" click.trigger="toggleDetails($event, post)"><i class="fa fa-repeat"></i></a>
+		<div if.bind="post.avatar" class="pure-u-1-5">
+			<img id="profilePicture" src.bind="post.data.user.avatar_image.url" class="pure-img" click.trigger="toggleDetails($event, post)" />
 		</div>
-		<div class="${includeAvatar ? 'pure-u-4-5' : 'pure-u-1'} post-details ${post.hidePost? '' : 'showMe'}" ">
-			<post-front post.bind="post"></post-front>
+		<div class="${post.avatar ? 'pure-u-4-5' : 'pure-u-1'} post-details ${post.hidePost? '' : 'showMe'}" ">
+			<post-front post.bind="post.data"></post-front>
 		</div>
-		<div class="${includeAvatar ? 'pure-u-4-5' : 'pure-u-1'} post-details ${post.hidePost? 'showMe' : ''} "">
-			<post-back post.bind="post"></post-back>
+		<div class="${post.avatar ? 'pure-u-4-5' : 'pure-u-1'} post-details ${post.hidePost? 'showMe' : ''} "">
+			<post-back post.bind="post.data"></post-back>
 		</div>
 	</div>
 </template>
