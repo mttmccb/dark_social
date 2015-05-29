@@ -317,9 +317,15 @@ padding: 0 1em;
 	transition: opacity 1s ease-out;
   display: none;
 }
-.post-images {
-  max-height: 15em;
-  overflow: scroll;
+
+.post-images img {
+  padding: 0 0 1em 0;
+}
+
+.post-images img {
+  width: calc(25% - 1px);
+  display: inline-block;
+  margin-left: 1px;
 }
 
 /* Footer */
