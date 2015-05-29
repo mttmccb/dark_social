@@ -20,11 +20,12 @@ System.config({
   "map": {
     "aurelia-animator-css": "github:aurelia/animator-css@0.2.0",
     "aurelia-bootstrapper": "github:aurelia/bootstrapper@0.12.0",
+    "aurelia-bs-modal": "github:pwkad/aurelia-bs-modal@0.1.2",
     "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.7.1",
     "aurelia-framework": "github:aurelia/framework@0.11.0",
     "aurelia-http-client": "github:aurelia/http-client@0.8.1",
     "aurelia-router": "github:aurelia/router@0.8.1",
-    "babel": "npm:babel-core@5.1.13",
+    "babel": "npm:babel-core@5.4.7",
     "babel-runtime": "npm:babel-runtime@5.1.13",
     "bootstrap": "github:twbs/bootstrap@3.3.4",
     "core-js": "npm:core-js@0.9.9",
@@ -185,7 +186,7 @@ System.config({
       "path": "github:jspm/nodelibs-path@0.1.0"
     },
     "github:twbs/bootstrap@3.3.4": {
-      "jquery": "github:components/jquery@2.1.3"
+      "jquery": "github:components/jquery@2.1.4"
     },
     "npm:amdefine@0.1.0": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",

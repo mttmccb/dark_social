@@ -64,7 +64,7 @@ let nouser = {
       }
     }
   ]
-}
+};
 
 @inject(HttpClient)
 export class AdnAPI {

@@ -54,6 +54,7 @@
     "dependencies": {
       "aurelia-animator-css": "github:aurelia/animator-css@^0.2.0",
       "aurelia-bootstrapper": "github:aurelia/bootstrapper@^0.12.0",
+      "aurelia-bs-modal": "github:pwkad/aurelia-bs-modal@^0.1.2",
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@^0.7.0",
       "aurelia-framework": "github:aurelia/framework@^0.11.0",
       "aurelia-http-client": "github:aurelia/http-client@^0.8.1",
@@ -62,7 +63,8 @@
       "imagesloaded": "npm:imagesloaded@^3.1.8",
       "masonry-layout": "npm:masonry-layout@^3.3.0",
       "moment": "github:moment/moment@^2.10.3",
-      "nprogress": "github:rstacruz/nprogress@^0.2.0"
+      "nprogress": "github:rstacruz/nprogress@^0.2.0",
+      "vex": "npm:vex@^0.0.4"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.1.13",

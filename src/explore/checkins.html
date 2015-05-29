@@ -5,15 +5,23 @@
 	<require from='../posts/top-mentions'></require>	 
 	<require from='../posts/top-hashtags'></require>
 	<require from='../posts/top-posters'></require>
-	 
-	<section class="au-animate main-content-wrapper">
+	
+	<div id="openModal" class="fadeInDownBig modalDialog ${showing? 'open': ''}">
+		<div>
+			<a href="#" click.delegate="hideModal()" title="Close" class="close">&times;</a>
+			<img src.bind="post"></img> 			
+		</div>
+	</div>
+
+	<section class="au-animate main-content-wrapper">	
 		<div class="pure-g posts">
 			<div class="pure-u-1 stats-header">
 				<h2>Last ${posts.length} Checkins</h2>
 			</div>
 			<div class="pure-u-1 stats">
 				<div class="pure-g">
-					<div class="pure-u-1">					
+					<div class="pure-u-1">
+						<a href="#" click.delegate="showModal()">Show simple Modal</a>
 						<p><post-stats posts.bind="posts"></post-stats></p>
 						<p><top-clients posts.bind="posts"></top-clients></p>
 						<p><top-posters posts.bind="posts"></top-posters></p>

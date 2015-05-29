@@ -28,7 +28,6 @@ export class Profile {
   }
 
   attached() {
-    console.log('view is attached');
     this.createMasonry();
   }
 
