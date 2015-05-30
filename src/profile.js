@@ -13,7 +13,6 @@ export class Profile {
 
   constructor(api) {
     this.api = api;
-
   }
 
   activate(params, query, route) {

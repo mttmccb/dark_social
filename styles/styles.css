@@ -93,6 +93,14 @@ a:visited {
 	pointer-events: auto; 
 }
 
+.has-success input {
+  border-color: #3c763d;
+}
+
+.has-warning input {
+  border-color: #8a6d3b;
+}
+
 .modalDialog.open > div {
 	opacity:1;
 	pointer-events: auto;
