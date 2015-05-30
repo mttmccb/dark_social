@@ -106,7 +106,7 @@ a:visited {
 .modalDialog > div {
 	max-width: 700px;
 	position: relative;
-	margin: 10% auto;
+	margin: 5% auto;
 	padding: 5px 20px 13px 20px;
 	border-radius: 2em;
 	background: #FFFAF3;  
@@ -115,6 +115,10 @@ a:visited {
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both; 
   animation-name: fadeOutUpBig; 
+}
+
+.modalDialog > div > a > img {
+  border-radius: 1em;
 }
 
 .close {

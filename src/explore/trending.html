@@ -6,6 +6,14 @@
 	<require from='../posts/top-hashtags'></require>	 
 	<require from='../posts/top-posters'></require>	 
 
+	<div id="openModal" class="fadeInDownBig modalDialog ${showing? 'open': ''}">
+		<div>
+			<a href="#" click.delegate="hideModal()" title="Close" class="close">&times;</a>
+			<a href="${adnimage.url}" target="_blank" ><img src.bind="adnimage.url" class="pure-img" /></a> 			
+			<p>${adnimage.title}</p>
+		</div>
+	</div>
+	
 	<section class="au-animate main-content-wrapper">
 		<div class="pure-g posts">
 			<div class="pure-u-1 stats-header">

@@ -9,7 +9,8 @@
 	<div id="openModal" class="fadeInDownBig modalDialog ${showing? 'open': ''}">
 		<div>
 			<a href="#" click.delegate="hideModal()" title="Close" class="close">&times;</a>
-			<img src.bind="post"></img> 			
+			<a href="${adnimage.url}" target="_blank" ><img src.bind="adnimage.url" class="pure-img" /></a> 			
+			<p>${adnimage.title}</p>
 		</div>
 	</div>
 
@@ -21,7 +22,6 @@
 			<div class="pure-u-1 stats">
 				<div class="pure-g">
 					<div class="pure-u-1">
-						<a href="#" click.delegate="showModal()">Show simple Modal</a>
 						<p><post-stats posts.bind="posts"></post-stats></p>
 						<p><top-clients posts.bind="posts"></top-clients></p>
 						<p><top-posters posts.bind="posts"></top-posters></p>

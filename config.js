@@ -22,6 +22,7 @@ System.config({
     "aurelia-bootstrapper": "github:aurelia/bootstrapper@0.12.0",
     "aurelia-bs-modal": "github:pwkad/aurelia-bs-modal@0.1.2",
     "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.7.1",
+    "aurelia-event-aggregator": "github:aurelia/event-aggregator@0.4.0",
     "aurelia-framework": "github:aurelia/framework@0.11.0",
     "aurelia-http-client": "github:aurelia/http-client@0.8.1",
     "aurelia-router": "github:aurelia/router@0.8.1",
@@ -37,6 +38,7 @@ System.config({
     "nprogress": "github:rstacruz/nprogress@0.2.0",
     "traceur": "github:jmcriffey/bower-traceur@0.0.88",
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88",
+    "vex": "npm:vex@0.0.4",
     "github:aurelia/animator-css@0.2.0": {
       "aurelia-templating": "github:aurelia/templating@0.11.2"
     },
@@ -176,6 +178,16 @@ System.config({
     },
     "github:jspm/nodelibs-util@0.1.0": {
       "util": "npm:util@0.10.3"
+    },
+    "github:pwkad/aurelia-bs-modal@0.1.2": {
+      "aurelia-bs-modal": "github:pwkad/aurelia-bs-modal@master",
+      "babel": "npm:babel-core@5.4.7",
+      "jquery": "github:components/jquery@2.1.4"
+    },
+    "github:pwkad/aurelia-bs-modal@master": {
+      "aurelia-bs-modal": "github:pwkad/aurelia-bs-modal@master",
+      "babel": "npm:babel-core@5.4.7",
+      "jquery": "github:components/jquery@2.1.4"
     },
     "github:rstacruz/nprogress@0.2.0": {
       "css": "github:systemjs/plugin-css@0.1.10"
