@@ -35,6 +35,7 @@ System.config({
     "imagesloaded": "npm:imagesloaded@3.1.8",
     "masonry-layout": "npm:masonry-layout@3.3.0",
     "moment": "github:moment/moment@2.10.3",
+    "moment-timezone": "npm:moment-timezone@0.3.1",
     "nprogress": "github:rstacruz/nprogress@0.2.0",
     "traceur": "github:jmcriffey/bower-traceur@0.0.88",
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88",
@@ -270,6 +271,13 @@ System.config({
       "fizzy-ui-utils": "npm:fizzy-ui-utils@1.0.1",
       "get-size": "npm:get-size@1.2.2",
       "outlayer": "npm:outlayer@1.4.0",
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
+    "npm:moment-timezone@0.3.1": {
+      "moment": "npm:moment@2.10.3",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
+    },
+    "npm:moment@2.10.3": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:os-browserify@0.1.2": {

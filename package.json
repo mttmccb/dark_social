@@ -64,6 +64,7 @@
       "imagesloaded": "npm:imagesloaded@^3.1.8",
       "masonry-layout": "npm:masonry-layout@^3.3.0",
       "moment": "github:moment/moment@^2.10.3",
+      "moment-timezone": "npm:moment-timezone@^0.3.1",
       "nprogress": "github:rstacruz/nprogress@^0.2.0",
       "vex": "npm:vex@^0.0.4"
     },
