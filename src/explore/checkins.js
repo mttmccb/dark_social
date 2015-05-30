@@ -33,7 +33,6 @@ export class Checkins {
   activate() {
     return this.api.loadCheckins().then(posts => {
       this.posts = posts;
-      console.log(posts);
     });
   }
 
