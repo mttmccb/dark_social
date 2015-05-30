@@ -5,7 +5,7 @@ import { Router } from 'aurelia-router';
 export class ProfileStatsCustomElement {
   @bindable posts = null;
 
-  constructor(api, router) {
+  constructor(router) {
     this.theRouter = router;
     this.numberOfTopMentions = 5;
   }
@@ -15,6 +15,7 @@ export class ProfileStatsCustomElement {
   }
 
   loadUserRoute(user) {
-    this.theRouter.navigateToRoute("userprofile", { user_id: user || this.user_id });
+    console.log(user);
+    this.theRouter.navigateToRoute("userprofile", { user_id: user });
   }
 }

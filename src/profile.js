@@ -3,16 +3,37 @@ import { AdnAPI } from './adn-api';
 import { activationStrategy } from 'aurelia-router';
 import imagesLoaded from 'imagesloaded';
 import Masonry from 'masonry-layout';
+import { EventAggregator } from 'aurelia-event-aggregator';
+import { ImageViewed } from '../resources/messages';
+import { ADNImage } from '../models/adn-image';
 
-@inject(AdnAPI)
+@inject(AdnAPI, EventAggregator)
 export class Profile {
 
   determineActivationStrategy() {
     return activationStrategy.replace;
   }
 
-  constructor(api) {
+  constructor(api, ea) {
     this.api = api;
+<<<<<<< HEAD
+=======
+    this.posts = [];
+    this.showing = false;
+    this.adnimage = new ADNImage();
+    this.ea = ea;
+    ea.subscribe(ImageViewed, msg => this.showModal(msg.image));
+  }
+
+  showModal(image) {
+    this.adnimage = image;
+    this.showing = true;
+  }
+
+  hideModal() {
+    this.showing = false;
+    this.adnimage = new ADNImage();
+>>>>>>> master
   }
 
   activate(params, query, route) {
