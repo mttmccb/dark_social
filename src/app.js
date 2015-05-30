@@ -9,6 +9,7 @@ export class App {
 
   configureRouter(config, router) {
     config.title = 'Dark.Social';
+    config.options.pushState = true;
     config.map([
       { route: ['', 'choose'], moduleId: './choose', nav: false, title: 'Choose' },
       { route: ['profile/'], moduleId: './profile', nav: true, title: 'Profile', name: 'profile' },

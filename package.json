@@ -58,6 +58,7 @@
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@^0.7.0",
       "aurelia-event-aggregator": "github:aurelia/event-aggregator@^0.4.0",
       "aurelia-framework": "github:aurelia/framework@^0.11.0",
+      "aurelia-history-browser": "github:aurelia/history-browser@^0.4.0",
       "aurelia-http-client": "github:aurelia/http-client@^0.8.1",
       "aurelia-router": "github:aurelia/router@^0.8.1",
       "css": "github:systemjs/plugin-css@^0.1.9",
@@ -66,8 +67,7 @@
       "masonry-layout": "npm:masonry-layout@^3.3.0",
       "moment": "github:moment/moment@^2.10.3",
       "moment-timezone": "npm:moment-timezone@^0.3.1",
-      "nprogress": "github:rstacruz/nprogress@^0.2.0",
-      "vex": "npm:vex@^0.0.4"
+      "nprogress": "github:rstacruz/nprogress@^0.2.0"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.1.13",
