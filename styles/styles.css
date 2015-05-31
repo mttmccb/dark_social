@@ -408,6 +408,15 @@ padding: 0 1em;
   margin-left: 1px;
 }
 
+.post-footer p {
+  margin-top: 0;
+}
+.post-time {
+  text-align: right;
+  color: #A6A6A6;
+  font-size: 0.8em;
+}
+
 /* Footer */
 .footer {
   background: #343434;
