@@ -24,6 +24,10 @@ export class PostClicks {
       let hashtagName = node.getAttribute('data-hashtag-name');
       window.location.href = `http://alpha.app.net/hashtags/${hashtagName}`;
     }
+
+    if (node.tagName==="A") {
+      node.setAttribute("target","_blank");
+    }
     return true;
   }
 }
