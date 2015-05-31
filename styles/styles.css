@@ -475,10 +475,7 @@ padding: 0 1em;
 
 
 @media screen and (max-width: 35.5em) {
-    
-  section.au-animate {
-    margin: 0;
-  }    
+     
   #profileDetails {
     padding-left: 0;
     padding-right: 0;

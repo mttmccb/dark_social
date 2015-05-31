@@ -17,7 +17,6 @@ System.config({
 
 System.config({
   "map": {
-    "aurelia-animator-css": "github:aurelia/animator-css@0.2.0",
     "aurelia-bootstrapper": "github:aurelia/bootstrapper@0.12.0",
     "aurelia-bs-modal": "github:pwkad/aurelia-bs-modal@0.1.2",
     "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.7.1",
@@ -40,9 +39,6 @@ System.config({
     "nprogress": "github:rstacruz/nprogress@0.2.0",
     "traceur": "github:jmcriffey/bower-traceur@0.0.88",
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88",
-    "github:aurelia/animator-css@0.2.0": {
-      "aurelia-templating": "github:aurelia/templating@0.11.2"
-    },
     "github:aurelia/binding@0.6.1": {
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.7.1",
       "aurelia-metadata": "github:aurelia/metadata@0.5.0",
