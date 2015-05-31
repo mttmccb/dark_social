@@ -505,6 +505,9 @@ padding: 0 1em;
   .splash-subhead {
     font-size: 100%;
   }
+  .selector form {
+    padding: 1em;
+  }
 }
 
 /* animation definitions */
