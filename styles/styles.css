@@ -46,6 +46,10 @@ a:visited {
   background:  #343434;  
 }
 
+.pure-menu-horizontal.pure-menu-scrollable {
+  padding: 0;
+}
+
 .selector,
 .splash {
   text-align: center;
