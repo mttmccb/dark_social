@@ -1,13 +1,8 @@
 <template>
-	<require from='../posts/post-list'></require>	
-	<require from='../posts/post-stats'></require>	 
-	<require from='../posts/top-clients'></require>	 
-	<require from='../posts/top-mentions'></require>	 
-	<require from='../posts/top-hashtags'></require>
-	<require from='../posts/top-posters'></require>
+	<require from='../posts/post-list'></require>
+	<require from='../posts/explore-stats'></require>
 	<require from='../resources/modal-image'></require>
-		
-	<modal-image></modal-image>						
+	<modal-image></modal-image>
 	<section class="main-content-wrapper">
 		<div class="pure-g posts">
 			<div class="pure-u-1 stats-header">
@@ -16,11 +11,7 @@
 			<div class="pure-u-1 stats">
 				<div class="pure-g">
 					<div class="pure-u-1">
-						<p><post-stats posts.bind="posts"></post-stats></p>
-						<p><top-clients posts.bind="posts"></top-clients></p>
-						<p><top-posters posts.bind="posts"></top-posters></p>
-						<p><top-mentions posts.bind="posts"></top-mentions></p>
-						<p><top-hashtags posts.bind="posts"></top-hashtags></p>
+						<explore-stats posts.bind="posts"></explore-stats>
 					</div>
 				</div>
 			</div>
