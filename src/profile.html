@@ -1,5 +1,5 @@
 <template>
-  <require from='../posts/post'></require>
+  <require from='../posts/post-list'></require>
   <require from='../posts/profile-bio'></require>
   <require from='../profile/menu-link'></require>
   <require from='../profile/profile-navigation'></require>
@@ -40,8 +40,6 @@
           <profile-stats posts.bind="data"></profile-stats>
       </div>
     </div>   
-    <div id="posts" class="posts">
-      <post post.bind="{ data: post, avatar: false}" repeat.for="post of data"></post>        
-    </div>
+		<post-list posts.bind="{ data: data, avatar: false}"></post-list>
   </section>
 </template>

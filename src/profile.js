@@ -1,8 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { AdnAPI } from './adn-api';
 import { activationStrategy } from 'aurelia-router';
-import imagesLoaded from 'imagesloaded';
-import Masonry from 'masonry-layout';
 
 @inject(AdnAPI)
 export class Profile {
@@ -13,7 +11,7 @@ export class Profile {
 
   constructor(api) {
     this.api = api;
-    this.posts = [];
+    this.data = [];
   }
 
   activate(params, query, route) {
@@ -25,23 +23,6 @@ export class Profile {
       this.user_id = this.data[0].user.username;
       localStorage.setItem('user_id', this.user_id);
     });
-  }
-
-  attached() {
-    this.createMasonry();
-  }
-
-  createMasonry() {
-    var container = document.querySelector('#posts');
-    
-    imagesLoaded( container, function() {
-      var msnry = new Masonry(container, {
-        columnWidth: ".post",
-        itemSelector: '.post',
-        percentPosition: true,
-        gutter: 10
-      });
-    });    
   }
 
   loadMorePosts() {

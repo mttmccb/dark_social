@@ -1,5 +1,5 @@
 <template>
-	<require from='../posts/post'></require>
+	<require from='../posts/post-list'></require>
 	<require from='../posts/post-stats'></require>
 	<require from='../posts/top-clients'></require>
 	<require from='../posts/top-mentions'></require>
@@ -25,8 +25,6 @@
 				</div>
 			</div>
 		</div>
-		<div id="posts" class="posts">
-			<post post.bind="{ data: post, avatar:true }" repeat.for="post of posts"></post>
-		</div>
+		<post-list posts.bind="{ data: posts, avatar: true}"></post-list>
 	</section>
 </template>
