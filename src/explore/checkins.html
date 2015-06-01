@@ -5,13 +5,9 @@
 	<require from='../posts/top-mentions'></require>
 	<require from='../posts/top-hashtags'></require>
 	<require from='../posts/top-posters'></require>
-	<div id="openModal" class="fadeInDownBig modalDialog ${showing? 'open': ''}">
-		<div>
-			<a href="#" click.delegate="hideModal()" title="Close" class="close">&times;</a>
-			<a href="${adnimage.url}" target="_blank"><img src.bind="adnimage.url" class="pure-img" /></a>
-			<p>${adnimage.title}</p>
-		</div>
-	</div>
+	<require from='../resources/modal-image'></require>
+		
+	<modal-image></modal-image>	
 	<section class="main-content-wrapper">
 		<div class="pure-g posts">
 			<div class="pure-u-1 stats-header">
@@ -20,25 +16,11 @@
 			<div class="pure-u-1">
 				<div class="pure-g stats">
 					<div class="pure-u-1">
-						<div class="pure-g">
-							<div class="pure-u-1">
-								<p>
-									<post-stats posts.bind="posts"></post-stats>
-								</p>
-								<p>
-									<top-clients posts.bind="posts"></top-clients>
-								</p>
-								<p>
-									<top-posters posts.bind="posts"></top-posters>
-								</p>
-								<p>
-									<top-mentions posts.bind="posts"></top-mentions>
-								</p>
-								<p>
-									<top-hashtags posts.bind="posts"></top-hashtags>
-								</p>
-							</div>
-						</div>
+						<p><post-stats posts.bind="posts"></post-stats></p>
+						<p><top-clients posts.bind="posts"></top-clients></p>
+						<p><top-posters posts.bind="posts"></top-posters></p>
+						<p><top-mentions posts.bind="posts"></top-mentions></p>
+						<p><top-hashtags posts.bind="posts"></top-hashtags></p>
 					</div>
 				</div>
 			</div>

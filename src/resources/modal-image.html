@@ -1,0 +1,9 @@
+<template>
+	<div id="openModal" class="fadeInDownBig modalDialog ${showing? 'open': ''}">
+		<div>
+			<a href="#" click.delegate="hideModal()" title="Close" class="close">&times;</a>
+			<a href="${adnimage.url}" target="_blank"><img src.bind="adnimage.url" class="pure-img" /></a>
+			<p>${adnimage.title}</p>
+		</div>
+	</div>
+</template>
