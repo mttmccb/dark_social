@@ -73,7 +73,7 @@ export class Profile {
     });
   }
 
-  toggleVisible(e) {
-    this.showBanner = this.showBanner ? false : true;
+  toggleVisible() {
+    this.showBanner = !this.showBanner;
   }
 }
