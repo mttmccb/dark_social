@@ -16,9 +16,9 @@ export class App {
       { route: ['profile/user/:user_id'], moduleId: './profile', title: 'Profile', name: 'userprofile' },
       { route: ['profile/random'], moduleId: './profile', title: 'Profile', name: 'randomprofile' },
       { route: ['trending'], moduleId: './explore/trending', nav: true, title: 'Trending' },
+      { route: ['conversations'], moduleId: './explore/conversations', nav: true, title: 'Conversations' },
       { route: ['photos'], moduleId: './explore/photos', nav: true, title: 'Photos' },
-      { route: ['checkins'], moduleId: './explore/checkins', nav: true, title: 'Checkins' },
-      { route: ['conversations'], moduleId: './explore/conversations', nav: true, title: 'Conversations' }
+      { route: ['checkins'], moduleId: './explore/checkins', nav: true, title: 'Checkins' }
     ]);
 
     this.router = router;
