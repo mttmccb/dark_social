@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
 import { NiceAPI } from './nice-api';
-import { randomInteger } from './resources/utility';
+import { randomInteger } from 'resources/utility';
 
 let nouser = {
   meta: {

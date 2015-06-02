@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { ImageViewed } from '../resources/messages';
-import { ADNImage } from '../models/adn-image';
+import { ImageViewed } from 'resources/messages';
+import { ADNImage } from 'models/adn-image';
 
 @inject(EventAggregator)
 export class ModalImageCustomElement {

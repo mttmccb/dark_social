@@ -1,6 +1,6 @@
 import { inject, bindable } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import {ImageViewed} from '../resources/messages';
+import {ImageViewed} from 'resources/messages';
 
 @inject(EventAggregator)
 export class AnnotationImagesCustomElement {

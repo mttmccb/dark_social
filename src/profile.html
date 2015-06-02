@@ -1,10 +1,10 @@
 <template>
-  <require from='../posts/post-list'></require>
-  <require from='../posts/profile-bio'></require>
-  <require from='../profile/menu-link'></require>
-  <require from='../profile/profile-navigation'></require>
-  <require from='../profile/profile-stats'></require>
-	<require from='../resources/modal-image'></require>
+	<require from='templates/posts/post-list'></require>
+  <require from='templates/profile/bio'></require>
+  <require from='templates/profile/menu-link'></require>
+  <require from='templates/profile/profile-navigation'></require>
+  <require from='templates/stats/profile-stats'></require>
+	<require from='templates/modal-image'></require>
 		
 	<modal-image></modal-image>	
   <section class="main-content-wrapper">
@@ -19,7 +19,7 @@
             <h2>
               <profile-navigation user.bind="data[0].user"></profile-navigation>
             </h2>
-            <p><profile-bio user.bind="data[0].user"></profile-bio></p>
+            <bio user.bind="data[0].user"></bio>
             <nav class="pure-menu pure-menu-horizontal">
               <ul class="pure-menu-list">
                 <menu-link menu.bind="{ count: data[0].user.counts.following, icon:'arrow-circle-left' }"></menu-link>

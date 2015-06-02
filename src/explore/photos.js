@@ -1,5 +1,5 @@
 import { inject } from 'aurelia-framework';
-import { AdnAPI } from '../adn-api';
+import { AdnAPI } from 'services/adn-api';
 
 @inject(AdnAPI)
 export class Photos {

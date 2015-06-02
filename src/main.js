@@ -3,7 +3,7 @@ export function configure(aurelia) {
     .standardConfiguration()
     .developmentLogging();
 
-  aurelia.globalizeResources(['./resources/date-format','../resources/time','../resources/sum','../resources/timeago','../resources/timeto','../resources/boolean']);
+  aurelia.globalizeResources(['resources/date-format','resources/sum','resources/timeago','resources/timeto']);
 
   aurelia.start().then(a => a.setRoot());
 }

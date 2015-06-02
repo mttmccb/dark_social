@@ -1,5 +1,5 @@
 <template>
-	<require from='../resources/filter-on-property'></require>
+	<require from='resources/filter-on-property'></require>
 	
 	<a repeat.for="image of annotations | filterOnProperty:'type':'net.app.core.oembed'" href="#" click.delegate="$parent.openImage(image.value)" target="_blank" ><img src="${image.value.thumbnail_url}" class="pure-img" /></a>	
 </template>
