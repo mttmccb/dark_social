@@ -334,6 +334,9 @@ padding: 0 1em;
   .stats p {
     margin-top: 0;
   }
+  .stats h3 {
+    margin-top: 0;
+  }
 
 #un {
   width: 12em;
