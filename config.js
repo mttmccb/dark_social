@@ -35,7 +35,7 @@ System.config({
     "mapbox.js": "npm:mapbox.js@2.1.9",
     "masonry-layout": "npm:masonry-layout@3.3.0",
     "moment": "github:moment/moment@2.10.3",
-    "moment-timezone": "npm:moment-timezone@0.3.1",
+    "moment-timezone": "github:moment/moment-timezone@develop",
     "nprogress": "github:rstacruz/nprogress@0.2.0",
     "traceur": "github:jmcriffey/bower-traceur@0.0.88",
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88",
