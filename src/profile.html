@@ -1,12 +1,11 @@
 <template>
-	<require from='templates/posts/post-list'></require>
+  <require from='templates/posts/post-list'></require>
   <require from='templates/profile/bio'></require>
   <require from='templates/profile/menu-link'></require>
   <require from='templates/profile/profile-navigation'></require>
   <require from='templates/stats/profile-stats'></require>
-	<require from='templates/modal-image'></require>
-		
-	<modal-image></modal-image>	
+  <require from='templates/modal-image'></require>
+  <modal-image></modal-image>
   <section class="main-content-wrapper">
     <div class="pure-g">
       <div class="pure-u-1-4 pure-u-sm-1-6">
@@ -34,12 +33,14 @@
     </div>
     <div class="pure-g posts" if.bind="data[0].user.counts.posts>0">
       <div class="pure-u-1 stats-header">
-        <h2>Last ${data.length} Posts <a href="#" click.delegate="loadMorePosts()">more...</a></h2>
+        <h2>Last ${data.length} Posts
+          <a href="#" click.delegate="loadMorePosts()">more...</a>
+        </h2>
       </div>
       <div class="pure-u-1 stats">
-          <profile-stats posts.bind="data"></profile-stats>
+        <profile-stats posts.bind="data"></profile-stats>
       </div>
-    </div>   
-		<post-list posts.bind="{ data: data, avatar: false}"></post-list>
+    </div>
+    <post-list posts.bind="{ data: data, avatar: false}"></post-list>
   </section>
 </template>

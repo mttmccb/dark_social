@@ -3,7 +3,9 @@
 	<p innerHTML.one-way="post.html " click.delegate="postclicks.handler($event) "></p>
 	<div class="pure-g post-footer">
 		<div class="pure-u-1-2">
-			<p><a if.bind="post.num_replies>0" href="http://treeview.us/home/thread/${post.id} " target="_blank "><i class="fa fa-tree "></i> View</a></p>
+			<p>
+				<a if.bind="post.num_replies>0" href="http://treeview.us/home/thread/${post.id} " target="_blank "><i class="fa fa-tree "></i> View</a>
+			</p>
 		</div>
 		<div class="pure-u-1-2">
 			<p class="post-time">${post.created_at | timeAgo}</p>

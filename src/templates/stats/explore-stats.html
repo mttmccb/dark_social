@@ -1,13 +1,12 @@
 <template>
-	<require from='./post-stats'></require>	 
-	<require from='./top-clients'></require>	 
-	<require from='./top-mentions'></require>	 
-	<require from='./top-hashtags'></require>	 
-	<require from='./top-posters'></require>	 
-	
-	<p><post-stats posts.bind="posts"></post-stats></p>
-	<p><top-clients posts.bind="posts"></top-clients></p>
-	<p><top-posters posts.bind="posts"></top-posters></p>
-	<p><top-mentions posts.bind="posts"></top-mentions></p>
-	<p><top-hashtags posts.bind="posts"></top-hashtags></p>
+	<require from='./post-stats'></require>
+	<require from='./top-clients'></require>
+	<require from='./top-mentions'></require>
+	<require from='./top-hashtags'></require>
+	<require from='./top-posters'></require>
+	<post-stats posts.bind="posts"></post-stats>
+	<top-clients posts.bind="posts"></top-clients>
+	<top-posters posts.bind="posts"></top-posters>
+	<top-mentions posts.bind="posts"></top-mentions>
+	<top-hashtags posts.bind="posts"></top-hashtags>
 </template>
