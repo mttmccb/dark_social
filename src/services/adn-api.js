@@ -24,7 +24,7 @@ let nouser = {
       "user": {
         "username": "theabominablesnowman",
         "avatar_image": {
-          "url": "styles/abominablesnowman.jpg",
+          "url": "/styles/abominablesnowman.jpg",
           "width": 200,
           "is_default": false,
           "height": 200
@@ -47,7 +47,7 @@ let nouser = {
         "canonical_url": "https://alpha.app.net/",
         "verified_domain": "en.wikipedia.org/wiki/Yeti",
         "cover_image": {
-          "url": "styles/adventure-journal-abominable-snowman.jpg",
+          "url": "/styles/adventure-journal-abominable-snowman.jpg",
           "width": 3356,
           "is_default": false,
           "height": 988
