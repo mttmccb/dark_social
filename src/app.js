@@ -18,7 +18,8 @@ export class App {
       { route: ['trending'], moduleId: './explore/trending', nav: true, title: 'Trending' },
       { route: ['conversations'], moduleId: './explore/conversations', nav: true, title: 'Conversations' },
       { route: ['photos'], moduleId: './explore/photos', nav: true, title: 'Photos' },
-      { route: ['checkins'], moduleId: './explore/checkins', nav: true, title: 'Checkins' }
+      { route: ['checkins'], moduleId: './explore/checkins', nav: true, title: 'Checkins' },
+      { route: ['handle_oauth'], moduleId: './handle_oauth', title: 'Handle OAuth' }
     ]);
 
     this.router = router;
