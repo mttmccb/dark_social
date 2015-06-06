@@ -5,7 +5,10 @@ import Masonry from 'masonry-layout';
 export class PostListCustomElement {
   @bindable posts = { data: null, avatar: false };
   
+  isAttached = false;
+
   attached() {
+    this.isAttached = true;
     this.createMasonry();
   }
 
@@ -20,5 +23,11 @@ export class PostListCustomElement {
         gutter: 10
       });
     });
-  }  
+  }
+  
+  postsChanged() {
+    if (this.isAttached) {
+      this.createMasonry();       
+    }
+  }
 }

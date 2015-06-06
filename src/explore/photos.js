@@ -14,4 +14,10 @@ export class Photos {
       this.posts = posts;
     });
   }
+  
+  refresh() {
+    return this.api.loadPhotos().then(posts => {
+      this.posts = posts;
+    });    
+  }
 }

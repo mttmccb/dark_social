@@ -13,6 +13,14 @@ export class Profile {
     this.api = api;
     this.data = [];
   }
+  
+  refresh() {
+    return this.api.loadPosts(this.user_id).then(data => {
+      this.data = data;
+      this.user_id = this.data[0].user.username;
+      localStorage.setItem('user_id', this.user_id);
+    });    
+  }
 
   activate(params, query, route) {
     if (route.fragment === "profile/random") {

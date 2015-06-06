@@ -14,4 +14,10 @@ export class Checkins {
       this.posts = posts;
     });
   }
+  
+  refresh() {
+    return this.api.loadCheckins().then(posts => {
+      this.posts = posts;
+    });    
+  }
 }

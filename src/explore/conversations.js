@@ -14,4 +14,10 @@ export class Conversations {
       this.posts = posts;
     });
   }
+  
+  refresh() {
+    return this.api.loadConversations().then(posts => {
+      this.posts = posts;
+    });    
+  }
 }

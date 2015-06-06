@@ -14,4 +14,10 @@ export class Trending {
       this.posts = posts;
     });
   }
+  
+  refresh() {
+    return this.api.loadTrendingPosts().then(posts => {
+      this.posts = posts;
+    });    
+  }
 }
