@@ -84,7 +84,7 @@ export class AdnAPI {
     this.isRequesting = true;
     return this.getRandomUserId().then((user) => {
       let getUser = id || localStorage.getItem('user_id');
-      if (!getUser || getUser ===' ') { getUser = user; }
+      if (!getUser || getUser === ' ') { getUser = user; }
       return this.http.get(more ? this.getMorePostsURL(getUser, this.meta.min_id) : this.getPostsURL(getUser))
         .then((response) => {
         this.meta = response.content.meta;
@@ -97,7 +97,7 @@ export class AdnAPI {
       });
     });
   }
-  
+
   load(url) {
     this.isRequesting = true;
     return this.http.get(url).then((response) => {
@@ -110,7 +110,7 @@ export class AdnAPI {
       return {};
     });
   }
-  
+
   loadTrendingPosts(more) {
     return this.load(more ? this.getMoreTrendingURL(this.meta.min_id) : this.getTrendingURL());
   }
@@ -128,8 +128,9 @@ export class AdnAPI {
   }
 
   loadPost(id) {
+    let access_token = localStorage.getItem('access_token');
     this.isRequesting = true;
-    return this.http.get(`https://api.app.net/posts/${id}?include_post_annotations=1&include_deleted=0`)
+    return this.http.get(`https://api.app.net/posts/${id}?access_token=${access_token}&include_post_annotations=1&include_deleted=0`)
       .then((response) => {
       this.meta = response.content.meta;
       this.isRequesting = false;
@@ -151,43 +152,105 @@ export class AdnAPI {
     });
   }
 
+  toggleStar(id, star) {
+    let access_token = localStorage.getItem('access_token');
+    this.isRequesting = true;
+    if (star) {
+      return this.http.post(`https://api.app.net/posts/${id}/star?access_token=${access_token}`)
+        .then((response) => {
+        this.isRequesting = false;
+        return response.content.data;
+      }).catch((err) => {
+        console.log("Unable to star");
+        this.isRequesting = false;
+        return {};
+      });
+      
+    } else {
+      return this.http.delete(`https://api.app.net/posts/${id}/star?access_token=${access_token}`)
+        .then((response) => {
+        this.isRequesting = false;
+        return response.content.data;
+      }).catch((err) => {
+        console.log("Unable to star");
+        this.isRequesting = false;
+        return {};
+      });
+    }
+  }
+
+  toggleRepost(id, repost) {
+    let access_token = localStorage.getItem('access_token');
+    this.isRequesting = true;
+    if (repost) {
+      return this.http.post(`https://api.app.net/posts/${id}/repost?access_token=${access_token}`)
+        .then((response) => {
+        this.isRequesting = false;
+        return response.content.data;
+      }).catch((err) => {
+        console.log("Unable to repost");
+        this.isRequesting = false;
+        return {};
+      });
+      
+    } else {
+      return this.http.delete(`https://api.app.net/posts/${id}/repost?access_token=${access_token}`)
+        .then((response) => {
+        this.isRequesting = false;
+        return response.content.data;
+      }).catch((err) => {
+        console.log("Unable to repost");
+        this.isRequesting = false;
+        return {};
+      });
+    }
+  }
+
   getConversationsURL(count = 200) {
-    return `${this.apiURL}/posts/stream/explore/conversations?count=${count}&include_post_annotations=1&include_deleted=0`;
+    let access_token = localStorage.getItem('access_token');
+    return `${this.apiURL}/posts/stream/explore/conversations?access_token=${access_token}&count=${count}&include_post_annotations=1&include_deleted=0`;
   }
 
   getMoreConversationURL(min_id, count = 200) {
-    return `${this.apiURL}/posts/stream/explore/conversations?count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
+    return `${this.apiURL}/posts/stream/explore/conversations?access_token=${access_token}&count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
   }
 
   getCheckinsURL(count = 200) {
-    return `${this.apiURL}/posts/stream/explore/checkins?count=${count}&include_post_annotations=1&include_deleted=0`;
+    let access_token = localStorage.getItem('access_token');
+    return `${this.apiURL}/posts/stream/explore/checkins?access_token=${access_token}&count=${count}&include_post_annotations=1&include_deleted=0`;
   }
 
   getMoreCheckinsURL(min_id, count = 200) {
-    return `${this.apiURL}/posts/stream/explore/checkins?count=${count}&before_id=${min_id}&includ_annotations=1&include_deleted=0`;
+    return `${this.apiURL}/posts/stream/explore/checkins?access_token=${access_token}&count=${count}&before_id=${min_id}&includ_annotations=1&include_deleted=0`;
   }
   getPhotosURL(count = 200) {
-    return `${this.apiURL}/posts/stream/explore/photos?count=${count}&include__annotations=1&include_deleted=0`;
+    let access_token = localStorage.getItem('access_token');
+    return `${this.apiURL}/posts/stream/explore/photos?access_token=${access_token}&count=${count}&include__annotations=1&include_deleted=0`;
   }
 
   getMorePhotosURL(min_id, count = 200) {
-    return `${this.apiURL}/posts/stream/explore/photos?count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
+    let access_token = localStorage.getItem('access_token');
+    return `${this.apiURL}/posts/stream/explore/photos?access_token=${access_token}&count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
   }
 
   getTrendingURL(count = 200) {
+    let access_token = localStorage.getItem('access_token');
     return `${this.apiURL}/posts/stream/explore/trending?count=${count}&include_post_annotations=1&include_deleted=0`;
   }
 
   getMoreTrendingURL(min_id, count = 200) {
-    return `${this.apiURL}/posts/stream/explore/trending?count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
+    let access_token = localStorage.getItem('access_token');
+    return `${this.apiURL}/posts/stream/explore/trending?access_token=${access_token}&count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
   }
 
   getPostsURL(id, count = 200) {
-    return `${this.apiURL}/users/@${id}/posts?count=${count}&include_post_annotations=1&include_deleted=0`;
+    let access_token = localStorage.getItem('access_token');
+    return `${this.apiURL}/users/@${id}/posts?access_token=${access_token}&count=${count}&include_post_annotations=1&include_deleted=0`;
   }
 
   getMorePostsURL(id, min_id, count = 200) {
-    return `${this.apiURL}/users/@${id}/posts?count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
+    let access_token = localStorage.getItem('access_token');
+    return `${this.apiURL}/users/@${id}/posts?access_token=${access_token}&count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
   }
 
   explore = {

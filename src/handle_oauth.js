@@ -8,7 +8,8 @@ export class AccessToken {
 	}
 	
 	activate(params, queryString, routeConfig) {
-		localStorage.setItem('userToken',params.access_token);		
+		localStorage.setItem('access_token',params.access_token);		
+		//TODO: Get user that belongs to the token
 		this.theRouter.navigate("choose");
 	}
 }

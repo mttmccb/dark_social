@@ -310,6 +310,14 @@ padding: 0 1em;
 #banner.clean {
   border-radius: 0;
 } 
+
+.clickable {
+  cursor: pointer;
+  color: #A6A6A6;
+}
+.clickable:hover {
+  color:#343434;
+}
   
 #profileDetails.clean {
   opacity: 0;
@@ -388,6 +396,17 @@ padding: 0 1em;
 .post:hover {
   background:white;
 }
+.post .clickable {
+  opacity: 0.8;
+}
+
+.post:hover .clickable {
+  opacity: 1;
+}
+
+.actioned {
+  color: #e3cf7a;
+}
 
 .post-details {
   padding: 0 0 0 1em;
@@ -427,9 +446,8 @@ padding: 0 1em;
 /* Footer */
 .footer {
   background: #343434;
-  color: #aaa;
+  color: #A6A6A6;
 }
-
 .post-details.showMe {
   display: block;
    -webkit-animation: showNav 500ms ease-in-out both;

@@ -19,7 +19,6 @@ export class Profile {
       this.user_id = " ";
     }
     return this.api.loadPosts(params.user_id || this.user_id).then(data => {
-      console.log(data);
       this.data = data;
       this.user_id = this.data[0].user.username;
       localStorage.setItem('user_id', this.user_id);
@@ -28,7 +27,6 @@ export class Profile {
 
   loadMorePosts() {
     return this.api.loadPosts(this.user_id, true).then(data => {
-      console.log(data);
       this.data = this.data.concat(data);
     });
   }
