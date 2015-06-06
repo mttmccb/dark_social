@@ -80,6 +80,19 @@ export class AdnAPI {
   tokenEndPoints = { following: '${apiURL}/users/${user_id}/following' };
   apiURL = 'https://api.app.net';
 
+  getToken(token) {
+    this.isRequesting = true;
+    return this.http.get(`${this.apiURL}/token?access_token=${token}`)
+      .then((response) => {
+      this.isRequesting = false;
+      return response.content.data;
+    }).catch((err) => {
+      console.log("Invalid Token");
+      this.isRequesting = false;
+      return {};
+    });
+  }
+
   loadPosts(id, more) {
     this.isRequesting = true;
     return this.getRandomUserId().then((user) => {
@@ -165,7 +178,7 @@ export class AdnAPI {
         this.isRequesting = false;
         return {};
       });
-      
+
     } else {
       return this.http.delete(`https://api.app.net/posts/${id}/star?access_token=${access_token}`)
         .then((response) => {
@@ -192,7 +205,7 @@ export class AdnAPI {
         this.isRequesting = false;
         return {};
       });
-      
+
     } else {
       return this.http.delete(`https://api.app.net/posts/${id}/repost?access_token=${access_token}`)
         .then((response) => {
