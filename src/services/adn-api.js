@@ -81,17 +81,29 @@ export class AdnAPI {
   apiURL = 'https://api.app.net';
 
   getToken() {
-    let token = localStorage.getItem("access_token");
-    this.isRequesting = true;
-    return this.http.get(`${this.apiURL}/token?access_token=${token}`)
-      .then((response) => {
-      this.isRequesting = false;
-      return response.content.data;
+    
+    return new Promise(function(resolve, reject) {
+      let token = localStorage.getItem("access_token");
+      if (token) {
+        resolve(token);       
+      } else {
+        reject();
+      }
+    }).then((token) => {
+      this.isRequesting = true;
+      return this.http.get(`${this.apiURL}/token?access_token=${token}`)
+        .then((response) => {
+        this.isRequesting = false;
+        return response.content.data;
+      }).catch((err) => {
+        console.log("Invalid Token");
+        this.isRequesting = false;
+        return {};
+      });
     }).catch((err) => {
-      console.log("Invalid Token");
-      this.isRequesting = false;
-      return {};
-    });      
+        console.log("No Token Found");
+        return {};
+      });;
   }
 
   loadPosts(id, more) {
