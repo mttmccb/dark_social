@@ -16,6 +16,7 @@ export class Profile {
   
   refresh() {
     return this.api.loadPosts(this.user_id).then(data => {
+      console.log(data);
       this.data = data;
       this.user_id = this.data[0].user.username;
       localStorage.setItem('user_id', this.user_id);

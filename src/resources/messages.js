@@ -3,3 +3,9 @@ export class ImageViewed {
     this.image = image;
   }
 }
+
+export class LoggedIn {
+  constructor(loggedin){
+    this.loggedin = loggedin;
+  }
+}
