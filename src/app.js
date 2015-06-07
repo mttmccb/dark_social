@@ -12,8 +12,7 @@ export class App {
   configureRouter(config, router) {
     config.title = 'Dark.Social';
     config.options.pushState = true;
-    config.addPipelineStep('authorize', AuthorizeStep); // Add a route filter to the authorize extensibility point.
-    config.addPipelineStep('authorize', UsercheckStep);
+    config.addPipelineStep('authorize', HashRedirectStep);
     config.map([
       { route: ['', 'choose'], moduleId: './choose', nav: false, title: 'Choose' },
       { route: ['profile/'], moduleId: './profile', nav: true, title: 'Profile', name: 'profile' },
@@ -24,34 +23,25 @@ export class App {
       { route: ['photos'], moduleId: './explore/photos', nav: true, title: 'Photos' },
       { route: ['checkins'], moduleId: './explore/checkins', nav: true, title: 'Checkins' },
       { route: 'handle_oauth', moduleId: './login/handle_oauth' },
-      { route: 'login', moduleId: './login/login', nav: true, redirectLoggedInUser: "/login/logout" },
-      { route: 'login/logout', moduleId: './login/logout' }
+      { route: 'login', moduleId: './login/login', name: 'login' },
+      { route: 'logout', moduleId: './login/logout', name: 'logout' }
     ]);
 
     this.router = router;
   }
 }
 
-@inject(AuthenticationService)
-class UsercheckStep {
+class HashRedirectStep {
 
-  constructor(authenticationService) {
-    this.auth = authenticationService;
+  constructor() {
     console.log("Pipeline step");
   }
 
   run(routingContext, next) {
-   if (window.location.hash) {
+    if (window.location.hash) {
       return next.cancel(new Redirect('handle_oauth?' + window.location.hash.substring(1)));
-    }
-    console.log(this.auth.user)
-    if (this.auth.user) {
-      const redirectTo = routingContext.nextInstructions.filter(a => a.config.redirectLoggedInUser);
-      if (redirectTo.length === 0) return next();
+    };
 
-      return next.cancel(new Redirect(redirectTo[0].config.redirectLoggedInUser));
-    } else {
-      return next();
-    }
+    return next();
   }
 }

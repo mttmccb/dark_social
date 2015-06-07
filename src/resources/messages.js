@@ -3,3 +3,9 @@ export class ImageViewed {
     this.image = image;
   }
 }
+
+export class LoggedOut {
+  constructor(user){
+    this.user = user;
+  }
+}

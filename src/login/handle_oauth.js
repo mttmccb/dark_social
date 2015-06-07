@@ -11,7 +11,8 @@ export class HandleOAuth {
 	}
 
 	activate(params, queryString, routeConfig) {
-		this.authService.handleLogin(params.access_token);
-		this.theRouter.navigate("");
+		this.authService.handleLogin(params.access_token).then(() => { 
+			this.theRouter.navigate("");		
+		});
 	}
 }

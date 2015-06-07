@@ -80,7 +80,8 @@ export class AdnAPI {
   tokenEndPoints = { following: '${apiURL}/users/${user_id}/following' };
   apiURL = 'https://api.app.net';
 
-  getToken(token) {
+  getToken() {
+    let token = localStorage.getItem("access_token");
     this.isRequesting = true;
     return this.http.get(`${this.apiURL}/token?access_token=${token}`)
       .then((response) => {
@@ -90,7 +91,7 @@ export class AdnAPI {
       console.log("Invalid Token");
       this.isRequesting = false;
       return {};
-    });
+    });      
   }
 
   loadPosts(id, more) {

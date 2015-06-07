@@ -1,10 +1,13 @@
 <template>
   <header>
     <nav id="main-nav" class="pure-menu pure-menu-horizontal pure-menu-fixed pure-menu-scrollable" role="navigation">
-      <a href="#" class="pure-menu-link pure-menu-header hvr-sweep-to-bottom"><i class="fa fa-adn"></i> <span>${router.title}</span></a>
+      <a href="/" class="pure-menu-link pure-menu-header hvr-sweep-to-bottom"><i class="fa fa-adn"></i> <span>${router.title}</span></a>
       <ul class="pure-menu-list">
         <li repeat.for="row of router.navigation" class="pure-menu-item ${row.isActive ? 'pure-menu-selected' : ''}">
           <a class="pure-menu-link hvr-sweep-to-bottom" href.bind="row.href">${row.title}</a>
+        </li>
+        <li class="pure-menu-item">
+          <a class="pure-menu-link hvr-sweep-to-bottom" href="#" click.delegate="LogInOut()">${LogInOutText}</a>
         </li>
       </ul>
     </nav>
