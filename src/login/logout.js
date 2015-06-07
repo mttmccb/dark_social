@@ -12,6 +12,6 @@ export class Logout {
 
   activate() {
     this.authService.logout();
-    this.appRouter.navigate("");
+    //this.appRouter.navigate("");
   }
 }

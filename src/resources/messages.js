@@ -4,8 +4,8 @@ export class ImageViewed {
   }
 }
 
-export class LoggedOut {
-  constructor(user){
-    this.user = user;
+export class LoggedIn {
+  constructor(loggedin){
+    this.loggedin = loggedin;
   }
 }
