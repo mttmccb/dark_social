@@ -14,24 +14,23 @@ export class Profile {
     this.data = [];
   }
 
-  refresh() {
-    return this.api.loadPosts(this.user_id, false).then(data => {
-      console.log(data);
-      this.data = data;
-      this.user_id = this.data[0].user.username;
-      localStorage.setItem('user_id', this.user_id);
-    });
-  }
-
   activate(params, query, route) {
     if (route.fragment === "profile/random") {
       this.user_id = " ";
     }
-    return this.api.loadPosts(params.user_id || this.user_id, false).then(data => {
+    return this.loadPosts(params.user_id || this.user_id);
+  }
+
+  refresh() {
+    return this.loadPosts(this.user_id);
+  }
+
+  loadPosts(user) {
+     return this.api.loadPosts(user, false).then(data => {
       this.data = data;
       this.user_id = this.data[0].user.username;
       localStorage.setItem('user_id', this.user_id);
-    });
+    });   
   }
 
   loadMorePosts() {
