@@ -10,14 +10,16 @@ export class Checkins {
   }
 
   activate() {
-    return this.api.load('checkins', { more: false }).then(posts => {
-      this.posts = posts;
-    });
+    return this.loadCheckins();
   }
 
   refresh() {
+    return this.loadCheckins();
+  }
+  
+  loadCheckins() {
     return this.api.load('checkins', { more: false }).then(posts => {
       this.posts = posts;
-    });
-  }
+    });    
+  }    
 }
