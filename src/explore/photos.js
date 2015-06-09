@@ -10,14 +10,14 @@ export class Photos {
   }
 
   activate() {
-    return this.api.loadPhotos().then(posts => {
+    return this.api.load('photos', { more: false }).then(posts => {
       this.posts = posts;
     });
   }
-  
+
   refresh() {
-    return this.api.loadPhotos().then(posts => {
+    return this.api.load('photos', { more: false }).then(posts => {
       this.posts = posts;
-    });    
+    });
   }
 }

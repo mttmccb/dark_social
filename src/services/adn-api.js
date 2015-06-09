@@ -66,56 +66,54 @@ let nouser = {
   ]
 };
 
+let apiURL = 'https://api.app.net';
+let count = 200;
+
 @inject(HttpClient)
 export class AdnAPI {
   constructor(http) {
     this.http = http;
   }
 
-  user_id = '';
-  post_id = 100;
-  hashtag = 'team256';
-  slug = 'conversations';
   meta = [];
-  tokenEndPoints = { following: '${apiURL}/users/${user_id}/following' };
-  apiURL = 'https://api.app.net';
 
   getToken() {
-    
-    return new Promise(function(resolve, reject) {
+
+    return new Promise(function (resolve, reject) {
       let token = localStorage.getItem("access_token");
-      if (token) {
-        resolve(token);       
-      } else {
-        reject();
-      }
+      token ? resolve(token) : reject();
     }).then((token) => {
       this.isRequesting = true;
-      return this.http.get(`${this.apiURL}/token?access_token=${token}`)
-        .then((response) => {
+      return this.http.get(`${apiURL}/token?access_token=${token}`).then((response) => {
         this.isRequesting = false;
         return response.content.data;
+        
       }).catch((err) => {
         console.log("Invalid Token");
         this.isRequesting = false;
         return {};
       });
+      
     }).catch((err) => {
-        console.log("No Token Found");
-        return {};
-      });;
+      console.log("No Token Found");
+      return {};
+    });
   }
 
   loadPosts(id, more) {
+    
     this.isRequesting = true;
+    
     return this.getRandomUserId().then((user) => {
+      
       let getUser = id || localStorage.getItem('user_id');
       if (!getUser || getUser === ' ') { getUser = user; }
-      return this.http.get(more ? this.getMorePostsURL(getUser, this.meta.min_id) : this.getPostsURL(getUser))
-        .then((response) => {
+      
+      return this.http.get(this.urlBuilder('posts', { id: getUser, more: more })).then((response) => {
         this.meta = response.content.meta;
         this.isRequesting = false;
         return response.content.data;
+        
       }).catch((err) => {
         console.log("Username not found, restoring known user");
         this.isRequesting = false;
@@ -124,186 +122,74 @@ export class AdnAPI {
     });
   }
 
-  load(url) {
-    this.isRequesting = true;
-    return this.http.get(url).then((response) => {
-      this.meta = response.content.meta;
-      this.isRequesting = false;
-      return response.content.data;
-    }).catch((err) => {
-      console.log("Data not found");
-      this.isRequesting = false;
-      return {};
-    });
-  }
-
-  loadTrendingPosts(more) {
-    return this.load(more ? this.getMoreTrendingURL(this.meta.min_id) : this.getTrendingURL());
-  }
-
-  loadPhotos(more) {
-    return this.load(more ? this.getMorePhotosURL(this.meta.min_id) : this.getPhotosURL());
-  }
-
-  loadConversations(more) {
-    return this.load(more ? this.getMoreConversationsURL(this.meta.min_id) : this.getConversationsURL());
-  }
-
-  loadCheckins(more) {
-    return this.load(more ? this.getMoreCheckinsURL(this.meta.min_id) : this.getCheckinsURL());
-  }
-
-  loadPost(id) {
-    let access_token = localStorage.getItem('access_token');
-    this.isRequesting = true;
-    return this.http.get(`https://api.app.net/posts/${id}?access_token=${access_token}&include_post_annotations=1&include_deleted=0`)
-      .then((response) => {
-      this.meta = response.content.meta;
-      this.isRequesting = false;
-      return response.content.data;
-    }).catch((err) => {
-      console.log("Data not found");
-      this.isRequesting = false;
-      return {};
-    });
-  }
-
   getRandomUserId() {
+    
     return this.http.get('https://api.nice.social/user/nicesummary').then((response) => {
       var randomIndex = randomInteger(response.content.data.length);
       return response.content.data[randomIndex].name;
+      
     }).catch((err) => {
       console.log("Nice.Social API Issue");
       return 'berg';
     });
   }
 
-  toggleStar(id, star) {
-    let access_token = localStorage.getItem('access_token');
+  toggleStar(id, isTrue) {
+    return this.toggleEntity(id, isTrue, 'star');
+  }
+
+  toggleRepost(id, isTrue) {
+    return this.toggleEntity(id, isTrue, 'repost');
+  }
+
+  toggleEntity(id, isTrue, entity) {
+    
     this.isRequesting = true;
-    if (star) {
-      return this.http.post(`https://api.app.net/posts/${id}/star?access_token=${access_token}`)
-        .then((response) => {
-        this.isRequesting = false;
-        return response.content.data;
-      }).catch((err) => {
-        console.log("Unable to star");
-        this.isRequesting = false;
-        return {};
-      });
-
-    } else {
-      return this.http.delete(`https://api.app.net/posts/${id}/star?access_token=${access_token}`)
-        .then((response) => {
-        this.isRequesting = false;
-        return response.content.data;
-      }).catch((err) => {
-        console.log("Unable to star");
-        this.isRequesting = false;
-        return {};
-      });
-    }
+    
+    return this.http[isTrue ? 'post' : 'delete'](this.urlBuilder(entity, { id: id })).then((response) => {
+      this.isRequesting = false;
+      return response.content.data;
+      
+    }).catch((err) => {
+      console.log(`Unable to ${entity}`);
+      this.isRequesting = false;
+      return {};
+    });
   }
 
-  toggleRepost(id, repost) {
-    let access_token = localStorage.getItem('access_token');
+  load(url, params) {
+    
     this.isRequesting = true;
-    if (repost) {
-      return this.http.post(`https://api.app.net/posts/${id}/repost?access_token=${access_token}`)
-        .then((response) => {
-        this.isRequesting = false;
-        return response.content.data;
-      }).catch((err) => {
-        console.log("Unable to repost");
-        this.isRequesting = false;
-        return {};
-      });
-
-    } else {
-      return this.http.delete(`https://api.app.net/posts/${id}/repost?access_token=${access_token}`)
-        .then((response) => {
-        this.isRequesting = false;
-        return response.content.data;
-      }).catch((err) => {
-        console.log("Unable to repost");
-        this.isRequesting = false;
-        return {};
-      });
-    }
+    
+    return this.http.get(this.urlBuilder(url, params)).then((response) => {
+      this.meta = response.content.meta;
+      this.isRequesting = false;
+      return response.content.data;
+      
+    }).catch((err) => {
+      console.log("Data not found");
+      this.isRequesting = false;
+      return {};
+    });
   }
 
-  getConversationsURL(count = 200) {
-    let access_token = localStorage.getItem('access_token');
-    return `${this.apiURL}/posts/stream/explore/conversations?access_token=${access_token}&count=${count}&include_post_annotations=1&include_deleted=0`;
+  urlBuilder(action, params) {
+    let standardParams = `include_post_annotations=1&include_deleted=0`;
+    let accessTokenLS = localStorage.getItem('access_token');
+    let accessToken = accessTokenLS === "undefined" ? `access_token=${accessTokenLS}&` : "";
+    let moreParam = params.more === "undefined" ? `before_id=${this.meta.min_id}&` : "";
+
+    let endpoints = {
+      conversations: `${apiURL}/posts/stream/explore/conversations`,
+      photos: `${apiURL}/posts/stream/explore/photos`,
+      trending: `${apiURL}/posts/stream/explore/trending`,
+      checkins: `${apiURL}/posts/stream/explore/checkins`,
+      post: `${apiURL}/post/${params.id}`,
+      posts: `${apiURL}/users/@${params.id}/posts`,
+      star: `${apiURL}/posts/${params.id}/star`,
+      repost: `${apiURL}/posts/${params.id}/repost`
+    };
+
+    return `${endpoints[action]}?count=${count}&${accessToken}${moreParam}${standardParams}`;
   }
-
-  getMoreConversationURL(min_id, count = 200) {
-    return `${this.apiURL}/posts/stream/explore/conversations?access_token=${access_token}&count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
-  }
-
-  getCheckinsURL(count = 200) {
-    let access_token = localStorage.getItem('access_token');
-    return `${this.apiURL}/posts/stream/explore/checkins?access_token=${access_token}&count=${count}&include_post_annotations=1&include_deleted=0`;
-  }
-
-  getMoreCheckinsURL(min_id, count = 200) {
-    return `${this.apiURL}/posts/stream/explore/checkins?access_token=${access_token}&count=${count}&before_id=${min_id}&includ_annotations=1&include_deleted=0`;
-  }
-  getPhotosURL(count = 200) {
-    let access_token = localStorage.getItem('access_token');
-    return `${this.apiURL}/posts/stream/explore/photos?access_token=${access_token}&count=${count}&include__annotations=1&include_deleted=0`;
-  }
-
-  getMorePhotosURL(min_id, count = 200) {
-    let access_token = localStorage.getItem('access_token');
-    return `${this.apiURL}/posts/stream/explore/photos?access_token=${access_token}&count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
-  }
-
-  getTrendingURL(count = 200) {
-    let access_token = localStorage.getItem('access_token');
-    return `${this.apiURL}/posts/stream/explore/trending?count=${count}&include_post_annotations=1&include_deleted=0`;
-  }
-
-  getMoreTrendingURL(min_id, count = 200) {
-    let access_token = localStorage.getItem('access_token');
-    return `${this.apiURL}/posts/stream/explore/trending?access_token=${access_token}&count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
-  }
-
-  getPostsURL(id, count = 200) {
-    let access_token = localStorage.getItem('access_token');
-    return `${this.apiURL}/users/@${id}/posts?access_token=${access_token}&count=${count}&include_post_annotations=1&include_deleted=0`;
-  }
-
-  getMorePostsURL(id, min_id, count = 200) {
-    let access_token = localStorage.getItem('access_token');
-    return `${this.apiURL}/users/@${id}/posts?access_token=${access_token}&count=${count}&before_id=${min_id}&include_post_annotations=1&include_deleted=0`;
-  }
-
-  explore = {
-    "meta": { "code": 200 },
-    "data": [
-      { "url": "https://api.app.net/posts/stream/explore/conversations", "description": "New conversations just starting on App.net", "slug": "conversations", "title": "Conversations" },
-      { "url": "https://api.app.net/posts/stream/explore/photos", "description": "Photos uploaded to App.net", "slug": "photos", "title": "Photos" },
-      { "url": "https://api.app.net/posts/stream/explore/trending", "description": "Posts trending on App.net", "slug": "trending", "title": "Trending" },
-      { "url": "https://api.app.net/posts/stream/explore/checkins", "description": "App.net users in interesting places", "slug": "checkins", "title": "Checkins" }
-    ]
-  };
-
-  endPoints = {
-    getUser: `${this.apiURL}/users/${this.user_id}`,
-    getUserCover: `${this.apiURL}/users/${this.user_id}/cover`,
-    getUserAvatar: `${this.apiURL}/users/${this.user_id}/avatar`,
-    getPost: `${this.apiURL}/posts/${this.post_id}`,
-    getUserPosts: `${this.apiURL}/users/${this.user_id}/posts`,
-    getUserStars: `${this.apiURL}/users/${this.user_id}/stars`,
-    getPostsWithHashtag: `${this.apiURL}/posts/tag/${this.hashtag}`,
-    getGlobal: `${this.apiURL}/posts/stream/global`,
-    getAllExploreStreams: `${this.apiURL}/posts/stream/explore`,
-    getNewConversations: `${this.apiURL}/posts/stream/explore/conversations`,
-    getPhotos: `${this.apiURL}/posts/stream/explore/photos`,
-    getTrending: `${this.apiURL}/posts/stream/explore/trending`,
-    getCheckins: `${this.apiURL}/posts/stream/explore/checkins`,
-    getConfig: `${this.apiURL}/config`
-  };
-
 }

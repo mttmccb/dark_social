@@ -13,21 +13,21 @@ export class Profile {
     this.api = api;
     this.data = [];
   }
-  
+
   refresh() {
-    return this.api.loadPosts(this.user_id).then(data => {
+    return this.api.loadPosts(this.user_id, false).then(data => {
       console.log(data);
       this.data = data;
       this.user_id = this.data[0].user.username;
       localStorage.setItem('user_id', this.user_id);
-    });    
+    });
   }
 
   activate(params, query, route) {
     if (route.fragment === "profile/random") {
       this.user_id = " ";
     }
-    return this.api.loadPosts(params.user_id || this.user_id).then(data => {
+    return this.api.loadPosts(params.user_id || this.user_id, false).then(data => {
       this.data = data;
       this.user_id = this.data[0].user.username;
       localStorage.setItem('user_id', this.user_id);
@@ -41,7 +41,7 @@ export class Profile {
   }
 
   getPost(id) {
-    return this.api.loadPost(id).then(post => {
+    return this.api.load('post', { id: id }).then(post => {
       this.post = post;
     });
   }

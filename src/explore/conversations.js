@@ -10,14 +10,14 @@ export class Conversations {
   }
 
   activate() {
-    return this.api.loadConversations().then(posts => {
+    return this.api.load('conversations', { more: false }).then(posts => {
       this.posts = posts;
     });
   }
-  
+
   refresh() {
-    return this.api.loadConversations().then(posts => {
+    return this.api.load('conversations', { more: false }).then(posts => {
       this.posts = posts;
-    });    
+    });
   }
 }

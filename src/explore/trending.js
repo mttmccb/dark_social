@@ -10,14 +10,14 @@ export class Trending {
   }
 
   activate() {
-    return this.api.loadTrendingPosts().then(posts => {
+    return this.api.load('trending', { more: false }).then(posts => {
       this.posts = posts;
     });
   }
-  
+
   refresh() {
-    return this.api.loadTrendingPosts().then(posts => {
+    return this.api.load('trending', { more: false }).then(posts => {
       this.posts = posts;
-    });    
+    });
   }
 }
