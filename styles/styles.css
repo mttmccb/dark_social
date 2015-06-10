@@ -304,6 +304,9 @@ padding: 0 1em;
     #profileDetails ul li a:hover {
       opacity: 1;
     }
+    #profileDetails ul li a.pure-menu-selected {
+      opacity: 1;
+    }
 
 /* Clean View */
 #profilePicture.clean,

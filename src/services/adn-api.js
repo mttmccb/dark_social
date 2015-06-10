@@ -187,7 +187,8 @@ export class AdnAPI {
       post: `${apiURL}/post/${params.id}`,
       posts: `${apiURL}/users/@${params.id}/posts`,
       star: `${apiURL}/posts/${params.id}/star`,
-      repost: `${apiURL}/posts/${params.id}/repost`
+      repost: `${apiURL}/posts/${params.id}/repost`,
+      stars: `${apiURL}/users/@${params.id}/stars`
     };
 
     return `${endpoints[action]}?count=${count}&${accessToken}${moreParam}${standardParams}`;

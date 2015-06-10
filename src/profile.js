@@ -24,13 +24,22 @@ export class Profile {
   refresh() {
     return this.loadPosts(this.user_id);
   }
+  
+  dataLoaded = 'posts';
+
+  loadStars() {
+    return this.api.load('stars', { id: this.user_id, more: false }).then(data => {
+      this.data = data;
+      this.dataLoaded = 'stars';
+    });
+  }
 
   loadPosts(user) {
-     return this.api.loadPosts(user, false).then(data => {
+    return this.api.loadPosts(user, false).then(data => {
       this.data = data;
       this.user_id = this.data[0].user.username;
       localStorage.setItem('user_id', this.user_id);
-    });   
+    });
   }
 
   loadMorePosts() {

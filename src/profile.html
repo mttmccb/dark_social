@@ -23,8 +23,12 @@
               <ul class="pure-menu-list">
                 <menu-link menu.bind="{ count: data[0].user.counts.following, icon:'arrow-circle-left' }"></menu-link>
                 <menu-link menu.bind="{ count: data[0].user.counts.followers, icon:'arrow-circle-right' }"></menu-link>
-                <menu-link menu.bind="{ count: data[0].user.counts.posts, icon:'pencil-square-o' }"></menu-link>
-                <menu-link menu.bind="{ count: data[0].user.counts.stars, icon:'star' }"></menu-link>
+              	<li class="pure-menu-item">
+              		<a class="pure-menu-link ${dataLoaded=='posts' ? 'pure-menu-selected' : ''}" href="#" click.delegate="loadStars()"><i class="fa fa-pencil-square-o"></i> ${data[0].user.counts.posts}</a>
+              	</li>
+              	<li class="pure-menu-item">
+              		<a class="pure-menu-link ${dataLoaded=='stars' ? 'pure-menu-selected' : ''}" href="#" click.delegate="loadStars()"><i class="fa fa-star"></i> ${data[0].user.counts.stars}</a>
+              	</li>
               </ul>
             </nav>
           </div>
