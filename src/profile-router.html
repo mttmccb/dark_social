@@ -1,0 +1,6 @@
+<template>
+  <section class="main-content-wrapper">
+    <router-view></router-view>
+    <p><a repeat.for="row of router.navigation" href.bind="row.href">${row.title}</a></p>
+  </section>
+</template>
