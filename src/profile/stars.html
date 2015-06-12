@@ -1,3 +1,4 @@
 <template>
-	<h1>Stars</h1>
+	<require from='../templates/posts/post-list'></require>
+	<post-list posts.bind="{ data: data, avatar: true}"></post-list>
 </template>

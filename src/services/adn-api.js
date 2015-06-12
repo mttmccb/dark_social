@@ -2,6 +2,7 @@ import { inject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
 import { NiceAPI } from './nice-api';
 import { randomInteger } from 'resources/utility';
+import { State } from './state';
 
 let nouser = {
   meta: {
@@ -69,10 +70,11 @@ let nouser = {
 let apiURL = 'https://api.app.net';
 let count = 200;
 
-@inject(HttpClient)
+@inject(HttpClient, State)
 export class AdnAPI {
-  constructor(http) {
+  constructor(http, state) {
     this.http = http;
+    this.state = state;
   }
 
   meta = [];
@@ -86,6 +88,7 @@ export class AdnAPI {
       this.isRequesting = true;
       return this.http.get(`${apiURL}/token?access_token=${token}`).then((response) => {
         this.isRequesting = false;
+        this.state.tokenReturned = response.content.data;
         return response.content.data;
         
       }).catch((err) => {
@@ -106,11 +109,31 @@ export class AdnAPI {
     
     return this.getRandomUserId().then((user) => {
       
-      let getUser = id || localStorage.getItem('user_id');
+      let getUser = this.state.user_id || id;
       if (!getUser || getUser === ' ') { getUser = user; }
       
       return this.http.get(this.urlBuilder('posts', { id: getUser, more: more })).then((response) => {
         this.meta = response.content.meta;
+        this.isRequesting = false;
+        return response.content.data;
+        
+      }).catch((err) => {
+        console.log("Username not found, restoring known user");
+        this.isRequesting = false;
+        return nouser.data;
+      });
+    });
+  }
+
+  loadProfile(id, more) {
+    
+    this.isRequesting = true;
+    
+    return this.getRandomUserId().then((user) => {
+      
+      let getUser = this.state.user_id || id;
+      if (!getUser || getUser === ' ') { getUser = user; }
+      return this.http.get(this.urlBuilder('users', { id: getUser, more: more })).then((response) => {
         this.isRequesting = false;
         return response.content.data;
         
@@ -175,10 +198,10 @@ export class AdnAPI {
 
   urlBuilder(action, params) {
     let standardParams = `include_post_annotations=1&include_deleted=0`;
-    let accessTokenLS = localStorage.getItem('access_token');
-    let accessToken = accessTokenLS === "undefined" ? `access_token=${accessTokenLS}&` : "";
-    let moreParam = params.more === "undefined" ? `before_id=${this.meta.min_id}&` : "";
-
+    let accessTokenLS = this.state.token;
+    let accessToken = accessTokenLS !== "undefined" ? `access_token=${accessTokenLS}&` : "";
+    let moreParam = params.more === "true" ? `before_id=${this.meta.min_id}&` : "";
+    
     let endpoints = {
       conversations: `${apiURL}/posts/stream/explore/conversations`,
       photos: `${apiURL}/posts/stream/explore/photos`,
@@ -188,9 +211,16 @@ export class AdnAPI {
       posts: `${apiURL}/users/@${params.id}/posts`,
       star: `${apiURL}/posts/${params.id}/star`,
       repost: `${apiURL}/posts/${params.id}/repost`,
-      stars: `${apiURL}/users/@${params.id}/stars`
+      stars: `${apiURL}/users/@${params.id}/stars`,
+      users: `${apiURL}/users/@${params.id}`,
+      followers: `${apiURL}/users/@${params.id}/followers`,
+      following: `${apiURL}/users/@${params.id}/following`
     };
 
-    return `${endpoints[action]}?count=${count}&${accessToken}${moreParam}${standardParams}`;
+    if (action!=='users' || action!=='followers') {
+      return `${endpoints[action]}?count=${count}&${accessToken}${moreParam}${standardParams}`;    
+    } else {
+      return `${endpoints[action]}?${accessToken}`;      
+    }
   }
 }

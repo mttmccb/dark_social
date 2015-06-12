@@ -1,0 +1,7 @@
+<template>
+	<div class="pure-g posts">	
+		<div repeat.for="profile of profiles" class="pure-u-1-24">
+			<img id="profilePicture" src.bind="profile.avatar_image.url" class="pure-img" />
+		</div>			
+	</div>
+</template>

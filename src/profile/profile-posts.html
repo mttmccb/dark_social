@@ -1,3 +1,16 @@
 <template>
-	<h1>Posts</h1>
+   <require from='../templates/posts/post-list'></require>
+   <require from='../templates/stats/profile-stats'></require>
+
+    <div class="pure-g posts" if.bind="data[0].user.counts.posts>0">
+      <div class="pure-u-1 stats-header">
+        <h2>Last ${data.length} Posts
+          <a href="#" click.delegate="loadMorePosts()">more...</a> <i class="clickable fa fa-refresh" click.delegate="refresh()"></i>
+        </h2>
+      </div>
+      <div class="pure-u-1 stats">
+        <profile-stats posts.bind="data"></profile-stats>
+      </div>
+    </div>
+    <post-list posts.bind="{ data: data, avatar: false}"></post-list>
 </template>

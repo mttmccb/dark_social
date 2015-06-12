@@ -374,6 +374,7 @@ padding: 0 1em;
 
 /* Post Formatting */
 .posts {
+  margin-top: 1em;
 }
 .post {
   padding: 0 1em 0 0;

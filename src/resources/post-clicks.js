@@ -1,14 +1,16 @@
 import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
+import { State } from 'services/state';
 
-@inject(Router)
+@inject(Router, State)
 export class PostClicks {
-  constructor(router) {
+  constructor(router, state) {
     this.theRouter = router;
+    this.state = state;
   }
 
 	openProfile(name) {
-		localStorage.setItem('user_id', name);
+    this.state.user_id = name;
 		this.theRouter.navigateToRoute("userprofile", {user_id: name});  
 	}
 
