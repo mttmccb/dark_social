@@ -161,6 +161,10 @@ export class AdnAPI {
     return this.toggleEntity(id, isTrue, 'star');
   }
 
+  toggleFollow(id, isTrue) {
+    return this.toggleEntity(id, isTrue, 'follow');
+  }
+
   toggleRepost(id, isTrue) {
     return this.toggleEntity(id, isTrue, 'repost');
   }
@@ -214,7 +218,8 @@ export class AdnAPI {
       stars: `${apiURL}/users/@${params.id}/stars`,
       users: `${apiURL}/users/@${params.id}`,
       followers: `${apiURL}/users/@${params.id}/followers`,
-      following: `${apiURL}/users/@${params.id}/following`
+      following: `${apiURL}/users/@${params.id}/following`,
+      follow: `${apiURL}/users/@${params.id}/follow`
     };
 
     if (action!=='users' || action!=='followers') {

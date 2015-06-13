@@ -12,7 +12,6 @@ export class PostFrontCustomElement {
     this.user_id = localStorage.getItem("user_id");
   }  
   
-
   toggleStar(post) {
     post.you_starred = !post.you_starred;
     this.api.toggleStar(post.id, post.you_starred);

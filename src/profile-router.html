@@ -31,6 +31,9 @@
               	<li class="pure-menu-item">
               		<a class="pure-menu-link ${router.navigation[3].isActive ? 'pure-menu-selected' : ''}" href="profile/stars"><i class="fa fa-star"></i> ${user.counts.stars}</a>
               	</li>
+              	<li if.bind="user.you_can_follow" class="pure-menu-item">
+              		<a class="pure-menu-link" href="#" click.delegate="toggleFollow(user)">${user.you_follow? 'Unfollow' : 'Follow'}</a>
+              	</li>
               </ul>
             </nav>
           </div>

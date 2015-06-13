@@ -54,4 +54,10 @@ export class ProfileRouter {
   toggleVisible() {
     this.showBanner = !this.showBanner;
   }
+  
+  toggleFollow(user) {
+    console.log(user);
+    user.you_follow = !user.you_follow;
+    this.api.toggleFollow(user.username, user.you_follow);
+  }
 }
