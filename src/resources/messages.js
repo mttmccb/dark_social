@@ -9,3 +9,9 @@ export class LoggedIn {
     this.loggedin = loggedin;
   }
 }
+
+export class ApiStatus {
+  constructor(apistatus){
+    this.apistatus = apistatus;
+  }
+}

@@ -2,7 +2,7 @@ import { bindable, inject } from 'aurelia-framework';
 import { AuthenticationService } from '../services/auth';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { LoggedIn } from 'resources/messages';
+import { LoggedIn, ApiStatus } from 'resources/messages';
 
 @inject(AuthenticationService, Router, EventAggregator)
 export class NavBarCustomElement {
@@ -13,6 +13,7 @@ export class NavBarCustomElement {
     this.theRouter = router;
     this.ea = ea;
     ea.subscribe(LoggedIn, msg => this.showProfile());
+    ea.subscribe(ApiStatus, msg => this.displayStatus(msg.apistatus));
     this.showProfile();
   }
 
@@ -24,6 +25,12 @@ export class NavBarCustomElement {
       this.LogInOutText = "Login";
       this.theRouter.navigate("logout");
     }
+  }
+    
+  apiStatusMessage = "";
+  
+  displayStatus(status) {
+    this.apiStatusMessage = status;
   }
   
   showProfile() {

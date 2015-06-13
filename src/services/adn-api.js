@@ -3,6 +3,8 @@ import { HttpClient } from 'aurelia-http-client';
 import { NiceAPI } from './nice-api';
 import { randomInteger } from 'resources/utility';
 import { State } from './state';
+import { EventAggregator } from 'aurelia-event-aggregator';
+import { ApiStatus } from 'resources/messages';
 
 let nouser = {
   meta: {
@@ -70,11 +72,12 @@ let nouser = {
 let apiURL = 'https://api.app.net';
 let count = 200;
 
-@inject(HttpClient, State)
+@inject(HttpClient, State, EventAggregator)
 export class AdnAPI {
-  constructor(http, state) {
+  constructor(http, state, ea) {
     this.http = http;
     this.state = state;
+    this.ea = ea;
   }
 
   meta = [];
@@ -90,13 +93,13 @@ export class AdnAPI {
         this.isRequesting = false;
         this.state.tokenReturned = response.content.data;
         return response.content.data;
-        
+
       }).catch((err) => {
         console.log("Invalid Token");
         this.isRequesting = false;
         return {};
       });
-      
+
     }).catch((err) => {
       console.log("No Token Found");
       return {};
@@ -104,19 +107,19 @@ export class AdnAPI {
   }
 
   loadPosts(id, more) {
-    
+
     this.isRequesting = true;
-    
+
     return this.getRandomUserId().then((user) => {
-      
+
       let getUser = this.state.user_id || id;
       if (!getUser || getUser === ' ') { getUser = user; }
-      
+
       return this.http.get(this.urlBuilder('posts', { id: getUser, more: more })).then((response) => {
         this.meta = response.content.meta;
         this.isRequesting = false;
         return response.content.data;
-        
+
       }).catch((err) => {
         console.log("Username not found, restoring known user");
         this.isRequesting = false;
@@ -126,17 +129,18 @@ export class AdnAPI {
   }
 
   loadProfile(id, more) {
-    
+
     this.isRequesting = true;
-    
+
     return this.getRandomUserId().then((user) => {
-      
+      this.ea.publish(new ApiStatus('Loading Profile'));
+
       let getUser = this.state.user_id || id;
       if (!getUser || getUser === ' ') { getUser = user; }
       return this.http.get(this.urlBuilder('users', { id: getUser, more: more })).then((response) => {
         this.isRequesting = false;
         return response.content.data;
-        
+
       }).catch((err) => {
         console.log("Username not found, restoring known user");
         this.isRequesting = false;
@@ -146,11 +150,11 @@ export class AdnAPI {
   }
 
   getRandomUserId() {
-    
+
     return this.http.get('https://api.nice.social/user/nicesummary').then((response) => {
       var randomIndex = randomInteger(response.content.data.length);
       return response.content.data[randomIndex].name;
-      
+
     }).catch((err) => {
       console.log("Nice.Social API Issue");
       return 'berg';
@@ -170,13 +174,13 @@ export class AdnAPI {
   }
 
   toggleEntity(id, isTrue, entity) {
-    
+
     this.isRequesting = true;
-    
+
     return this.http[isTrue ? 'post' : 'delete'](this.urlBuilder(entity, { id: id })).then((response) => {
       this.isRequesting = false;
       return response.content.data;
-      
+
     }).catch((err) => {
       console.log(`Unable to ${entity}`);
       this.isRequesting = false;
@@ -185,14 +189,14 @@ export class AdnAPI {
   }
 
   load(url, params) {
-    
+
     this.isRequesting = true;
-    
+
     return this.http.get(this.urlBuilder(url, params)).then((response) => {
       this.meta = response.content.meta;
       this.isRequesting = false;
       return response.content.data;
-      
+
     }).catch((err) => {
       console.log("Data not found");
       this.isRequesting = false;
@@ -205,7 +209,7 @@ export class AdnAPI {
     let accessTokenLS = this.state.token;
     let accessToken = accessTokenLS !== "undefined" ? `access_token=${accessTokenLS}&` : "";
     let moreParam = params.more === "true" ? `before_id=${this.meta.min_id}&` : "";
-    
+
     let endpoints = {
       conversations: `${apiURL}/posts/stream/explore/conversations`,
       photos: `${apiURL}/posts/stream/explore/photos`,
@@ -222,10 +226,10 @@ export class AdnAPI {
       follow: `${apiURL}/users/@${params.id}/follow`
     };
 
-    if (action!=='users' || action!=='followers') {
-      return `${endpoints[action]}?count=${count}&${accessToken}${moreParam}${standardParams}`;    
+    if (action !== 'users' || action !== 'followers') {
+      return `${endpoints[action]}?count=${count}&${accessToken}${moreParam}${standardParams}`;
     } else {
-      return `${endpoints[action]}?${accessToken}`;      
+      return `${endpoints[action]}?${accessToken}`;
     }
   }
 }
