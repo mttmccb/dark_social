@@ -173,6 +173,14 @@ export class AdnAPI {
     return this.toggleEntity(id, isTrue, 'repost', isTrue? 'Reposted': 'Repost Removed');
   }
 
+  toggleMute(id, isTrue) {
+    return this.toggleEntity(id, isTrue, 'mute', isTrue? `${id} Muted`: `${id} Unmuted`);
+  }
+
+  toggleBlock(id, isTrue) {
+    return this.toggleEntity(id, isTrue, 'block', isTrue? `${id} Blocked`: `${id} Unblocked`);
+  }
+
   toggleEntity(id, isTrue, entity, successMsg) {
 
     this.isRequesting = true;
@@ -224,7 +232,9 @@ export class AdnAPI {
       users: `${apiURL}/users/@${params.id}`,
       followers: `${apiURL}/users/@${params.id}/followers`,
       following: `${apiURL}/users/@${params.id}/following`,
-      follow: `${apiURL}/users/@${params.id}/follow`
+      follow: `${apiURL}/users/@${params.id}/follow`,
+      mute: `${apiURL}/users/@${params.id}/mute`,
+      block: `${apiURL}/users/@${params.id}/block`
     };
 
     if (action !== 'users' || action !== 'followers') {
