@@ -107,6 +107,48 @@ export class AdnAPI {
     });
   }
 
+  createPost(text) {
+
+    let jsonText = { text: text };
+
+    this.isRequesting = true;
+
+    return this.http.configure(x => {
+      x.withHeader('Authorization', 'Bearer ' + this.state.token);
+      x.withHeader('Content-Type', 'application/json');
+    }).post(`https://api.app.net/posts?parse_links=true&parse_markdown_links=true`, jsonText).then((response) => {
+      this.meta = response.content.meta;
+      this.isRequesting = false;
+      this.ea.publish(new ApiStatus('Post Created', { status: 'success' }));
+      return response.content.data;
+
+    }).catch((err) => {
+      this.isRequesting = false;
+      this.ea.publish(new ApiStatus('Unable to post', { status: 'error' }));
+      return {};
+    });
+  }
+
+  textProcess(text) {
+
+    let jsonText = { text: text };
+
+    this.isRequesting = true;
+
+    return this.http.configure(x => {
+      x.withHeader('Authorization', 'Bearer ' + this.state.token);
+      x.withHeader('Content-Type', 'application/json');
+    }).post(`https://api.app.net/text/process?parse_links=true&parse_markdown_links=true`, jsonText).then((response) => {
+      this.meta = response.content.meta;
+      this.isRequesting = false;
+      return response.content.data;
+
+    }).catch((err) => {
+      this.isRequesting = false;
+      return nouser.data;
+    });
+  }
+
   loadPosts(id, more) {
 
     this.isRequesting = true;
@@ -118,12 +160,12 @@ export class AdnAPI {
       return this.http.get(this.urlBuilder('posts', { id: getUser, more: more })).then((response) => {
         this.meta = response.content.meta;
         this.isRequesting = false;
-        this.ea.publish(new ApiStatus((more? 'Retrieved more Posts': 'Retrieved Posts'), { status: 'success' }));        
+        this.ea.publish(new ApiStatus((more ? 'Retrieved more Posts' : 'Retrieved Posts'), { status: 'success' }));
         return response.content.data;
 
       }).catch((err) => {
         this.isRequesting = false;
-        this.ea.publish(new ApiStatus('Username not found, restoring known user', { status: 'error' }));        
+        this.ea.publish(new ApiStatus('Username not found, restoring known user', { status: 'error' }));
         return nouser.data;
       });
     });
@@ -143,7 +185,7 @@ export class AdnAPI {
 
       }).catch((err) => {
         this.isRequesting = false;
-        this.ea.publish(new ApiStatus('Username not found, restoring known user', { status: 'error' }));        
+        this.ea.publish(new ApiStatus('Username not found, restoring known user', { status: 'error' }));
         return nouser.data;
       });
     });
@@ -162,23 +204,23 @@ export class AdnAPI {
   }
 
   toggleStar(id, isTrue) {
-    return this.toggleEntity(id, isTrue, 'star', isTrue? 'Post Starred': ' Post Unstarred');
+    return this.toggleEntity(id, isTrue, 'star', isTrue ? 'Post Starred' : ' Post Unstarred');
   }
 
   toggleFollow(id, isTrue) {
-    return this.toggleEntity(id, isTrue, 'follow', isTrue? `Followed ${id}` : `Unfollowed ${id}`);
+    return this.toggleEntity(id, isTrue, 'follow', isTrue ? `Followed ${id}` : `Unfollowed ${id}`);
   }
 
   toggleRepost(id, isTrue) {
-    return this.toggleEntity(id, isTrue, 'repost', isTrue? 'Reposted': 'Repost Removed');
+    return this.toggleEntity(id, isTrue, 'repost', isTrue ? 'Reposted' : 'Repost Removed');
   }
 
   toggleMute(id, isTrue) {
-    return this.toggleEntity(id, isTrue, 'mute', isTrue? `${id} Muted`: `${id} Unmuted`);
+    return this.toggleEntity(id, isTrue, 'mute', isTrue ? `${id} Muted` : `${id} Unmuted`);
   }
 
   toggleBlock(id, isTrue) {
-    return this.toggleEntity(id, isTrue, 'block', isTrue? `${id} Blocked`: `${id} Unblocked`);
+    return this.toggleEntity(id, isTrue, 'block', isTrue ? `${id} Blocked` : `${id} Unblocked`);
   }
 
   toggleEntity(id, isTrue, entity, successMsg) {
@@ -186,12 +228,12 @@ export class AdnAPI {
     this.isRequesting = true;
     return this.http[isTrue ? 'post' : 'delete'](this.urlBuilder(entity, { id: id })).then((response) => {
       this.isRequesting = false;
-      this.ea.publish(new ApiStatus(successMsg, { status: 'success' }));        
+      this.ea.publish(new ApiStatus(successMsg, { status: 'success' }));
       return response.content.data;
 
     }).catch((err) => {
       this.isRequesting = false;
-      this.ea.publish(new ApiStatus(`Unable to ${entity}`, { status: 'error' }));        
+      this.ea.publish(new ApiStatus(`Unable to ${entity}`, { status: 'error' }));
       return {};
     });
   }
@@ -203,12 +245,12 @@ export class AdnAPI {
     return this.http.get(this.urlBuilder(url, params)).then((response) => {
       this.meta = response.content.meta;
       this.isRequesting = false;
-      this.ea.publish(new ApiStatus(`Retrieved ${url}`, { status: 'success' }));        
+      this.ea.publish(new ApiStatus(`Retrieved ${url}`, { status: 'success' }));
       return response.content.data;
 
     }).catch((err) => {
       this.isRequesting = false;
-      this.ea.publish(new ApiStatus(`Unable to load ${url}`, { status: 'success' }));        
+      this.ea.publish(new ApiStatus(`Unable to load ${url}`, { status: 'success' }));
       return {};
     });
   }

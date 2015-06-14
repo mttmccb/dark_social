@@ -257,7 +257,7 @@ padding: 0 1em;
   vertical-align: middle;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  §x-shadow: 0 0 1px rgba(0, 0, 0, 0);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   -moz-osx-font-smoothing: grayscale;
@@ -388,6 +388,15 @@ padding: 0 1em;
 .posts {
   margin-top: 1em;
 }
+
+blockquote {
+  font-style: italic;
+}
+
+.content-container {
+  padding: 1em;
+}
+.post-form,
 .post {
   padding: 0 1em 0 0;
   background:#FFFAF3;
@@ -396,6 +405,11 @@ padding: 0 1em;
   margin-bottom: 10px; 
 	perspective: 1000;
 	transform-style: preserve-3d;
+}
+
+.post-form {
+  margin-top: 2em;
+  padding: 0 1em 0 1em;
 }
 
 @media screen and (min-width: 35.5em) {
