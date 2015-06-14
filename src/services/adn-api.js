@@ -92,16 +92,17 @@ export class AdnAPI {
       return this.http.get(`${apiURL}/token?access_token=${token}`).then((response) => {
         this.isRequesting = false;
         this.state.tokenReturned = response.content.data;
+        //this.ea.publish(new ApiStatus('Token Retrieved', { status: 'success' }));
         return response.content.data;
 
       }).catch((err) => {
-        console.log("Invalid Token");
         this.isRequesting = false;
+        this.ea.publish(new ApiStatus('Invalid Token', { status: 'error' }));
         return {};
       });
 
     }).catch((err) => {
-      console.log("No Token Found");
+      //this.ea.publish(new ApiStatus('No Token Found', { status: 'info' }));     
       return {};
     });
   }
@@ -111,18 +112,18 @@ export class AdnAPI {
     this.isRequesting = true;
 
     return this.getRandomUserId().then((user) => {
-
       let getUser = this.state.user_id || id;
       if (!getUser || getUser === ' ') { getUser = user; }
 
       return this.http.get(this.urlBuilder('posts', { id: getUser, more: more })).then((response) => {
         this.meta = response.content.meta;
         this.isRequesting = false;
+        this.ea.publish(new ApiStatus((more? 'Retrieved more Posts': 'Retrieved Posts'), { status: 'success' }));        
         return response.content.data;
 
       }).catch((err) => {
-        console.log("Username not found, restoring known user");
         this.isRequesting = false;
+        this.ea.publish(new ApiStatus('Username not found, restoring known user', { status: 'error' }));        
         return nouser.data;
       });
     });
@@ -133,17 +134,16 @@ export class AdnAPI {
     this.isRequesting = true;
 
     return this.getRandomUserId().then((user) => {
-      this.ea.publish(new ApiStatus('Loading Profile'));
-
       let getUser = this.state.user_id || id;
       if (!getUser || getUser === ' ') { getUser = user; }
       return this.http.get(this.urlBuilder('users', { id: getUser, more: more })).then((response) => {
         this.isRequesting = false;
+        this.ea.publish(new ApiStatus('Retrieved Profile', { status: 'success' }));
         return response.content.data;
 
       }).catch((err) => {
-        console.log("Username not found, restoring known user");
         this.isRequesting = false;
+        this.ea.publish(new ApiStatus('Username not found, restoring known user', { status: 'error' }));        
         return nouser.data;
       });
     });
@@ -156,34 +156,34 @@ export class AdnAPI {
       return response.content.data[randomIndex].name;
 
     }).catch((err) => {
-      console.log("Nice.Social API Issue");
+      this.ea.publish(new ApiStatus('Nice.Social API Issue', { status: 'error' }));
       return 'berg';
     });
   }
 
   toggleStar(id, isTrue) {
-    return this.toggleEntity(id, isTrue, 'star');
+    return this.toggleEntity(id, isTrue, 'star', isTrue? 'Post Starred': ' Post Unstarred');
   }
 
   toggleFollow(id, isTrue) {
-    return this.toggleEntity(id, isTrue, 'follow');
+    return this.toggleEntity(id, isTrue, 'follow', isTrue? `Followed ${id}` : `Unfollowed ${id}`);
   }
 
   toggleRepost(id, isTrue) {
-    return this.toggleEntity(id, isTrue, 'repost');
+    return this.toggleEntity(id, isTrue, 'repost', isTrue? 'Reposted': 'Repost Removed');
   }
 
-  toggleEntity(id, isTrue, entity) {
+  toggleEntity(id, isTrue, entity, successMsg) {
 
     this.isRequesting = true;
-
     return this.http[isTrue ? 'post' : 'delete'](this.urlBuilder(entity, { id: id })).then((response) => {
       this.isRequesting = false;
+      this.ea.publish(new ApiStatus(successMsg, { status: 'success' }));        
       return response.content.data;
 
     }).catch((err) => {
-      console.log(`Unable to ${entity}`);
       this.isRequesting = false;
+      this.ea.publish(new ApiStatus(`Unable to ${entity}`, { status: 'error' }));        
       return {};
     });
   }
@@ -195,11 +195,12 @@ export class AdnAPI {
     return this.http.get(this.urlBuilder(url, params)).then((response) => {
       this.meta = response.content.meta;
       this.isRequesting = false;
+      this.ea.publish(new ApiStatus(`Retrieved ${url}`, { status: 'success' }));        
       return response.content.data;
 
     }).catch((err) => {
-      console.log("Data not found");
       this.isRequesting = false;
+      this.ea.publish(new ApiStatus(`Unable to load ${url}`, { status: 'success' }));        
       return {};
     });
   }

@@ -11,7 +11,8 @@ export class LoggedIn {
 }
 
 export class ApiStatus {
-  constructor(apistatus){
-    this.apistatus = apistatus;
+  constructor(message, options){
+    this.message = message;
+    this.options = options;
   }
 }

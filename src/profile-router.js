@@ -56,7 +56,6 @@ export class ProfileRouter {
   }
   
   toggleFollow(user) {
-    console.log(user);
     user.you_follow = !user.you_follow;
     this.api.toggleFollow(user.username, user.you_follow);
   }
