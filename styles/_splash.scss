@@ -1,0 +1,19 @@
+.splash-text {
+  font-size: 72px;
+  line-height: 72px;  
+  color: $content-color;
+}
+
+.selector,
+.splash {
+  color: $content-main;
+  text-align: center;
+  margin: 10% 0 0 0;
+  .message {
+    @extend .splash-text;
+  }
+  .fa-spinner {
+    @extend .splash-text;
+    display: inline-block;
+  }
+}
