@@ -4,11 +4,11 @@
 	<require from='templates/modal-image'></require>
 	<modal-image></modal-image>
 	<section class="main-content-wrapper">
-		<div class="pure-g posts">
+		<div class="pure-g posts stats">
 			<div class="pure-u-1 stats-header">
 				<h2>Last ${posts.length} Trending <i class="clickable fa fa-refresh" click.delegate="refresh()"></i></h2>
 			</div>
-			<div class="pure-u-1 stats">
+			<div class="pure-u-1 stats-body">
 				<div class="pure-g">
 					<div class="pure-u-1 pure-u-sm-2-3">
 						<explore-stats posts.bind="posts"></explore-stats>

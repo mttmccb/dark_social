@@ -1,0 +1,104 @@
+#profilePicture {
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: #00B2B2 0.25em solid;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  x-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: border-radius;
+  transition-property: border-radius;
+  background: $content-background;
+  &:hover {
+    cursor: pointer;
+  }
+  &.clean {
+    border-radius: 0;
+  } 
+}
+
+#banner {
+  background: $content-background;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: block;
+  height: 350px;
+  border-radius: 3em 3em 3em 3em;
+  border: #00B2B2 0.25em solid;
+  position: relative;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: border-radius;
+  transition-property: border-radius;
+  &.clean {
+    border-radius: 0;
+  } 
+}
+
+#profileDetails {
+  margin: 0em;
+  h2 {
+    background-color:aqua;
+    padding: 0.25em 1em;
+    margin: 0;
+    border-radius: 1.5em 1.5em 0 0;
+  }   
+  p {
+    background: $content-background;
+    padding: 1em 1.5em 1.5em 1.5em;
+    margin-top: 0;
+    border-radius: 0 0 2em 0;
+    opacity: 0.9;
+    margin-bottom: 0;
+    max-height: 200px;
+    overflow-y: scroll;
+    @media screen and (max-width: 35.5em) {
+      padding: 0.5em;
+    }
+  }
+  ul li a {
+    background: #E6FFFF;
+    border-radius: 0 0 1em 1em;
+    opacity: 0.9;
+    cursor: pointer;
+  }
+  ul li a:hover {
+    opacity: 1;
+  }
+  ul li a.pure-menu-selected {
+    opacity: 1;
+  }
+  &.clean {
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+  }
+  @media screen and (max-width: 35.5em) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* Randomize button */
+.randomize {
+  cursor: pointer;
+  color: $link-color;
+  &:hover {
+    -webkit-animation: fa-spin 2s infinite linear;
+    animation: fa-spin 2s infinite linear;
+  }
+}
+
+#un {
+  width: 12em;
+  background: rgba(255,255,255,0.8);
+  border-width: 0;
+  border-radius: 0.25em;
+  padding-left: 0.25em;
+}

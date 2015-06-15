@@ -1,0 +1,21 @@
+.stats {
+  .stats-header h2 {
+    background-color:burlywood; 
+    margin-bottom: 0;
+    border-radius: 2em 2em 0 0;
+    padding: 0.25em 1em;
+  }
+  .stats-body {
+    background: $content-background;
+    padding: 1em 1.5em 1em 1.5em;
+    border-radius: 0 0 2em 2em;
+    margin: 0 0 1em 0;
+    p, h3 {
+      margin-top: 0;
+    }
+  } 
+  @media screen and (max-width: 35.5em) {
+    padding-left: 0.5em;
+    padding-right: 0.5em;      
+  }  
+}

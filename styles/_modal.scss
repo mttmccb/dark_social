@@ -1,0 +1,44 @@
+.modalDialog {
+	position: fixed;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	z-index: 99999;
+	opacity:0;
+	pointer-events: none;
+  -webkit-transition: opacity 200ms ease-in;
+  -moz-transition: opacity 200ms ease-in;
+  transition: opacity 200ms ease-in;
+  &.open {
+  	opacity:1;
+  	pointer-events: auto; 
+    & > div {
+    	opacity:1;
+    	pointer-events: auto;
+      -webkit-animation-duration: 0.6s;
+      animation-duration: 0.6s;
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both; 
+      animation-name: fadeInDownBig;   
+    }
+  }
+  & > div {
+  	max-width: 700px;
+  	position: relative;
+  	margin: 5% auto;
+  	padding: 5px 20px 13px 20px;
+  	border-radius: 2em;
+  	background: $content-background;  
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both; 
+    animation-name: fadeOutUpBig; 
+    & > a > img {
+      border-radius: 1em;
+    }
+  }
+}
