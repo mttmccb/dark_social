@@ -107,12 +107,13 @@ export class AdnAPI {
     });
   }
 
-  createPost(text) {
+  createPost(text, options) {
 
-    let jsonText = { text: text };
-
+    var jsonText = { text: text };
+    if (options.reply_to) {
+      jsonText.reply_to = options.reply_to;
+    } 
     this.isRequesting = true;
-
     return this.http.configure(x => {
       x.withHeader('Authorization', 'Bearer ' + this.state.token);
       x.withHeader('Content-Type', 'application/json');
@@ -168,6 +169,22 @@ export class AdnAPI {
         this.ea.publish(new ApiStatus('Username not found, restoring known user', { status: 'error' }));
         return nouser.data;
       });
+    });
+  }
+
+  loadLastPost() {
+
+    this.isRequesting = true;
+
+    return this.http.get(this.urlBuilder('lastpost', { id: this.state.user_id })).then((response) => {
+      this.isRequesting = false;
+      this.ea.publish(new ApiStatus('Retrieved Last Post', { status: 'success' }));
+      return response.content.data;
+
+    }).catch((err) => {
+      this.isRequesting = false;
+      this.ea.publish(new ApiStatus('Unable to retrieve last post', { status: 'error' }));
+      return nouser.data;
     });
   }
 
@@ -276,10 +293,11 @@ export class AdnAPI {
       following: `${apiURL}/users/@${params.id}/following`,
       follow: `${apiURL}/users/@${params.id}/follow`,
       mute: `${apiURL}/users/@${params.id}/mute`,
-      block: `${apiURL}/users/@${params.id}/block`
+      block: `${apiURL}/users/@${params.id}/block`,
+      lastpost: `${apiURL}/users/@${params.id}/posts?count=1&`
     };
 
-    if (action !== 'users' || action !== 'followers') {
+    if (action !== 'users' && action !== 'followers' && action !=='lastpost') {
       return `${endpoints[action]}?count=${count}&${accessToken}${moreParam}${standardParams}`;
     } else {
       return `${endpoints[action]}?${accessToken}`;
