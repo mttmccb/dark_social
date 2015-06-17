@@ -208,6 +208,17 @@ export class AdnAPI {
     });
   }
 
+  getAllUsers() {
+
+    return this.http.get('https://api.nice.social/user/nicesummary').then((response) => {
+      return response.content.data;
+
+    }).catch((err) => {
+      this.ea.publish(new ApiStatus('Nice.Social API Issue', { status: 'error' }));
+      return 'berg';
+    });
+  }
+  
   getRandomUserId() {
 
     return this.http.get('https://api.nice.social/user/nicesummary').then((response) => {

@@ -18,6 +18,8 @@ export class NewPosts {
 	editPost = false;
 	postText = "";
 	lastPost = "";
+	matchedMentions = [];
+	mentionSearch = false;
 
 	get hasFocus() {
 		return this.editPost;
@@ -35,6 +37,10 @@ export class NewPosts {
 	loadLastPost() {
 		return this.api.loadLastPost().then(data => {
 			this.lastPost = data[0];
+			this.api.getAllUsers().then(data => {
+				this.allUsers = data;
+				console.log(data);
+			});
 		});
 	}
 
@@ -47,6 +53,34 @@ export class NewPosts {
 		}).catch(() => {
 			alert("Wrong");
 		});
+	}
+
+	keyUp(e) {
+		var regExp = /@[^ \W]*$/;
+		var match = regExp.exec(this.postText);
+		if (match !== null && match[0].length>3) {
+			this.mentionSearch = true;
+			var fragment = match[0].replace('@', '');
+
+			this.matchedMentions = [].filter.call(this.allUsers, function (item) {
+				return typeof item.name == 'string' && item.name.indexOf(fragment) > -1;
+			}).sort(function (a, b) {
+				if (a.rank < b.rank) return 1;
+				if (a.rank > b.rank) return -1;
+				return 0;
+			}).slice(0, 5);
+		} else {
+			this.mentionSearch = false;
+		}
+		return true;
+	}
+
+	keyDown(e) {
+		var KEY_DOWNARROW = 40;
+		if (e.keyCode === KEY_DOWNARROW) {
+			this.postText = this.postText.replace(/@[^ \W]*$/, `@${this.matchedMentions[0].name} `);
+		}
+		return true;
 	}
 
 	setupReply(id) {
@@ -73,7 +107,7 @@ export class NewPosts {
 			this.api.createPost(this.postText,(this.replyTo ? { reply_to: this.replyTo } : {})).then(data => {
 				this.lastPost = data;
 				this.postText = "";
-				this.previousValue= "";
+				this.previousValue = "";
 			});
 		}).catch(() => {
 			alert("Wrong");

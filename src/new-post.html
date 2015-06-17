@@ -8,21 +8,27 @@
 						<h2>Your last post</h2>
 						<post-front post.bind="lastPost"></post-front>
 						<label for="chain">
-            				<input id="chain" checked.bind="chainPosts" change.delegate="setupReply(lastPost.id)" type="checkbox"> Chain Post to last post
-        				</label>
+							<input id="chain" checked.bind="chainPosts" change.delegate="setupReply(lastPost.id)" type="checkbox">Chain Post to last post</label>
 						<h2>New Post</h2>
-						<textarea value.bind="postText" placeholder="Post" focus.bind="hasFocus" class="form-control pure-input-1" rows="5"></textarea>
-							<span>${postText.length} / 256 characters</span>
-							<button type="button" class="pure-button" click.delegate="preview()" disabled.bind="!validation.result.isValid">Preview</button>
-							<button type="submit" class="pure-button pure-button-primary" disabled.bind="!validation.result.isValid">Post</button>
+						<textarea value.bind="postText" placeholder="Post" focus.bind="hasFocus" keyup.delegate="keyUp($event)" keydown.delegate="keyDown($event)"	class="form-control pure-input-1" rows="5"></textarea>
+						<ul if.bind="mentionSearch">
+							<li repeat.for="mention of matchedMentions">
+								${mention.name}
+							</li>
+						</ul>
+						<span>${postText.length} / 256 characters</span>
+						<button type="button" class="pure-button" click.delegate="preview()" disabled.bind="!validation.result.isValid">Preview</button>
+						<button type="submit" class="pure-button pure-button-primary" disabled.bind="!validation.result.isValid">Post</button>
 					</fieldset>
 				</form>
 			</div>
 			<div class="pure-u-1 pure-u-sm-1-2">
 				<div class="content-container">
 					<h3>Help</h3>
-					<blockquote>Everyone in this world is somehow connected. So why not just be nice to everybody.<br />
-						<small>Richard Simmons</small></blockquote>
+					<blockquote>Everyone in this world is somehow connected. So why not just be nice to everybody.
+						<br />
+						<small>Richard Simmons</small>
+					</blockquote>
 					<p>Also markdown links are supported in this format [Title](Url)</p>
 				</div>
 			</div>
