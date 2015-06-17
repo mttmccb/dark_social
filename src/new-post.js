@@ -15,8 +15,16 @@ export class NewPosts {
 		this.chainPosts = false;
 	}
 
+	editPost = false;
 	postText = "";
 	lastPost = "";
+
+	get hasFocus() {
+		return this.editPost;
+	}
+	set hasFocus(newValue) {
+		this.editPost = newValue;
+	}
 
 	previousValue = this.postText;
 
@@ -48,12 +56,12 @@ export class NewPosts {
 			}).filter((v, i, a) => {
 				return a.indexOf(v) == i
 			}).join(' ');
-			if (mentionText.length) {
-				this.postText = mentionText.length>0  + ' ';				
+			if (mentionText.length > 0) {
+				this.postText = mentionText + ' ';
 			}
 			this.replyTo = id;
-			setTimeout(() => { postTextarea.focus(); });
-			
+			this.hasFocus = true;
+
 		} else {
 			this.replyTo = null;
 		}
