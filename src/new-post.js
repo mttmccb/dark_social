@@ -42,7 +42,7 @@ export class NewPosts {
 		this.previousValue = this.postText;
 		this.validation.validate().then(() => {
 			this.api.textProcess(this.postText).then(data => {
-				this.post = data;
+				this.postPreview = data;
 			});
 		}).catch(() => {
 			alert("Wrong");
@@ -71,9 +71,9 @@ export class NewPosts {
 		this.previousValue = this.postText;
 		this.validation.validate().then(() => {
 			this.api.createPost(this.postText,(this.replyTo ? { reply_to: this.replyTo } : {})).then(data => {
-				this.post = data;
+				this.lastPost = data;
 				this.postText = "";
-				return this.loadLastPost();
+				this.previousValue= "";
 			});
 		}).catch(() => {
 			alert("Wrong");
