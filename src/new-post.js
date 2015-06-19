@@ -97,14 +97,13 @@ export class NewPosts {
 			var mentionText = this.lastPost.entities.mentions.map((mention) => {
 				return '@' + mention.name;
 			}).filter((v, i, a) => {
-				return a.indexOf(v) == i
+				return a.indexOf(v) == i;
 			}).join(' ');
 			if (mentionText.length > 0) {
 				this.postText = mentionText + ' ';
 			}
 			this.replyTo = id;
 			this.hasFocus = true;
-
 		} else {
 			this.replyTo = null;
 		}
