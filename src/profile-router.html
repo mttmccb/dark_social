@@ -6,26 +6,18 @@
   <modal-image></modal-image>
   <section class="main-content-wrapper">
     <div class="pure-g">
-      <div class="pure-u-1-4 pure-u-sm-1-6">
+      <div class="pure-u-1-2 pure-u-sm-1-6">
         <div class="pure-g">
-          <div class="pure-u-1">
+          <div class="pure-u-1-2 pure-u-sm-1">
             <img id="profilePicture" src.bind="user.avatar_image.url" class="floatme pure-img ${showBanner? 'clean' : ''}" click.trigger="toggleVisible()"
             />
           </div>
-          <div class="pure-u-1">
-            <nav class="pure-menu pure-menu-vertical">
-              <ul if.bind="user.you_can_follow" class="pure-menu-list">
-                <li class="pure-menu-item">
-                  <a class="pure-menu-link" href="#" click.delegate="toggleFollow(user, $event)">${user.you_follow? 'Unfollow' : 'Follow'}</a>
-                </li>
-                <li class="pure-menu-item">
-                  <a class="pure-menu-link" href="#" click.delegate="toggleMute(user, $event)">${user.you_muted? 'Unmute' : 'Mute'}</a>
-                </li>
-                <li class="pure-menu-item">
-                  <a class="pure-menu-link" href="#" click.delegate="toggleBlock(user, $event)">${user.you_blocked? 'Unblock' : 'Block'}</a>
-                </li>
-              </ul>
-            </nav>
+          <div if.bind="user.you_can_follow" class="pure-u-1-2 pure-u-sm-1">
+              <div class="is-center is-icons">
+                <i class="fa clickable fa-user-plus fa-lg ${user.you_follow? 'actioned' : ''}" click.delegate="toggleFollow(user, $event)"></i>
+                <i class="fa clickable fa-microphone-slash fa-lg ${user.you_muted? 'actioned' : ''}" click.delegate="toggleMute(user, $event)"></i>
+                <i class="fa clickable fa-ban fa-lg ${user.you_blocked? 'actioned' : ''}" click.delegate="toggleBlock(user, $event)"></i>
+              </div>
           </div>
         </div>
       </div>
