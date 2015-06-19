@@ -9,13 +9,14 @@ export class App {
     this.api = api;
   }
 
+
   configureRouter(config, router) {
     config.title = 'Dark.Social';
     config.options.pushState = true;
     config.addPipelineStep('authorize', HashRedirectStep);
     config.map([
-      { route: ['', 'choose'], moduleId: './choose', nav: false, title: 'Choose' },
-      { route: ['newpost'], moduleId: './new-post', nav: true, title: 'New Post' },
+      { route: ['', 'choose'], moduleId: './choose', nav: false, title: 'Choose', name: 'Home' },
+      { route: ['newpost'], moduleId: './new-post', nav: true, auth: true, title: 'New Post' },
       { route: ['profile/'], moduleId: './profile-router', nav: true, title: 'Profile', name: 'profile' },
       { route: ['profile/user/:user_id'], moduleId: './profile-router', title: 'Profile', name: 'userprofile' },
       { route: ['profile/random'], moduleId: './profile-router', title: 'Profile', name: 'randomprofile' },
@@ -29,7 +30,8 @@ export class App {
     ]);
 
     this.router = router;
-  }
+
+  }  
 }
 
 @inject(AuthenticationService)
@@ -45,9 +47,7 @@ class HashRedirectStep {
       console.log("Redirecting");
       return next.cancel(new Redirect('handle_oauth?' + window.location.hash.substring(1)));
     }
-    
-    this.auth.checkLogin();
-      
+
     return next();
   }
 }
