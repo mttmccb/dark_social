@@ -16,7 +16,7 @@
 								${mention.name}
 							</li>
 						</ul>
-						<span>${postText.length} / 256 characters</span>
+						<span>${postText.length} ${postLength} / 256 characters</span>
 						<button type="button" class="pure-button" click.delegate="preview()" disabled.bind="!validation.result.isValid">Preview</button>
 						<button type="submit" class="pure-button pure-button-primary" disabled.bind="!validation.result.isValid">Post</button>
 					</fieldset>

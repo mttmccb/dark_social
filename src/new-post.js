@@ -11,7 +11,12 @@ export class NewPosts {
 		this.validation = validation.on(this)
 			.ensure('postText')
 			.isNotEmpty()
-			.hasLengthBetween(1, 255);
+			.hasMinLength(1)
+			.passes(
+	          (newValue) => {
+	            return this.postText.replace(/([^"])(https?:\/\/([^\s"]+))/g, '').replace('[', '').replace(']', '').length <=256;
+	          }
+	        );
 		this.chainPosts = false;
 	}
 
@@ -26,6 +31,10 @@ export class NewPosts {
 	}
 	set hasFocus(newValue) {
 		this.editPost = newValue;
+	}
+
+	get postLength() {
+		return this.postText.replace(/([^"])(https?:\/\/([^\s"]+))/g, '').replace('[', '').replace(']', '').length;
 	}
 
 	previousValue = this.postText;
@@ -57,7 +66,7 @@ export class NewPosts {
 	keyUp(e) {
 		var regExp = /@[^ \W]*$/;
 		var match = regExp.exec(this.postText);
-		if (match !== null && match[0].length>3) {
+		if (match !== null && match[0].length > 3) {
 			this.mentionSearch = true;
 			var fragment = match[0].replace('@', '');
 
@@ -76,7 +85,7 @@ export class NewPosts {
 
 	keyDown(e) {
 		var KEY_DOWNARROW = 40;
-		if (e.keyCode === KEY_DOWNARROW) {
+		if (this.mentionSearch && e.keyCode === KEY_DOWNARROW) {
 			this.postText = this.postText.replace(/@[^ \W]*$/, `@${this.matchedMentions[0].name} `);
 		}
 		return true;
