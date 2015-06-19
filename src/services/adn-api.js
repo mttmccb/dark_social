@@ -173,18 +173,18 @@ export class AdnAPI {
   }
 
   loadLastPost() {
-
-    this.isRequesting = true;
-
-    return this.http.get(this.urlBuilder('lastpost', { id: this.state.user_id })).then((response) => {
-      this.isRequesting = false;
-      this.ea.publish(new ApiStatus('Retrieved Last Post', { status: 'success' }));
-      return response.content.data;
-
-    }).catch((err) => {
-      this.isRequesting = false;
-      this.ea.publish(new ApiStatus('Unable to retrieve last post', { status: 'error' }));
-      return nouser.data;
+    return this.getToken().then(() => {
+      this.isRequesting = true;
+      return this.http.get(this.urlBuilder('lastpost', { id: this.state.tokenReturned.user.username })).then((response) => {
+        this.isRequesting = false;
+        this.ea.publish(new ApiStatus('Retrieved Last Post', { status: 'success' }));
+        return response.content.data;
+    
+      }).catch((err) => {
+        this.isRequesting = false;
+        this.ea.publish(new ApiStatus('Unable to retrieve last post', { status: 'error' }));
+        return nouser.data;
+      });      
     });
   }
 
