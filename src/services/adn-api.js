@@ -109,15 +109,21 @@ export class AdnAPI {
 
   createPost(text, options) {
 
-    var jsonText = { text: text };
+    var jsonText = {
+      text: text,
+      entities: {
+        parse_links: true,
+        parse_markdown_links: true
+      }
+    };
     if (options.reply_to) {
       jsonText.reply_to = options.reply_to;
-    } 
+    }
     this.isRequesting = true;
     return this.http.configure(x => {
       x.withHeader('Authorization', 'Bearer ' + this.state.token);
       x.withHeader('Content-Type', 'application/json');
-    }).post(`https://api.app.net/posts?parse_links=true&parse_markdown_links=true`, jsonText).then((response) => {
+    }).post(`https://api.app.net/posts`, jsonText).then((response) => {
       this.meta = response.content.meta;
       this.isRequesting = false;
       this.ea.publish(new ApiStatus('Post Created', { status: 'success' }));
@@ -179,12 +185,12 @@ export class AdnAPI {
         this.isRequesting = false;
         this.ea.publish(new ApiStatus('Retrieved Last Post', { status: 'success' }));
         return response.content.data;
-    
+
       }).catch((err) => {
         this.isRequesting = false;
         this.ea.publish(new ApiStatus('Unable to retrieve last post', { status: 'error' }));
         return nouser.data;
-      });      
+      });
     });
   }
 
@@ -218,7 +224,7 @@ export class AdnAPI {
       return 'berg';
     });
   }
-  
+
   getRandomUserId() {
 
     return this.http.get('https://api.nice.social/user/nicesummary').then((response) => {
@@ -308,7 +314,7 @@ export class AdnAPI {
       lastpost: `${apiURL}/users/@${params.id}/posts?count=1&`
     };
 
-    if (action !== 'users' && action !== 'followers' && action !=='lastpost') {
+    if (action !== 'users' && action !== 'followers' && action !== 'lastpost') {
       return `${endpoints[action]}?count=${count}&${accessToken}${moreParam}${standardParams}`;
     } else {
       return `${endpoints[action]}?${accessToken}`;
