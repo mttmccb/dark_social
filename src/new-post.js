@@ -39,7 +39,6 @@ export class NewPosts {
 			this.lastPost = data[0];
 			this.api.getAllUsers().then(data => {
 				this.allUsers = data;
-				console.log(data);
 			});
 		});
 	}

@@ -4,7 +4,7 @@ import { AdnAPI } from './adn-api';
 
 class User {
   constructor(user) {
-    this.username = user.user.username;
+    this.username = user.user ? user.user.username: '';
     this.followingLimit = user.limits.following ? user.limits.following : null;
   }
 }
@@ -19,6 +19,8 @@ export class AuthenticationService {
   checkLogin() {
     return this.api.getToken().then((tokenUser) => {
       return new User(tokenUser);
+    }).catch(() => {
+      return new User({ user: null, limits: { following: 0}});
     });
   }
 
