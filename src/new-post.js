@@ -45,6 +45,7 @@ export class NewPosts {
 
 	loadLastPost() {
 		return this.api.loadLastPost().then(data => {
+			this.posts = data;
 			this.lastPost = data[0];
 			this.api.getAllUsers().then(data => {
 				this.allUsers = data;
@@ -116,6 +117,7 @@ export class NewPosts {
 				this.lastPost = data;
 				this.postText = "";
 				this.previousValue = "";
+				this.loadLastPost();
 			});
 		}).catch(() => {
 			alert("Wrong");

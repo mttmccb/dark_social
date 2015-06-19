@@ -181,7 +181,7 @@ export class AdnAPI {
   loadLastPost() {
     return this.getToken().then(() => {
       this.isRequesting = true;
-      return this.http.get(this.urlBuilder('lastpost', { id: this.state.tokenReturned.user.username })).then((response) => {
+      return this.http.get(this.urlBuilder('lastposts', { id: this.state.tokenReturned.user.username })).then((response) => {
         this.isRequesting = false;
         this.ea.publish(new ApiStatus('Retrieved Last Post', { status: 'success' }));
         return response.content.data;
@@ -311,7 +311,7 @@ export class AdnAPI {
       follow: `${apiURL}/users/@${params.id}/follow`,
       mute: `${apiURL}/users/@${params.id}/mute`,
       block: `${apiURL}/users/@${params.id}/block`,
-      lastpost: `${apiURL}/users/@${params.id}/posts?count=1&`
+      lastposts: `${apiURL}/users/@${params.id}/posts?count=5&`
     };
 
     if (action !== 'users' && action !== 'followers' && action !== 'lastpost') {
