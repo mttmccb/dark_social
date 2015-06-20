@@ -17,8 +17,7 @@
 		  		<span repeat.for="mention of posts | reduceObject:'entities':'mentions' | propertyFrequency:'name' | sort: { propertyName: 'count', direction: 'descending' } | take:numberOfTopMentions"> <a href="#" click.delegate="$parent.loadUserRoute(mention.name)">@${mention.name}</a>(<strong>${mention.count}</strong>)${$index<=numberOfTopMentions ? ',': ''}</span> <a href="#" click.delegate="moreMentions()">more...</a>
 			</p>
 		
-			<p>Mostly using <span repeat.for="client of posts | objectPropertyFrequency:'source':'name':'link' | sort: { propertyName: 'count', direction: 'descending' } | take:1"><a href.bind="client.link" target="_blank">${client.name}</a>(<strong>${client.count}</strong>)</span>.</span>
-			</p>
+			<p>Mostly using <span repeat.for="client of posts | objectPropertyFrequency:'source':'name':'link' | sort: { propertyName: 'count', direction: 'descending' } | take:5"><a href.bind="client.link" target="_blank">${client.name}</a>(<strong>${client.count}</strong>)${$index<4 ? ', ': ''}</span>.</p>
 		</div>
 	</div>
 </template>

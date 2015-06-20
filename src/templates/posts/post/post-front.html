@@ -1,4 +1,5 @@
 <template>
+	<require from='../../post-form/post-form'></require>
 	<require from='./annotation-images'></require>
 	<p innerHTML.one-way="post.html " click.delegate="postclicks.handler($event) "></p>
 	<div class="pure-g post-footer">
@@ -17,4 +18,6 @@
 	<div class="post-images">
 		<annotation-images annotations.bind="post.annotations"></annotation-images>
 	</div>
+	<post-form if.bind="toggleReply" post.bind="post"></post-form>
+
 </template>

@@ -1,7 +1,7 @@
 <template>
 	<require from='./post-front'></require>
 	<require from='./post-back'></require>
-	<div class="pure-g post">	
+	<div class="pure-g post ${replyTo? 'post-replying' : '' }">	
 		<i class="fa fa-repeat clickable" if.bind="!post.avatar" click.trigger="toggleDetails($event, post)"></i>
 		<div if.bind="post.avatar" class="pure-u-1-5">
 			<img id="profilePicture" src.bind="post.data.user.avatar_image.url" class="pure-img" click.trigger="toggleDetails($event, post)" />

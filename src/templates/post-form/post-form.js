@@ -1,26 +1,25 @@
 import { Validation } from 'aurelia-validation';
-import { inject } from 'aurelia-framework';
+import { inject, bindable } from 'aurelia-framework';
 import { AdnAPI } from 'services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PostReply, PostPosted, ApiStatus } from 'resources/messages';
 
 @inject(AdnAPI, Validation, EventAggregator)
 export class PostFormCustomElement {
-	
+	@bindable post = null;
+
 	constructor(api, validation, ea) {
 		this.api = api;
-		this.ea = ea;
-	    ea.subscribe(PostReply, msg => this.setupReply(msg.post));
 		this.validation = validation.on(this)
 			.ensure('postText')
 			.isNotEmpty()
 			.hasMinLength(1)
 			.passes(
-	          (newValue) => {
-	            return this.postText.replace(/([^"])(https?:\/\/([^\s"]+))/g, '').replace('[', '').replace(']', '').length <=256;
-	          }
-	        );
-		this.chainPosts = false;
+			(newValue) => {
+				return this.postText.replace(/([^"])(https?:\/\/([^\s"]+))/g, '').replace('[', '').replace(']', '').length <= 256;
+			});
+		this.ea = ea;
+		ea.subscribe(PostReply, msg => this.setupReply(msg.post));
 	}
 
 	editPost = false;
@@ -40,28 +39,28 @@ export class PostFormCustomElement {
 	get postLength() {
 		return this.postText.replace(/([^"])(https?:\/\/([^\s"]+))/g, '').replace('[', '').replace(']', '').length;
 	}
-		
-	submit() {
+
+	submit(id) {
 		this.previousValue = this.postText;
 		this.validation.validate().then(() => {
-			this.api.createPost(this.postText,(this.replyTo ? { reply_to: this.replyTo } : {})).then(data => {
+			this.api.createPost(this.postText,(id ? { reply_to: id } : {})).then(data => {
 				this.lastPost = data;
 				this.postText = '';
-			    this.ea.publish(new PostPosted());
+				this.ea.publish(new PostPosted());
 			});
 		}).catch(() => {
-		    this.ea.publish(new ApiStatus('Something went wrong... :(', { status: 'error'}));
+			this.ea.publish(new ApiStatus('Something went wrong... :(', { status: 'error' }));
 		});
 	}
-	
-	preview() {
+
+	preview(id) {
 		this.previousValue = this.postText;
 		this.validation.validate().then(() => {
 			this.api.textProcess(this.postText).then(data => {
 				this.postPreview = data;
 			});
 		}).catch(() => {
-		    this.ea.publish(new ApiStatus('Something went wrong... :(', { status: 'error'}));
+			this.ea.publish(new ApiStatus('Something went wrong... :(', { status: 'error' }));
 		});
 	}
 
@@ -91,17 +90,16 @@ export class PostFormCustomElement {
 			this.postText = this.postText.replace(/@[^ \W]*$/, `@${this.matchedMentions[0].name} `);
 		}
 		return true;
-	}	
+	}
 
 	setupReply(post) {
-		console.log(post.entities);
+		this.replyTo = post.id;
 		var mentionText = post.entities.mentions.map((mention) => {
 			return '@' + mention.name;
 		}).filter((v, i, a) => {
 			return a.indexOf(v) == i;
 		}).join(' ');
 		this.postText = mentionText.length > 0 ? mentionText + ' ' : '';
-		this.replyTo = post.id;
 		this.hasFocus = true;
-	}		
+	}
 }

@@ -1,25 +1,6 @@
 <template>
-   	<require from='../templates/posts/post-list'></require>
-   	<require from='../templates/post-form/post-form'></require>
+	<require from='../templates/posts/post-list'></require>
 	<section class="main-content-wrapper">
-	    <post-list posts.bind="{ data: posts, avatar: false}"></post-list>
-		<div class="pure-g post-form">
-			<div class="pure-u-1 pure-u-sm-1-2">
-				<post-form></post-form>
-			</div>
-			<div class="pure-u-1 pure-u-sm-1-2">
-				<div class="content-container">
-					<h3>Help</h3>
-					<blockquote>Everyone in this world is somehow connected. So why not just be nice to everybody.
-						<br />
-						<small>Richard Simmons</small>
-					</blockquote>
-					<p>Also markdown links are supported in this format [Title](Url)</p>
-				</div>
-			</div>
-			<div class="pure-u-1 pure-u-sm-1-2">
-				<p class="post-details showMe" innerHTML.one-way="postPreview.html"></p>
-			</div>
-		</div>
+		<post-list posts.bind="{ data: posts, avatar: false}"></post-list>
 	</section>
 </template>

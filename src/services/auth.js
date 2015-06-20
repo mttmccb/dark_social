@@ -1,6 +1,7 @@
 import { Redirect } from 'aurelia-router';
 import { inject } from 'aurelia-framework';
 import { AdnAPI } from './adn-api';
+import { State } from './state';
 
 class User {
   constructor(user) {
@@ -9,11 +10,12 @@ class User {
   }
 }
 
-@inject(AdnAPI)
+@inject(AdnAPI, State)
 export class AuthenticationService {
 
-  constructor(api) {
+  constructor(api, state) {
     this.api = api;
+    this.state = state;
   }
 
   checkLogin() {
@@ -36,6 +38,7 @@ export class AuthenticationService {
   }
 
   logout() {
+    this.state.token = null;
     localStorage.removeItem("access_token");
   }
 }

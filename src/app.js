@@ -9,7 +9,6 @@ export class App {
     this.api = api;
   }
 
-
   configureRouter(config, router) {
     config.title = 'Dark.Social';
     config.options.pushState = true;
@@ -30,7 +29,6 @@ export class App {
     ]);
 
     this.router = router;
-
   }  
 }
 
