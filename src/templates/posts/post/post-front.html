@@ -5,7 +5,7 @@
 	<div class="pure-g post-footer">
 		<div class="pure-u-1-2">
 			<p>
-				<a if.bind="post.num_replies>0" href="http://treeview.us/home/thread/${post.id} " title="Open in TreeView" target="_blank "><i class="fa fa-tree "></i></a>
+				<a if.bind="post.reply_to" href="http://treeview.us/home/thread/${post.id} " title="Open in TreeView" target="_blank "><i class="fa fa-tree "></i></a>
 				<i class="clickable fa ${post.you_starred? 'fa-star actioned' : 'fa-star-o'}" click.delegate="toggleStar(post)"></i>
 				<i if.bind="post.user.username !== user_id" class="clickable fa fa-retweet ${post.you_reposted? 'actioned' : ''}" click.delegate="toggleRepost(post)"></i>
 				<i class="clickable fa fa-reply" click.delegate="reply(post)"></i>

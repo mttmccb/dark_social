@@ -19,7 +19,6 @@ export class NewPosts {
 	loadLastPost() {
 		return this.api.loadLastPost().then(data => {
 			this.posts = data;
-			this.lastPost = data[0];
 			this.api.getAllUsers().then(data => {
 				this.allUsers = data;
 			});
