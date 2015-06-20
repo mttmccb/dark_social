@@ -1,25 +1,11 @@
 <template>
    	<require from='../templates/posts/post-list'></require>
+   	<require from='../templates/post-form/post-form'></require>
 	<section class="main-content-wrapper">
 	    <post-list posts.bind="{ data: posts, avatar: false}"></post-list>
 		<div class="pure-g post-form">
 			<div class="pure-u-1 pure-u-sm-1-2">
-				<form class="pure-form pure-form-stacked" role="form" submit.delegate="submit()" validate.bind="validation">
-					<fieldset>
-						<label for="chain">
-							<input id="chain" checked.bind="chainPosts" change.delegate="setupReply(lastPost.id)" type="checkbox"> Reply to last post</label>
-						<h2>New Post</h2>
-						<textarea value.bind="postText" placeholder="Post" focus.bind="hasFocus" keyup.delegate="keyUp($event)" keydown.delegate="keyDown($event)"	class="form-control pure-input-1" rows="5"></textarea>
-						<ul if.bind="mentionSearch">
-							<li repeat.for="mention of matchedMentions">
-								${mention.name}
-							</li>
-						</ul>
-						<span>${postText.length} ${postLength} / 256 characters</span>
-						<button type="button" class="pure-button" click.delegate="preview()" disabled.bind="!validation.result.isValid">Preview</button>
-						<button type="submit" class="pure-button pure-button-primary" disabled.bind="!validation.result.isValid">Post</button>
-					</fieldset>
-				</form>
+				<post-form></post-form>
 			</div>
 			<div class="pure-u-1 pure-u-sm-1-2">
 				<div class="content-container">

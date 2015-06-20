@@ -16,3 +16,13 @@ export class ApiStatus {
     this.options = options;
   }
 }
+
+export class PostReply {
+  constructor(post) {
+    this.post = post;
+  }
+}
+
+export class PostPosted {
+  
+}
