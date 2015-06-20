@@ -5,7 +5,7 @@
       <a href="/" class="pure-menu-link pure-menu-heading"><i class="fa fa-lg fa-adn"></i> ${router.title}</a>
       <ul class="pure-menu-list">
         <li class="pure-menu-item">
-          <a class="pure-menu-link" href="#" click.delegate="showNewPost()"><i class="fa fa-lg fa-edit"></i></a>
+          <a class="pure-menu-link" href="#" click.delegate="showNewPost()"><i class="fa fa-lg fa-edit"></i><span> New Post</span></a>
         </li>
         <li repeat.for="row of router.navigation | authFilter:isLoggedIn" class="pure-menu-item ${row.isActive ? 'pure-menu-selected' : ''}">
           <a class="pure-menu-link" href.bind="row.href"><i if.bind="row.settings.icon" class='fa fa-lg fa-${row.settings.icon}'></i><span> ${row.title}</span></a>
