@@ -15,6 +15,7 @@ export class App {
     config.addPipelineStep('authorize', HashRedirectStep);
     config.map([
       { route: ['', 'choose'], moduleId: './choose', nav: false, title: 'Choose', name: 'Home' },
+      { route: ['interactions'], moduleId: './interactions', nav: true, auth: true, title: 'Interactions' },
       { route: ['recent'], moduleId: './recent-posts', nav: true, auth: true, title: 'Recent' },
       { route: ['profile/'], moduleId: './profile-router', nav: true, title: 'Profile', name: 'profile' },
       { route: ['profile/user/:user_id'], moduleId: './profile-router', title: 'Profile', name: 'userprofile' },
