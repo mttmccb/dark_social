@@ -1,3 +1,5 @@
+@import 'pure-min';
+@import 'grids-responsive-min';
 @import 'config';
 @import 'typography';
 @import 'splash';
@@ -152,11 +154,7 @@ a.close {
   .about p {
     padding: 0.5em;
   }
-  
-  .pure-menu-link {
-    padding: 0.25em 0.5em;
-  }    
-  
+    
   .selector form {
     padding: 1em;
   }
