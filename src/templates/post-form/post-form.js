@@ -42,6 +42,9 @@ export class PostFormCustomElement {
 
 	attached() {
 		this.setupReply(this.postdata);
+		return this.api.getAllUsers().then(data => {
+			this.allUsers = data;
+		});
 	}
 	
 	submit(id) {
@@ -101,13 +104,15 @@ export class PostFormCustomElement {
 	}
 
 	setupReply(post) {
-		this.replyTo = post.id;
-		var mentionText = post.entities.mentions.map((mention) => {
-			return '@' + mention.name;
-		}).filter((v, i, a) => {
-			return a.indexOf(v) == i;
-		}).join(' ');
-		this.postText = mentionText.length > 0 ? mentionText + ' ' : '';
+		if (post) {
+			this.replyTo = post.id;
+			var mentionText = post.entities.mentions.map((mention) => {
+				return '@' + mention.name;
+			}).filter((v, i, a) => {
+				return a.indexOf(v) == i;
+			}).join(' ');
+			this.postText = mentionText.length > 0 ? mentionText + ' ' : '';			
+		}
 		this.hasFocus = true;
 	}
 }

@@ -5,8 +5,9 @@
 				<fieldset>
 					<textarea value.bind="postText" placeholder="Post" focus.bind="hasFocus" keyup.delegate="keyUp($event)" keydown.delegate="keyDown($event)"
 					class="form-control pure-input-1" rows="5"></textarea>
-					<ul if.bind="mentionSearch">
-						<li repeat.for="mention of matchedMentions">${mention.name}</li>
+					<ul class="mention-search" if.bind="mentionSearch">
+						<li repeat.for="mention of matchedMentions">
+							<span data-mention-name="mention.name" itemprop="mention">@${mention.name}</span></li>
 					</ul>
 					<span>${postLength} / 256 characters</span>
 					<button type="button" class="pure-button" click.delegate="preview(post.id)" disabled.bind="!validation.result.isValid">Preview</button>

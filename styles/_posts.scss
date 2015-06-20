@@ -88,3 +88,15 @@
   color: #A6A6A6;
   font-size: 0.8em;
 }
+
+.mention-search {
+  padding: 0;
+  li:first-child {
+    font-weight: bold;
+  }
+  li {
+    display: inline;
+    color: #A6A6A6;
+    margin-right: 0.5em;
+  }
+}

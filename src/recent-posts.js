@@ -19,9 +19,6 @@ export class RecentPosts {
 	loadLastPost() {
 		return this.api.loadLastPost().then(data => {
 			this.posts = data;
-			this.api.getAllUsers().then(data => {
-				this.allUsers = data;
-			});
 		});
 	}
 }
