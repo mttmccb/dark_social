@@ -19,7 +19,7 @@ export class PostFormCustomElement {
 				return this.postText.replace(/([^"])(https?:\/\/([^\s"]+))/g, '').replace('[', '').replace(']', '').length <= 256;
 			});
 		this.ea = ea;
-		ea.subscribe(PostReply, msg => this.setupReply(msg.post));
+		//ea.subscribe(PostReply, msg => this.setupReply(msg.post));
 	}
 
 	editPost = false;
@@ -40,6 +40,10 @@ export class PostFormCustomElement {
 		return this.postText.replace(/([^"])(https?:\/\/([^\s"]+))/g, '').replace('[', '').replace(']', '').length;
 	}
 
+	attached() {
+		this.setupReply(this.postdata);
+	}
+	
 	submit(id) {
 		this.previousValue = this.postText;
 		this.validation.validate().then(() => {
@@ -90,6 +94,10 @@ export class PostFormCustomElement {
 			this.postText = this.postText.replace(/@[^ \W]*$/, `@${this.matchedMentions[0].name} `);
 		}
 		return true;
+	}
+	
+	postChanged(newValue) {
+		this.postdata = newValue;
 	}
 
 	setupReply(post) {
