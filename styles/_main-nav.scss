@@ -2,10 +2,17 @@
   background: $main-nav-background;
 }
 
+.pure-menu-header {
+  color: #fff;
+}
 .pure-menu-link,
-.pure-menu-link:hover,
 .pure-menu-link:visited {
   color: $nav-color;
+}
+
+.pure-menu-link:hover {
+  color: #fff;
+  background: $nav-background;  
 }
 
 .pure-menu.pure-menu-fixed {
@@ -15,15 +22,18 @@
   z-index: 4;
 }
 
-.pure-menu-selected .pure-menu-link.hvr-sweep-to-bottom {
+#main-nav .pure-menu-selected .pure-menu-link {
   color: #fff;
-  background: $nav-background;  
-}
-.pure-menu-link.hvr-sweep-to-bottom:before,
-.pure-menu-header.hvr-sweep-to-bottom:before {
   background: $nav-background;  
 }
 
 .pure-menu-horizontal.pure-menu-scrollable {
   padding: 0;
+}
+
+.pure-menu-link i + span {
+  display: none;
+}
+.pure-menu-link:hover i + span {
+  display: inline;
 }
