@@ -2,7 +2,9 @@
   <require from="templates/status-indicator"></require>
   <require from="templates/loading-indicator"></require>
   <require from='templates/nav-bar'></require>
+  <require from='templates/post-form/post-modal'></require>
   <status-indicator></status-indicator>
+  <post-modal></post-modal>
   <loading-indicator loading.bind="router.isNavigating || api.isRequesting"></loading-indicator>
   <nav-bar router.bind="router"></nav-bar>
   <router-view></router-view>

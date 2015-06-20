@@ -26,3 +26,7 @@ export class PostReply {
 export class PostPosted {
   
 }
+
+export class NewPost {
+  
+}

@@ -4,7 +4,7 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import { PostPosted } from 'resources/messages';
 
 @inject(AdnAPI, EventAggregator)
-export class NewPosts {
+export class RecentPosts {
 
 	constructor(api, ea) {
 		this.api = api;

@@ -3,7 +3,7 @@ import { bindable, inject } from 'aurelia-framework';
 import { AuthenticationService } from '../services/auth';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { LoggedIn } from 'resources/messages';
+import { LoggedIn, NewPost } from 'resources/messages';
 
 @inject(AuthenticationService, Router, EventAggregator, State)
 export class NavBarCustomElement {
@@ -31,6 +31,10 @@ export class NavBarCustomElement {
   get isLoggedIn(){
     return this.state.token !== null;
   } 
+  
+  showNewPost() {
+    this.ea.publish(new NewPost());
+  }
   
   showProfile() {
     this.auth.checkLogin().then(user => {
