@@ -15,15 +15,15 @@ export class App {
     config.addPipelineStep('authorize', HashRedirectStep);
     config.map([
       { route: ['', 'choose'], moduleId: './choose', nav: false, title: 'Choose', name: 'Home' },
-      { route: ['interactions'], moduleId: './interactions', nav: true, auth: true, title: 'Interactions' },
-      { route: ['recent'], moduleId: './recent-posts', nav: true, auth: true, title: 'Recent' },
-      { route: ['profile/'], moduleId: './profile-router', nav: true, title: 'Profile', name: 'profile', settings: { icon: 'user' } },
+      { route: ['interactions'], moduleId: './interactions', nav: true, auth: true, title: 'Interactions', settings: { icon: 'bell', iconBack: 'circle' }  },
+      { route: ['recent'], moduleId: './recent-posts', nav: true, auth: true, title: 'Recent', settings: { icon: 'clock-o', iconBack: 'circle' }  },
+      { route: ['profile/'], moduleId: './profile-router', nav: true, title: 'Profile', name: 'profile', settings: { icon: 'user', iconBack: 'circle' } },
       { route: ['profile/user/:user_id'], moduleId: './profile-router', title: 'Profile', name: 'userprofile' },
       { route: ['profile/random'], moduleId: './profile-router', title: 'Profile', name: 'randomprofile' },
-      { route: ['trending'], moduleId: './explore/trending', nav: true, title: 'Trending', settings: { icon: 'line-chart' } },
-      { route: ['conversations'], moduleId: './explore/conversations', nav: true, title: 'Conversations', settings: { icon: 'comment' } },
-      { route: ['photos'], moduleId: './explore/photos', nav: true, title: 'Photos', settings: { icon: 'camera-retro' } },
-      { route: ['checkins'], moduleId: './explore/checkins', nav: true, title: 'Checkins', settings: { icon: 'map-marker' } },
+      { route: ['trending'], moduleId: './explore/trending', nav: true, title: 'Trending', settings: { icon: 'line-chart', iconBack: 'globe' } },
+      { route: ['conversations'], moduleId: './explore/conversations', nav: true, title: 'Conversations', settings: { icon: 'comments', iconBack: 'globe' } },
+      { route: ['photos'], moduleId: './explore/photos', nav: true, title: 'Photos', settings: { icon: 'camera-retro', iconBack: 'globe' } },
+      { route: ['checkins'], moduleId: './explore/checkins', nav: true, title: 'Checkins', settings: { icon: 'map-marker', iconBack: 'globe' } },
       { route: 'handle_oauth', moduleId: './login/handle_oauth' },
       { route: 'login', moduleId: './login/login', name: 'login' },
       { route: 'logout', moduleId: './login/logout', name: 'logout' }

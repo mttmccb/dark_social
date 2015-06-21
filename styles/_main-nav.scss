@@ -1,5 +1,27 @@
 #main-nav {
   background: $main-nav-background;
+  .pure-menu-link:hover {
+    color: #fff;
+    background: $nav-background;  
+    .fa-inverse {
+      color: lighten($nav-background, 10%);  
+    }
+  }
+  .fa-inverse {
+    color: $nav-background;  
+  }
+  .pure-menu-selected .pure-menu-link {
+    color: #fff;
+    background: $nav-background;  
+    .fa-inverse {
+      color: lighten($nav-background, 10%);  
+    }
+  }
+  .pure-menu-link,
+  .pure-menu-disabled,
+  .pure-menu-heading {
+    padding: .25em .25em .25em .25em;
+  }
 }
 
 .pure-menu-header {
@@ -8,11 +30,7 @@
 .pure-menu-link,
 .pure-menu-link:visited {
   color: $nav-color;
-}
-
-.pure-menu-link:hover {
-  color: #fff;
-  background: $nav-background;  
+  background: $main-nav-background;
 }
 
 .pure-menu.pure-menu-fixed {
@@ -22,18 +40,22 @@
   z-index: 4;
 }
 
-#main-nav .pure-menu-selected .pure-menu-link {
-  color: #fff;
-  background: $nav-background;  
-}
-
 .pure-menu-horizontal.pure-menu-scrollable {
   padding: 0;
 }
 
+.pure-menu-link span + span,
 .pure-menu-link i + span {
-  display: none;
+  display: inline-block;
+  width: 0;
+	-webkit-transition: width 0.8s;
+	-moz-transition: width 0.8s;
+	transition: width 0.8s;
+  overflow:hidden;
 }
+
+.pure-menu-link:hover span + span,
 .pure-menu-link:hover i + span {
-  display: inline;
+  width: 7em;  
+  padding-right: 0.5em;
 }
