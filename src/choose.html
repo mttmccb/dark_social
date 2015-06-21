@@ -1,24 +1,8 @@
 <template>
-    <div class="selector-container">
-        <div class="selector">
-            <form class="pure-form">
-                <fieldset>
-                    <label for="choice">I want to</label>
-                    <select id="choice" change.delegate="navigate($event)">
-                        <option>...</option>
-                        <option value="profile/random">explore random profiles</option>
-                        <option value="" disabled>explore interesting profiles</option>
-                        <option value="trending">view trending posts</option>
-                        <option value="photos">view recent photos</option>
-                        <option value="checkins">view recent checkins with no map</option>
-                        <option value="" disabled>view recent checkins</option>
-                        <option value="conversations">view new conversations</option>
-                        <option value="" disabled>explore hashtags</option>
-                        <option value="" disabled>post</option>
-                        <option value="kebab">have a kebab</option>
-                    </select>
-                </fieldset>
-            </form>
+    <div class="header-container">
+        <div class="header-title">
+            <h1><i class="fa fa-adn fa-lg"></i> DARK.SOCIAL</h1>
+            <small>An APP.NET client for discovery</small>
         </div>
     </div>
     <div class="content-wrapper ">

@@ -47,7 +47,7 @@ a.close {
   	color: #FFFAF3;
 }
 
-.selector-container {
+.header-container {
   background-color: $content-main;
   background-image: url(../styles/kyoto.jpg);
   background-size: cover;
@@ -62,15 +62,21 @@ a.close {
   left: 0;
   position: fixed !important;
   border-radius: 3em;
-  form {
+  .header-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
     color: $content-color;
     background: $content-accent;
-    padding: 1em 1.5em 1em 1.5em;
+    padding: 1em;
     border-radius: 2em;
     opacity: 0.9;
-    max-width: 28em;
-    margin: 0 auto;
+    max-width: 18em;
     font-size: 130%;
+    h1 {
+      margin: 0;
+    }
   }
 }
 
@@ -153,11 +159,7 @@ a.close {
   
   .about p {
     padding: 0.5em;
-  }
-    
-  .selector form {
-    padding: 1em;
-  }
+  } 
 }
 
 @import 'animations';
