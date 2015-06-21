@@ -54,6 +54,7 @@ export class PostFormCustomElement {
 			this.api.createPost(this.postText,(id ? { reply_to: id } : {})).then(data => {
 				this.lastPost = data;
 				this.postText = '';
+				this.postPreview.html = '';
 				this.ea.publish(new PostPosted());
 			});
 		}).catch(() => {
