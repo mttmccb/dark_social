@@ -3,12 +3,13 @@ import { inject, bindable } from 'aurelia-framework';
 import { AdnAPI } from 'services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PostReply, PostPosted, ApiStatus } from 'resources/messages';
+import { State } from 'services/state';
 
-@inject(AdnAPI, Validation, EventAggregator)
+@inject(AdnAPI, Validation, EventAggregator, State)
 export class PostFormCustomElement {
 	@bindable post = null;
 
-	constructor(api, validation, ea) {
+	constructor(api, validation, ea, state) {
 		this.api = api;
 		this.validation = validation.on(this)
 			.ensure('postText')
@@ -19,7 +20,7 @@ export class PostFormCustomElement {
 				return this.postText.replace(/([^"])(https?:\/\/([^\s"]+))/g, '').replace('[', '').replace(']', '').length <= 256;
 			});
 		this.ea = ea;
-		//ea.subscribe(PostReply, msg => this.setupReply(msg.post));
+		this.state = state;
 	}
 
 	editPost = false;
@@ -104,13 +105,26 @@ export class PostFormCustomElement {
 	}
 
 	setupReply(post) {
+		var loggedInUser = this.state.tokenReturned.user.username;
+		var postUser = post.user.username;
+		
 		if (post) {
 			this.replyTo = post.id;
 			var mentionText = post.entities.mentions.map((mention) => {
 				return '@' + mention.name;
+				
 			}).filter((v, i, a) => {
 				return a.indexOf(v) == i;
+				
+			}).filter((mention) => {
+				return mention !== `@${loggedInUser}`;
+				
 			}).join(' ');
+			
+			if (postUser !== loggedInUser) {
+				mentionText = `@${postUser} ` + mentionText;	
+			}
+			
 			this.postText = mentionText.length > 0 ? mentionText + ' ' : '';			
 		}
 		this.hasFocus = true;

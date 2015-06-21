@@ -48,9 +48,16 @@
 .pure-menu-link i + span {
   display: inline-block;
   width: 0;
-	-webkit-transition: width 0.8s;
-	-moz-transition: width 0.8s;
-	transition: width 0.8s;
+  -webkit-transition: .5s all ease-in-out;   
+  -webkit-transition-delay: 1s; 
+  -moz-transition: .5s all ease-in-out;   
+  -moz-transition-delay: 1s; 
+  -ms-transition: .5s all ease-in-out;   
+  -ms-transition-delay: 1s; 
+  -o-transition: .5s all ease-in-out;   
+  -o-transition-delay: 1s; 
+  transition: .5s all ease-in-out;   
+  transition-delay: 1s; 
   overflow:hidden;
 }
 
@@ -58,4 +65,9 @@
 .pure-menu-link:hover i + span {
   width: 7em;  
   padding-right: 0.5em;
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  -ms-transition-delay: 0s;
+  -o-transition-delay: 0s;
+  -transition-delay: 0s;
 }
