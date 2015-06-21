@@ -70,4 +70,8 @@
   -ms-transition-delay: 0s;
   -o-transition-delay: 0s;
   -transition-delay: 0s;
+  @media screen and (max-width: 35.5em) {
+    width: 0;
+    padding-right: 0;
+  }
 }
