@@ -105,8 +105,8 @@ export class PostFormCustomElement {
 	}
 
 	setupReply(post) {
-		var loggedInUser = this.state.tokenReturned.user.username;
-		var postUser = post.user.username;
+		var loggedInUser = this.state.tokenReturned.user;
+		var postUser = post.user;
 		
 		if (post) {
 			this.replyTo = post.id;
@@ -117,12 +117,12 @@ export class PostFormCustomElement {
 				return a.indexOf(v) == i;
 				
 			}).filter((mention) => {
-				return mention !== `@${loggedInUser}`;
+				return mention !== `@${loggedInUser.username}`;
 				
 			}).join(' ');
 			
-			if (postUser !== loggedInUser) {
-				mentionText = `@${postUser} ` + mentionText;	
+			if (postUser.id !== loggedInUser.id) {
+				mentionText = `@${postUser.username} ` + mentionText;	
 			}
 			
 			this.postText = mentionText.length > 0 ? mentionText + ' ' : '';			

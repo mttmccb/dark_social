@@ -5,7 +5,7 @@ import { State } from './state';
 
 class User {
   constructor(user) {
-    this.username = user.user ? user.user.username: '';
+    this.id = user.user ? user.user.id: '';
     this.followingLimit = user.limits.following ? user.limits.following : null;
   }
 }

@@ -181,7 +181,7 @@ export class AdnAPI {
   loadLastPost() {
     return this.getToken().then(() => {
       this.isRequesting = true;
-      return this.http.get(this.urlBuilder('lastposts', { id: this.state.tokenReturned.user.username })).then((response) => {
+      return this.http.get(this.urlBuilder('lastposts', { id: this.state.tokenReturned.user.id })).then((response) => {
         this.isRequesting = false;
         this.ea.publish(new ApiStatus('Retrieved Last Post', { status: 'success' }));
         return response.content.data;
@@ -201,6 +201,7 @@ export class AdnAPI {
     return this.getRandomUserId().then((user) => {
       let getUser = this.state.user_id || id;
       if (!getUser || getUser === ' ') { getUser = user; }
+      console.log(getUser);
       return this.http.get(this.urlBuilder('users', { id: getUser, more: more })).then((response) => {
         this.isRequesting = false;
         this.ea.publish(new ApiStatus('Retrieved Profile', { status: 'success' }));
@@ -229,7 +230,7 @@ export class AdnAPI {
 
     return this.http.get('https://api.nice.social/user/nicesummary').then((response) => {
       var randomIndex = randomInteger(response.content.data.length);
-      return response.content.data[randomIndex].name;
+      return response.content.data[randomIndex].user_id;
 
     }).catch((err) => {
       this.ea.publish(new ApiStatus('Nice.Social API Issue', { status: 'error' }));
@@ -303,17 +304,17 @@ export class AdnAPI {
       star: `${apiURL}/posts/${params.id}/star`,
       repost: `${apiURL}/posts/${params.id}/repost`,
       post: `${apiURL}/post/${params.id}`,
-      posts: `${apiURL}/users/@${params.id}/posts`,
-      stars: `${apiURL}/users/@${params.id}/stars`,
-      users: `${apiURL}/users/@${params.id}`,
+      posts: `${apiURL}/users/${params.id}/posts`,
+      stars: `${apiURL}/users/${params.id}/stars`,
+      users: `${apiURL}/users/${params.id}`,
       interactions: `${apiURL}/users/me/interactions`,
       mentions: `${apiURL}/users/me/mentions`,
-      followers: `${apiURL}/users/@${params.id}/followers`,
-      following: `${apiURL}/users/@${params.id}/following`,
-      follow: `${apiURL}/users/@${params.id}/follow`,
-      mute: `${apiURL}/users/@${params.id}/mute`,
-      block: `${apiURL}/users/@${params.id}/block`,
-      lastposts: `${apiURL}/users/@${params.id}/posts`
+      followers: `${apiURL}/users/${params.id}/followers`,
+      following: `${apiURL}/users/${params.id}/following`,
+      follow: `${apiURL}/users/${params.id}/follow`,
+      mute: `${apiURL}/users/${params.id}/mute`,
+      block: `${apiURL}/users/${params.id}/block`,
+      lastposts: `${apiURL}/users/${params.id}/posts`
     };
 
     if (action !== 'users' && action !== 'followers' && action !== 'lastposts') {

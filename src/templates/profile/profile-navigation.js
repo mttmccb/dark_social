@@ -14,6 +14,6 @@ export class ProfileNavigationCustomElement {
   }
 
   loadUserRoute() {
-    this.theRouter.navigateToRoute("userprofile", { user_id: this.user.username });
+    this.theRouter.navigateToRoute("userprofile", { user_id: this.user.id });
   }
 }

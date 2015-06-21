@@ -49,9 +49,10 @@ export class ProfileRouter {
   
   loadUser(user) {
     return this.api.loadProfile(user).then(data => {
+      console.log(data);
       this.user = data;
-      this.state.user_id =this.user.username;
-      this.user_id = this.user.username;
+      this.state.user_id =this.user.id;
+      this.user_id = this.user.id;
     });
   }
 
@@ -62,18 +63,18 @@ export class ProfileRouter {
   toggleFollow(user, e) {
     e.preventDefault();
     user.you_follow = !user.you_follow;
-    this.api.toggleFollow(user.username, user.you_follow);
+    this.api.toggleFollow(user.id, user.you_follow);
   }
 
   toggleMute(user, e) {
     e.preventDefault();
     user.you_muted = !user.you_muted;
-    this.api.toggleMute(user.username, user.you_muted);
+    this.api.toggleMute(user.id, user.you_muted);
   }
 
   toggleBlock(user, e) {
     e.preventDefault();
     user.you_blocked = !user.you_blocked;
-    this.api.toggleBlock(user.username, user.you_blocked);
+    this.api.toggleBlock(user.id, user.you_blocked);
   }
 }

@@ -22,6 +22,7 @@ export class Followers {
   }
 
   loadFollowers(user) {
+    console.log(user);
     return this.api.load('followers', { id: this.user_id, more: false }).then(data => {
       this.data = data;
     });

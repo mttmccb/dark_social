@@ -38,8 +38,8 @@ export class NavBarCustomElement {
   
   showProfile() {
     this.auth.checkLogin().then(user => {
-      if (user.username!=='') {
-        this.LogInOutText = `Logout (${user.username})`;
+      if (user.id!=='') {
+        this.LogInOutText = `Logout`;
       }
     }).catch(() => {
       console.log("error");
