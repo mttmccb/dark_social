@@ -12,8 +12,4 @@ export class ProfileNavigationCustomElement {
   loadRandomUserRoute() {
     this.theRouter.navigateToRoute("randomprofile");
   }
-
-  loadUserRoute() {
-    this.theRouter.navigateToRoute("userprofile", { user_id: this.user.id });
-  }
 }

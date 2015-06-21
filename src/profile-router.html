@@ -1,6 +1,5 @@
 <template>
   <require from='templates/profile/bio'></require>
-  <require from='templates/profile/menu-link'></require>
   <require from='templates/profile/profile-navigation'></require>
   <require from='templates/modal-image'></require>
   <modal-image></modal-image>
@@ -28,7 +27,7 @@
               <profile-navigation user.bind="user"></profile-navigation>
             </h2>
             <bio user.bind="user"></bio>
-            <nav class="pure-menu pure-menu-horizontal">
+            <nav id="profile-links" class="pure-menu pure-menu-horizontal">
               <ul class="pure-menu-list">
                 <li class="pure-menu-item">
                   <a class="pure-menu-link ${router.navigation[0].isActive ? 'pure-menu-selected' : ''}" href="profile/following"><i class="fa fa-arrow-circle-left"></i> ${user.counts.following}</a>

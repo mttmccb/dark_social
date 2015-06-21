@@ -19,7 +19,7 @@ export class PostClicks {
     let nodeType = node.getAttribute('itemprop');
 
     if (nodeType === 'mention') {
-      let mentionName = node.getAttribute('data-mention-name');
+      let mentionName = node.getAttribute('data-mention-id');
       this.openProfile(mentionName);
 
     } else if (nodeType === 'hashtag') {
