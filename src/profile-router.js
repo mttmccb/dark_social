@@ -2,8 +2,10 @@ import { inject } from 'aurelia-framework';
 import { AdnAPI } from 'services/adn-api';
 import { activationStrategy } from 'aurelia-router';
 import { State } from 'services/state';
+import { EventAggregator } from 'aurelia-event-aggregator';
+import { PostPosted } from 'resources/messages';
 
-@inject(AdnAPI, State)
+@inject(AdnAPI, State, EventAggregator)
 export class ProfileRouter {
 
 	configureRouter(config, router) {
@@ -22,10 +24,12 @@ export class ProfileRouter {
     return activationStrategy.replace;
   }
 
-  constructor(api, state) {
+  constructor(api, state, ea) {
     this.api = api;
     this.user = [];
     this.state = state;
+    this.ea = ea;
+    ea.subscribe(PostPosted, msg => this.loadUser(this.user_id));	
   }
 
   activate(params, query, route) {

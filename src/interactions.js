@@ -1,12 +1,16 @@
 import { inject } from 'aurelia-framework';
 import { AdnAPI } from 'services/adn-api';
+import { EventAggregator } from 'aurelia-event-aggregator';
+import { PostPosted } from 'resources/messages';
 
-@inject(AdnAPI)
+@inject(AdnAPI, EventAggregator)
 export class Interactions {
 
-  constructor(api) {
+  constructor(api, ea) {
     this.api = api;
     this.interactions = [];
+    this.ea = ea;
+    ea.subscribe(PostPosted, msg => this.loadInteractions());	
   }
   
   activate() {
