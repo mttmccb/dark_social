@@ -15,9 +15,10 @@ export class App {
     config.addPipelineStep('authorize', HashRedirectStep);
     config.map([
       { route: ['', 'choose'], moduleId: './choose', nav: false, title: 'Choose', name: 'Home' },
-      { route: ['interactions'], moduleId: './interactions', nav: true, auth: true, title: 'Interactions', settings: { icon: 'bell', iconBack: 'circle' }  },
-      { route: ['recent'], moduleId: './recent-posts', nav: true, auth: true, title: 'Recent', settings: { icon: 'clock-o', iconBack: 'circle' }  },
-      { route: ['profile/'], moduleId: './profile-router', nav: true, title: 'Profile', name: 'profile', settings: { icon: 'user', iconBack: 'circle' } },
+      { route: ['mentions'], moduleId: './mentions', nav: true, auth: true, title: 'Mentions', settings: { icon: 'comments', iconBack: 'heart' }  },
+      { route: ['interactions'], moduleId: './interactions', nav: true, auth: true, title: 'Interactions', settings: { icon: 'bell', iconBack: 'heart' }  },
+      { route: ['recent'], moduleId: './recent-posts', nav: true, auth: true, title: 'Recent', settings: { icon: 'clock-o', iconBack: 'bullseye' }  },
+      { route: ['profile/'], moduleId: './profile-router', nav: true, title: 'Profile', name: 'profile', settings: { icon: 'user', iconBack: 'circle-o' } },
       { route: ['profile/user/:user_id'], moduleId: './profile-router', title: 'Profile', name: 'userprofile' },
       { route: ['profile/random'], moduleId: './profile-router', title: 'Profile', name: 'randomprofile' },
       { route: ['trending'], moduleId: './explore/trending', nav: true, title: 'Trending', settings: { icon: 'line-chart', iconBack: 'globe' } },

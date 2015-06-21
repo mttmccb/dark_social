@@ -23,7 +23,6 @@ export class Interactions {
   
   loadInteractions() {
     return this.api.load('interactions', { more: false }).then(interactions => {
-      console.log(interactions);
       this.interactions = interactions;
     });    
   }    

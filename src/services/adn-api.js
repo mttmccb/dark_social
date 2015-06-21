@@ -307,15 +307,16 @@ export class AdnAPI {
       stars: `${apiURL}/users/@${params.id}/stars`,
       users: `${apiURL}/users/@${params.id}`,
       interactions: `${apiURL}/users/me/interactions`,
+      mentions: `${apiURL}/users/me/mentions`,
       followers: `${apiURL}/users/@${params.id}/followers`,
       following: `${apiURL}/users/@${params.id}/following`,
       follow: `${apiURL}/users/@${params.id}/follow`,
       mute: `${apiURL}/users/@${params.id}/mute`,
       block: `${apiURL}/users/@${params.id}/block`,
-      lastposts: `${apiURL}/users/@${params.id}/posts?count=5&`
+      lastposts: `${apiURL}/users/@${params.id}/posts`
     };
 
-    if (action !== 'users' && action !== 'followers' && action !== 'lastpost') {
+    if (action !== 'users' && action !== 'followers' && action !== 'lastposts') {
       return `${endpoints[action]}?count=${count}&${accessToken}${moreParam}${standardParams}`;
     } else {
       return `${endpoints[action]}?${accessToken}`;
