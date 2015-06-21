@@ -70,7 +70,7 @@ let nouser = {
 };
 
 let apiURL = 'https://api.app.net';
-let count = 200;
+let count = 20;
 
 @inject(HttpClient, State, EventAggregator)
 export class AdnAPI {
