@@ -108,7 +108,8 @@ export class AdnAPI {
   }
 
   createPost(text, options) {
-
+    
+    this.ea.publish(new ApiStatus('Creating Pist', { status: 'info' }));
     var jsonText = {
       text: text,
       entities: {
