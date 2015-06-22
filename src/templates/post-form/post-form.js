@@ -28,7 +28,7 @@ export class PostFormCustomElement {
 	lastPost = '';
 	matchedMentions = [];
 	mentionSearch = false;
-	previousValue = this.postText;
+	showPostPreview = false;
 
 	get hasFocus() {
 		return this.editPost;
@@ -49,12 +49,11 @@ export class PostFormCustomElement {
 	}
 	
 	submit(id) {
-		this.previousValue = this.postText;
 		this.validation.validate().then(() => {
 			this.api.createPost(this.postText,(id ? { reply_to: id } : {})).then(data => {
 				this.lastPost = data;
 				this.postText = '';
-				this.postPreview.html = '';
+				this.showPostPreview = true;
 				this.ea.publish(new PostPosted());
 			});
 		}).catch(() => {
@@ -63,9 +62,9 @@ export class PostFormCustomElement {
 	}
 
 	preview(id) {
-		this.previousValue = this.postText;
 		this.validation.validate().then(() => {
 			this.api.textProcess(this.postText).then(data => {
+				this.showPostPreview = true;
 				this.postPreview = data;
 			});
 		}).catch(() => {
