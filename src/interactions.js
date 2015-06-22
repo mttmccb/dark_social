@@ -10,7 +10,7 @@ export class Interactions {
     this.api = api;
     this.interactions = [];
     this.ea = ea;
-    ea.subscribe(PostPosted, msg => this.loadInteractions());	
+    this.postPosted = ea.subscribe(PostPosted, msg => this.loadInteractions());	
   }
   
   activate() {
@@ -20,6 +20,10 @@ export class Interactions {
   refresh() {
     return this.loadInteractions();
   }
+  
+	deactivate() {
+		this.postPosted();
+	}
   
   loadInteractions() {
     return this.api.load('interactions', { more: false }).then(interactions => {

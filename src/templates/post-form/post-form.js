@@ -106,10 +106,9 @@ export class PostFormCustomElement {
 	}
 
 	setupReply(post) {
-		var loggedInUser = this.state.tokenReturned.user;
-		var postUser = post.user;
-		
 		if (post) {
+			var loggedInUser = null || this.state.tokenReturned.user;
+			var postUser = null || post.user;
 			this.replyTo = post.id;
 			var mentionText = post.entities.mentions.map((mention) => {
 				return '@' + mention.name;

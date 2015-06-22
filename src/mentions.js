@@ -9,7 +9,7 @@ export class Mentions {
 	constructor(api, ea) {
 		this.api = api;
 		this.ea = ea;
-    ea.subscribe(PostPosted, msg => this.loadMentions());	
+    this.postPosted = ea.subscribe(PostPosted, msg => this.loadMentions());	
 	}
 
   activate() {
@@ -19,6 +19,10 @@ export class Mentions {
   refresh() {
     return this.loadMentions();
   }
+  
+	deactivate() {
+		this.postPosted();
+	}
   
   loadMentions() {
     return this.api.load('mentions', { more: false }).then(mentions => {

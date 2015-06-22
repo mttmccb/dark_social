@@ -1,18 +1,26 @@
 import { inject } from 'aurelia-framework';
 import { AdnAPI } from 'services/adn-api';
+import { EventAggregator } from 'aurelia-event-aggregator';
+import { PostPosted } from 'resources/messages';
 
-@inject(AdnAPI)
+@inject(AdnAPI, EventAggregator)
 export class Photos {
 
-  constructor(api) {
+  constructor(api, ea) {
     this.api = api;
     this.posts = [];
+    this.ea = ea;
+    this.postPosted = ea.subscribe(PostPosted, msg => this.loadPhotos());	    
   }
 
   activate() {
     return this.loadPhotos();
   }
 
+  deactivate() {
+    this.postPosted();
+  }
+    
   refresh() {
     return this.loadPhotos();
   }

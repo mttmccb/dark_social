@@ -29,7 +29,7 @@ export class ProfileRouter {
     this.user = [];
     this.state = state;
     this.ea = ea;
-    ea.subscribe(PostPosted, msg => this.loadUser(this.user_id));	
+    this.postPosted = ea.subscribe(PostPosted, msg => this.loadUser(this.user_id));	
   }
 
   activate(params, query, route) {
@@ -46,6 +46,10 @@ export class ProfileRouter {
   refresh() {
     return this.loadUser(this.user_id);
   }
+  
+	deactivate() {
+		this.postPosted();
+	}
   
   loadUser(user) {
     return this.api.loadProfile(user).then(data => {

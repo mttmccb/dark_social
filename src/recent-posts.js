@@ -9,11 +9,15 @@ export class RecentPosts {
 	constructor(api, ea) {
 		this.api = api;
 		this.ea = ea;
-	    ea.subscribe(PostPosted, msg => this.loadLastPost());	
+	    this.postPosted = ea.subscribe(PostPosted, msg => this.loadLastPost());	
 	}
 
 	activate() {
 		return this.loadLastPost();
+	}
+	
+	deactivate() {
+		this.postPosted();
 	}
 
 	loadLastPost() {

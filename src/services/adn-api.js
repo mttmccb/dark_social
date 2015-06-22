@@ -109,7 +109,7 @@ export class AdnAPI {
 
   createPost(text, options) {
     
-    this.ea.publish(new ApiStatus('Creating Pist', { status: 'info' }));
+    this.ea.publish(new ApiStatus('Creating Post', { status: 'info' }));
     var jsonText = {
       text: text,
       entities: {
@@ -202,7 +202,7 @@ export class AdnAPI {
     return this.getRandomUserId().then((user) => {
       let getUser = this.state.user_id || id;
       if (!getUser || getUser === ' ') { getUser = user; }
-      console.log(getUser);
+
       return this.http.get(this.urlBuilder('users', { id: getUser, more: more })).then((response) => {
         this.isRequesting = false;
         this.ea.publish(new ApiStatus('Retrieved Profile', { status: 'success' }));

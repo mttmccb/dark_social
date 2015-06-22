@@ -14,7 +14,7 @@ export class PostFrontCustomElement {
     this.ea = ea;
     this.user_id = localStorage.getItem("user_id");
     this.toggleReply = false;
-    ea.subscribe(PostReply, msg => this.killReplies(msg.post));
+    this.postReply = ea.subscribe(PostReply, msg => this.killReplies(msg.post));
   }
 
   toggleStar(post) {
@@ -26,6 +26,10 @@ export class PostFrontCustomElement {
     post.you_reposted = !post.you_reposted;
     this.api.toggleRepost(post.id, post.you_reposted);
   }
+  
+	detached() {
+		this.postReply();
+	}
 
   postChanged(newValue) {
     this.thisPost = newValue;

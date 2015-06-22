@@ -13,7 +13,7 @@ export class ProfilePosts {
     this.data = [];
     this.state = state;
     this.ea = ea;
-    ea.subscribe(PostPosted, msg => this.loadPosts(this.user_id));
+    this.postPosted = ea.subscribe(PostPosted, msg => this.loadPosts(this.user_id));
   }
 
   activate(params, query, route) {
@@ -30,6 +30,10 @@ export class ProfilePosts {
       this.data = data;
     });
   }
+
+	deactivate() {
+		this.postPosted();
+	}
 
   loadMorePosts() {
     return this.api.loadPosts(this.user_id, true).then(data => {

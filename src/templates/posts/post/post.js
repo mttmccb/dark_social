@@ -9,11 +9,15 @@ export class PostCustomElement {
   constructor(ea) {
     this.ea = ea;
     this.replyTo = false;
-    ea.subscribe(PostReply, msg => this.setupReply(msg.post));
+    this.postReply = ea.subscribe(PostReply, msg => this.setupReply(msg.post));
   }
 
   postChanged(newValue) {
     this.thisPost = newValue;
+  }
+  
+  detached() {
+    this.postReply();
   }
 
   setupReply(triggerPost) {
