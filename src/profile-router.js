@@ -3,22 +3,22 @@ import { AdnAPI } from 'services/adn-api';
 import { activationStrategy } from 'aurelia-router';
 import { State } from 'services/state';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted } from 'resources/messages';
+import { PostPosted, GetRandomUser } from 'resources/messages';
 
 @inject(AdnAPI, State, EventAggregator)
 export class ProfileRouter {
 
-	configureRouter(config, router) {
-		config.map([
-			//{ route: ['', 'profile'], name: 'profile', moduleId: './profile', nav: true, title: 'Profile' },
-			{ route: 'following', name: 'following', moduleId: './profile/following', title:'Following', nav: true },
-			{ route: 'followers', name: 'followers', moduleId: './profile/followers', title:'Followers', nav: true },
-			{ route: ['','posts'], name: 'posts', moduleId: './profile/profile-posts', title:'Posts', nav: true },
-			{ route: 'stars', name: 'stars', moduleId: './profile/stars', title:'Stars', nav: true }
-		]);
+  configureRouter(config, router) {
+    config.map([
+      //{ route: ['', 'profile'], name: 'profile', moduleId: './profile', nav: true, title: 'Profile' },
+      { route: 'following', name: 'following', moduleId: './profile/following', title: 'Following', nav: true },
+      { route: 'followers', name: 'followers', moduleId: './profile/followers', title: 'Followers', nav: true },
+      { route: ['', 'posts'], name: 'posts', moduleId: './profile/profile-posts', title: 'Posts', nav: true },
+      { route: 'stars', name: 'stars', moduleId: './profile/stars', title: 'Stars', nav: true }
+    ]);
 
-		this.router = router;
-	}
+    this.router = router;
+  }
 
   determineActivationStrategy() {
     return activationStrategy.replace;
@@ -29,7 +29,8 @@ export class ProfileRouter {
     this.user = [];
     this.state = state;
     this.ea = ea;
-    this.postPosted = ea.subscribe(PostPosted, msg => this.loadUser(this.user_id));	
+    this.postPosted = ea.subscribe(PostPosted, msg => this.loadUser(this.user_id));
+    this.getRandomUser = ea.subscribe(GetRandomUser, msg => this.loadRandomUser());
   }
 
   activate(params, query, route) {
@@ -43,19 +44,26 @@ export class ProfileRouter {
     return this.loadUser(params.user_id || this.state.user_id);
   }
 
+  loadRandomUser() {
+    this.user_id = " ";
+    this.state.user_id = " ";
+    return this.loadUser(this.state.user_id);
+  }
+
   refresh() {
     return this.loadUser(this.user_id);
   }
-  
-	deactivate() {
-		this.postPosted();
-	}
-  
+
+  deactivate() {
+    this.postPosted();
+    this.getRandomUser();
+  }
+
   loadUser(user) {
     return this.api.loadProfile(user).then(data => {
       console.log(data);
       this.user = data;
-      this.state.user_id =this.user.id;
+      this.state.user_id = this.user.id;
       this.user_id = this.user.id;
     });
   }
@@ -63,7 +71,7 @@ export class ProfileRouter {
   toggleVisible() {
     this.showBanner = !this.showBanner;
   }
-  
+
   toggleFollow(user, e) {
     e.preventDefault();
     user.you_follow = !user.you_follow;

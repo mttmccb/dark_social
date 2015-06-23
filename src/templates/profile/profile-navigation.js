@@ -1,15 +1,16 @@
 import { inject, bindable } from 'aurelia-framework';
-import { Router } from 'aurelia-router';
+import { EventAggregator } from 'aurelia-event-aggregator';
+import { GetRandomUser } from 'resources/messages';
 
-@inject(Router)
+@inject(EventAggregator)
 export class ProfileNavigationCustomElement {
   @bindable user = null;
 
-  constructor(router) {
-    this.theRouter = router;
+  constructor(ea) {
+    this.ea = ea;
   }
   
-  loadRandomUserRoute() {
-    this.theRouter.navigateToRoute("randomprofile");
+  loadRandomUserRoute() {        
+    this.ea.publish(new GetRandomUser());
   }
 }

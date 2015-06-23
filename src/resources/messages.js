@@ -30,3 +30,7 @@ export class PostPosted {
 export class NewPost {
   
 }
+
+export class GetRandomUser {
+  
+}
