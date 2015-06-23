@@ -22,6 +22,7 @@ export class UnifiedStream {
 
 	loadStream() {
 		return this.api.load('unified', { more: false }).then(posts => {
+			this.streamid = this.api.meta.marker.last_read_id;
 			this.posts = posts;
 		});
 	}

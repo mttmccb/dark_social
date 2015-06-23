@@ -1,6 +1,6 @@
 <template>
 	<require from='./post/post'></require>
 	<div id="posts" class="posts">
-		<post post.bind="{ data: post, avatar:$parent.posts.avatar }" repeat.for="post of posts.data"></post>
+		<post post.bind="{ data: post, avatar:$parent.posts.avatar, streamid: $parent.posts.streamid }" repeat.for="post of posts.data"></post>
 	</div>
 </template>

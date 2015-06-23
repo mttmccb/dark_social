@@ -3,7 +3,7 @@ import imagesLoaded from 'imagesloaded';
 import Masonry from 'masonry-layout';
 
 export class PostListCustomElement {
-  @bindable posts = { data: null, avatar: false };
+  @bindable posts = { data: null, avatar: false, streamid: null };
   
   isAttached = false;
 
