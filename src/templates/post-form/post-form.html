@@ -1,7 +1,7 @@
 <template>
 	<div class="pure-g">
 		<div class="pure-u-1">
-			<form class="pure-form pure-form-stacked" role="form" submit.delegate="submit(post.id)" validate.bind="validation">
+			<form class="pure-form pure-form-stacked" role="form" submit.delegate="submit(replyTo)" validate.bind="validation">
 				<fieldset>
 					<textarea value.bind="postText" placeholder="Post" focus.bind="hasFocus" keyup.delegate="keyUp($event)" keydown.delegate="keyDown($event)"
 					class="form-control pure-input-1" rows="5"></textarea>
@@ -10,7 +10,7 @@
 							<span data-mention-name="mention.name" itemprop="mention">@${mention.name}</span></li>
 					</ul>
 					<span>${postLength} / 256 characters</span>
-					<button type="button" class="pure-button" click.delegate="preview(post.id)" disabled.bind="!validation.result.isValid">Preview</button>
+					<button type="button" class="pure-button" click.delegate="preview(replyTo)" disabled.bind="!validation.result.isValid">Preview</button>
 					<button type="submit" class="pure-button pure-button-primary" disabled.bind="!validation.result.isValid">Post</button>
 				</fieldset>
 			</form>

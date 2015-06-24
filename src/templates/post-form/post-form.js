@@ -106,6 +106,8 @@ export class PostFormCustomElement {
 
 	setupReply(post) {
 		if (post) {
+			post = !post.repost_of? post : post.repost_of;
+			
 			var loggedInUser = null || this.state.tokenReturned.user;
 			var postUser = null || post.user;
 			this.replyTo = post.id;
