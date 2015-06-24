@@ -2,7 +2,7 @@
 	<require from="../../resources/action"></require>
 	<div id="posts" class="posts">
 		<div repeat.for="interaction of interactions" class="pure-g post">	
-			<div if.bind="interaction.action==='follow'" class="pure-u-1-5">
+			<div class="pure-u-1-5">
 				<img id="profilePicture" src.bind="interaction.users[0].avatar_image.url" class="pure-img" />
 			</div>
 			<div class="post-details pure-u-4-5 showMe">
@@ -13,9 +13,6 @@
 						<p class="post-time">${interaction.event_date | timeAgo}</p>
 					</div>
 				</div>
-			</div>
-			<div if.bind="interaction.action!=='follow'" class="pure-u-1-5">
-				<img id="profilePicture" src.bind="interaction.users[0].avatar_image.url" class="pure-img" />
 			</div>
 		</div>
 	</div>

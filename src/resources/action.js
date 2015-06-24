@@ -1,10 +1,10 @@
 export class ActionValueConverter {
   toView(value){
     let action = {
-      'reply': 'You reply to',
-      'star': 'You starred a post by',
+      'reply': 'replied to your post',
+      'star': 'starred your post',
       'follow': 'starting following you',
-      'repost': 'You reposted as post by'
+      'repost': 'reposted your post'
     };
     return action[value];
   }
