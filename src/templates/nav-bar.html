@@ -3,8 +3,11 @@
   <header>
     <nav id="main-nav" class="pure-menu pure-menu-horizontal pure-menu-fixed pure-menu-scrollable" role="navigation">
       <ul class="pure-menu-list">
-        <li class="pure-menu-item">
-          <a class="pure-menu-link pure-menu-heading" href="/">
+        <li class="pure-menu-item menu-profile">
+          <a if.bind="state.tokenReturned" class="pure-menu-link" href="/profile/user/${state.tokenReturned.user.id}">
+      			<img src.bind="state.tokenReturned.user.avatar_image.url" />
+          </a>
+          <a if.bind="!state.tokenReturned" class="pure-menu-link pure-menu-heading" href="/">
             <span class="fa-stack fa-lg">
               <i class="fa fa-adn fa-stack-2x"></i>
             </span>

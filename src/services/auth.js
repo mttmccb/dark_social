@@ -39,6 +39,7 @@ export class AuthenticationService {
 
   logout() {
     this.state.token = null;
+    this.state.tokenReturned = null;
     localStorage.removeItem("access_token");
   }
 }

@@ -22,6 +22,24 @@
   .pure-menu-heading {
     padding: .25em 0 .25em .25em;
   }
+  .menu-profile {
+      a {
+        padding: .25em .25em .25em .25em;
+      }
+      a img {
+        border-radius: 50%;
+        position: relative;
+        display: inline-block;
+        width: 2.4em;
+        height: 2.4em;
+        line-height: 2.4em;
+        vertical-align: middle;
+        border: #343434 1px solid;
+      }
+      &:hover img {
+          border: #00B2B2 1px solid;
+      }
+  }
 }
 
 .pure-menu-header {
@@ -60,6 +78,8 @@
   transition-delay: 1s; 
   overflow:hidden;
 }
+
+
 
 .pure-menu-link:hover span + span,
 .pure-menu-link:hover i + span {
