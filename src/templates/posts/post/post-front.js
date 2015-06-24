@@ -3,16 +3,17 @@ import { PostClicks } from 'resources/post-clicks';
 import { AdnAPI } from 'services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PostReply, ApiStatus } from 'resources/messages';
+import { State } from 'services/state';
 
-@inject(PostClicks, AdnAPI, EventAggregator)
+@inject(PostClicks, AdnAPI, EventAggregator, State)
 export class PostFrontCustomElement {
   @bindable post = null;
 
-  constructor(postclicks, api, ea) {
+  constructor(postclicks, api, ea, state) {
     this.postclicks = postclicks;
     this.api = api;
     this.ea = ea;
-    this.user_id = localStorage.getItem("user_id");
+    this.state = state;
     this.toggleReply = false;
     this.postReply = ea.subscribe(PostReply, msg => this.killReplies(msg.post));
   }
