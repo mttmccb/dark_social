@@ -75,18 +75,18 @@ export class ProfileRouter {
   toggleFollow(user, e) {
     e.preventDefault();
     user.you_follow = !user.you_follow;
-    this.api.toggleFollow(user.id, user.you_follow);
+    this.api.toggleFollow(user, user.you_follow);
   }
 
   toggleMute(user, e) {
     e.preventDefault();
     user.you_muted = !user.you_muted;
-    this.api.toggleMute(user.id, user.you_muted);
+    this.api.toggleMute(user, user.you_muted);
   }
 
   toggleBlock(user, e) {
     e.preventDefault();
     user.you_blocked = !user.you_blocked;
-    this.api.toggleBlock(user.id, user.you_blocked);
+    this.api.toggleBlock(user, user.you_blocked);
   }
 }

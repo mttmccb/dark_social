@@ -240,23 +240,23 @@ export class AdnAPI {
   }
 
   toggleStar(id, isTrue) {
-    return this.toggleEntity(id, isTrue, 'star', isTrue ? 'Post Starred' : ' Post Unstarred');
+    return this.toggleEntity(id, isTrue, 'star', isTrue ? 'Post Starred' : 'Post Unstarred');
   }
 
-  toggleFollow(id, isTrue) {
-    return this.toggleEntity(id, isTrue, 'follow', isTrue ? `Followed ${id}` : `Unfollowed ${id}`);
+  toggleFollow(user, isTrue) {
+    return this.toggleEntity(user.id, isTrue, 'follow', isTrue ? `Followed ${user.username}` : `Unfollowed ${user.username}`);
   }
 
   toggleRepost(id, isTrue) {
     return this.toggleEntity(id, isTrue, 'repost', isTrue ? 'Reposted' : 'Repost Removed');
   }
 
-  toggleMute(id, isTrue) {
-    return this.toggleEntity(id, isTrue, 'mute', isTrue ? `${id} Muted` : `${id} Unmuted`);
+  toggleMute(user, isTrue) {
+    return this.toggleEntity(user.id, isTrue, 'mute', isTrue ? `${user.username} Muted` : `${user.username} Unmuted`);
   }
 
-  toggleBlock(id, isTrue) {
-    return this.toggleEntity(id, isTrue, 'block', isTrue ? `${id} Blocked` : `${id} Unblocked`);
+  toggleBlock(user, isTrue) {
+    return this.toggleEntity(user.id, isTrue, 'block', isTrue ? `${user.username} Blocked` : `${user.username} Unblocked`);
   }
 
   toggleEntity(id, isTrue, entity, successMsg) {
