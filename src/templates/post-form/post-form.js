@@ -29,6 +29,7 @@ export class PostFormCustomElement {
 	matchedMentions = [];
 	mentionSearch = false;
 	showPostPreview = false;
+	showLastPost = false;
 
 	get hasFocus() {
 		return this.editPost;
@@ -52,8 +53,9 @@ export class PostFormCustomElement {
 		this.validation.validate().then(() => {
 			this.api.createPost(this.postText,(id ? { reply_to: id } : {})).then(data => {
 				this.lastPost = data;
+				this.showLastPost = true;
 				this.postText = '';
-				this.showPostPreview = true;
+				this.showPostPreview = false;
 				this.ea.publish(new PostPosted());
 			});
 		}).catch(() => {
