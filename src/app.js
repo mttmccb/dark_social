@@ -24,6 +24,7 @@ export class App {
       { route: ['profile/random'], moduleId: './profile-router', title: 'Profile', name: 'randomprofile' },
       { route: ['trending'], moduleId: './explore/trending', nav: true, title: 'Trending', settings: { icon: 'line-chart', iconBack: 'globe' } },
       { route: ['conversations'], moduleId: './explore/conversations', nav: true, title: 'Conversations', settings: { icon: 'comments', iconBack: 'globe' } },
+      { route: ['thread/:id'], moduleId: './thread', title: 'Thread', name: 'thread' },
       { route: ['photos'], moduleId: './explore/photos', nav: true, title: 'Photos', settings: { icon: 'camera-retro', iconBack: 'globe' } },
       { route: ['checkins'], moduleId: './explore/checkins', nav: true, title: 'Checkins', settings: { icon: 'map-marker', iconBack: 'globe' } },
       { route: 'handle_oauth', moduleId: './login/handle_oauth' },

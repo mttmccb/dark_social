@@ -316,7 +316,8 @@ export class AdnAPI {
       mute: `${apiURL}/users/${params.id}/mute`,
       block: `${apiURL}/users/${params.id}/block`,
       lastposts: `${apiURL}/users/${params.id}/posts`,
-      unified: `${apiURL}/posts/stream/unified`
+      unified: `${apiURL}/posts/stream/unified`,
+      thread: `${apiURL}/posts/${params.id}/replies`
     };
 
     if (action !== 'users' && action !== 'followers' && action !== 'lastposts') {

@@ -4,16 +4,18 @@ import { AdnAPI } from 'services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PostReply, ApiStatus } from 'resources/messages';
 import { State } from 'services/state';
+import { Router } from 'aurelia-router';
 
-@inject(PostClicks, AdnAPI, EventAggregator, State)
+@inject(PostClicks, AdnAPI, EventAggregator, State, Router)
 export class PostFrontCustomElement {
   @bindable post = null;
 
-  constructor(postclicks, api, ea, state) {
+  constructor(postclicks, api, ea, state, router) {
     this.postclicks = postclicks;
     this.api = api;
     this.ea = ea;
     this.state = state;
+    this.theRouter = router;
     this.toggleReply = false;
     this.postReply = ea.subscribe(PostReply, msg => this.killReplies(msg.post));
   }
@@ -46,4 +48,8 @@ export class PostFrontCustomElement {
     this.toggleReply = !this.toggleReply;
     this.ea.publish(new PostReply(post));
   }
+  
+  thread(post) {
+		this.theRouter.navigateToRoute("thread", {id: post.id});  
+  }  
 }
