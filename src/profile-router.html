@@ -28,10 +28,10 @@
             <nav id="profile-links" class="pure-menu pure-menu-horizontal">
               <ul class="pure-menu-list">
                 <li class="pure-menu-item">
-                  <a class="pure-menu-link ${router.navigation[0].isActive ? 'pure-menu-selected' : ''}" href="profile/following"><i class="fa fa-arrow-circle-left"></i> ${user.counts.following}</a>
+                  <a class="pure-menu-link ${router.navigation[0].isActive ? 'pure-menu-selected' : ''}" href="${state.token? 'profile/following' : 'profile'}"><i class="fa fa-arrow-circle-left"></i> ${user.counts.following}</a>
                 </li>
                 <li class="pure-menu-item">
-                  <a class="pure-menu-link ${router.navigation[1].isActive ? 'pure-menu-selected' : ''}" href="profile/followers"><i class="fa fa-arrow-circle-right"></i> ${user.counts.followers}</a>
+                  <a class="pure-menu-link ${router.navigation[1].isActive ? 'pure-menu-selected' : ''}" href="${state.token? 'profile/followers' : 'profile'}"><i class="fa fa-arrow-circle-right"></i> ${user.counts.followers}</a>
                 </li>
                 <li class="pure-menu-item">
                   <a class="pure-menu-link ${router.navigation[2].isActive ? 'pure-menu-selected' : ''}" href="profile/posts"><i class="fa fa-pencil-square-o"></i> ${user.counts.posts}</a>
