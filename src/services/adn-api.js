@@ -137,6 +137,26 @@ export class AdnAPI {
     });
   }
 
+  reportPost(id) {
+    
+    this.ea.publish(new ApiStatus('Reporting Post', { status: 'info' }));
+    this.isRequesting = true;
+    return this.http.configure(x => {
+      x.withHeader('Authorization', 'Bearer ' + this.state.token);
+      x.withHeader('Content-Type', 'application/json');
+    }).post(`https://api.app.net/posts/${id}/report`).then((response) => {
+      this.meta = response.content.meta;
+      this.isRequesting = false;
+      this.ea.publish(new ApiStatus('Post Reported', { status: 'success' }));
+      return response.content.data;
+
+    }).catch((err) => {
+      this.isRequesting = false;
+      this.ea.publish(new ApiStatus('Unable to report post', { status: 'error' }));
+      return {};
+    });
+  }
+
   textProcess(text) {
 
     let jsonText = { text: text };
@@ -317,10 +337,11 @@ export class AdnAPI {
       block: `${apiURL}/users/${params.id}/block`,
       lastposts: `${apiURL}/users/${params.id}/posts`,
       unified: `${apiURL}/posts/stream/unified`,
-      thread: `${apiURL}/posts/${params.id}/replies`
+      thread: `${apiURL}/posts/${params.id}/replies`,
+      report: `${apiURL}/posts/${params.id}/report`
     };
 
-    if (action !== 'users' && action !== 'followers' && action !== 'lastposts') {
+    if (action !== 'users' && action !== 'followers' && action !== 'lastposts' && action !== 'report') {
       return `${endpoints[action]}?count=${count}&${accessToken}${moreParam}${standardParams}`;
     } else {
       return `${endpoints[action]}?${accessToken}`;
