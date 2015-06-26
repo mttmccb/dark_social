@@ -10,7 +10,7 @@ export class App {
   }
 
   configureRouter(config, router) {
-    config.title = 'Dark.Social';
+    config.title = 'Dark Social';
     config.options.pushState = true;
     config.addPipelineStep('authorize', HashRedirectStep);
     config.map([
