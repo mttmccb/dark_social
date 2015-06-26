@@ -13,7 +13,7 @@
             </span>
             <span> ${router.title}</span></a>
         </li>
-        <li class="pure-menu-item">
+        <li if.bind="isLoggedIn" class="pure-menu-item">
           <a class="pure-menu-link" href="#" click.delegate="showNewPost()">
             <span class="fa-stack fa-lg">
               <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
