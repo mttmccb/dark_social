@@ -1,6 +1,9 @@
 <template>
-	<require from='../templates/posts/post-list'></require>
+	<require from='./templates/posts/post/post'></require>
+
 	<section class="main-content-wrapper">
-		<post-list posts.bind="{ data: posts, avatar: true }"></post-list>
+		<div id="posts" class="posts">
+			<post repeat.for="post of posts" post.bind="{ data: post, avatar:true }"></post>
+		</div>
 	</section>
 </template>
