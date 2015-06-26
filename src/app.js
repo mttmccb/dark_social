@@ -18,7 +18,6 @@ export class App {
       { route: ['stream'], moduleId: './unified-stream', nav: true, auth: true, title: 'Stream', settings: { icon: 'user', iconBack: 'globe' }  },
       { route: ['mentions'], moduleId: './mentions', nav: true, auth: true, title: 'Mentions', settings: { icon: 'comments', iconBack: 'heart' }  },
       { route: ['interactions'], moduleId: './interactions', nav: true, auth: true, title: 'Interactions', settings: { icon: 'bell', iconBack: 'heart' }  },
-      { route: ['recent'], moduleId: './recent-posts', nav: true, auth: true, title: 'Recent', settings: { icon: 'clock-o', iconBack: 'bullseye' }  },
       { route: ['profile/'], moduleId: './profile-router', nav: true, title: 'Profile', name: 'profile', settings: { icon: 'question', iconBack: 'user' } },
       { route: ['profile/user/:user_id'], moduleId: './profile-router', title: 'Profile', name: 'userprofile' },
       { route: ['profile/random'], moduleId: './profile-router', title: 'Profile', name: 'randomprofile' },
