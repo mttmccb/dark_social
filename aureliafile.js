@@ -8,6 +8,8 @@
           'aurelia-bootstrapper',
           'aurelia-http-client',
           'aurelia-router',
+          'aurelia-validation',
+          'aurelia-event-aggregator',
           'github:aurelia/templating-binding@0.12.0',
           'github:aurelia/templating-resources@0.12.1',
           'github:aurelia/templating-router@0.13.0',
