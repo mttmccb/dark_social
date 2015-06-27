@@ -32,15 +32,12 @@ export class Thread {
 					
 					if (parentId !==-1) {
 						var parentLevel = array[parentId].indent;
-						console.log(parentLevel);
 						element.indent = parentLevel + 2;	
-						console.log(element.indent);					
 					}
 				}
 			});
 			
 			this.posts = threadedPost;
-			console.log(this.posts);
 		});
 	}
 }
