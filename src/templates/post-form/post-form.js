@@ -47,6 +47,13 @@ export class PostFormCustomElement {
 		this.setupReply(this.postdata);
 		return this.api.getAllUsers().then(data => {
 			this.allUsers = data;
+			this.api.loadLastPost().then(data => {
+				this.lastPost = data[0];
+				this.showLastPost = true;
+				console.log(data[0]);
+			}).catch(() => {
+				this.showLastPost = false;
+			});
 		});
 	}
 	
@@ -68,6 +75,7 @@ export class PostFormCustomElement {
 	}
 
 	preview(id) {
+		console.log(id);
 		this.validation.validate().then(() => {
 			this.api.textProcess(this.postText).then(data => {
 				this.showPostPreview = true;

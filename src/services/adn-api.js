@@ -202,7 +202,7 @@ export class AdnAPI {
   loadLastPost() {
     return this.getToken().then(() => {
       this.isRequesting = true;
-      return this.http.get(this.urlBuilder('lastposts', { id: this.state.tokenReturned.user.id })).then((response) => {
+      return this.http.get(this.urlBuilder('lastposts', { id: this.state.tokenReturned.user.id, count: 1 })).then((response) => {
         this.isRequesting = false;
         this.ea.publish(new ApiStatus('Retrieved Last Post', { status: 'success' }));
         return response.content.data;
@@ -317,7 +317,7 @@ export class AdnAPI {
     let accessToken = accessTokenLS !== "undefined" && accessTokenLS !== null ? `access_token=${accessTokenLS}&` : "";
     let moreParam = params.more === "true" ? `before_id=${this.meta.min_id}&` : "";
     let countParam = !params.count? count : params.count;
-
+    console.log(countParam);
     let endpoints = {
       conversations: `${apiURL}/posts/stream/explore/conversations`,
       photos: `${apiURL}/posts/stream/explore/photos`,
@@ -342,7 +342,7 @@ export class AdnAPI {
       report: `${apiURL}/posts/${params.id}/report`
     };
 
-    if (action !== 'users' && action !== 'followers' && action !== 'lastposts' && action !== 'report') {
+    if (action !== 'users' && action !== 'followers' && action !== 'report') {
       return `${endpoints[action]}?count=${countParam}&${accessToken}${moreParam}${standardParams}`;
     } else {
       return `${endpoints[action]}?${accessToken}`;
