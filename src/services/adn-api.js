@@ -312,7 +312,7 @@ export class AdnAPI {
   }
 
   urlBuilder(action, params) {
-    let standardParams = `include_post_annotations=1&include_deleted=0`;
+    let standardParams = action==='thead' ? `include_post_annotations=1&include_deleted=0` : `include_post_annotations=1&include_deleted=1`;
     let accessTokenLS = this.state.token;
     let accessToken = accessTokenLS !== "undefined" && accessTokenLS !== null ? `access_token=${accessTokenLS}&` : "";
     let moreParam = params.more === "true" ? `before_id=${this.meta.min_id}&` : "";

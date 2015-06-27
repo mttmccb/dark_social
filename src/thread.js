@@ -26,6 +26,7 @@ export class Thread {
 		return this.api.load('thread', { count: 200, more: false, id: id }).then(posts => {
 			var threadedPost = posts.reverse();
 			threadedPost.forEach((element, index, array) => {
+				element.thread = true;
 				if (index===0) {
 					element.indent = 0;
 				} else {

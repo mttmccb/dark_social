@@ -1,24 +1,25 @@
 <template>
 	<require from='../../post-form/post-form'></require>
 	<require from='./annotation-images'></require>
-	<p innerHTML.one-way="post.html " click.delegate="postclicks.handler($event) "></p>
-	<div class="pure-g post-footer">
+	<p if.bind="post.deleted==='1'">This post has been deleted</p>
+	<p if.bind="post.deleted!=='1'" innerHTML.one-way="post.html " click.delegate="postclicks.handler($event) "></p>
+	<div if.bind="post.deleted!=='1'" class="pure-g post-footer">
 		<div class="pure-u-1-2">
 			<p>
-				<i if.bind="state.token && (post.reply_to || post.num_replies>0)" class="clickable fa fa-tree" click.delegate="thread(post)"></i>
-				<a if.bind="state.token && (post.reply_to || post.num_replies>0)" href="http://treeview.us/home/thread/${post.id} " title="Open in TreeView" target="_blank "><i class="fa fa-tree "></i></a>
-				<i if.bind="state.token" class="clickable fa ${post.you_starred? 'fa-star actioned' : 'fa-star-o'}" click.delegate="toggleStar(post)"></i>
-				<i if.bind="state.token && post.user.id !== state.tokenReturned.user.id" class="clickable fa fa-retweet ${post.you_reposted? 'actioned' : ''}" click.delegate="toggleRepost(post)"></i>
-				<i if.bind="state.token" class="clickable fa fa-reply" click.delegate="reply(post)"></i>
+				<i if.bind="!post.thread && state.tokenReturned && (post.reply_to || post.num_replies>0)" class="clickable fa fa-tree" click.delegate="thread(post)"></i>
+				<a if.bind="state.tokenReturned && (post.reply_to || post.num_replies>0)" href="http://treeview.us/home/thread/${post.id} " title="Open in TreeView" target="_blank "><i class="fa fa-tree "></i></a>
+				<i if.bind="state.tokenReturned" class="clickable fa ${post.you_starred? 'fa-star actioned' : 'fa-star-o'}" click.delegate="toggleStar(post)"></i>
+				<i if.bind="state.tokenReturned && post.user.id !== state.tokenReturned.user.id" class="clickable fa fa-retweet ${post.you_reposted? 'actioned' : ''}" click.delegate="toggleRepost(post)"></i>
+				<i if.bind="state.tokenReturned" class="clickable fa fa-reply" click.delegate="reply(post)"></i>
 			</p>
 		</div>
 		<div class="pure-u-1-2">
 			<p class="post-time">${post.created_at | timeAgo}</p>
 		</div>
 	</div>
-	<div class="post-images">
+	<div if.bind="post.deleted!=='1'" class="post-images">
 		<annotation-images annotations.bind="post.annotations"></annotation-images>
 	</div>
-	<post-form if.bind="toggleReply" post.bind="post"></post-form>
+	<post-form if.bind="toggleReply && post.deleted!=='1'" post.bind="post"></post-form>
 
 </template>
