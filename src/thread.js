@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { AdnAPI } from 'services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted } from 'resources/messages';
+import { PostPosted, RefreshView } from 'resources/messages';
 import { findIndexByKeyValue } from 'resources/utility';
 
 @inject(AdnAPI, EventAggregator)
@@ -11,6 +11,7 @@ export class Thread {
 		this.api = api;
 		this.ea = ea;
 		this.postPosted = ea.subscribe(PostPosted, msg => this.loadStream(this.id));
+		this.refreshView = ea.subscribe(RefreshView, msg => this.loadStream(this.id));
 	}
 
 	activate(params, query, route) {
@@ -19,6 +20,7 @@ export class Thread {
 
 	deactivate() {
 		this.postPosted();
+		this.refreshView();
 	}
 
 	loadStream(id) {
@@ -38,8 +40,6 @@ export class Thread {
 					}
 				}
 			});
-			console.log(treeify(threadedPost));
-						
 			this.posts = treeify(threadedPost);
 		});
 	}

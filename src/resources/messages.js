@@ -34,3 +34,7 @@ export class NewPost {
 export class GetRandomUser {
   
 }
+
+export class RefreshView {
+  
+}
