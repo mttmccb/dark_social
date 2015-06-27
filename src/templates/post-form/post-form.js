@@ -128,7 +128,7 @@ export class PostFormCustomElement {
 				mentionText = `@${postUser.username} ` + mentionText;	
 			}
 			
-			this.postText = mentionText.length > 0 ? mentionText + ' ' : '';			
+			this.postText = mentionText.length > 0 ? mentionText.trim() + ' ' : '';			
 		}
 		this.hasFocus = true;
 	}
