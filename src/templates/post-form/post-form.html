@@ -11,7 +11,7 @@
 					</ul>
 					<span>${postLength} / 256 characters</span>
 					<button type="button" class="pure-button" click.delegate="preview(replyTo)" disabled.bind="!validation.result.isValid">Preview</button>
-					<button type="submit" class="pure-button pure-button-primary" disabled.bind="!validation.result.isValid">Post</button>
+					<button type="submit" class="pure-button pure-button-primary" disabled.bind="!validation.result.isValid || submitting">Post</button>
 				</fieldset>
 			</form>
 		</div>

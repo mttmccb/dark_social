@@ -21,6 +21,7 @@ export class PostFormCustomElement {
 			});
 		this.ea = ea;
 		this.state = state;
+		this.submitting = false;
 	}
 
 	editPost = false;
@@ -50,8 +51,10 @@ export class PostFormCustomElement {
 	}
 	
 	submit(id) {
+		this.submitting = true;
 		this.validation.validate().then(() => {
 			this.api.createPost(this.postText,(id ? { reply_to: id } : {})).then(data => {
+				this.submitting = false;
 				this.lastPost = data;
 				this.showLastPost = true;
 				this.postText = '';
@@ -59,6 +62,7 @@ export class PostFormCustomElement {
 				this.ea.publish(new PostPosted());
 			});
 		}).catch(() => {
+			this.submitting = false;
 			this.ea.publish(new ApiStatus('Something went wrong... :(', { status: 'error' }));
 		});
 	}
