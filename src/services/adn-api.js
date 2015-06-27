@@ -316,6 +316,7 @@ export class AdnAPI {
     let accessTokenLS = this.state.token;
     let accessToken = accessTokenLS !== "undefined" && accessTokenLS !== null ? `access_token=${accessTokenLS}&` : "";
     let moreParam = params.more === "true" ? `before_id=${this.meta.min_id}&` : "";
+    let countParam = !params.count? count : params.count;
 
     let endpoints = {
       conversations: `${apiURL}/posts/stream/explore/conversations`,
@@ -342,7 +343,7 @@ export class AdnAPI {
     };
 
     if (action !== 'users' && action !== 'followers' && action !== 'lastposts' && action !== 'report') {
-      return `${endpoints[action]}?count=${count}&${accessToken}${moreParam}${standardParams}`;
+      return `${endpoints[action]}?count=${countParam}&${accessToken}${moreParam}${standardParams}`;
     } else {
       return `${endpoints[action]}?${accessToken}`;
     }

@@ -13,4 +13,5 @@
 			<post-back post.bind="post.data"></post-back>
 		</div>
 	</div>
+	<post if.bind="post.data.children" repeat.for="nestedpost of post.data.children" post.bind="{ data: nestedpost, avatar:true }"></post>
 </template>
