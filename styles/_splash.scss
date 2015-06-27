@@ -1,20 +1,24 @@
-.splash-text {
-  font-size: 4em;
-  color: $content-color;
-  @media screen and (max-width: 35.5em) {
-    font-size: 3em;
-  }  
-}
-
 .splash {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   color: $content-main;
   text-align: center;
-  margin: 4em 0.5em 0 0.5em;
-  .message {
-    @extend .splash-text;
-  }
-  .fa-spinner {
-    @extend .splash-text;
-    display: inline-block;
+  background: $nav-background;
+  .header-title {
+    margin: 5em auto 0 auto;
+    text-align: center;
+    color: $content-color;
+    background: $content-accent;
+    padding: 1em;
+    border-radius: 2em;
+    opacity: 0.9;
+    max-width: 18em;
+    font-size: 130%;
+    h1 {
+      margin: 0;
+    }
   }
 }
