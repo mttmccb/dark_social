@@ -2,7 +2,7 @@ import { inject } from 'aurelia-framework';
 import { AdnAPI } from 'services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PostPosted, RefreshView } from 'resources/messages';
-import { findIndexByKeyValue } from 'resources/utility';
+import { findIndexByKeyValue, treeify } from 'resources/utility';
 
 @inject(AdnAPI, EventAggregator)
 export class Thread {
@@ -44,30 +44,3 @@ export class Thread {
 		});
 	}
 }
-
-function flatten(arr) {
-  return arr.reduce(function (flat, toFlatten) {
-    return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
-  }, []);
-}
-
-function treeify(list, idAttr, parentAttr, childrenAttr) {
-    if (!idAttr) idAttr = 'id';
-    if (!parentAttr) parentAttr = 'reply_to';
-    if (!childrenAttr) childrenAttr = 'children';
-
-    var treeList = [];
-    var lookup = {};
-    list.forEach(function(obj) {
-        lookup[obj[idAttr]] = obj;
-        obj[childrenAttr] = [];
-    });
-    list.forEach(function(obj) {
-        if (obj[parentAttr] != null) {
-            lookup[obj[parentAttr]][childrenAttr].push(obj);
-        } else {
-            treeList.push(obj);
-        }
-    });
-    return treeList;
-};
