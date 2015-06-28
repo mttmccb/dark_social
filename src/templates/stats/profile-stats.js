@@ -10,10 +10,6 @@ export class ProfileStatsCustomElement {
     this.numberOfTopMentions = 5;
   }
 
-  moreMentions() {
-    this.numberOfTopMentions += 5;
-  }
-
   loadUserRoute(user) {
     console.log(user);
     this.theRouter.navigateToRoute("userprofile", { user_id: user });
