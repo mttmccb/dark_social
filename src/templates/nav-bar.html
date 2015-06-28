@@ -25,12 +25,13 @@
           <li if.bind="row.settings.group && row.settings.groupStart" class="pure-menu-item">
             <a class="pure-menu-link" href="#" click.delegate="$parent.showExplore()">
             <span if.bind="row.settings.iconBack" class="fa-stack fa-lg">
-              <i class="fa fa-${row.settings.iconBack} fa-stack-2x"></i>
+              <i class="fa fa-${row.settings.iconBack} fa-stack-2x ${$parent.toggleExplore? 'fa-inverse': ''}"></i>
+              <i if.bind="$parent.toggleExplore" class="fa fa-times fa-stack-1x"></i>
             </span>
             <span> Explore</span>
           </a>
           </li>
-          <li if.bind="!row.settings.group || $parent.toggleExplore" class="pure-menu-item ${row.isActive ? 'pure-menu-selected' : ''}">
+          <li if.bind="(row.settings.group === $parent.toggleExplore) || (!row.settings.group && !$parent.toggleExplore)" class="pure-menu-item ${row.isActive ? 'pure-menu-selected' : ''}">
             <a class="pure-menu-link" href.bind="row.href">
             <span if.bind="row.settings.iconBack" class="fa-stack fa-lg">
               <i class="fa fa-${row.settings.iconBack} fa-stack-2x fa-inverse"></i>

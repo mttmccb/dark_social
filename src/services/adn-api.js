@@ -339,7 +339,8 @@ export class AdnAPI {
       lastposts: `${apiURL}/users/${params.id}/posts`,
       unified: `${apiURL}/posts/stream/unified`,
       thread: `${apiURL}/posts/${params.id}/replies`,
-      report: `${apiURL}/posts/${params.id}/report`
+      report: `${apiURL}/posts/${params.id}/report`,
+      global: `https://api.app.net/posts/stream/global`
     };
 
     if (action !== 'users' && action !== 'followers' && action !== 'report') {
