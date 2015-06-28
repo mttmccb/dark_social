@@ -1,6 +1,8 @@
 import { bindable, inject } from 'aurelia-framework';
 import imagesLoaded from 'imagesloaded';
 import Masonry from 'masonry-layout';
+import { EventAggregator } from 'aurelia-event-aggregator';
+import { RefreshView } from 'resources/messages';
 
 export class InteractionListCustomElement {
   @bindable interactions = null;
@@ -10,6 +12,7 @@ export class InteractionListCustomElement {
   attached() {
     this.isAttached = true;
     this.createMasonry();
+    this.refreshView = ea.subscribe(RefreshView, msg => this.createMasonry());
   }
 
   createMasonry() {

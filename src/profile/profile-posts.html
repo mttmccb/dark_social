@@ -4,9 +4,7 @@
 
     <div class="pure-g posts stats" if.bind="data[0].user.counts.posts>0">
       <div class="pure-u-1 stats-header">
-        <h2>Last ${data.length} Posts
-          <a href="#" click.delegate="loadMorePosts()">more...</a>
-        </h2>
+        <h2>Last ${data.length} Posts </h2>
       </div>
       <div class="pure-u-1 stats-body">
         <profile-stats posts.bind="data"></profile-stats>

@@ -3,7 +3,7 @@ import { AdnAPI } from 'services/adn-api';
 import { activationStrategy } from 'aurelia-router';
 import { State } from '../services/state';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted, RefreshView } from 'resources/messages';
+import { PostPosted, RefreshView, LoadMore } from 'resources/messages';
 
 @inject(AdnAPI, State, EventAggregator)
 export class ProfilePosts {
@@ -13,8 +13,9 @@ export class ProfilePosts {
     this.data = [];
     this.state = state;
     this.ea = ea;
-    this.postPosted = ea.subscribe(PostPosted, msg => this.loadPosts(this.user_id));
-    this.refreshView = ea.subscribe(RefreshView, msg => this.loadPosts(this.user_id));
+    this.postPosted = ea.subscribe(PostPosted, msg => this.loadPosts({ user: this.user_id, more: false }));
+    this.refreshView = ea.subscribe(RefreshView, msg => this.loadPosts({ user: this.user_id, more: false }));
+		this.loadMore = ea.subscribe(LoadMore, msg => this.loadPosts({ user: this.user_id, more: true }));
   }
 
   activate(params, query, route) {
@@ -26,22 +27,17 @@ export class ProfilePosts {
     return this.loadPosts(this.user_id);
   }
 
-  loadPosts(user) {
-    return this.api.loadPosts(user, false).then(data => {
-      this.data = data;
+  loadPosts(params) {
+    return this.api.loadPosts(params.user, false).then(data => {
+      this.data = params.more? this.data.concat(data) : data;
     });
   }
 
 	deactivate() {
 		this.postPosted();
 		this.refreshView();
+    this.loadMore();
 	}
-
-  loadMorePosts() {
-    return this.api.loadPosts(this.user_id, true).then(data => {
-      this.data = this.data.concat(data);
-    });
-  }
 
   getPost(id) {
     return this.api.load('post', { id: id }).then(post => {

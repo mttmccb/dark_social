@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { AdnAPI } from 'services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted, RefreshView } from 'resources/messages';
+import { PostPosted, RefreshView, LoadMore } from 'resources/messages';
 
 @inject(AdnAPI, EventAggregator)
 export class UnifiedStream {
@@ -9,23 +9,26 @@ export class UnifiedStream {
 	constructor(api, ea) {
 		this.api = api;
 		this.ea = ea;
-		this.postPosted = ea.subscribe(PostPosted, msg => this.loadStream());
-		this.refreshView = ea.subscribe(RefreshView, msg => this.loadStream());
+		this.postPosted = ea.subscribe(PostPosted, msg => this.loadStream(false));
+		this.refreshView = ea.subscribe(RefreshView, msg => this.loadStream(false));
+		this.loadMore = ea.subscribe(LoadMore, msg => this.loadStream(true));
 	}
 
 	activate() {
-		return this.loadStream();
+		return this.loadStream(false);
 	}
 
 	deactivate() {
 		this.postPosted();
 		this.refreshView();
+		this.loadMore();
 	}
 
-	loadStream() {
-		return this.api.load('unified', { more: false }).then(posts => {
-			this.streamid = this.api.meta.marker.last_read_id;
-			this.posts = posts;
+	loadStream(more) {
+		return this.api.load('unified', { more: more }).then(posts => {
+			this.streamid = this.api.meta.marker.last_read_id;	
+			this.posts = more? this.posts.concat(posts) : posts;			
 		});
 	}
+
 }

@@ -23,18 +23,12 @@ export class PostReply {
   }
 }
 
-export class PostPosted {
-  
-}
+export class PostPosted {}
 
-export class NewPost {
-  
-}
+export class NewPost {}
 
-export class GetRandomUser {
-  
-}
+export class GetRandomUser {}
 
-export class RefreshView {
-  
-}
+export class RefreshView {}
+
+export class LoadMore {}

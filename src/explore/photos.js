@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { AdnAPI } from 'services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted, RefreshView } from 'resources/messages';
+import { PostPosted, RefreshView, LoadMore } from 'resources/messages';
 
 @inject(AdnAPI, EventAggregator)
 export class Photos {
@@ -10,12 +10,13 @@ export class Photos {
     this.api = api;
     this.posts = [];
     this.ea = ea;
-    this.postPosted = ea.subscribe(PostPosted, msg => this.loadPhotos());
-    this.refreshView = ea.subscribe(RefreshView, msg => this.loadPhotos());	        
+    this.postPosted = ea.subscribe(PostPosted, msg => this.loadPhotos(false));
+    this.refreshView = ea.subscribe(RefreshView, msg => this.loadPhotos(false));	        
+		this.loadMore = ea.subscribe(LoadMore, msg => this.loadPhotos(true));
   }
 
   activate() {
-    return this.loadPhotos();
+    return this.loadPhotos(false);
   }
 
   deactivate() {
@@ -24,12 +25,12 @@ export class Photos {
   }
     
   refresh() {
-    return this.loadPhotos();
+    return this.loadPhotos(false);
   }
   
-  loadPhotos() {
-    return this.api.load('photos', { more: false }).then(posts => {
-      this.posts = posts;
+  loadPhotos(more) {
+    return this.api.load('photos', { more: more }).then(posts => {
+			this.posts = more? this.posts.concat(posts) : posts;			
     });    
   }
 }

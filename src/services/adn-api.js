@@ -297,7 +297,6 @@ export class AdnAPI {
   load(url, params) {
 
     this.isRequesting = true;
-
     return this.http.get(this.urlBuilder(url, params)).then((response) => {
       this.meta = response.content.meta;
       this.isRequesting = false;
@@ -315,9 +314,8 @@ export class AdnAPI {
     let standardParams = action==='thead' ? `include_post_annotations=1&include_deleted=0` : `include_post_annotations=1&include_deleted=1`;
     let accessTokenLS = this.state.token;
     let accessToken = accessTokenLS !== "undefined" && accessTokenLS !== null ? `access_token=${accessTokenLS}&` : "";
-    let moreParam = params.more === "true" ? `before_id=${this.meta.min_id}&` : "";
+    let moreParam = params.more ? `before_id=${this.meta.min_id}&` : "";
     let countParam = !params.count? count : params.count;
-
     let endpoints = {
       conversations: `${apiURL}/posts/stream/explore/conversations`,
       photos: `${apiURL}/posts/stream/explore/photos`,
@@ -340,9 +338,9 @@ export class AdnAPI {
       unified: `${apiURL}/posts/stream/unified`,
       thread: `${apiURL}/posts/${params.id}/replies`,
       report: `${apiURL}/posts/${params.id}/report`,
-      global: `https://api.app.net/posts/stream/global`
+      global: `${apiURL}/posts/stream/global`
     };
-
+    
     if (action !== 'users' && action !== 'followers' && action !== 'report') {
       return `${endpoints[action]}?count=${countParam}&${accessToken}${moreParam}${standardParams}`;
     } else {

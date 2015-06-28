@@ -1,7 +1,7 @@
 import { inject, bindable } from 'aurelia-framework';
 import { AdnAPI } from 'services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted, RefreshView } from 'resources/messages';
+import { PostPosted, RefreshView, LoadMore } from 'resources/messages';
 
 @inject(AdnAPI, EventAggregator)
 export class Checkins {
@@ -10,12 +10,13 @@ export class Checkins {
     this.api = api;
     this.posts = [];
     this.ea = ea;
-    this.postPosted = ea.subscribe(PostPosted, msg => this.loadCheckins());	
-    this.refreshView = ea.subscribe(RefreshView, msg => this.loadCheckins());	
+    this.postPosted = ea.subscribe(PostPosted, msg => this.loadCheckins(false));	
+    this.refreshView = ea.subscribe(RefreshView, msg => this.loadCheckins(false));	
+		this.loadMore = ea.subscribe(LoadMore, msg => this.loadCheckins(true));
   }
 
   activate() {
-    return this.loadCheckins();
+    return this.loadCheckins(false);
   }
   
   deactivate() {
@@ -24,12 +25,12 @@ export class Checkins {
   }  
 
   refresh() {
-    return this.loadCheckins();
+    return this.loadCheckins(false);
   }
   
-  loadCheckins() {
-    return this.api.load('checkins', { more: false }).then(posts => {
-      this.posts = posts;
+  loadCheckins(more) {
+    return this.api.load('checkins', { more: more }).then(posts => {
+			this.posts = more? this.posts.concat(posts) : posts;			
     });    
   }    
 }

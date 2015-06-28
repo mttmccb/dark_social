@@ -39,7 +39,6 @@ export class NavBarCustomElement {
   
   showExplore() {
     this.toggleExplore = !this.toggleExplore;
-    console.log(this.toggleExplore);
   }
   
   showProfile() {

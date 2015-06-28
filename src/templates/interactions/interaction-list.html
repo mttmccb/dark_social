@@ -1,5 +1,8 @@
 <template>
 	<require from="../../resources/action"></require>
+	<require from='../refresh-indicator'></require>
+	<require from='../get-more'></require>
+	<refresh-indicator></refresh-indicator>	
 	<div id="posts" class="posts">
 		<div repeat.for="interaction of interactions" class="pure-g post">	
 			<div class="pure-u-1-5">
@@ -16,4 +19,5 @@
 			</div>
 		</div>
 	</div>
+	<get-more></get-more>	
 </template>
