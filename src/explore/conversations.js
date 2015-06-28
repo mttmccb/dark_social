@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { AdnAPI } from 'services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted } from 'resources/messages';
+import { PostPosted, RefreshView } from 'resources/messages';
 
 @inject(AdnAPI, EventAggregator)
 export class Conversations {
@@ -10,7 +10,8 @@ export class Conversations {
     this.api = api;
     this.posts = [];
     this.ea = ea;
-    this.postPosted = ea.subscribe(PostPosted, msg => this.loadConversations());	
+    this.postPosted = ea.subscribe(PostPosted, msg => this.loadConversations());
+    this.refreshView = ea.subscribe(RefreshView, msg => this.loadConversations());		
   }
 
   activate() {
@@ -19,6 +20,7 @@ export class Conversations {
   
   deactivate() {
     this.postPosted();
+    this.refreshView();
   }  
 
   refresh() {

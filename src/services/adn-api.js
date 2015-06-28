@@ -317,7 +317,7 @@ export class AdnAPI {
     let accessToken = accessTokenLS !== "undefined" && accessTokenLS !== null ? `access_token=${accessTokenLS}&` : "";
     let moreParam = params.more === "true" ? `before_id=${this.meta.min_id}&` : "";
     let countParam = !params.count? count : params.count;
-    console.log(countParam);
+
     let endpoints = {
       conversations: `${apiURL}/posts/stream/explore/conversations`,
       photos: `${apiURL}/posts/stream/explore/photos`,

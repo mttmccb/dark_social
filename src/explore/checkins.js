@@ -1,7 +1,7 @@
 import { inject, bindable } from 'aurelia-framework';
 import { AdnAPI } from 'services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted } from 'resources/messages';
+import { PostPosted, RefreshView } from 'resources/messages';
 
 @inject(AdnAPI, EventAggregator)
 export class Checkins {
@@ -11,6 +11,7 @@ export class Checkins {
     this.posts = [];
     this.ea = ea;
     this.postPosted = ea.subscribe(PostPosted, msg => this.loadCheckins());	
+    this.refreshView = ea.subscribe(RefreshView, msg => this.loadCheckins());	
   }
 
   activate() {
@@ -19,6 +20,7 @@ export class Checkins {
   
   deactivate() {
     this.postPosted();
+    this.refreshView();
   }  
 
   refresh() {

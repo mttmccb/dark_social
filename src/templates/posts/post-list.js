@@ -1,9 +1,17 @@
 import { bindable, inject } from 'aurelia-framework';
 import imagesLoaded from 'imagesloaded';
 import Masonry from 'masonry-layout';
+import { EventAggregator } from 'aurelia-event-aggregator';
+import { RefreshView } from 'resources/messages';
 
+@inject(EventAggregator)
 export class PostListCustomElement {
   @bindable posts = { data: null, avatar: false, streamid: null };
+  
+  constructor(ea) {
+    this.ea = ea;
+    this.refreshView = ea.subscribe(RefreshView, msg => this.createMasonry());	
+  }
   
   isAttached = false;
 

@@ -3,7 +3,7 @@ import { AdnAPI } from 'services/adn-api';
 import { activationStrategy } from 'aurelia-router';
 import { State } from '../services/state';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted } from 'resources/messages';
+import { PostPosted, RefreshView } from 'resources/messages';
 
 @inject(AdnAPI, State, EventAggregator)
 export class ProfilePosts {
@@ -14,6 +14,7 @@ export class ProfilePosts {
     this.state = state;
     this.ea = ea;
     this.postPosted = ea.subscribe(PostPosted, msg => this.loadPosts(this.user_id));
+    this.refreshView = ea.subscribe(RefreshView, msg => this.loadPosts(this.user_id));
   }
 
   activate(params, query, route) {
@@ -33,6 +34,7 @@ export class ProfilePosts {
 
 	deactivate() {
 		this.postPosted();
+		this.refreshView();
 	}
 
   loadMorePosts() {

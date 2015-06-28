@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { AdnAPI } from 'services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted } from 'resources/messages';
+import { PostPosted, RefreshView } from 'resources/messages';
 
 @inject(AdnAPI, EventAggregator)
 export class Trending {
@@ -11,6 +11,7 @@ export class Trending {
     this.posts = [];
     this.ea = ea;
     this.postPosted = ea.subscribe(PostPosted, msg => this.loadTrending());	    
+    this.refreshView = ea.subscribe(RefreshView, msg => this.loadTrending());	
   }
 
   activate() {
@@ -19,6 +20,7 @@ export class Trending {
   
   deactivate() {
     this.postPosted();
+    this.refreshView();
   }  
 
   refresh() {
