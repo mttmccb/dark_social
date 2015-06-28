@@ -16,6 +16,7 @@ export class NavBarCustomElement {
     ea.subscribe(LoggedIn, msg => this.showProfile());
     this.showProfile();
     this.state = state;
+    this.toggleExplore = false;
   }
 
   LogInOutText = "Login";
@@ -34,6 +35,11 @@ export class NavBarCustomElement {
   
   showNewPost() {
     this.ea.publish(new NewPost());
+  }
+  
+  showExplore() {
+    this.toggleExplore = !this.toggleExplore;
+    console.log(this.toggleExplore);
   }
   
   showProfile() {

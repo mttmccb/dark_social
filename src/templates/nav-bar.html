@@ -21,8 +21,17 @@
             </span>
             <span> New Post</span></a>
         </li>
-        <li repeat.for="row of router.navigation | authFilter:isLoggedIn" class="pure-menu-item ${row.isActive ? 'pure-menu-selected' : ''}">
-          <a class="pure-menu-link" href.bind="row.href">
+        <template repeat.for="row of router.navigation | authFilter:isLoggedIn">
+          <li if.bind="row.settings.group && row.settings.groupStart" class="pure-menu-item">
+            <a class="pure-menu-link" href="#" click.delegate="$parent.showExplore()">
+            <span if.bind="row.settings.iconBack" class="fa-stack fa-lg">
+              <i class="fa fa-${row.settings.iconBack} fa-stack-2x"></i>
+            </span>
+            <span> Explore</span>
+          </a>
+          </li>
+          <li if.bind="!row.settings.group || $parent.toggleExplore" class="pure-menu-item ${row.isActive ? 'pure-menu-selected' : ''}">
+            <a class="pure-menu-link" href.bind="row.href">
             <span if.bind="row.settings.iconBack" class="fa-stack fa-lg">
               <i class="fa fa-${row.settings.iconBack} fa-stack-2x fa-inverse"></i>
               <i class="fa fa-${row.settings.icon} fa-stack-1x"></i>
@@ -30,7 +39,8 @@
             <i if.bind="row.settings.icon && !row.settings.iconBack" class='fa fa-lg fa-${row.settings.icon}'></i>
             <span> ${row.title}</span>
           </a>
-        </li>
+          </li>
+        </template>
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="#" click.delegate="LogInOut()">${LogInOutText}</a>
         </li>
