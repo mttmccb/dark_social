@@ -16,8 +16,7 @@
         <li if.bind="isLoggedIn" class="pure-menu-item">
           <a class="pure-menu-link" href="#" click.delegate="showNewPost()">
             <span class="fa-stack fa-lg">
-              <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
-              <i class="fa fa-edit fa-stack-1x"></i>
+              <i class="fa fa-edit fa-stack-2x"></i>
             </span>
             <span> New Post</span></a>
         </li>
@@ -35,9 +34,15 @@
             <a class="pure-menu-link" href.bind="row.href">
             <span if.bind="row.settings.iconBack" class="fa-stack fa-lg">
               <i class="fa fa-${row.settings.iconBack} fa-stack-2x fa-inverse"></i>
-              <i class="fa fa-${row.settings.icon} fa-stack-1x"></i>
+              <strong class="fa-stack-1x" if.bind="row.settings.text">${row.settings.text}</strong>
+              <i if.bind="row.settings.icon" class="fa fa-${row.settings.icon} fa-stack-1x"></i>
             </span>
-            <i if.bind="row.settings.icon && !row.settings.iconBack" class='fa fa-lg fa-${row.settings.icon}'></i>
+            <span if.bind="row.settings.icon && !row.settings.iconBack" class="fa-stack fa-lg">
+              <i class='fa fa-2x fa-${row.settings.icon}'></i>
+            </span>
+            <span if.bind="row.settings.text" class="fa-stack fa-lg">
+              <strong class="fa-stack-2x" if.bind="row.settings.text">${row.settings.text}</strong>
+            </span>
             <span> ${row.title}</span>
           </a>
           </li>
