@@ -7,7 +7,7 @@ import { State } from 'services/state';
 
 @inject(AdnAPI, Validation, EventAggregator, State)
 export class PostFormCustomElement {
-	@bindable post = null;
+	@bindable post = { data: null, reply: false };
 
 	constructor(api, validation, ea, state) {
 		this.api = api;
@@ -47,13 +47,17 @@ export class PostFormCustomElement {
 		this.setupReply(this.postdata);
 		return this.api.getAllUsers().then(data => {
 			this.allUsers = data;
-			this.api.loadLastPost().then(data => {
-				this.lastPost = data[0];
-				this.showLastPost = true;
-				console.log(data[0]);
-			}).catch(() => {
+			if (!this.isReply) {
+				this.api.loadLastPost().then(data => {
+					this.lastPost = data[0];
+					this.showLastPost = true;
+					console.log(data[0]);
+				}).catch(() => {
+					this.showLastPost = false;
+				});				
+			} else {
 				this.showLastPost = false;
-			});
+			}
 		});
 	}
 	
@@ -115,7 +119,8 @@ export class PostFormCustomElement {
 	}
 	
 	postChanged(newValue) {
-		this.postdata = newValue;
+		this.postdata = newValue.data;
+		this.isReply = newValue.isReply;
 	}
 
 	setupReply(post) {

@@ -18,9 +18,9 @@
 		</div>
 		<div class="pure-u-1">
 			<p if.bind="showPostPreview" class="post-details showMe" innerHTML.one-way="postPreview.html"></p>
-			<h2 if.bind="showLastPost">Last Post</h2>
-			<p if.bind="showLastPost" class="post-details showMe" innerHTML.one-way="lastPost.html"></p>
-			<p if.bind="showLastPost">
+			<h2 if.bind="showLastPost && !post.isReply">Last Post</h2>
+			<p if.bind="showLastPost && !post.isReply" class="post-details showMe" innerHTML.one-way="lastPost.html"></p>
+			<p if.bind="showLastPost && !post.isReply">
 				<i class="clickable fa fa-reply" click.delegate="setupReply(lastPost)"></i>
 			</p>
 		</div>

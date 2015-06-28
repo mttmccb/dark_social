@@ -19,6 +19,6 @@
 	<div if.bind="post.deleted!=='1'" class="post-images">
 		<annotation-images annotations.bind="post.annotations"></annotation-images>
 	</div>
-	<post-form if.bind="toggleReply && post.deleted!=='1'" post.bind="post"></post-form>
+	<post-form if.bind="toggleReply && post.deleted!=='1'" post.bind="{ data: post, isReply: true }"></post-form>
 
 </template>
