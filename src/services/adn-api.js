@@ -317,34 +317,34 @@ export class AdnAPI {
     let moreParam = params.more ? `before_id=${this.meta.min_id}&` : "";
     let countParam = !params.count? count : params.count;
     let endpoints = {
-      conversations: `${apiURL}/posts/stream/explore/conversations`,
-      photos: `${apiURL}/posts/stream/explore/photos`,
-      trending: `${apiURL}/posts/stream/explore/trending`,
-      checkins: `${apiURL}/posts/stream/explore/checkins`,
-      star: `${apiURL}/posts/${params.id}/star`,
-      repost: `${apiURL}/posts/${params.id}/repost`,
-      post: `${apiURL}/post/${params.id}`,
-      posts: `${apiURL}/users/${params.id}/posts`,
-      stars: `${apiURL}/users/${params.id}/stars`,
-      users: `${apiURL}/users/${params.id}`,
-      interactions: `${apiURL}/users/me/interactions`,
-      mentions: `${apiURL}/users/me/mentions`,
-      followers: `${apiURL}/users/${params.id}/followers`,
-      following: `${apiURL}/users/${params.id}/following`,
-      follow: `${apiURL}/users/${params.id}/follow`,
-      mute: `${apiURL}/users/${params.id}/mute`,
-      block: `${apiURL}/users/${params.id}/block`,
-      lastposts: `${apiURL}/users/${params.id}/posts`,
-      unified: `${apiURL}/posts/stream/unified`,
-      thread: `${apiURL}/posts/${params.id}/replies`,
-      report: `${apiURL}/posts/${params.id}/report`,
-      global: `${apiURL}/posts/stream/global`
+      conversations: `${apiURL}/posts/stream/explore/conversations?`,
+      photos: `${apiURL}/posts/stream/explore/photos?`,
+      trending: `${apiURL}/posts/stream/explore/trending?`,
+      checkins: `${apiURL}/posts/stream/explore/checkins?`,
+      star: `${apiURL}/posts/${params.id}/star?`,
+      repost: `${apiURL}/posts/${params.id}/repost?`,
+      post: `${apiURL}/post/${params.id}?`,
+      posts: `${apiURL}/users/${params.id}/posts?`,
+      stars: `${apiURL}/users/${params.id}/stars?`,
+      users: `${apiURL}/users/${params.id}?`,
+      interactions: `${apiURL}/users/me/interactions?interaction_actions=star,repost,follow&`,
+      mentions: `${apiURL}/users/me/mentions?`,
+      followers: `${apiURL}/users/${params.id}/followers?`,
+      following: `${apiURL}/users/${params.id}/following?`,
+      follow: `${apiURL}/users/${params.id}/follow?`,
+      mute: `${apiURL}/users/${params.id}/mute?`,
+      block: `${apiURL}/users/${params.id}/block?`,
+      lastposts: `${apiURL}/users/${params.id}/posts?`,
+      unified: `${apiURL}/posts/stream/unified?`,
+      thread: `${apiURL}/posts/${params.id}/replies?`,
+      report: `${apiURL}/posts/${params.id}/report?`,
+      global: `${apiURL}/posts/stream/global?`
     };
     
     if (action !== 'users' && action !== 'followers' && action !== 'report') {
-      return `${endpoints[action]}?count=${countParam}&${accessToken}${moreParam}${standardParams}`;
+      return `${endpoints[action]}count=${countParam}&${accessToken}${moreParam}${standardParams}`;
     } else {
-      return `${endpoints[action]}?${accessToken}`;
+      return `${endpoints[action]}${accessToken}`;
     }
   }
 }
