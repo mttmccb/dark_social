@@ -2,5 +2,5 @@
 	<require from='resources/take'></require>
 	<require from='resources/sort'></require>
 	<require from='resources/object-property-frequency'></require>
-	<p><strong>Top Posters</strong> <span repeat.for="user of posts | objectPropertyFrequency:'user':'username':'id' | sort: { propertyName: 'count', direction: 'descending' } | take:5"> <a href="#" click.delegate="$parent.loadUserRoute(user.id)">@${user.name}</a>(<strong>${user.count}</strong>)${$index<4 ? ', ': ''}</span>.</p>
+	<p><strong>Top Posters</strong> <span repeat.for="user of posts | objectPropertyFrequency:'user':'username':'id' | sort: { propertyName: 'count', direction: 'descending' } | take:5">&#8269; <a href="#" click.delegate="$parent.loadUserRoute(user.id)">@${user.name}</a>(<strong>${user.count}</strong>) </span></p>
 </template>

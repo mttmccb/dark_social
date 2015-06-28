@@ -25,7 +25,6 @@ export class RefreshIndicator {
 		if (newValue) {
 			this.autorefreshon = this.timedRefresh(30000);
 		} else {
-			console.log(this.autorefreshon);
 			clearInterval(this.autorefreshon);
 		}
 	}

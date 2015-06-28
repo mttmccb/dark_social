@@ -14,10 +14,10 @@
 		</div>         
 		<div class="pure-u-1 pure-u-sm-1-2">    
 			<p>Mostly mentioning
-		  		<span repeat.for="mention of posts | reduceObject:'entities':'mentions' | propertyFrequency:'name':'id' | sort: { propertyName: 'count', direction: 'descending' } | take:numberOfTopMentions"> <a href="#" click.delegate="$parent.loadUserRoute(mention.id)">@${mention.name}</a>(<strong>${mention.count}</strong>)${$index<=numberOfTopMentions ? ',': ''}</span> <a href="#" click.delegate="moreMentions()">more...</a>
+		  		<span repeat.for="mention of posts | reduceObject:'entities':'mentions' | propertyFrequency:'name':'id' | sort: { propertyName: 'count', direction: 'descending' } | take:numberOfTopMentions">&#8269; <a href="#" click.delegate="$parent.loadUserRoute(mention.id)">@${mention.name}</a>(<strong>${mention.count}</strong>)</span> <a href="#" click.delegate="moreMentions()">more...</a>
 			</p>
 		
-			<p>Mostly using <span repeat.for="client of posts | objectPropertyFrequency:'source':'name':'link' | sort: { propertyName: 'count', direction: 'descending' } | take:5"><a href.bind="client.link" target="_blank">${client.name}</a>(<strong>${client.count}</strong>)${$index<4 ? ', ': ''}</span>.</p>
+			<p>Mostly using <span repeat.for="client of posts | objectPropertyFrequency:'source':'name':'link' | sort: { propertyName: 'count', direction: 'descending' } | take:5">&#8269; <a href.bind="client.link" target="_blank">${client.name}</a>(<strong>${client.count}</strong>) </span></p>
 		</div>
 	</div>
 </template>

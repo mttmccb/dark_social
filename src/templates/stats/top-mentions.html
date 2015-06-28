@@ -3,5 +3,5 @@
 	<require from='resources/sort'></require>
 	<require from='resources/reduce-object'></require>
 	<require from='resources/property-frequency'></require>
-	<p><strong>Top Mentions</strong> <span repeat.for="mention of posts | reduceObject:'entities':'mentions' | propertyFrequency:'name':'id' | sort: { propertyName: 'count', direction: 'descending' } | take:5"> <a href="#" click.delegate="$parent.loadUserRoute(mention.id)">@${mention.name}</a>(<strong>${mention.count}</strong>)${$index<4 ? ', ': ''}</span>.</p>					
+	<p><strong>Top Mentions</strong> <span repeat.for="mention of posts | reduceObject:'entities':'mentions' | propertyFrequency:'name':'id' | sort: { propertyName: 'count', direction: 'descending' } | take:5">&#8269; <a href="#" click.delegate="$parent.loadUserRoute(mention.id)">@${mention.name}</a>(<strong>${mention.count}</strong>) </span></p>					
 </template>
