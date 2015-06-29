@@ -17,8 +17,9 @@ export class App {
       { route: ['', 'choose'], moduleId: './choose', nav: false, title: 'Choose', name: 'Home' },
       { route: ['stream'], moduleId: './unified-stream', nav: true, auth: true, title: 'Stream', settings: { icon: 'comments' } },
       { route: ['mentions'], moduleId: './mentions', nav: true, auth: true, title: 'Mentions', settings: { text: '@' } },
-      { route: ['interactions'], moduleId: './interactions', nav: true, auth: true, title: 'Interactions', settings: { icon: 'bell', iconBack: 'heart' } },
-
+      { route: ['interactions/reposts'], moduleId: './interactions', nav: true, auth: true, title: 'Reposts', settings: { icon: 'retweet', action: 'repost' } },
+      { route: ['interactions/stars'], moduleId: './interactions', nav: true, auth: true, title: 'Stars', settings: { icon: 'star', action: 'star' } },
+      { route: ['interactions/followers'], moduleId: './interactions', nav: true, auth: true, title: 'Followers', settings: { icon: 'users', action: 'follow' } },
 
       { route: ['niceglobal'], moduleId: './nice-global', nav: true, title: 'Nice Global', settings: { icon: 'thumbs-up', iconBack: 'globe', group: 'explore', groupStart: true } },
 

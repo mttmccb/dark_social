@@ -4,15 +4,20 @@ import Masonry from 'masonry-layout';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { RefreshView } from 'resources/messages';
 
+@inject(EventAggregator)
 export class InteractionListCustomElement {
   @bindable interactions = null;
   
+  constructor(ea) {
+    this.ea = ea;
+    this.refreshView = ea.subscribe(RefreshView, msg => this.createMasonry());
+  }
+
   isAttached = false;
 
   attached() {
     this.isAttached = true;
     this.createMasonry();
-    this.refreshView = ea.subscribe(RefreshView, msg => this.createMasonry());
   }
 
   createMasonry() {

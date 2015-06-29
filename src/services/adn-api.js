@@ -316,6 +316,7 @@ export class AdnAPI {
     let accessToken = accessTokenLS !== "undefined" && accessTokenLS !== null ? `access_token=${accessTokenLS}&` : "";
     let moreParam = params.more ? `before_id=${this.meta.min_id}&` : "";
     let countParam = !params.count? count : params.count;
+    console.log(params.action);
     let endpoints = {
       conversations: `${apiURL}/posts/stream/explore/conversations?`,
       photos: `${apiURL}/posts/stream/explore/photos?`,
@@ -327,7 +328,7 @@ export class AdnAPI {
       posts: `${apiURL}/users/${params.id}/posts?`,
       stars: `${apiURL}/users/${params.id}/stars?`,
       users: `${apiURL}/users/${params.id}?`,
-      interactions: `${apiURL}/users/me/interactions?interaction_actions=star,repost,follow&`,
+      interactions: `${apiURL}/users/me/interactions?interaction_actions=${params.action}&`,
       mentions: `${apiURL}/users/me/mentions?`,
       followers: `${apiURL}/users/${params.id}/followers?`,
       following: `${apiURL}/users/${params.id}/following?`,
