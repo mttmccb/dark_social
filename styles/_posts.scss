@@ -15,6 +15,9 @@
   margin-bottom: 10px; 
 	perspective: 1000;
 	transform-style: preserve-3d;
+  #profilePicture {
+    border-radius: 2em;
+  }
 }
 
 .post-form {
