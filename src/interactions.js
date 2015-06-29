@@ -35,7 +35,6 @@ export class Interactions {
 
   loadInteractions(action, more) {
     return this.api.load('interactions', { more: more, action: action }).then(interactions => {
-      console.log(interactions);
       this.interactions = more ? this.interactions.concat(interactions) : interactions;
     });
   }

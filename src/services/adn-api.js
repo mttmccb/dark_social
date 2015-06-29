@@ -316,7 +316,7 @@ export class AdnAPI {
     let accessToken = accessTokenLS !== "undefined" && accessTokenLS !== null ? `access_token=${accessTokenLS}&` : "";
     let moreParam = params.more ? `before_id=${this.meta.min_id}&` : "";
     let countParam = !params.count? count : params.count;
-    console.log(params.action);
+
     let endpoints = {
       conversations: `${apiURL}/posts/stream/explore/conversations?`,
       photos: `${apiURL}/posts/stream/explore/photos?`,
@@ -339,7 +339,8 @@ export class AdnAPI {
       unified: `${apiURL}/posts/stream/unified?`,
       thread: `${apiURL}/posts/${params.id}/replies?`,
       report: `${apiURL}/posts/${params.id}/report?`,
-      global: `${apiURL}/posts/stream/global?`
+      global: `${apiURL}/posts/stream/global?`,
+      hashtag: `${apiURL}/posts/tag/${params.hashtag}?`
     };
     
     if (action !== 'users' && action !== 'followers' && action !== 'report') {

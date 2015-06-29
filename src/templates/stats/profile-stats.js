@@ -11,7 +11,6 @@ export class ProfileStatsCustomElement {
   }
 
   loadUserRoute(user) {
-    console.log(user);
     this.theRouter.navigateToRoute("userprofile", { user_id: user });
   }
 }

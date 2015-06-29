@@ -14,6 +14,10 @@ export class PostClicks {
 		this.theRouter.navigateToRoute("userprofile", {user_id: name});  
 	}
 
+	openHashtag(hashtag) {
+		this.theRouter.navigateToRoute("hashtag", {hashtag: hashtag});  
+	}
+
   handler(e) {
     let node = e.target;
     let nodeType = node.getAttribute('itemprop');
@@ -24,7 +28,7 @@ export class PostClicks {
 
     } else if (nodeType === 'hashtag') {
       let hashtagName = node.getAttribute('data-hashtag-name');
-      window.location.href = `http://alpha.app.net/hashtags/${hashtagName}`;
+      this.openHashtag(hashtagName);
     }
 
     if (node.tagName==="A") {

@@ -33,6 +33,7 @@ export class App {
       { route: ['checkins'], moduleId: './explore/checkins', nav: true, title: 'Checkins', settings: { icon: 'map-marker', iconBack: 'globe', group: 'explore' } },
 
       { route: ['thread/:id'], moduleId: './thread', title: 'Thread', name: 'thread' },
+      { route: ['hashtag/:hashtag'], moduleId: './hashtag', title: 'Hashtag', name: 'hashtag' },
 
       { route: ['handle_oauth'], moduleId: './login/handle_oauth' },
       { route: ['login'], moduleId: './login/login', name: 'login' },

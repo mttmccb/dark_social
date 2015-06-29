@@ -79,7 +79,6 @@ export class PostFormCustomElement {
 	}
 
 	preview(id) {
-		console.log(id);
 		this.validation.validate().then(() => {
 			this.api.textProcess(this.postText).then(data => {
 				this.showPostPreview = true;

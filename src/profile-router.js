@@ -61,7 +61,6 @@ export class ProfileRouter {
 
   loadUser(user) {
     return this.api.loadProfile(user).then(data => {
-      console.log(data);
       this.user = data;
       this.state.user_id = this.user.id;
       this.user_id = this.user.id;
