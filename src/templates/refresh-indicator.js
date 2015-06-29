@@ -1,8 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { RefreshView, ApiStatus } from 'resources/messages';
-
-let autoRefreshOn;
+import { RefreshView, ApiStatus, StopAutoRefresh } from 'resources/messages';
 
 @inject(EventAggregator)
 export class RefreshIndicator {
@@ -10,13 +8,14 @@ export class RefreshIndicator {
 	constructor(ea) {
 		this.ea = ea;
 		this._autorefresh = false;
+	    ea.subscribe(StopAutoRefresh, msg => this._autorefresh = false );	
 	}
 
 	refresh() {
 		this.ea.publish(new RefreshView());
 		this.ea.publish(new ApiStatus(`Refreshing`, { status: 'info' }));
 	}
-
+	
 	get autorefresh() {
 		return this._autorefresh;
 	}

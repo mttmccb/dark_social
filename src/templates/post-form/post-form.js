@@ -2,7 +2,7 @@ import { Validation } from 'aurelia-validation';
 import { inject, bindable } from 'aurelia-framework';
 import { AdnAPI } from 'services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostReply, PostPosted, ApiStatus } from 'resources/messages';
+import { PostReply, PostPosted, ApiStatus, StopAutoRefresh } from 'resources/messages';
 import { State } from 'services/state';
 
 @inject(AdnAPI, Validation, EventAggregator, State)
@@ -124,6 +124,7 @@ export class PostFormCustomElement {
 	}
 
 	setupReply(post) {
+		this.ea.publish(new StopAutoRefresh());		
 		if (post) {
 			post = !post.repost_of? post : post.repost_of;
 			

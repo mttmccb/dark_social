@@ -32,3 +32,5 @@ export class GetRandomUser {}
 export class RefreshView {}
 
 export class LoadMore {}
+
+export class StopAutoRefresh {}
