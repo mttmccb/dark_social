@@ -3,7 +3,7 @@ import { AdnAPI } from 'services/adn-api';
 import { activationStrategy } from 'aurelia-router';
 import { State } from '../services/state';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted, RefreshView, LoadMore, ApiStatus } from 'resources/messages';
+import { PostPosted, RefreshView, RefreshedView, LoadMore, ApiStatus } from 'resources/messages';
 
 @inject(AdnAPI, State, EventAggregator)
 export class ProfilePosts {

@@ -8,26 +8,30 @@ export class RefreshIndicator {
 	constructor(ea) {
 		this.ea = ea;
 		this._autorefresh = false;
-	    ea.subscribe(StopAutoRefresh, msg => this._autorefresh = false );	
+		ea.subscribe(StopAutoRefresh, msg => this._autorefresh = false);
 	}
 
 	refresh() {
 		this.ea.publish(new RefreshView());
 		this.ea.publish(new ApiStatus(`Refreshing`, { status: 'info' }));
 	}
-	
+
+	detached() {
+		clearInterval(this.autorefreshon);
+	}
+
 	get autorefresh() {
 		return this._autorefresh;
 	}
 	set autorefresh(newValue) {
 		this._autorefresh = newValue;
-		if (newValue===true) {
+		if (newValue === true) {
 			this.autorefreshon = this.timedRefresh(30000);
 		} else {
 			clearInterval(this.autorefreshon);
 		}
 	}
-	
+
 	timedRefresh(t) {
 		return setInterval(() => {
 			this.refresh();
