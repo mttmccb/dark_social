@@ -21,7 +21,7 @@ export class RefreshIndicator {
 	}
 	set autorefresh(newValue) {
 		this._autorefresh = newValue;
-		if (newValue) {
+		if (newValue===true) {
 			this.autorefreshon = this.timedRefresh(30000);
 		} else {
 			clearInterval(this.autorefreshon);
