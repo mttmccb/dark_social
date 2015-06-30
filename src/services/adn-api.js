@@ -298,6 +298,7 @@ export class AdnAPI {
 
     this.isRequesting = true;
     return this.http.get(this.urlBuilder(url, params)).then((response) => {
+      
       this.meta = response.content.meta;
       this.isRequesting = false;
       this.ea.publish(new ApiStatus(`Retrieved ${url}`, { status: 'success' }));

@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-framework';
 import { AdnAPI } from 'services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted, RefreshView, LoadMore } from 'resources/messages';
+import { PostPosted, RefreshView, RefreshedView, LoadMore, ApiStatus } from 'resources/messages';
 
 @inject(AdnAPI, EventAggregator)
 export class Trending {
@@ -30,7 +30,14 @@ export class Trending {
   
   loadTrending(more) {
     return this.api.load('trending', { more: more }).then(posts => {
-			this.posts = more? this.posts.concat(posts) : posts;			
-    });    
+			if (this.posts.length>0 && this.posts[0].id === posts[0].id) {
+				this.ea.publish(new ApiStatus(`No New Posts`, { status: 'info' }));
+			} else {
+				this.posts = more? this.posts.concat(posts) : posts;
+			}
+    		}).then(() => {
+			this.ea.publish(new RefreshedView());
+		});
+    
   }
 }

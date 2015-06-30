@@ -3,7 +3,7 @@ import { AdnAPI } from 'services/adn-api';
 import { activationStrategy } from 'aurelia-router';
 import { State } from '../services/state';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted, RefreshView, LoadMore } from 'resources/messages';
+import { PostPosted, RefreshView, LoadMore, ApiStatus } from 'resources/messages';
 
 @inject(AdnAPI, State, EventAggregator)
 export class ProfilePosts {
@@ -29,8 +29,15 @@ export class ProfilePosts {
 
   loadPosts(params) {
     return this.api.loadPosts(params.user, false).then(data => {
-      this.data = params.more? this.data.concat(data) : data;
-    });
+
+			if (this.data.length > 0 && this.data[0].id === data[0].id) {
+				this.ea.publish(new ApiStatus(`No New Posts`, { status: 'info' }));
+			} else {
+				this.data = params.more ? this.data.concat(data) : data;
+			}
+    		}).then(() => {
+			this.ea.publish(new RefreshedView());
+		});
   }
 
 	deactivate() {
