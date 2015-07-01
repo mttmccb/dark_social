@@ -1,7 +1,35 @@
 <template>
-	<div class="pure-g posts">	
-		<div repeat.for="profile of profiles" class="pure-u-1-24">
-			<img id="profilePicture" src.bind="profile.avatar_image.url" class="pure-img" />
-		</div>			
+	<require from='../get-more'></require>
+	<require from='../profile/bio'></require>
+	<div class="pure-g posts">
+		<div repeat.for="profile of profiles" class="pure-u-1-4 profile">
+			<div class="pure-g">
+				<div class="pure-u-1-4">
+					<img id="profilePicture" src.bind="profile.avatar_image.url" class="pure-img" />
+					<ul id="profile-counts">
+						<li>
+							<i class="fa fa-fw fa-arrow-circle-left"></i> ${profile.counts.following}</li>
+						<li>
+							<i class="fa fa-fw fa-arrow-circle-right"></i> ${profile.counts.followers}</li>
+						<li>
+							<i class="fa fa-fw fa-pencil-square-o"></i> ${profile.counts.posts}</li>
+						<li>
+							<i class="fa fa-fw fa-star"></i> ${profile.counts.stars}</li>
+					</ul>
+				</div>
+				<div class="pure-u-3-4">
+					<div class="post-details showMe">
+						<p>${profile.name}
+							<a href="#" click.delegate="$parent.loadUserRoute(profile.id)">@${profile.username}</a>
+						</p>
+						<p if.bind="profile.you_follow">
+							<strong>You follow</strong>
+						</p>
+						<bio user.bind="profile"></bio>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+	<get-more></get-more>
 </template>

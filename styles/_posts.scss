@@ -18,6 +18,13 @@
   #profilePicture {
     border-radius: 2em;
   }
+  @media screen and (min-width: 35.5em) {
+      width: calc(50% - 10px);
+  }
+  
+  @media screen and (min-width: 64em) {
+      width: calc(33.333% - 10px);
+  }
 }
 
 .post-form {
@@ -30,17 +37,7 @@
 }
 
 
-@media screen and (min-width: 35.5em) {
-  .post {
-    width: calc(50% - 10px);
-  }
-}
 
-@media screen and (min-width: 64em) {
-  .post {
-    width: calc(33.333% - 10px);
-  }
-}
 .post:hover {
   background:white;
 }

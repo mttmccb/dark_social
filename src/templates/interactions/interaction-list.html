@@ -9,6 +9,9 @@
 				<img id="profilePicture" src.bind="interaction.users[0].avatar_image.url" class="pure-img" />
 			</div>
 			<div class="post-details pure-u-4-5 showMe">
+				<p>${interaction.users[0].name}
+					<a href="#" click.delegate="$parent.loadUserRoute(interaction.users[0].id)">@${interaction.users[0].username}</a>
+				</p>
 				<p>${interaction.action | action}</p>
 				<div class="pure-g post-footer">
 					<div class="pure-u-1-2"></div>
