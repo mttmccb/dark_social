@@ -2,5 +2,5 @@
 	<p><a href="#" click.delegate="loadUserRoute(post.user.id)">@${post.user.username}</a> ${post.user.name}</p>
 	<p>${post.num_replies} <i class="fa fa-reply"></i> ${post.num_reposts}<i class="fa fa-retweet"></i> ${post.num_stars}<i class="fa fa-star "></i> <a href.bind="post.canonical_url" target="_blank"><i class="fa fa-adn "></i> Post</a></p>
 	<p>Posted with <a href.bind="post.source.link" target="_blank">${post.source.name}</a></p>
-	<p><span if.bind="(state.token && post.user.id !== state.tokenReturned.user.id) && !reported" class="clickable" click.delegate="reportPost(post)">Report this post</a></p>
+	<p><span if.bind="(state.token && post.user.id !== state.tokenReturned.user.id) && !reported && !post.user.you_muted" class="clickable" click.delegate="reportPost(post)">Report this post</a></p>
 </template>

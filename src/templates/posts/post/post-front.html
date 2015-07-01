@@ -1,9 +1,10 @@
 <template>
 	<require from='../../post-form/post-form'></require>
 	<require from='./annotation-images'></require>
+	<p if.bind="post.user.you_muted">This post has been muted</p>
 	<p if.bind="post.deleted==='1'">This post has been deleted</p>
-	<p if.bind="post.deleted!=='1'" innerHTML.one-way="post.html " click.delegate="postclicks.handler($event) "></p>
-	<div if.bind="post.deleted!=='1'" class="pure-g post-footer">
+	<p if.bind="post.deleted!=='1' && !post.user.you_muted" innerHTML.one-way="post.html " click.delegate="postclicks.handler($event) "></p>
+	<div if.bind="post.deleted!=='1' && !post.user.you_muted" class="pure-g post-footer">
 		<div class="pure-u-1-2">
 			<p>
 				<i if.bind="!post.thread && state.tokenReturned && (post.reply_to || post.num_replies>0)" class="clickable fa fa-tree" click.delegate="thread(post)"></i>
@@ -16,9 +17,9 @@
 			<p class="post-time">${post.created_at | timeAgo}</p>
 		</div>
 	</div>
-	<div if.bind="post.deleted!=='1'" class="post-images">
+	<div if.bind="post.deleted!=='1' && !post.user.you_muted" class="post-images">
 		<annotation-images annotations.bind="post.annotations"></annotation-images>
 	</div>
-	<post-form if.bind="toggleReply && post.deleted!=='1'" post.bind="{ data: post, isReply: true }"></post-form>
+	<post-form if.bind="toggleReply" post.bind="{ data: post, isReply: true }"></post-form>
 
 </template>
