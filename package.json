@@ -63,12 +63,9 @@
       "aurelia-validation": "github:aurelia/validation@^0.2.5",
       "css": "github:systemjs/plugin-css@^0.1.12",
       "humane-js": "npm:humane-js@^3.2.2",
-      "imagesloaded": "npm:imagesloaded@^3.1.8",
-      "mapbox.js": "npm:mapbox.js@^2.1.9",
       "masonry-layout": "npm:masonry-layout@^3.3.0",
       "moment": "github:moment/moment@^2.10.3",
-      "moment-timezone": "github:moment/moment-timezone@develop",
-      "nprogress": "github:rstacruz/nprogress@^0.2.0"
+      "moment-timezone": "github:moment/moment-timezone@develop"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.1.13",
