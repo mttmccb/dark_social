@@ -1,7 +1,7 @@
 import { inject, bindable } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { AdnAPI } from 'services/adn-api';
-import { State } from 'services/state';
+import { AdnAPI } from '../../../services/adn-api';
+import { State } from '../../../services/state';
 
 @inject(Router, AdnAPI, State)
 export class PostBackCustomElement {

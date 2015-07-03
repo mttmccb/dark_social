@@ -1,9 +1,9 @@
 import { inject } from 'aurelia-framework';
-import { AdnAPI } from 'services/adn-api';
+import { AdnAPI } from './services/adn-api';
 import { activationStrategy } from 'aurelia-router';
-import { State } from 'services/state';
+import { State } from './services/state';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted, GetRandomUser } from 'resources/messages';
+import { PostPosted, GetRandomUser } from './resources/messages';
 
 @inject(AdnAPI, State, EventAggregator)
 export class ProfileRouter {

@@ -1,6 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { NewPost } from 'resources/messages';
+import { NewPost } from '../../resources/messages';
 
 @inject(EventAggregator)
 export class PostModalCustomElement {

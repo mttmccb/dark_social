@@ -1,7 +1,7 @@
 import { bindable, inject } from 'aurelia-framework';
 import Masonry from 'masonry-layout';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { RefreshedView } from 'resources/messages';
+import { RefreshedView } from '../../resources/messages';
 import { Router } from 'aurelia-router';
 
 @inject(EventAggregator, Router)

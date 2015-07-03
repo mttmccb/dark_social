@@ -1,5 +1,5 @@
 import { inject } from 'aurelia-framework';
-import { AdnAPI } from 'services/adn-api';
+import { AdnAPI } from './services/adn-api';
 import { Redirect } from 'aurelia-router';
 import { AuthorizeStep, AuthenticationService } from './services/auth';
 

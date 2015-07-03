@@ -1,8 +1,8 @@
 import { inject } from 'aurelia-framework';
-import { AdnAPI } from 'services/adn-api';
+import { AdnAPI } from './services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted, RefreshView } from 'resources/messages';
-import { findIndexByKeyValue, treeify } from 'resources/utility';
+import { PostPosted, RefreshView } from './resources/messages';
+import { findIndexByKeyValue, treeify } from './resources/utility';
 
 @inject(AdnAPI, EventAggregator)
 export class Thread {

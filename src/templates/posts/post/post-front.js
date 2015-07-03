@@ -1,9 +1,9 @@
 import { bindable, inject } from 'aurelia-framework';
-import { PostClicks } from 'resources/post-clicks';
-import { AdnAPI } from 'services/adn-api';
+import { PostClicks } from '../../../resources/post-clicks';
+import { AdnAPI } from '../../../services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostReply, ApiStatus } from 'resources/messages';
-import { State } from 'services/state';
+import { PostReply, ApiStatus } from '../../../resources/messages';
+import { State } from '../../../services/state';
 import { Router } from 'aurelia-router';
 
 @inject(PostClicks, AdnAPI, EventAggregator, State, Router)

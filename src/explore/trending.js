@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-framework';
-import { AdnAPI } from 'services/adn-api';
+import { AdnAPI } from '../services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted, RefreshView, RefreshedView, LoadMore, ApiStatus } from 'resources/messages';
+import { PostPosted, RefreshView, RefreshedView, LoadMore, ApiStatus } from '../resources/messages';
 
 @inject(AdnAPI, EventAggregator)
 export class Trending {

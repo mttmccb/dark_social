@@ -1,5 +1,5 @@
 import { bindable, inject } from 'aurelia-framework';
-import { PostClicks } from 'resources/post-clicks';
+import { PostClicks } from '../../resources/post-clicks';
 
 @inject(PostClicks)
 export class BioCustomElement {

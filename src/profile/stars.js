@@ -1,5 +1,5 @@
 import { inject } from 'aurelia-framework';
-import { AdnAPI } from 'services/adn-api';
+import { AdnAPI } from '../services/adn-api';
 import { activationStrategy } from 'aurelia-router';
 import { State } from '../services/state';
 

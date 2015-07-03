@@ -2,7 +2,7 @@ import humane from 'humane-js';
 import 'humane-js/themes/libnotify.css!';
 import {inject, noView} from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { ApiStatus } from 'resources/messages';
+import { ApiStatus } from '../resources/messages';
 
 @noView
 @inject(EventAggregator)

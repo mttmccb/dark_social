@@ -1,6 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { LoadMore, ApiStatus } from 'resources/messages';
+import { LoadMore, ApiStatus } from '../resources/messages';
 
 @inject(EventAggregator)
 export class GetMore {

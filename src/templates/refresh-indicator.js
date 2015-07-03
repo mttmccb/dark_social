@@ -1,6 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { RefreshView, ApiStatus, StopAutoRefresh } from 'resources/messages';
+import { RefreshView, ApiStatus, StopAutoRefresh } from '../resources/messages';
 
 @inject(EventAggregator)
 export class RefreshIndicator {

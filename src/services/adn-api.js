@@ -1,10 +1,10 @@
 import { inject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
 import { NiceAPI } from './nice-api';
-import { randomInteger } from 'resources/utility';
+import { randomInteger } from '../resources/utility';
 import { State } from './state';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { ApiStatus } from 'resources/messages';
+import { ApiStatus } from '../resources/messages';
 
 let nouser = {
   meta: {

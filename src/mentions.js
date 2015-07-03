@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-framework';
-import { AdnAPI } from 'services/adn-api';
+import { AdnAPI } from './services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted, LoadMore, ApiStatus, RefreshedView } from 'resources/messages';
+import { PostPosted, LoadMore, ApiStatus, RefreshedView } from './resources/messages';
 
 @inject(AdnAPI, EventAggregator)
 export class Mentions {

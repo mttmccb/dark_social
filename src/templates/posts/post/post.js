@@ -1,6 +1,6 @@
 import { bindable, inject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostReply } from 'resources/messages';
+import { PostReply } from '../../../resources/messages';
 
 @inject(EventAggregator)
 export class PostCustomElement {

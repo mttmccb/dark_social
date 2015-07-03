@@ -1,6 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { State } from 'services/state';
+import { State } from '../services/state';
 
 @inject(Router, State)
 export class PostClicks {

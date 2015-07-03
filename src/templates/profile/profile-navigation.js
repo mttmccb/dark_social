@@ -1,6 +1,6 @@
 import { inject, bindable } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { GetRandomUser, PostPosted } from 'resources/messages';
+import { GetRandomUser, PostPosted } from '../../resources/messages';
 
 @inject(EventAggregator)
 export class ProfileNavigationCustomElement {
