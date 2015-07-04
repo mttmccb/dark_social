@@ -41,7 +41,7 @@ let clientList = [
 		features: ['checkins'] }
 ];
 
-export class Explore {
+export class ExploreModel {
 	constructor(endPoint) {
 		this.endPoint = endPoint;
 	}
@@ -54,7 +54,7 @@ export class Explore {
 
 	getClients() {
 		return clientList.filter((a) => {
-			return a.features.indexOf(this.endPoint);
+			return a.features.indexOf(this.endPoint) !== -1;
 		});
 	}
 }

@@ -27,10 +27,10 @@ export class App {
       { route: ['profile/user/:user_id'], moduleId: './profile-router', title: 'Profile', name: 'userprofile' },
       { route: ['profile/random'], moduleId: './profile-router', title: 'Profile', name: 'randomprofile' },
 
-      { route: ['trending'], moduleId: './explore/trending', nav: true, title: 'Trending', settings: { icon: 'line-chart', iconBack: 'globe', group: 'explore' } },
-      { route: ['conversations'], moduleId: './explore/conversations', nav: true, title: 'Conversations', settings: { icon: 'comments', iconBack: 'globe', group: 'explore' } },
-      { route: ['photos'], moduleId: './explore/photos', nav: true, title: 'Photos', settings: { icon: 'camera-retro', iconBack: 'globe', group: 'explore' } },
-      { route: ['checkins'], moduleId: './explore/checkins', nav: true, title: 'Checkins', settings: { icon: 'map-marker', iconBack: 'globe', group: 'explore' } },
+      { route: ['trending'], moduleId: './explore', nav: true, title: 'Trending', settings: { icon: 'line-chart', iconBack: 'globe', group: 'explore', view: 'trending' } },
+      { route: ['conversations'], moduleId: './explore', nav: true, title: 'Conversations', settings: { icon: 'comments', iconBack: 'globe', group: 'explore', view: 'conversations' } },
+      { route: ['photos'], moduleId: './explore', nav: true, title: 'Photos', settings: { icon: 'camera-retro', iconBack: 'globe', group: 'explore', view: 'photos' } },
+      { route: ['checkins'], moduleId: './explore', nav: true, title: 'Checkins', settings: { icon: 'map-marker', iconBack: 'globe', group: 'explore', view: 'checkins' } },
 
       { route: ['thread/:id'], moduleId: './thread', title: 'Thread', name: 'thread' },
       { route: ['hashtag/:hashtag'], moduleId: './hashtag', title: 'Hashtag', name: 'hashtag' },
