@@ -54,29 +54,33 @@ export class PostFormCustomElement {
 					console.log(data[0]);
 				}).catch(() => {
 					this.showLastPost = false;
-				});				
+				});
 			} else {
 				this.showLastPost = false;
 			}
 		});
 	}
-	
+
 	submit(id) {
 		this.submitting = true;
 		this.validation.validate().then(() => {
 			this.api.createPost(this.postText,(id ? { reply_to: id } : {})).then(data => {
 				this.submitting = false;
 				this.lastPost = data;
-				this.showLastPost = true;
-				this.postText = '';
-				this.replyTo = null;
-				this.showPostPreview = false;
+				this.resetPost();
 				this.ea.publish(new PostPosted());
 			});
 		}).catch(() => {
 			this.submitting = false;
 			this.ea.publish(new ApiStatus('Something went wrong... :(', { status: 'error' }));
 		});
+	}
+
+	resetPost() {
+		this.showLastPost = true;
+		this.postText = '';
+		this.replyTo = null;
+		this.showPostPreview = false;
 	}
 
 	preview(id) {
@@ -117,36 +121,36 @@ export class PostFormCustomElement {
 		}
 		return true;
 	}
-	
+
 	postChanged(newValue) {
 		this.postdata = newValue.data;
 		this.isReply = newValue.isReply;
 	}
 
 	setupReply(post) {
-		this.ea.publish(new StopAutoRefresh());		
+		this.ea.publish(new StopAutoRefresh());
 		if (post) {
-			post = !post.repost_of? post : post.repost_of;
-			
+			post = !post.repost_of ? post : post.repost_of;
+
 			var loggedInUser = null || this.state.tokenReturned.user;
 			var postUser = null || post.user;
 			this.replyTo = post.id;
 			var mentionText = post.entities.mentions.map((mention) => {
-				return '@' + mention.name;
-				
+				return `@${mention.name}`;
+
 			}).filter((v, i, a) => {
 				return a.indexOf(v) == i;
-				
+
 			}).filter((mention) => {
 				return mention !== `@${loggedInUser.username}`;
-				
+
 			}).join(' ');
-			
+
 			if (postUser.id !== loggedInUser.id) {
-				mentionText = `@${postUser.username} ` + mentionText;	
+				mentionText = `@${postUser.username} ` + mentionText;
 			}
-			
-			this.postText = mentionText.length > 0 ? mentionText.trim() + ' ' : '';			
+
+			this.postText = mentionText.length > 0 ? `${mentionText.trim()} ` : '';
 		}
 		this.hasFocus = true;
 	}
