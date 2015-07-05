@@ -69,6 +69,7 @@ export class PostFormCustomElement {
 				this.lastPost = data;
 				this.showLastPost = true;
 				this.postText = '';
+				this.replyTo = null;
 				this.showPostPreview = false;
 				this.ea.publish(new PostPosted());
 			});
