@@ -5,7 +5,7 @@ import { RefreshedView } from '../../resources/messages';
 
 @inject(EventAggregator)
 export class PostListCustomElement {
-  @bindable posts = { data: null, avatar: false, streamid: null };
+  @bindable posts = {};
 
   constructor(ea) {
     this.ea = ea;

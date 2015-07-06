@@ -2,6 +2,7 @@ import { inject } from 'aurelia-framework';
 import { AdnAPI } from './services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PostPosted, RefreshView, RefreshedView, LoadMore, ApiStatus } from './resources/messages';
+import { PostsModel } from './models/posts-model';
 
 @inject(AdnAPI, EventAggregator)
 export class NiceGlobal {
@@ -9,7 +10,7 @@ export class NiceGlobal {
 	constructor(api, ea) {
 		this.api = api;
 		this.ea = ea;
-		this.posts = [];
+		this.posts = new PostsModel();
 		this.postPosted = ea.subscribe(PostPosted, msg => this.loadStream(false));
 		this.refreshView = ea.subscribe(RefreshView, msg => this.loadStream(false));
 		this.loadMore = ea.subscribe(LoadMore, msg => this.loadStream(true));
@@ -27,14 +28,10 @@ export class NiceGlobal {
 
 	loadStream(more) {
 		return this.api.load('global', { more: more }).then(posts => {
-			if (this.posts.length > 0 && this.posts[0].id === posts[0].id) {
-				this.ea.publish(new ApiStatus(`No New Posts`, { status: 'info' }));
-			} else {
-				this.posts = more ? this.posts.concat(posts) : posts;
-			}
+			this.posts.more = more;
+			this.posts.addPosts(posts);
 		}).then(() => {
 			this.ea.publish(new RefreshedView());
 		});
-
 	}
 }

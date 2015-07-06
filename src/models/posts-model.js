@@ -6,6 +6,7 @@ export class PostsModel {
 		this.streamid = null;
 		this.more = false;
 		this.showAvatars = true;
+		this.avatar = true;
 	}
 
 	addPosts(newPosts) {
