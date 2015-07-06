@@ -89,6 +89,7 @@ a.close {
   z-index: 2;
   background: $content-dark-background;
   -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
 }
 
 .main-content-wrapper {
