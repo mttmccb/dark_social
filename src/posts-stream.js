@@ -1,11 +1,11 @@
 import { inject } from 'aurelia-framework';
 import { AdnAPI } from './services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted, RefreshView, RefreshedView, LoadMore, ApiStatus } from './resources/messages';
+import { PostPosted, RefreshView, RefreshedView, LoadMore } from './resources/messages';
 import { PostsModel } from './models/posts-model';
 
 @inject(AdnAPI, EventAggregator)
-export class NiceGlobal {
+export class PostsStream {
 
 	constructor(api, ea) {
 		this.api = api;
@@ -16,10 +16,11 @@ export class NiceGlobal {
 		this.loadMore = ea.subscribe(LoadMore, msg => this.loadStream(true));
 	}
 
-	activate() {
-		return this.loadStream();
+	activate(params, query, route) {
+		this.stream = route.config.settings.stream;
+		return this.loadStream(false);
 	}
-
+	
 	deactivate() {
 		this.postPosted();
 		this.refreshView();
@@ -27,7 +28,7 @@ export class NiceGlobal {
 	}
 
 	loadStream(more) {
-		return this.api.load('global', { more: more }).then(posts => {
+		return this.api.load(this.stream, { more: more }).then(posts => {
 			this.posts.more = more;
 			this.posts.addPosts(posts);
 		}).then(() => {

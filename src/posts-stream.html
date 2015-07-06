@@ -1,6 +1,7 @@
 <template>
 	<require from='../templates/posts/post-list'></require>
+	
 	<section class="main-content-wrapper">
-		<post-list posts.bind="{ data: mentions, avatar: true}"></post-list>
+		<post-list posts.bind="posts"></post-list>
 	</section>
 </template>

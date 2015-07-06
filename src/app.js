@@ -16,12 +16,12 @@ export class App {
     config.map([
       { route: ['', 'choose'], moduleId: './choose', nav: false, title: 'Choose', name: 'Home' },
       { route: ['stream'], moduleId: './unified-stream', nav: true, auth: true, title: 'Stream', settings: { icon: 'comments' } },
-      { route: ['mentions'], moduleId: './mentions', nav: true, auth: true, title: 'Mentions', settings: { text: '@' } },
+      { route: ['mentions'], moduleId: './posts-stream', nav: true, auth: true, title: 'Mentions', settings: { text: '@', stream: 'mentions' } },
       { route: ['interactions/reposts'], moduleId: './interactions', nav: true, auth: true, title: 'Reposts', settings: { icon: 'retweet', action: 'repost' } },
       { route: ['interactions/stars'], moduleId: './interactions', nav: true, auth: true, title: 'Stars', settings: { icon: 'star', action: 'star' } },
       { route: ['interactions/followers'], moduleId: './interactions', nav: true, auth: true, title: 'Followers', settings: { icon: 'users', action: 'follow' } },
 
-      { route: ['niceglobal'], moduleId: './nice-global', nav: true, title: 'Nice Global', settings: { icon: 'thumbs-up', iconBack: 'globe', group: 'explore', groupStart: true } },
+      { route: ['niceglobal'], moduleId: './posts-stream', nav: true, title: 'Global', settings: { icon: 'thumbs-down', iconBack: 'globe', group: 'explore', groupStart: true, stream: 'global' } },
 
       { route: ['profile/'], moduleId: './profile-router', nav: true, title: 'Profile', name: 'profile', settings: { icon: 'question', iconBack: 'user', group: 'explore' } },
       { route: ['profile/user/:user_id'], moduleId: './profile-router', title: 'Profile', name: 'userprofile' },
