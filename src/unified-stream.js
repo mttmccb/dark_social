@@ -1,7 +1,8 @@
 import { inject } from 'aurelia-framework';
 import { AdnAPI } from './services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted, RefreshView, LoadMore, RefreshedView, ApiStatus } from './resources/messages';
+import { PostPosted, RefreshView, LoadMore, RefreshedView } from './resources/messages';
+import { PostsModel } from './models/posts-model';
 
 @inject(AdnAPI, EventAggregator)
 export class UnifiedStream {
@@ -9,7 +10,7 @@ export class UnifiedStream {
 	constructor(api, ea) {
 		this.api = api;
 		this.ea = ea;
-		this.posts = [];
+		this.posts = new PostsModel();
 		this.postPosted = ea.subscribe(PostPosted, msg => this.loadStream(false));
 		this.refreshView = ea.subscribe(RefreshView, msg => this.loadStream(false));
 		this.loadMore = ea.subscribe(LoadMore, msg => this.loadStream(true));
@@ -27,15 +28,11 @@ export class UnifiedStream {
 
 	loadStream(more) {
 		return this.api.load('unified', { more: more }).then(posts => {
-			this.streamid = this.api.meta.marker.last_read_id;	
-			if (this.posts.length>0 && this.posts[0].id === posts[0].id) {
-				this.ea.publish(new ApiStatus(`No New Posts`, { status: 'info' }));
-			} else {
-				this.posts = more? this.posts.concat(posts) : posts;				
-			}
+			this.posts.streamid = this.api.meta.marker.last_read_id;	
+			this.posts.more = more;
+			this.posts.addPosts(posts);
 		}).then(() => {
 			this.ea.publish(new RefreshedView());
 		});
 	}
-
 }
