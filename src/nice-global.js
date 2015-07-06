@@ -22,6 +22,7 @@ export class NiceGlobal {
 	deactivate() {
 		this.postPosted();
 		this.refreshView();
+		this.loadMore();
 	}
 
 	loadStream(more) {

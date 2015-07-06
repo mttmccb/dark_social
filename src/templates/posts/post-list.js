@@ -10,9 +10,8 @@ export class PostListCustomElement {
   constructor(ea) {
     this.ea = ea;
     this.viewRefreshed = ea.subscribe(RefreshedView, msg => this.createMasonry());
+    this.isAttached = false;
   }
-
-  isAttached = false;
 
   attached() {
     this.isAttached = true;

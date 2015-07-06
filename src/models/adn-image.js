@@ -1,12 +1,14 @@
 export class ADNImage {
-	
-	title = "x";
-	
-	url = "";
-	height = 0;
-	width = 0;	
 
-	thumbnail_url = "";
-	thumbnail_height = 0;
-	thumbnail_width = 0;	
+	constructor() {
+		this.title = "x";
+
+		this.url = "";
+		this.height = 0;
+		this.width = 0;
+
+		this.thumbnail_url = "";
+		this.thumbnail_height = 0;
+		this.thumbnail_width = 0;
+	}
 }

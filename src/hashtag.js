@@ -29,7 +29,7 @@ export class Hashtag {
 			if (this.posts.length > 0 && this.posts[0].id === posts[0].id) {
 				this.ea.publish(new ApiStatus(`No New Interactions`, { status: 'info' }));
 			} else {
-				this.posts = more ? this.posts.concat(posts) : posts;
+				this.posts = false ? this.posts.concat(posts) : posts;
 			}
 				}).then(() => {
 			this.ea.publish(new RefreshedView());

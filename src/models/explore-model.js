@@ -46,8 +46,6 @@ export class ExploreModel {
 		this.endPoint = endPoint;
 	}
 	
-	endPoint = "";
-
 	get title() {
 		return `${this.endPoint.charAt(0).toUpperCase()}${this.endPoint.substr(1).toLowerCase()}`;
 	}

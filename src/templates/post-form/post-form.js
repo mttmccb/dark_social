@@ -22,21 +22,20 @@ export class PostFormCustomElement {
 		this.ea = ea;
 		this.state = state;
 		this.submitting = false;
+		this.editPost = false;
+		this.postText = '';
+		this.lastPost = '';
+		this.matchedMentions = [];
+		this.mentionSearch = false;
+		this.showPostPreview = false;
+		this.showLastPost = false;
 	}
 
-	editPost = false;
-	postText = '';
-	lastPost = '';
-	matchedMentions = [];
-	mentionSearch = false;
-	showPostPreview = false;
-	showLastPost = false;
-
-	get hasFocus() {
-		return this.editPost;
-	}
 	set hasFocus(newValue) {
 		this.editPost = newValue;
+	}
+	get hasFocus() {
+		return this.editPost;
 	}
 
 	get postLength() {

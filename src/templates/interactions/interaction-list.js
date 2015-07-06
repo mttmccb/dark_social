@@ -12,9 +12,8 @@ export class InteractionListCustomElement {
     this.ea = ea;
     this.theRouter = router;
     this.viewRefreshed = ea.subscribe(RefreshedView, msg => this.createMasonry());
+    this.isAttached = false;
   }
-
-  isAttached = false;
 
   attached() {
     this.isAttached = true;
