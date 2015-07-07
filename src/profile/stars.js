@@ -2,6 +2,7 @@ import { inject } from 'aurelia-framework';
 import { AdnAPI } from '../services/adn-api';
 import { activationStrategy } from 'aurelia-router';
 import { State } from '../services/state';
+import { PostsModel } from '../models/posts-model';
 
 @inject(AdnAPI, State)
 export class Stars {
@@ -10,6 +11,7 @@ export class Stars {
     this.api = api;
     this.data = [];
     this.state = state;
+		this.posts = new PostsModel();
   }
   
   activate(params, query, route) {
@@ -23,7 +25,7 @@ export class Stars {
 
   loadStars() {
     return this.api.load('stars', { id: this.user_id, more: false }).then(data => {
-      this.data = data;
+			this.posts.addPosts(data);
     });
   }
 

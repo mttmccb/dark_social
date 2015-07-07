@@ -2,13 +2,13 @@
    <require from='../templates/posts/post-list'></require>
    <require from='../templates/stats/profile-stats'></require>
 
-    <div class="pure-g posts stats" if.bind="data[0].user.counts.posts>0">
+    <div class="pure-g posts stats" if.bind="posts.posts[0].user.counts.posts>0">
       <div class="pure-u-1 stats-header">
-        <h2>Last ${data.length} Posts </h2>
+        <h2>Last ${posts.posts.length} Posts </h2>
       </div>
       <div class="pure-u-1 stats-body">
-        <profile-stats posts.bind="data"></profile-stats>
+        <profile-stats posts.bind="posts.posts"></profile-stats>
       </div>
     </div>
-    <post-list posts.bind="{ data: data, avatar: false}"></post-list>
+    <post-list posts.bind="posts"></post-list>
 </template>

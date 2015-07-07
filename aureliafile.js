@@ -4,19 +4,20 @@
     js: {
       "dist/app-bundle": {
         modules: [
-          '*',
+          '**/*',
           'aurelia-bootstrapper',
           'aurelia-http-client',
+          'aurelia-history-browser',
           'aurelia-router',
           'aurelia-validation',
           'aurelia-event-aggregator',
           'moment',
           'humane-js',
-          'github:aurelia/templating-binding@0.12.0',
-          'github:aurelia/templating-resources@0.12.1',
-          'github:aurelia/templating-router@0.13.0',
-          'github:aurelia/loader-default@0.8.0',
-          'github:aurelia/history-browser@0.5.0'
+          'nprogress',
+          'github:aurelia/templating-binding@0.13.0',
+          'github:aurelia/templating-resources@0.13.0',
+          'github:aurelia/templating-router@0.14.0',
+          'github:aurelia/loader-default@0.9.0',
         ],
         options: {
           inject: true,

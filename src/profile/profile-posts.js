@@ -4,6 +4,7 @@ import { activationStrategy } from 'aurelia-router';
 import { State } from '../services/state';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PostPosted, RefreshView, RefreshedView, LoadMore, ApiStatus } from '../resources/messages';
+import { PostsModel } from '../models/posts-model';
 
 @inject(AdnAPI, State, EventAggregator)
 export class ProfilePosts {
@@ -13,6 +14,7 @@ export class ProfilePosts {
     this.data = [];
     this.state = state;
     this.ea = ea;
+		this.posts = new PostsModel();
     this.postPosted = ea.subscribe(PostPosted, msg => this.loadPosts({ user: this.user_id, more: false }));
     this.refreshView = ea.subscribe(RefreshView, msg => this.loadPosts({ user: this.user_id, more: false }));
 		this.loadMore = ea.subscribe(LoadMore, msg => this.loadPosts({ user: this.user_id, more: true }));
@@ -29,13 +31,9 @@ export class ProfilePosts {
 
   loadPosts(params) {
     return this.api.loadPosts(params.user, false).then(data => {
-
-			if (this.data.length > 0 && this.data[0].id === data[0].id) {
-				this.ea.publish(new ApiStatus(`No New Posts`, { status: 'info' }));
-			} else {
-				this.data = params.more ? this.data.concat(data) : data;
-			}
-    		}).then(() => {
+			this.posts.avatar = false;
+			this.posts.addPosts(data);
+		}).then(() => {
 			this.ea.publish(new RefreshedView());
 		});
   }
