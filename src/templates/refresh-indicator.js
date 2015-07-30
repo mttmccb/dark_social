@@ -25,11 +25,10 @@ export class RefreshIndicator {
 	}
 	set autorefresh(newValue) {
 		this._autorefresh = newValue;
-		if (newValue === true) {
-			this.autorefreshon = this.timedRefresh(30000);
-		} else {
+
+		newValue === true?
+			this.autorefreshon = this.timedRefresh(30000) :
 			clearInterval(this.autorefreshon);
-		}
 	}
 
 	timedRefresh(t) {

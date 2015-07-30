@@ -71,6 +71,7 @@ export class ProfileRouter {
     this.showBanner = !this.showBanner;
   }
 
+  //TODO: Move into API? not really specific to profiles
   toggleFollow(user, e) {
     e.preventDefault();
     user.you_follow = !user.you_follow;

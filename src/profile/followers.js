@@ -31,7 +31,7 @@ export class Followers {
 
   loadFollowers(user, more) {
     return this.api.load('followers', { id: user, more: more }).then(data => {
-
+      //TODO: Make a UserModel
       if (this.data.length > 0 && this.data[0].id === data[0].id) {
         this.ea.publish(new ApiStatus(`No More...`, { status: 'info' }));
       } else {

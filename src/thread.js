@@ -26,6 +26,7 @@ export class Thread {
 	loadStream(id) {
 		this.id = id;
 		return this.api.load('thread', { count: 200, more: false, id: id }).then(posts => {
+			//TODO: Move in PostsModel
 			var threadedPost = posts.reverse();
 			threadedPost.forEach((element, index, array) => {
 				element.thread = true;

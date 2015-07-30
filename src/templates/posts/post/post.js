@@ -21,11 +21,7 @@ export class PostCustomElement {
   }
 
   setupReply(triggerPost) {
-    if (this.replyTo) {
-      this.replyTo = false;
-    } else {
-      this.replyTo = triggerPost.id === this.thisPost.data.id;
-    }
+    this.replyTo = this.replyTo ? false : triggerPost.id === this.thisPost.data.id;
   }
 
   toggleDetails(e, post) {

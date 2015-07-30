@@ -11,6 +11,7 @@ export class UnifiedStream {
 		this.api = api;
 		this.ea = ea;
 		this.posts = new PostsModel();
+		//TODO: Combined postPosted and refreshView?
 		this.postPosted = ea.subscribe(PostPosted, msg => this.loadStream(false));
 		this.refreshView = ea.subscribe(RefreshView, msg => this.loadStream(false));
 		this.loadMore = ea.subscribe(LoadMore, msg => this.loadStream(true));

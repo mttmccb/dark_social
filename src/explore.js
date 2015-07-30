@@ -34,6 +34,7 @@ export class Explore {
   
   loadPosts(more) {
     return this.api.load(this.view, { more: more }).then(posts => {
+      //TODO: Use PostModel
 			if (this.posts.length>0 && this.posts[0].id === posts[0].id) {
 				this.ea.publish(new ApiStatus(`No New Posts`, { status: 'info' }));
 			} else {

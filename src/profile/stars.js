@@ -28,10 +28,4 @@ export class Stars {
 			this.posts.addPosts(data);
     });
   }
-
-  getPost(id) {
-    return this.api.load('post', { id: id }).then(post => {
-      this.post = post;
-    });
-  }
 }
