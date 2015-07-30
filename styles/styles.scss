@@ -92,6 +92,8 @@ a.close {
   transform: translate3d(0,0,0);
 }
 
+.content-body { max-width: 68em; margin: 0 auto; }
+
 .main-content-wrapper {
   /* These styles are required for the "scroll-over" effect */
   position: absolute;
