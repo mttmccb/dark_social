@@ -3,14 +3,15 @@ import { AdnAPI } from './services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PostPosted, RefreshView, RefreshedView, LoadMore, ApiStatus } from './resources/messages';
 import { ExploreModel } from './models/explore-model';
+import { PostsModel } from './models/posts-model';
 
 @inject(AdnAPI, EventAggregator)
 export class Explore {
 
   constructor(api, ea) {
     this.api = api;
-    this.posts = [];
     this.ea = ea;
+		this.posts = new PostsModel();
     this.postPosted = ea.subscribe(PostPosted, msg => this.loadPosts(false));	    
     this.refreshView = ea.subscribe(RefreshView, msg => this.loadPosts(false));
 		this.loadMore = ea.subscribe(LoadMore, msg => this.loadPosts(true));    	
@@ -34,15 +35,11 @@ export class Explore {
   
   loadPosts(more) {
     return this.api.load(this.view, { more: more }).then(posts => {
-      //TODO: Use PostModel
-			if (this.posts.length>0 && this.posts[0].id === posts[0].id) {
-				this.ea.publish(new ApiStatus(`No New Posts`, { status: 'info' }));
-			} else {
-				this.posts = more? this.posts.concat(posts) : posts;
-			}
-    		}).then(() => {
-			this.ea.publish(new RefreshedView());
-		});
-    
+
+    		this.posts.more = more;
+    		this.posts.addPosts(posts);
+    	}).then(() => {
+    		this.ea.publish(new RefreshedView());
+    	});
   }
 }
