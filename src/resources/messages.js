@@ -36,3 +36,9 @@ export class RefreshedView {}
 export class LoadMore {}
 
 export class StopAutoRefresh {}
+
+export class StreamMarkerUpdated {
+  constructor(id) {
+    this.id = id;
+  }
+}

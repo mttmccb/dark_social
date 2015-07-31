@@ -1,13 +1,14 @@
 <template>
 	<require from='./post-front'></require>
 	<require from='./post-back'></require>
-	<div css="margin-left: ${post.data.indent}em;" class="pure-g post ${replyTo || post.hidePost? 'post-replying' : '' } ${post.data.id >post.streamid? 'post-unread': ''}">	
+	<div css="margin-left: ${post.data.indent}em;" class="pure-g post ${replyTo || post.hidePost? 'post-replying' : '' } ${post.data.id >post.streamid? 'post-unread': ''}">
 		<i class="fa fa-repeat clickable" if.bind="!post.avatar" click.trigger="toggleDetails($event, post)"></i>
-		<div if.bind="post.avatar" class="pure-u-1-5">
-			<img id="profilePicture" src.bind="post.data.user.avatar_image.url" class="pure-img" click.trigger="toggleDetails($event, post)" />
+		<div if.bind="post.avatar" class="pure-u-1-5 is-center">
+			<img id="profilePicture" src.bind="post.data.user.avatar_image.url" class="pure-img" click.trigger="toggleDetails($event, post)"
+			/>
 		</div>
 		<div if.bind='!post.hidePost' class="${post.avatar ? 'pure-u-4-5' : 'pure-u-1'} post-details ${post.hidePost? '' : 'showMe'}">
-			<post-front post.bind="post.data"></post-front>
+			<post-front post.bind="post"></post-front>
 		</div>
 		<div if.bind='post.hidePost' class="${post.avatar ? 'pure-u-4-5' : 'pure-u-1'} post-details ${post.hidePost? 'showMe' : ''}">
 			<post-back post.bind="post.data"></post-back>

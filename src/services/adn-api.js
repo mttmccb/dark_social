@@ -137,6 +137,29 @@ export class AdnAPI {
     });
   }
 
+  setMarker(id) {
+    
+    var jsonText = {
+      id: id,
+      name: 'unified'
+    };
+    this.isRequesting = true;
+    return this.http.configure(x => {
+      x.withHeader('Authorization', 'Bearer ' + this.state.token);
+      x.withHeader('Content-Type', 'application/json');
+    }).post(`https://api.app.net/posts/marker`, jsonText).then((response) => {
+      this.meta = response.content.meta;
+      this.isRequesting = false;
+      this.ea.publish(new ApiStatus('Marker Set', { status: 'success' }));
+      return response.content.data;
+
+    }).catch((err) => {
+      this.isRequesting = false;
+      this.ea.publish(new ApiStatus('Unable to set marker', { status: 'error' }));
+      return {};
+    });
+  }
+
   reportPost(id) {
     
     this.ea.publish(new ApiStatus('Reporting Post', { status: 'info' }));
@@ -298,7 +321,7 @@ export class AdnAPI {
 
     this.isRequesting = true;
     return this.http.get(this.urlBuilder(url, params)).then((response) => {
-      
+      			console.log(response.content);
       this.meta = response.content.meta;
       this.isRequesting = false;
       this.ea.publish(new ApiStatus(`Retrieved ${url}`, { status: 'success' }));

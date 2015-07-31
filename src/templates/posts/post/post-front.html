@@ -1,25 +1,27 @@
 <template>
 	<require from='../../post-form/post-form'></require>
 	<require from='./annotation-images'></require>
-	<p if.bind="post.user.you_muted">This post has been muted</p>
-	<p if.bind="post.deleted==='1'">This post has been deleted</p>
-	<p if.bind="post.deleted!=='1' && !post.user.you_muted" innerHTML.one-way="post.html " click.delegate="postclicks.handler($event) "></p>
-	<div if.bind="post.deleted!=='1' && !post.user.you_muted" class="pure-g post-footer">
+	<p if.bind="post.data.user.you_muted">This post has been muted</p>
+	<p if.bind="post.data.deleted==='1'">This post has been deleted</p>
+	<p if.bind="post.data.deleted!=='1' && !post.data.user.you_muted" innerHTML.one-way="post.data.html " click.delegate="postclicks.handler($event) "></p>
+	<div if.bind="post.data.deleted!=='1' && !post.data.user.you_muted" class="pure-g post-footer">
 		<div class="pure-u-1-2">
 			<p>
-				<i if.bind="!post.thread && state.tokenReturned && (post.reply_to || post.num_replies>0)" class="clickable fa fa-tree" click.delegate="thread(post)"></i>
-				<i if.bind="state.tokenReturned" class="clickable fa ${post.you_starred? 'fa-star actioned' : 'fa-star-o'}" click.delegate="toggleStar(post)"></i>
-				<i if.bind="state.tokenReturned && post.user.id !== state.tokenReturned.user.id" class="clickable fa fa-retweet ${post.you_reposted? 'actioned' : ''}" click.delegate="toggleRepost(post)"></i>
-				<i if.bind="state.tokenReturned" class="clickable fa fa-reply" click.delegate="reply(post)"></i>
+				<i class="fa fa-chevron-circle-left clickable" if.bind="post.data.id >post.streamid" click.trigger="setStreamMarker($event, post.data)"></i>
+				<i if.bind="!post.thread && state.tokenReturned && (post.data.reply_to || post.data.num_replies>0)" class="clickable fa fa-tree"
+				click.delegate="thread(post.data)"></i>
+				<i if.bind="state.tokenReturned" class="clickable fa ${post.data.you_starred? 'fa-star actioned' : 'fa-star-o'}" click.delegate="toggleStar(post.data)"></i>
+				<i if.bind="state.tokenReturned && post.data.user.id !== state.tokenReturned.user.id" class="clickable fa fa-retweet ${post.data.you_reposted? 'actioned' : ''}"
+				click.delegate="toggleRepost(post.data)"></i>
+				<i if.bind="state.tokenReturned" class="clickable fa fa-reply" click.delegate="reply(post.data)"></i>
 			</p>
 		</div>
 		<div class="pure-u-1-2">
-			<p class="post-time">${post.created_at | timeAgo}</p>
+			<p class="post-time">${post.data.created_at | timeAgo}</p>
 		</div>
 	</div>
-	<div if.bind="post.deleted!=='1' && !post.user.you_muted" class="post-images">
-		<annotation-images annotations.bind="post.annotations"></annotation-images>
+	<div if.bind="post.data.deleted!=='1' && !post.data.user.you_muted" class="post-images">
+		<annotation-images annotations.bind="post.data.annotations"></annotation-images>
 	</div>
-	<post-form if.bind="toggleReply" post.bind="{ data: post, isReply: true }"></post-form>
-
+	<post-form if.bind="toggleReply" post.bind="{ data: post.data, isReply: true }"></post-form>
 </template>
