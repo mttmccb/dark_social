@@ -15,16 +15,22 @@ export class ProfilePosts {
     this.state = state;
     this.ea = ea;
 		this.posts = new PostsModel();
-    this.postPosted = ea.subscribe(PostPosted, msg => this.loadPosts({ user: this.user_id, more: false }));
-    this.refreshView = ea.subscribe(RefreshView, msg => this.loadPosts({ user: this.user_id, more: false }));
-		this.loadMore = ea.subscribe(LoadMore, msg => this.loadPosts({ user: this.user_id, more: true }));
+    this.postPosted = ea.subscribe(PostPosted, msg => this.loadPosts({ user: this.state.user_id, more: false }));
+    this.refreshView = ea.subscribe(RefreshView, msg => this.loadPosts({ user: this.state.user_id, more: false }));
+		this.loadMore = ea.subscribe(LoadMore, msg => this.loadPosts({ user: this.state.user_id, more: true }));
   }
 
   activate(params, query, route) {
-    this.user_id = this.state.user_id;
+    if (this.state.user_id===null || params.user_id) { this.state.user_id = params.user_id; }
     return this.loadPosts({ user: this.state.user_id });
   }
-
+  
+	deactivate() {
+		this.postPosted();
+		this.refreshView();
+    this.loadMore();
+	}
+  
   refresh() {
     return this.loadPosts({ user: this.user_id });
   }
@@ -37,10 +43,4 @@ export class ProfilePosts {
 			this.ea.publish(new RefreshedView());
 		});
   }
-
-	deactivate() {
-		this.postPosted();
-		this.refreshView();
-    this.loadMore();
-	}
 }

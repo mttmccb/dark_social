@@ -15,7 +15,7 @@ export class Stars {
   }
   
   activate(params, query, route) {
-    this.user_id = this.state.user_id;
+    if (this.state.user_id===null || params.user_id) { this.state.user_id = params.user_id; }
     return this.loadStars(this.state.user_id);
   }
 

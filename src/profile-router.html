@@ -28,16 +28,16 @@
             <nav id="profile-links" class="pure-menu pure-menu-horizontal">
               <ul class="pure-menu-list">
                 <li class="pure-menu-item">
-                  <a class="pure-menu-link ${router.navigation[0].isActive ? 'pure-menu-selected' : ''}" href="${state.token? 'profile/following' : 'profile'}"><i class="fa fa-arrow-circle-left"></i> ${user.counts.following}</a>
+                  <a class="pure-menu-link ${router.navigation[0].isActive ? 'pure-menu-selected' : ''}" href="${state.token? 'profile/following/' + user.id : 'profile'}"><i class="fa fa-arrow-circle-left"></i> ${user.counts.following}</a>
                 </li>
                 <li class="pure-menu-item">
-                  <a class="pure-menu-link ${router.navigation[1].isActive ? 'pure-menu-selected' : ''}" href="${state.token? 'profile/followers' : 'profile'}"><i class="fa fa-arrow-circle-right"></i> ${user.counts.followers}</a>
+                  <a class="pure-menu-link ${router.navigation[1].isActive ? 'pure-menu-selected' : ''}" href="${state.token? 'profile/followers/' + user.id : 'profile'}"><i class="fa fa-arrow-circle-right"></i> ${user.counts.followers}</a>
                 </li>
                 <li class="pure-menu-item">
-                  <a class="pure-menu-link ${router.navigation[2].isActive ? 'pure-menu-selected' : ''}" href="profile/posts"><i class="fa fa-pencil-square-o"></i> ${user.counts.posts}</a>
+                  <a class="pure-menu-link ${router.navigation[2].isActive ? 'pure-menu-selected' : ''}" href="profile/posts/${user.id}"><i class="fa fa-pencil-square-o"></i> ${user.counts.posts}</a>
                 </li>
                 <li class="pure-menu-item">
-                  <a class="pure-menu-link ${router.navigation[3].isActive ? 'pure-menu-selected' : ''}" href="profile/stars"><i class="fa fa-star"></i> ${user.counts.stars}</a>
+                  <a class="pure-menu-link ${router.navigation[3].isActive ? 'pure-menu-selected' : ''}" href="profile/stars/${user.id}"><i class="fa fa-star"></i> ${user.counts.stars}</a>
                 </li>
               </ul>
             </nav>

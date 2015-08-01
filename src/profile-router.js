@@ -11,10 +11,10 @@ export class ProfileRouter {
   configureRouter(config, router) {
     config.map([
       //{ route: ['', 'profile'], name: 'profile', moduleId: './profile', nav: true, title: 'Profile' },
-      { route: 'following', name: 'following', moduleId: './profile/following', title: 'Following', nav: true },
-      { route: 'followers', name: 'followers', moduleId: './profile/followers', title: 'Followers', nav: true },
-      { route: ['', 'posts'], name: 'posts', moduleId: './profile/profile-posts', title: 'Posts', nav: true },
-      { route: 'stars', name: 'stars', moduleId: './profile/stars', title: 'Stars', nav: true }
+      { route: 'following', name: 'following/:user_id', moduleId: './profile/following', title: 'Following', nav: true },
+      { route: 'followers', name: 'followers/:user_id', moduleId: './profile/followers', title: 'Followers', nav: true },
+      { route: ['', 'posts'], name: 'posts/:user_id', moduleId: './profile/profile-posts', title: 'Posts', nav: true },
+      { route: 'stars', name: 'stars/:user_id', moduleId: './profile/stars', title: 'Stars', nav: true }
     ]);
 
     this.router = router;
