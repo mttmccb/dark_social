@@ -10,8 +10,7 @@ export class GetMore {
 	}
 
 	getSomeMore() {
-		this.ea.publish(new LoadMore());
-		//TODO: Move ApiStatus into constructor of LoadMore?
 		this.ea.publish(new ApiStatus(`Retrieving More`, { status: 'info' }));
+		this.ea.publish(new LoadMore());
 	}
 }
