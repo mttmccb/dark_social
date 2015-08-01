@@ -11,6 +11,7 @@ export class PostsStream {
 		this.api = api;
 		this.ea = ea;
 		this.posts = new PostsModel();
+		//TODO: combine post parameters, need options
 		this.postPosted = ea.subscribe(PostPosted, msg => this.loadStream(false));
 		this.refreshView = ea.subscribe(RefreshView, msg => this.loadStream(false));
 		this.loadMore = ea.subscribe(LoadMore, msg => this.loadStream(true));

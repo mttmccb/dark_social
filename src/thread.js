@@ -6,7 +6,7 @@ import { PostsModel } from './models/posts-model';
 
 @inject(AdnAPI, EventAggregator)
 export class Thread {
-
+	//TODO: Combine into post-stream
 	constructor(api, ea) {
 		this.api = api;
 		this.ea = ea;

@@ -7,7 +7,7 @@ import { PostsModel } from './models/posts-model';
 
 @inject(AdnAPI, EventAggregator)
 export class Hashtag {
-
+	//TODO: Combine hashtag into post-stream
 	constructor(api, ea) {
 		this.api = api;
 		this.ea = ea;

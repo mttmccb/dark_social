@@ -6,7 +6,7 @@ import { activationStrategy } from 'aurelia-router';
 
 @inject(AdnAPI, EventAggregator)
 export class Interactions {
-
+  //TODO: Great Interactions Model
   constructor(api, ea) {
     this.api = api;
     this.interactions = [];
