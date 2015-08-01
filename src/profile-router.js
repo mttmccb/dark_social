@@ -30,23 +30,10 @@ export class ProfileRouter {
     this.state = state;
     this.ea = ea;
     this.postPosted = ea.subscribe(PostPosted, msg => this.loadUser(this.user_id));
-    this.getRandomUser = ea.subscribe(GetRandomUser, msg => this.loadRandomUser());
   }
 
   activate(params, query, route) {
-    if (route.fragment === "profile/random") {
-      this.user_id = " ";
-      this.state.user_id = " ";
-    }
-    if (params.user_id) {
-      this.state.user_id = params.user_id;
-    }
-    return this.loadUser(params.user_id || this.state.user_id);
-  }
-
-  loadRandomUser() {
-    this.user_id = " ";
-    this.state.user_id = " ";
+    if (this.state.user_id===null || params.user_id) { this.state.user_id = params.user_id; }
     return this.loadUser(this.state.user_id);
   }
 
@@ -56,7 +43,6 @@ export class ProfileRouter {
 
   deactivate() {
     this.postPosted();
-    this.getRandomUser();
   }
 
   loadUser(user) {

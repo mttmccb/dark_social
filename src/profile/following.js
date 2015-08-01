@@ -18,7 +18,7 @@ export class Following {
 
   activate(params, query, route) {
     this.user_id = this.state.user_id;
-    return this.loadFollowing(params.user_id || this.user_id, false);
+    return this.loadFollowing(this.user_id, false);
   }
 
   refresh() {

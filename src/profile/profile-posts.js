@@ -22,11 +22,11 @@ export class ProfilePosts {
 
   activate(params, query, route) {
     this.user_id = this.state.user_id;
-    return this.loadPosts(params.user_id || this.user_id);
+    return this.loadPosts({ user: this.state.user_id });
   }
 
   refresh() {
-    return this.loadPosts(this.user_id);
+    return this.loadPosts({ user: this.user_id });
   }
 
   loadPosts(params) {
@@ -43,10 +43,4 @@ export class ProfilePosts {
 		this.refreshView();
     this.loadMore();
 	}
-
-  getPost(id) {
-    return this.api.load('post', { id: id }).then(post => {
-      this.post = post;
-    });
-  }
 }

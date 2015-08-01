@@ -9,9 +9,4 @@ export class ProfileNavigationCustomElement {
   constructor(ea) {
     this.ea = ea;
   }
-  
-  loadRandomUserRoute() {        
-    this.ea.publish(new GetRandomUser());
-    this.ea.publish(new PostPosted());
-  }
 }

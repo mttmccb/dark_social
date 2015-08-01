@@ -78,17 +78,17 @@ export class AdnAPI {
     this.http = http;
     this.state = state;
     this.ea = ea;
+    this.meta = [];
   }
 
-  meta = [];
-
   getToken() {
-
     return new Promise(function (resolve, reject) {
       let token = localStorage.getItem("access_token");
       token ? resolve(token) : reject();
+      
     }).then((token) => {
       this.isRequesting = true;
+      
       return this.http.get(`${apiURL}/token?access_token=${token}`).then((response) => {
         this.isRequesting = false;
         this.state.tokenReturned = response.content.data;
@@ -108,7 +108,6 @@ export class AdnAPI {
   }
 
   createPost(text, options) {
-    
     this.ea.publish(new ApiStatus('Creating Post', { status: 'info' }));
     var jsonText = {
       text: text,
@@ -117,10 +116,9 @@ export class AdnAPI {
         parse_markdown_links: true
       }
     };
-    if (options.reply_to) {
-      jsonText.reply_to = options.reply_to;
-    }
+    if (options.reply_to) { jsonText.reply_to = options.reply_to; }
     this.isRequesting = true;
+    
     return this.http.configure(x => {
       x.withHeader('Authorization', 'Bearer ' + this.state.token);
       x.withHeader('Content-Type', 'application/json');
@@ -138,12 +136,12 @@ export class AdnAPI {
   }
 
   setMarker(id) {
-    
     var jsonText = {
       id: id,
       name: 'unified'
     };
     this.isRequesting = true;
+    
     return this.http.configure(x => {
       x.withHeader('Authorization', 'Bearer ' + this.state.token);
       x.withHeader('Content-Type', 'application/json');
@@ -161,9 +159,9 @@ export class AdnAPI {
   }
 
   reportPost(id) {
-    
     this.ea.publish(new ApiStatus('Reporting Post', { status: 'info' }));
     this.isRequesting = true;
+    
     return this.http.configure(x => {
       x.withHeader('Authorization', 'Bearer ' + this.state.token);
       x.withHeader('Content-Type', 'application/json');
@@ -181,9 +179,7 @@ export class AdnAPI {
   }
 
   textProcess(text) {
-
     let jsonText = { text: text };
-
     this.isRequesting = true;
 
     return this.http.configure(x => {
@@ -201,24 +197,18 @@ export class AdnAPI {
   }
 
   loadPosts(id, more) {
-
     this.isRequesting = true;
 
-    return this.getRandomUserId().then((user) => {
-      let getUser = this.state.user_id || id;
-      if (!getUser || getUser === ' ') { getUser = user; }
+    return this.http.get(this.urlBuilder('posts', { id: id, more: more })).then((response) => {
+      this.meta = response.content.meta;
+      this.isRequesting = false;
+      this.ea.publish(new ApiStatus((more ? 'Retrieved more Posts' : 'Retrieved Posts'), { status: 'success' }));
+      return response.content.data;
 
-      return this.http.get(this.urlBuilder('posts', { id: getUser, more: more })).then((response) => {
-        this.meta = response.content.meta;
-        this.isRequesting = false;
-        this.ea.publish(new ApiStatus((more ? 'Retrieved more Posts' : 'Retrieved Posts'), { status: 'success' }));
-        return response.content.data;
-
-      }).catch((err) => {
-        this.isRequesting = false;
-        this.ea.publish(new ApiStatus('Username not found, restoring known user', { status: 'error' }));
-        return nouser.data;
-      });
+    }).catch((err) => {
+      this.isRequesting = false;
+      this.ea.publish(new ApiStatus('Username not found, restoring known user', { status: 'error' }));
+      return nouser.data;
     });
   }
 
@@ -239,28 +229,21 @@ export class AdnAPI {
   }
 
   loadProfile(id, more) {
-
     this.isRequesting = true;
 
-    return this.getRandomUserId().then((user) => {
-      let getUser = this.state.user_id || id;
-      if (!getUser || getUser === ' ') { getUser = user; }
+    return this.http.get(this.urlBuilder('users', { id: id, more: more })).then((response) => {
+      this.isRequesting = false;
+      this.ea.publish(new ApiStatus('Retrieved Profile', { status: 'success' }));
+      return response.content.data;
 
-      return this.http.get(this.urlBuilder('users', { id: getUser, more: more })).then((response) => {
-        this.isRequesting = false;
-        this.ea.publish(new ApiStatus('Retrieved Profile', { status: 'success' }));
-        return response.content.data;
-
-      }).catch((err) => {
-        this.isRequesting = false;
-        this.ea.publish(new ApiStatus('Username not found, restoring known user', { status: 'error' }));
-        return nouser.data;
-      });
+    }).catch((err) => {
+      this.isRequesting = false;
+      this.ea.publish(new ApiStatus('Username not found, restoring known user', { status: 'error' }));
+      return nouser.data;
     });
   }
 
   getAllUsers() {
-
     return this.http.get('https://api.nice.social/user/nicesummary').then((response) => {
       return response.content.data;
 
@@ -271,7 +254,6 @@ export class AdnAPI {
   }
 
   getRandomUserId() {
-
     return this.http.get('https://api.nice.social/user/nicesummary').then((response) => {
       var randomIndex = randomInteger(response.content.data.length);
       return response.content.data[randomIndex].user_id;
@@ -303,8 +285,8 @@ export class AdnAPI {
   }
 
   toggleEntity(id, isTrue, entity, successMsg) {
-
     this.isRequesting = true;
+    
     return this.http[isTrue ? 'post' : 'delete'](this.urlBuilder(entity, { id: id })).then((response) => {
       this.isRequesting = false;
       this.ea.publish(new ApiStatus(successMsg, { status: 'success' }));
@@ -318,10 +300,9 @@ export class AdnAPI {
   }
 
   load(url, params) {
-
     this.isRequesting = true;
+    
     return this.http.get(this.urlBuilder(url, params)).then((response) => {
-      			console.log(response.content);
       this.meta = response.content.meta;
       this.isRequesting = false;
       this.ea.publish(new ApiStatus(`Retrieved ${url}`, { status: 'success' }));
@@ -335,11 +316,11 @@ export class AdnAPI {
   }
 
   urlBuilder(action, params) {
-    let standardParams = action==='thread' ? `include_post_annotations=1&include_deleted=1&include_muted=1` : `include_post_annotations=1&include_deleted=0`;
+    let standardParams = action === 'thread' ? `include_post_annotations=1&include_deleted=1&include_muted=1` : `include_post_annotations=1&include_deleted=0`;
     let accessTokenLS = this.state.token;
     let accessToken = accessTokenLS !== "undefined" && accessTokenLS !== null ? `access_token=${accessTokenLS}&` : "";
     let moreParam = params.more ? `before_id=${this.meta.min_id}&` : "";
-    let countParam = !params.count? count : params.count;
+    let countParam = !params.count ? count : params.count;
 
     let endpoints = {
       conversations: `${apiURL}/posts/stream/explore/conversations?`,
@@ -366,7 +347,7 @@ export class AdnAPI {
       global: `${apiURL}/posts/stream/global?`,
       hashtag: `${apiURL}/posts/tag/${params.hashtag}?`
     };
-    
+
     if (action !== 'users' && action !== 'followers' && action !== 'report') {
       return `${endpoints[action]}count=${countParam}&${accessToken}${moreParam}${standardParams}`;
     } else {

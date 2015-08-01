@@ -18,7 +18,7 @@ export class Followers {
 
   activate(params, query, route) {
     this.user_id = this.state.user_id;
-    return this.loadFollowers(params.user_id || this.user_id, false);
+    return this.loadFollowers(this.user_id, false);
   }
 
   refresh() {

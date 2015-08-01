@@ -16,15 +16,15 @@ export class Stars {
   
   activate(params, query, route) {
     this.user_id = this.state.user_id;
-    return this.loadStars();
+    return this.loadStars(this.state.user_id);
   }
 
   refresh() {
     return this.loadStars();
   }
 
-  loadStars() {
-    return this.api.load('stars', { id: this.user_id, more: false }).then(data => {
+  loadStars(user_id) {
+    return this.api.load('stars', { id: user_id, more: false }).then(data => {
 			this.posts.addPosts(data);
     });
   }
