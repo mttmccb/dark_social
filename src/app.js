@@ -33,7 +33,7 @@ export class App {
       { route: ['checkins'], moduleId: './explore', nav: true, title: 'Checkins', settings: { icon: 'map-marker', iconBack: 'globe', group: 'explore', view: 'checkins' } },
 
       { route: ['thread/:id'], moduleId: './thread', title: 'Thread', name: 'thread' },
-      { route: ['hashtag/:hashtag'], moduleId: './hashtag', title: 'Hashtag', name: 'hashtag' },
+      { route: ['hashtag/:hashtag'], moduleId: './posts-stream', title: 'Mentions', settings: { stream: 'hashtag' }, name: "hashtag" },
 
       { route: ['handle_oauth'], moduleId: './login/handle_oauth' },
       { route: ['login'], moduleId: './login/login', name: 'login' },

@@ -1,8 +1,12 @@
+import { inject } from 'aurelia-framework';
 import { ApiStatus } from '../resources/messages';
 import { findIndexByKeyValue, treeify } from '../resources/utility';
+import { EventAggregator } from 'aurelia-event-aggregator';
 
+@inject(EventAggregator)
 export class PostsModel {
-	constructor() {
+	constructor(ea) {
+		this.ea = ea;
 		this.posts = [];
 		this.streamid = null;
 		this.more = false;
