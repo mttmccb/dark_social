@@ -5,7 +5,7 @@
 	<section class="main-content-wrapper">
 		<refresh-indicator></refresh-indicator>
 		<div id="posts" class="posts">
-			<post repeat.for="post of posts" post.bind="{ data: post, avatar:true }"></post>
+			<post repeat.for="post of posts.posts" post.bind="{ data: post, avatar:true }"></post>
 		</div>
 	</section>
 </template>
