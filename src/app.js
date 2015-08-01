@@ -15,7 +15,7 @@ export class App {
     config.addPipelineStep('authorize', HashRedirectStep);
     config.map([
       { route: ['', 'choose'], moduleId: './choose', nav: false, title: 'Choose', name: 'Home' },
-      { route: ['stream'], moduleId: './unified-stream', nav: true, auth: true, title: 'Stream', settings: { icon: 'comments' } },
+      { route: ['stream'], moduleId: './posts-stream', nav: true, auth: true, title: 'Stream', settings: { icon: 'comments', stream: 'unified', streammarker: true } },
       { route: ['mentions'], moduleId: './posts-stream', nav: true, auth: true, title: 'Mentions', settings: { text: '@', stream: 'mentions' } },
       { route: ['interactions/reposts'], moduleId: './interactions', nav: true, auth: true, title: 'Reposts', settings: { icon: 'retweet', action: 'repost' } },
       { route: ['interactions/stars'], moduleId: './interactions', nav: true, auth: true, title: 'Stars', settings: { icon: 'star', action: 'star' } },

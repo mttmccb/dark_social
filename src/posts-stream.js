@@ -18,7 +18,8 @@ export class PostsStream {
 
 	activate(params, query, route) {
 		this.stream = route.config.settings.stream;
-		return this.loadStream(false);
+		this.streammarker = route.config.settings.streammarker;
+		return this.loadStream(false, { streammarker: this.streammarker });
 	}
 	
 	deactivate() {
@@ -27,8 +28,9 @@ export class PostsStream {
 		this.loadMore();
 	}
 
-	loadStream(more) {
+	loadStream(more, options) {
 		return this.api.load(this.stream, { more: more }).then(posts => {
+			if (options.streammarker===true) { this.posts.streamid = this.api.meta.marker.last_read_id; }
 			this.posts.more = more;
 			this.posts.addPosts(posts);
 		}).then(() => {
