@@ -1,0 +1,17 @@
+{
+  "version": "1.5.0",
+  "compilerOptions": {
+    "target": "es5",
+    "module": "amd",
+    "declaration": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "noLib": false,
+    "emitDecoratorMetadata": true,
+    "sourceMap": true,
+    "listFiles": true,
+    "outDir": "dist",
+    "experimentalDecorators": true
+  }
+}
