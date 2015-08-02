@@ -1,24 +1,21 @@
-import { inject, bindable } from 'aurelia-framework';
+import { autoinject, bindable } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { AdnAPI } from '../../../services/adn-api';
 import { State } from '../../../services/state';
 
-@inject(Router, AdnAPI, State)
+@autoinject
 export class PostBackCustomElement {
   @bindable post: any = null;
-  theRouter: Router;
-  api: AdnAPI;
-  state: State;
   reported: boolean;
-  constructor(router: Router, api: AdnAPI, state: State) {
-    this.theRouter = router;
+  constructor(private router: Router, private api: AdnAPI, private state: State) {
+    this.router = router;
     this.api = api;
     this.state = state;
     this.reported = false
   }
 
   loadUserRoute(user: number) {
-    this.theRouter.navigateToRoute("userprofile", { user_id: user });
+    this.router.navigateToRoute("userprofile", { user_id: user });
   }
   
   reportPost(post: any) {

@@ -9,7 +9,7 @@ export class App {
   api: AdnAPI;
   router: Router;
   
-  configureRouter(config, router: Router) {
+  configureRouter(config: any, router: Router) {
     config.title = 'Dark Social';
     config.options.pushState = true;
     config.addPipelineStep('authorize', HashRedirectStep);

@@ -1,18 +1,17 @@
-import { inject } from 'aurelia-framework';
+import { autoinject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { ImageViewed } from '../resources/messages';
 import { ADNImage } from '../models/adn-image';
 
-@inject(EventAggregator)
+@autoinject
 export class ModalImageCustomElement {
-  ea: EventAggregator;
   showing: boolean;
   adnimage: ADNImage;
-  constructor(ea: EventAggregator) {
+  constructor(private ea: EventAggregator) {
     this.showing = false;
     this.adnimage = new ADNImage();
     this.ea = ea;
-    ea.subscribe(ImageViewed, msg => this.showModal(msg.image));
+    ea.subscribe(ImageViewed, (msg: any) => this.showModal(msg.image));
   }
 
   showModal(image: any) {

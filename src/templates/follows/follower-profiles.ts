@@ -1,15 +1,14 @@
-import { bindable, inject } from 'aurelia-framework';
+import { bindable, autoinject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 
-@inject(Router)
+@autoinject
 export class FollowerProfiles {
-  @bindable profiles = null;
-  theRouter: Router
-  constructor(router: Router) {
-    this.theRouter = router;
+  @bindable profiles: any = null;
+  constructor(private router: Router) {
+    this.router = router;
   }
 
   loadUserRoute(user: number) {
-    this.theRouter.navigateToRoute("userprofile", { user_id: user });
+    this.router.navigateToRoute("userprofile", { user_id: user });
   }
 }

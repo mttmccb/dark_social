@@ -1,11 +1,10 @@
-import { bindable, inject } from 'aurelia-framework';
+import { bindable, autoinject } from 'aurelia-framework';
 import { PostClicks } from '../../resources/post-clicks';
 
-@inject(PostClicks)
+@autoinject
 export class BioCustomElement {
   @bindable user: any = null;
-  postclicks: PostClicks
-  constructor(postclicks: PostClicks) {
+  constructor(private postclicks: PostClicks) {
     this.postclicks = postclicks;
   }  
 }

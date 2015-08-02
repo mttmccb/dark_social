@@ -1,22 +1,19 @@
-import { bindable, inject } from 'aurelia-framework';
+import { bindable, autoinject } from 'aurelia-framework';
 import * as Masonry from 'masonry-layout';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { RefreshedView } from '../../resources/messages';
 import { Router } from 'aurelia-router';
 
-@inject(EventAggregator, Router)
+@autoinject
 export class InteractionListCustomElement {
-  @bindable interactions = null;
-
-  theRouter: Router;
-  ea: EventAggregator;
+  @bindable interactions: any = null;
   viewRefreshed: any;
   isAttached: boolean;
   msnry: any;
-  constructor(ea: EventAggregator, router: Router) {
+  constructor(private ea: EventAggregator, private router: Router) {
     this.ea = ea;
-    this.theRouter = router;
-    this.viewRefreshed = ea.subscribe(RefreshedView, msg => this.createMasonry());
+    this.router = router;
+    this.viewRefreshed = ea.subscribe(RefreshedView, (msg: any) => this.createMasonry());
     this.isAttached = false;
   }
 
@@ -31,7 +28,7 @@ export class InteractionListCustomElement {
   }
 
   loadUserRoute(user: number) {
-    this.theRouter.navigateToRoute("userprofile", { user_id: user });
+    this.router.navigateToRoute("userprofile", { user_id: user });
   }
 
   createMasonry() {

@@ -1,16 +1,15 @@
-import { inject } from 'aurelia-framework';
+import { autoinject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { RefreshView, ApiStatus, StopAutoRefresh } from '../resources/messages';
 
-@inject(EventAggregator)
+@autoinject
 export class RefreshIndicator {
-	ea: EventAggregator
 	_autorefresh: boolean;
 	autorefreshon: any;
-	constructor(ea: EventAggregator) {
+	constructor(private ea: EventAggregator) {
 		this.ea = ea;
 		this._autorefresh = false;
-		ea.subscribe(StopAutoRefresh, msg => this._autorefresh = false);
+		ea.subscribe(StopAutoRefresh, (msg: any) => this._autorefresh = false);
 	}
 
 	refresh() {

@@ -1,20 +1,19 @@
-import { inject } from 'aurelia-framework';
+import { autoinject } from 'aurelia-framework';
 import { AdnAPI } from '../services/adn-api';
+import { EventAggregator } from 'aurelia-event-aggregator';
 import { activationStrategy } from 'aurelia-router';
 import { State } from '../services/state';
 import { PostsModel } from '../models/posts-model';
 
-@inject(AdnAPI, State)
+@autoinject
 export class Stars {
-  api: AdnAPI;
-  state: State;
   posts: PostsModel;
   loadMore: any;
   
-  constructor(api: AdnAPI, state: State) {	
+  constructor(private api: AdnAPI, private state: State, private ea: EventAggregator) {	
     this.api = api;
     this.state = state;
-		this.posts = new PostsModel();
+		this.posts = new PostsModel(ea);
   }
   
   activate(params: any, query: any, route: any) {
@@ -27,7 +26,7 @@ export class Stars {
   }
 
   loadStars(user_id: number) {
-    return this.api.load('stars', { id: user_id, more: false }).then(data => {
+    return this.api.load('stars', { id: user_id, more: false }).then((data: any) => {
 			this.posts.addPosts(data);
     });
   }

@@ -4,9 +4,7 @@ import {AppRouter} from 'aurelia-router';
 
 @autoinject
 export class Logout {
-  authService: AuthenticationService;
-  appRouter: AppRouter; 
-  constructor(authService: AuthenticationService, appRouter: AppRouter) {
+  constructor(private authService: AuthenticationService, private appRouter: AppRouter) {
     this.authService = authService;
     this.appRouter = appRouter;
   }

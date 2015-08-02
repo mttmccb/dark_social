@@ -1,6 +1,6 @@
 export class ActionValueConverter {
   toView(value: string){
-    let action = {
+    let action: any = {
       'reply': 'replied to your post',
       'star': 'starred your post',
       'follow': 'starting following you',

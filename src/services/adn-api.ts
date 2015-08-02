@@ -1,4 +1,4 @@
-import { inject } from 'aurelia-framework';
+import { autoinject } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-http-client';
 import { NiceAPI } from './nice-api';
 import { randomInteger } from '../resources/utility';
@@ -72,15 +72,12 @@ let nouser = {
 let apiURL = 'https://api.app.net';
 let count = 20;
 
-@inject(HttpClient, State, EventAggregator)
+@autoinject
 export class AdnAPI {
-  http: HttpClient;
-  state: State;
-  ea: EventAggregator;
-  meta: any[];
+  meta: any;
   isRequesting: boolean;
   
-  constructor(http: HttpClient, state: State, ea: EventAggregator) {
+  constructor(private http: HttpClient, private state: State, private ea: EventAggregator) {
     this.http = http;
     this.state = state;
     this.ea = ea;
@@ -94,13 +91,13 @@ export class AdnAPI {
     }).then((token) => {
       this.isRequesting = true;
       
-      return this.http.get(`${apiURL}/token?access_token=${token}`).then((response) => {
+      return this.http.get(`${apiURL}/token?access_token=${token}`).then((response: any) => {
         this.isRequesting = false;
         this.state.tokenReturned = response.content.data;
         //this.ea.publish(new ApiStatus('Token Retrieved', { status: 'success' }));
         return response.content.data;
 
-      }).catch((err) => {
+      }).catch((err: any) => {
         this.isRequesting = false;
         this.ea.publish(new ApiStatus('Invalid Token', { status: 'error' }));
         return {};
@@ -125,16 +122,16 @@ export class AdnAPI {
     if (options.reply_to) { jsonText.reply_to = options.reply_to; }
     this.isRequesting = true;
     
-    return this.http.configure(x => {
+    return this.http.configure((x: any) => {
       x.withHeader('Authorization', 'Bearer ' + this.state.token);
       x.withHeader('Content-Type', 'application/json');
-    }).post(`https://api.app.net/posts`, jsonText).then((response) => {
+    }).post(`https://api.app.net/posts`, jsonText).then((response: any) => {
       this.meta = response.content.meta;
       this.isRequesting = false;
       this.ea.publish(new ApiStatus('Post Created', { status: 'success' }));
       return response.content.data;
 
-    }).catch((err) => {
+    }).catch((err: any) => {
       this.isRequesting = false;
       this.ea.publish(new ApiStatus('Unable to post', { status: 'error' }));
       return {};
@@ -148,16 +145,16 @@ export class AdnAPI {
     };
     this.isRequesting = true;
     
-    return this.http.configure(x => {
+    return this.http.configure((x: any) => {
       x.withHeader('Authorization', 'Bearer ' + this.state.token);
       x.withHeader('Content-Type', 'application/json');
-    }).post(`https://api.app.net/posts/marker`, jsonText).then((response) => {
+    }).post(`https://api.app.net/posts/marker`, jsonText).then((response: any) => {
       this.meta = response.content.meta;
       this.isRequesting = false;
       this.ea.publish(new ApiStatus('Marker Set', { status: 'success' }));
       return response.content.data;
 
-    }).catch((err) => {
+    }).catch((err: any) => {
       this.isRequesting = false;
       this.ea.publish(new ApiStatus('Unable to set marker', { status: 'error' }));
       return {};
@@ -168,16 +165,16 @@ export class AdnAPI {
     this.ea.publish(new ApiStatus('Reporting Post', { status: 'info' }));
     this.isRequesting = true;
     
-    return this.http.configure(x => {
+    return this.http.configure((x: any) => {
       x.withHeader('Authorization', 'Bearer ' + this.state.token);
       x.withHeader('Content-Type', 'application/json');
-    }).post(`https://api.app.net/posts/${id}/report`).then((response) => {
+    }).post(`https://api.app.net/posts/${id}/report`).then((response: any) => {
       this.meta = response.content.meta;
       this.isRequesting = false;
       this.ea.publish(new ApiStatus('Post Reported', { status: 'success' }));
       return response.content.data;
 
-    }).catch((err) => {
+    }).catch((err: any) => {
       this.isRequesting = false;
       this.ea.publish(new ApiStatus('Unable to report post', { status: 'error' }));
       return {};
@@ -188,15 +185,15 @@ export class AdnAPI {
     let jsonText = { text: text };
     this.isRequesting = true;
 
-    return this.http.configure(x => {
+    return this.http.configure((x: any) => {
       x.withHeader('Authorization', 'Bearer ' + this.state.token);
       x.withHeader('Content-Type', 'application/json');
-    }).post(`https://api.app.net/text/process?parse_links=true&parse_markdown_links=true`, jsonText).then((response) => {
+    }).post(`https://api.app.net/text/process?parse_links=true&parse_markdown_links=true`, jsonText).then((response: any) => {
       this.meta = response.content.meta;
       this.isRequesting = false;
       return response.content.data;
 
-    }).catch((err) => {
+    }).catch((err: any) => {
       this.isRequesting = false;
       return nouser.data;
     });
@@ -205,13 +202,13 @@ export class AdnAPI {
   loadPosts(id: number, more: boolean) {
     this.isRequesting = true;
 
-    return this.http.get(this.urlBuilder('posts', { id: id, more: more })).then((response) => {
+    return this.http.get(this.urlBuilder('posts', { id: id, more: more })).then((response: any) => {
       this.meta = response.content.meta;
       this.isRequesting = false;
       this.ea.publish(new ApiStatus((more ? 'Retrieved more Posts' : 'Retrieved Posts'), { status: 'success' }));
       return response.content.data;
 
-    }).catch((err) => {
+    }).catch((err: any) => {
       this.isRequesting = false;
       this.ea.publish(new ApiStatus('Username not found, restoring known user', { status: 'error' }));
       return nouser.data;
@@ -219,14 +216,14 @@ export class AdnAPI {
   }
 
   loadLastPost() {
-    return this.getToken().then(() => {
+    return this.getToken(this.state.token).then(() => {
       this.isRequesting = true;
-      return this.http.get(this.urlBuilder('lastposts', { id: this.state.tokenReturned.user.id, count: 1 })).then((response) => {
+      return this.http.get(this.urlBuilder('lastposts', { id: this.state.tokenReturned.user.id, count: 1 })).then((response: any) => {
         this.isRequesting = false;
         this.ea.publish(new ApiStatus('Retrieved Last Post', { status: 'success' }));
         return response.content.data;
 
-      }).catch((err) => {
+      }).catch((err: any) => {
         this.isRequesting = false;
         this.ea.publish(new ApiStatus('Unable to retrieve last post', { status: 'error' }));
         return nouser.data;
@@ -237,12 +234,12 @@ export class AdnAPI {
   loadProfile(id: number, more: boolean) {
     this.isRequesting = true;
 
-    return this.http.get(this.urlBuilder('users', { id: id, more: more })).then((response) => {
+    return this.http.get(this.urlBuilder('users', { id: id, more: more })).then((response: any) => {
       this.isRequesting = false;
       this.ea.publish(new ApiStatus('Retrieved Profile', { status: 'success' }));
       return response.content.data;
 
-    }).catch((err) => {
+    }).catch((err: any) => {
       this.isRequesting = false;
       this.ea.publish(new ApiStatus('Username not found, restoring known user', { status: 'error' }));
       return nouser.data;
@@ -250,21 +247,21 @@ export class AdnAPI {
   }
 
   getAllUsers() {
-    return this.http.get('https://api.nice.social/user/nicesummary').then((response) => {
+    return this.http.get('https://api.nice.social/user/nicesummary').then((response: any) => {
       return response.content.data;
 
-    }).catch((err) => {
+    }).catch((err: any) => {
       this.ea.publish(new ApiStatus('Nice.Social API Issue', { status: 'error' }));
       return 'berg';
     });
   }
 
   getRandomUserId() {
-    return this.http.get('https://api.nice.social/user/nicesummary').then((response) => {
+    return this.http.get('https://api.nice.social/user/nicesummary').then((response: any) => {
       var randomIndex = randomInteger(response.content.data.length);
       return response.content.data[randomIndex].user_id;
 
-    }).catch((err) => {
+    }).catch((err: any) => {
       this.ea.publish(new ApiStatus('Nice.Social API Issue', { status: 'error' }));
       return 'berg';
     });
@@ -293,12 +290,12 @@ export class AdnAPI {
   toggleEntity(id: number, isTrue: boolean, entity: string, successMsg: string) {
     this.isRequesting = true;
     
-    return this.http[isTrue ? 'post' : 'delete'](this.urlBuilder(entity, { id: id })).then((response) => {
+    return this.http[isTrue ? 'post' : 'delete'](this.urlBuilder(entity, { id: id })).then((response: any) => {
       this.isRequesting = false;
       this.ea.publish(new ApiStatus(successMsg, { status: 'success' }));
       return response.content.data;
 
-    }).catch((err) => {
+    }).catch((err: any) => {
       this.isRequesting = false;
       this.ea.publish(new ApiStatus(`Unable to ${entity}`, { status: 'error' }));
       return {};
@@ -308,13 +305,13 @@ export class AdnAPI {
   load(url: string, params: any) {
     this.isRequesting = true;
     
-    return this.http.get(this.urlBuilder(url, params)).then((response) => {
+    return this.http.get(this.urlBuilder(url, params)).then((response: any) => {
       this.meta = response.content.meta;
       this.isRequesting = false;
       this.ea.publish(new ApiStatus(`Retrieved ${url}`, { status: 'success' }));
       return response.content.data;
 
-    }).catch((err) => {
+    }).catch((err: any) => {
       this.isRequesting = false;
       this.ea.publish(new ApiStatus(`Unable to load ${url}`, { status: 'success' }));
       return {};
@@ -328,7 +325,7 @@ export class AdnAPI {
     let moreParam = params.more ? `before_id=${this.meta.min_id}&` : "";
     let countParam = !params.count ? count : params.count;
 
-    let endpoints = {
+    let endpoints: any = {
       conversations: `${apiURL}/posts/stream/explore/conversations?`,
       photos: `${apiURL}/posts/stream/explore/photos?`,
       trending: `${apiURL}/posts/stream/explore/trending?`,

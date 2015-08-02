@@ -1,6 +1,6 @@
 export class UserIconValueConverter {
   toView(value: string){
-    let icons = {
+    let icons: any = {
       'human': 'user',
       'feed': 'rss',
       'bot': 'meh-o',

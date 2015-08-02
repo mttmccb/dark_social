@@ -7,19 +7,17 @@ import { PostsModel } from './models/posts-model';
 @autoinject
 export class Thread {
 	//TODO: Combine into post-stream
-	api: AdnAPI;
-	ea: EventAggregator;
 	posts: PostsModel;
 	postPosted: any;
 	refreshView: any;
 	id: number;
 	
-	constructor(api: AdnAPI, ea: EventAggregator) {
+	constructor(private api: AdnAPI, private ea: EventAggregator) {
 		this.api = api;
 		this.ea = ea;
 		this.posts = new PostsModel(ea);
-		this.postPosted = ea.subscribe(PostPosted, msg => this.loadStream(this.id));
-		this.refreshView = ea.subscribe(RefreshView, msg => this.loadStream(this.id));
+		this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadStream(this.id));
+		this.refreshView = ea.subscribe(RefreshView, (msg: any) => this.loadStream(this.id));
 	}
 
 	activate(params: any, query: any, route: any) {
@@ -33,7 +31,7 @@ export class Thread {
 
 	loadStream(id: number) {
 		this.id = id;
-		return this.api.load('thread', { count: 200, more: false, id: id }).then(posts => {
+		return this.api.load('thread', { count: 200, more: false, id: id }).then((posts: any) => {
 			this.posts.more = false;
 			this.posts.addPosts(posts);
 			this.posts.threadPosts();

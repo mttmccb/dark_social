@@ -1,18 +1,13 @@
 import { Validation } from 'aurelia-validation';
-import { inject, bindable } from 'aurelia-framework';
+import { autoinject, bindable } from 'aurelia-framework';
 import { AdnAPI } from '../../services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PostReply, PostPosted, ApiStatus, StopAutoRefresh } from '../../resources/messages';
 import { State } from '../../services/state';
 
-@inject(AdnAPI, Validation, EventAggregator, State)
+@autoinject
 export class PostFormCustomElement {
 	@bindable post: any = { data: null, reply: false };
-	
-	api: AdnAPI;
-	ea: EventAggregator;
-	state: State;
-	validation: Validation;
 	submitting: boolean;
 	editPost: boolean;
 	postText: string;
@@ -26,14 +21,14 @@ export class PostFormCustomElement {
 	postPreview: any;
 	isReply: boolean;
 	allUsers: any;
-	constructor(api: AdnAPI, validation: Validation, ea: EventAggregator, state: State) {
+	constructor(private api: AdnAPI, private validation: Validation, private ea: EventAggregator, private state: State) {
 		this.api = api;
 		this.validation = validation.on(this)
 			.ensure('postText')
 			.isNotEmpty()
 			.hasMinLength(1)
 			.passes(
-			(newValue) => {
+			(newValue: any) => {
 				return this.postText.replace(/([^"])(https?:\/\/([^\s"]+))/g, '').replace('[', '').replace(']', '').length <= 256;
 			});
 		this.ea = ea;
@@ -61,7 +56,7 @@ export class PostFormCustomElement {
 
 	attached() {
 		this.setupReply(this.postdata);
-		return this.api.getAllUsers().then(data => {
+		return this.api.getAllUsers().then((data:any)=> {
 			this.allUsers = data;
 			if (!this.isReply) {
 				this.api.loadLastPost().then(data => {
@@ -80,7 +75,7 @@ export class PostFormCustomElement {
 	submit(id: number) {
 		this.submitting = true;
 		this.validation.validate().then(() => {
-			this.api.createPost(this.postText,(id ? { reply_to: id } : {})).then(data => {
+			this.api.createPost(this.postText,(id ? { reply_to: id } : {})).then((data: any) => {
 				this.submitting = false;
 				this.lastPost = data;
 				this.resetPost();
@@ -99,9 +94,9 @@ export class PostFormCustomElement {
 		this.showPostPreview = false;
 	}
 
-	preview(id) {
+	preview(id: number) {
 		this.validation.validate().then(() => {
-			this.api.textProcess(this.postText).then(data => {
+			this.api.textProcess(this.postText).then((data: any) => {
 				this.showPostPreview = true;
 				this.postPreview = data;
 			});
@@ -117,9 +112,9 @@ export class PostFormCustomElement {
 			this.mentionSearch = true;
 			var fragment = match[0].replace('@', '');
 
-			this.matchedMentions = [].filter.call(this.allUsers, function (item) {
+			this.matchedMentions = [].filter.call(this.allUsers, function (item: any) {
 				return typeof item.name == 'string' && item.name.indexOf(fragment) > -1;
-			}).sort(function (a, b) {
+			}).sort(function (a: any, b: any) {
 				if (a.rank < b.rank) return 1;
 				if (a.rank > b.rank) return -1;
 				return 0;
@@ -151,13 +146,13 @@ export class PostFormCustomElement {
 			var loggedInUser = null || this.state.tokenReturned.user;
 			var postUser = null || post.user;
 			this.replyTo = post.id;
-			var mentionText = post.entities.mentions.map((mention) => {
+			var mentionText = post.entities.mentions.map((mention: any) => {
 				return `@${mention.name}`;
 
-			}).filter((v, i, a) => {
+			}).filter((v: any, i: any, a: any) => {
 				return a.indexOf(v) == i;
 
-			}).filter((mention) => {
+			}).filter((mention: any) => {
 				return mention !== `@${loggedInUser.username}`;
 
 			}).join(' ');

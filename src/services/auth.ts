@@ -1,5 +1,5 @@
 import { Redirect } from 'aurelia-router';
-import { inject } from 'aurelia-framework';
+import { autoinject } from 'aurelia-framework';
 import { AdnAPI } from './adn-api';
 import { State } from './state';
 
@@ -13,11 +13,9 @@ class User {
   }
 }
 
-@inject(AdnAPI, State)
+@autoinject
 export class AuthenticationService {
-  api: AdnAPI;
-  state: State;
-  constructor(api: AdnAPI, state: State) {
+  constructor(private api: AdnAPI, private state: State) {
     this.api = api;
     this.state = state;
   }

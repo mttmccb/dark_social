@@ -1,23 +1,21 @@
-import { inject } from 'aurelia-framework';
+import { autoinject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { State } from '../services/state';
 
-@inject(Router, State)
+@autoinject
 export class PostClicks {
-  theRouter: Router;
-  state: State;
-  constructor(router: Router, state: State) {
-    this.theRouter = router;
+  constructor(private router: Router, private state: State) {
+    this.router = router;
     this.state = state;
   }
 
 	openProfile(name: number) {
     this.state.user_id = name;
-		this.theRouter.navigateToRoute("userprofile", {user_id: name});  
+		this.router.navigateToRoute("userprofile", {user_id: name});  
 	}
 
 	openHashtag(hashtag: string) {
-		this.theRouter.navigateToRoute("hashtag", {hashtag: hashtag});  
+		this.router.navigateToRoute("hashtag", {hashtag: hashtag});  
 	}
 
   handler(e: MouseEvent) {

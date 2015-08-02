@@ -6,5 +6,5 @@ export function configure(aurelia: any) {
     
   aurelia.globalizeResources(['resources/date-format','resources/sum','resources/timeago','resources/timeto']);
 
-  aurelia.start().then(a => a.setRoot());
+  aurelia.start().then((a: any) => a.setRoot());
 }

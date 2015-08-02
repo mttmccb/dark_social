@@ -7,8 +7,6 @@ import { activationStrategy } from 'aurelia-router';
 
 @autoinject
 export class PostsStream {
-	api: AdnAPI;
-	ea: EventAggregator;
 	posts: PostsModel;
 	postPosted: any;
 	refreshView: any;
@@ -18,14 +16,14 @@ export class PostsStream {
 	id: number;
 	streamParams: any;
 	stream: string;
-	constructor(api: AdnAPI, ea: EventAggregator) {
+	constructor(private api: AdnAPI, private ea: EventAggregator) {
 		this.api = api;
 		this.ea = ea;
 		this.posts = new PostsModel(ea);
 		this.setStreamParams(this.streammarker, this.hashtag, this.id);
-		this.postPosted = ea.subscribe(PostPosted, msg => this.loadStream(false, this.streamParams));
-		this.refreshView = ea.subscribe(RefreshView, msg => this.loadStream(false, this.streamParams));
-		this.loadMore = ea.subscribe(LoadMore, msg => this.loadStream(true, this.streamParams));
+		this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadStream(false, this.streamParams));
+		this.refreshView = ea.subscribe(RefreshView, (msg: any) => this.loadStream(false, this.streamParams));
+		this.loadMore = ea.subscribe(LoadMore, (msg: any) => this.loadStream(true, this.streamParams));
 	}
 
 	activate(params: any, query: any, route: any) {
@@ -56,7 +54,7 @@ export class PostsStream {
 	}
 
 	loadStream(more: boolean, options: any) {
-		return this.api.load(this.stream, { more: more, hashtag: options.hashtag, id: options.id }).then(posts => {
+		return this.api.load(this.stream, { more: more, hashtag: options.hashtag, id: options.id }).then((posts: any) => {
 			if (options.streammarker === true) { this.posts.streamid = this.api.meta.marker.last_read_id; }
 			this.posts.more = more;
 			this.posts.addPosts(posts);

@@ -1,15 +1,13 @@
-import { inject } from 'aurelia-framework';
+import { autoinject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { NewPost } from '../../resources/messages';
 
-@inject(EventAggregator)
+@autoinject
 export class PostModalCustomElement {
-  showing : boolean;
-  ea: EventAggregator;
-  constructor(ea: EventAggregator) {
-    this.showing = false;
+  showing : boolean = false;
+  constructor(private ea: EventAggregator) {
     this.ea = ea;
-    ea.subscribe(NewPost, msg => this.showModal());
+    ea.subscribe(NewPost, (msg: any) => this.showModal());
   }
 
   showModal() {

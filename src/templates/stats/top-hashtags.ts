@@ -1,17 +1,16 @@
-import { bindable, inject } from 'aurelia-framework';
+import { bindable, autoinject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 
-@inject(Router)
+@autoinject
 export class TopHashtagsCustomElement {
   @bindable posts: any = null;
 
-  theRouter: Router;
-  constructor(router: Router) {
-    this.theRouter = router;
+  constructor(private router: Router) {
+    this.router = router;
   }
 
   loadUserRoute(hashtag: string) {
-    this.theRouter.navigateToRoute("hashtag", { hashtag: hashtag });
+    this.router.navigateToRoute("hashtag", { hashtag: hashtag });
   }
 
 }

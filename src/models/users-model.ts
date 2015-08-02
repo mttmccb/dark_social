@@ -1,12 +1,15 @@
-import { inject } from 'aurelia-framework';
+import { autoinject } from 'aurelia-framework';
 import { ApiStatus } from '../resources/messages';
 import { EventAggregator } from 'aurelia-event-aggregator';
 
-@inject(EventAggregator)
+@autoinject
 export class UsersModel {
 	users: any[] = 	[];
 	more: boolean = false;
-	ea: EventAggregator;
+	
+	constructor(private ea: EventAggregator) {
+		this.ea = ea;
+	}
 
 	addUsers(newUsers: any[]) {
 		this.usersDataIsUnchanged(newUsers) ?

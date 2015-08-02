@@ -9,24 +9,20 @@ import { Router } from 'aurelia-router';
 @autoinject
 export class PostFrontCustomElement {
   @bindable post: any = null;
-  theRouter: Router;
-  api: AdnAPI;
-  private ea: EventAggregator;
-  state: State;
-  postclicks: PostClicks;
   toggleReply: boolean;
   postReply: any;
   streamMarker: any;
   thisPost: any;
-  constructor(postclicks : PostClicks, api: AdnAPI, ea: EventAggregator, state: State, router: Router) {
+  constructor(private postclicks : PostClicks, private api: AdnAPI, 
+    private ea: EventAggregator, private state: State, private router: Router) {
     this.postclicks = postclicks;
     this.api = api;
     this.ea = ea;
     this.state = state;
-    this.theRouter = router;
+    this.router = router;
     this.toggleReply = false;
-    this.postReply = ea.subscribe(PostReply, msg => this.killReplies(msg.post));
-    this.streamMarker = ea.subscribe(StreamMarkerUpdated, msg => this.updateStreamMarker(msg.id));
+    this.postReply = ea.subscribe(PostReply, (msg: any) => this.killReplies(msg.post));
+    this.streamMarker = ea.subscribe(StreamMarkerUpdated, (msg: any) => this.updateStreamMarker(msg.id));
   }
 
   toggleStar(post: any) {
@@ -49,9 +45,7 @@ export class PostFrontCustomElement {
   }
 
   killReplies(triggerPost: any) {
-    if (triggerPost.id !== this.thisPost.data.id) {
-      this.toggleReply = false;
-    }
+    if (triggerPost.id !== this.thisPost.data.id) { this.toggleReply = false; }
   }
 
   reply(post: any) {
@@ -60,7 +54,7 @@ export class PostFrontCustomElement {
   }
 
   thread(post: any) {
-    this.theRouter.navigateToRoute("thread", { id: post.id });
+    this.router.navigateToRoute("thread", { id: post.id });
   }
 
   updateStreamMarker(id: number) {

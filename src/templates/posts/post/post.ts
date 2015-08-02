@@ -1,18 +1,17 @@
-import { bindable, inject } from 'aurelia-framework';
+import { bindable, autoinject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { PostReply } from '../../../resources/messages';
 
-@inject(EventAggregator)
+@autoinject
 export class PostCustomElement {
   @bindable post : any = null;
-  ea: EventAggregator;
   replyTo: boolean;
   postReply: any;
   thisPost: any;
-  constructor(ea: EventAggregator) {
+  constructor(private ea: EventAggregator) {
     this.ea = ea;
     this.replyTo = false;
-    this.postReply = ea.subscribe(PostReply, msg => this.setupReply(msg.post));
+    this.postReply = ea.subscribe(PostReply, (msg: any) => this.setupReply(msg.post));
   }
 
   postChanged(newValue: any) {

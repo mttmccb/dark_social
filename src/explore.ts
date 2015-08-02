@@ -8,22 +8,20 @@ import { activationStrategy } from 'aurelia-router';
 
 @autoinject
 export class Explore {
-  api: AdnAPI;
-  ea: EventAggregator;
-  posts: PostsModel;
-  postPosted: any;
-  refreshView: any;
-  loadMore: any;
-  view: string;
-  exploreModel: ExploreModel;
+  private posts: PostsModel;
+  private postPosted: any;
+  private refreshView: any;
+  private loadMore: any;
+  private view: string;
+  private exploreModel: ExploreModel;
   
-  constructor(api: AdnAPI, ea: EventAggregator) {
+  constructor(private api: AdnAPI, private ea: EventAggregator) {
     this.api = api;
     this.ea = ea;
 		this.posts = new PostsModel(ea);
-    this.postPosted = ea.subscribe(PostPosted, msg => this.loadPosts(false));	    
-    this.refreshView = ea.subscribe(RefreshView, msg => this.loadPosts(false));
-		this.loadMore = ea.subscribe(LoadMore, msg => this.loadPosts(true));    	
+    this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadPosts(false));	    
+    this.refreshView = ea.subscribe(RefreshView, (msg: any) => this.loadPosts(false));
+		this.loadMore = ea.subscribe(LoadMore, (msg: any) => this.loadPosts(true));    	
   }
 
   activate(params: any, query: any, route: any) {
@@ -47,7 +45,7 @@ export class Explore {
   }
   
   loadPosts(more: boolean) {
-    return this.api.load(this.view, { more: more }).then(posts => {
+    return this.api.load(this.view, { more: more }).then((posts: any) => {
 
     		this.posts.more = more;
     		this.posts.addPosts(posts);

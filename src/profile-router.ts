@@ -7,9 +7,6 @@ import { PostPosted, GetRandomUser } from './resources/messages';
 
 @inject(AdnAPI, State, EventAggregator, Router)
 export class ProfileRouter {
-  api: AdnAPI;
-  ea: EventAggregator;
-  state: State;
   user: any;
   postPosted: any;
   router: Router;
@@ -31,12 +28,12 @@ export class ProfileRouter {
     return activationStrategy.replace;
   }
 
-  constructor(api: AdnAPI, state: State, ea: EventAggregator) {
+  constructor(private api: AdnAPI, private state: State, private ea: EventAggregator) {
     this.api = api;
     this.user = [];
     this.state = state;
     this.ea = ea;
-    this.postPosted = ea.subscribe(PostPosted, msg => this.loadUser(this.user_id));
+    this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadUser(this.user_id));
   }
 
   activate(params: any, query: any, route: any) {
@@ -53,7 +50,7 @@ export class ProfileRouter {
   }
 
   loadUser(id: number) {
-    return this.api.loadProfile(id, false).then(data => {
+    return this.api.loadProfile(id, false).then((data: any) => {
       this.user = data;
       this.state.user_id = this.user.id;
       this.user_id = this.user.id;

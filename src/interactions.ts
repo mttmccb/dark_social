@@ -7,21 +7,19 @@ import { activationStrategy } from 'aurelia-router';
 @autoinject
 export class Interactions {
   //TODO: Great Interactions Model
-  api: AdnAPI;
-  ea: EventAggregator;
   interactions: any[];
   postPosted: any;
   refreshView: any;
   loadMore: any;
   action: string;
   
-  constructor(api: AdnAPI, ea: EventAggregator) {
+  constructor(private api: AdnAPI, private ea: EventAggregator) {
     this.api = api;
     this.interactions = [];
     this.ea = ea;
-    this.postPosted = ea.subscribe(PostPosted, msg => this.loadInteractions(this.action, false));
-    this.loadMore = ea.subscribe(LoadMore, msg => this.loadInteractions(this.action, false));
-    this.refreshView = ea.subscribe(RefreshView, msg => this.loadInteractions(this.action, false));
+    this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadInteractions(this.action, false));
+    this.loadMore = ea.subscribe(LoadMore, (msg: any) => this.loadInteractions(this.action, false));
+    this.refreshView = ea.subscribe(RefreshView, (msg: any) => this.loadInteractions(this.action, false));
   }
 
   determineActivationStrategy() {
@@ -44,7 +42,7 @@ export class Interactions {
   }
 
   loadInteractions(action: string, more: boolean) {
-    return this.api.load('interactions', { more: more, action: action }).then(interactions => {
+    return this.api.load('interactions', { more: more, action: action }).then((interactions: any) => {
       if (this.interactions.length > 0 && this.interactions[0].id === interactions[0].id) {
         this.ea.publish(new ApiStatus(`No New Interactions`, { status: 'info' }));
       } else {

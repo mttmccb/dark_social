@@ -1,23 +1,20 @@
 import { State } from '../services/state';
-import { bindable, inject } from 'aurelia-framework';
+import { bindable, autoinject } from 'aurelia-framework';
 import { AuthenticationService } from '../services/auth';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { LoggedIn, NewPost } from '../resources/messages';
 
-@inject(AuthenticationService, Router, EventAggregator, State)
+@autoinject
 export class NavBarCustomElement {
   @bindable router: any = null;
-  auth: AuthenticationService;
   theRouter: Router;
-  ea: EventAggregator;
-  state: State;
   toggleExplore: boolean;
-  constructor(authenticationService: AuthenticationService, router: Router, ea: EventAggregator, state: State) {
-    this.auth = authenticationService;
+  constructor(private auth: AuthenticationService, router: Router, private ea: EventAggregator, private state: State) {
+    this.auth = auth;
     this.theRouter = router;
     this.ea = ea;
-    ea.subscribe(LoggedIn, msg => this.showProfile());
+    ea.subscribe(LoggedIn, (msg: any) => this.showProfile());
     this.showProfile();
     this.state = state;
     this.toggleExplore = false;
@@ -47,7 +44,7 @@ export class NavBarCustomElement {
   
   showProfile() {
     this.auth.checkLogin().then(user => {
-      if (user.id!=='') {
+      if (user.id>0) {
         this.LogInOutText = `Logout`;
       }
     }).catch(() => {

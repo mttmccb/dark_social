@@ -3,8 +3,7 @@ import { AuthenticationService } from '../services/auth';
 
 @autoinject
 export class LogIn {
-	authService: AuthenticationService;
-	constructor(authService: AuthenticationService) {
+	constructor(private authService: AuthenticationService) {
 		this.authService = authService;
 	}
 

@@ -1,12 +1,11 @@
-import { inject, bindable } from 'aurelia-framework';
+import { autoinject, bindable } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { ImageViewed, ApiStatus } from '../../../resources/messages';
 
-@inject(EventAggregator)
+@autoinject
 export class AnnotationImagesCustomElement {
   @bindable annotations : any = null;
-  ea: EventAggregator;
-  constructor(ea: EventAggregator) {
+  constructor(private ea: EventAggregator) {
     this.ea = ea;
   }
 
