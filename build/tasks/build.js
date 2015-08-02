@@ -8,6 +8,25 @@ var paths = require('../paths');
 var compilerOptions = require('../babel-options');
 var assign = Object.assign || require('object.assign');
 var sass = require('gulp-sass');
+var ts = require('gulp-typescript');
+var Typescript = require("typescript");
+
+// compiles the typescript files to js
+gulp.task('build-ts', function () {
+  var tsResult = gulp.src([paths.source, paths.typings])
+    .pipe(plumber())
+    .pipe(ts({
+      target: "es5",
+      module: "amd",
+      removeComments: true,
+      declarationFiles: false,
+      noExternalResolve: true,
+      emitDecoratorMetadata: true,
+      experimentalDecorators: true,
+      //typescript: Typescript
+    }));
+  return tsResult.js.pipe(gulp.dest(paths.output));
+});
 
 // transpiles changed es6 files to SystemJS format
 // the plumber() call prevents 'pipe breaking' caused
@@ -48,7 +67,7 @@ gulp.task('build-css', function() {
 gulp.task('build', function(callback) {
   return runSequence(
     'clean',
-    ['build-system', 'build-css', 'build-html' ],
+    ['build-ts', 'build-css', 'build-html' ],
 //    ['build-system', 'build-html', 'build-css', 'bundle'],
     callback
   );

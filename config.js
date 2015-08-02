@@ -55,7 +55,6 @@ System.config({
     "nprogress": "github:rstacruz/nprogress@0.2.0",
     "traceur": "github:jmcriffey/bower-traceur@0.0.88",
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88",
-    "urelia-history": "github:aurelia/history@0.6.1",
     "github:aurelia/animator-css@0.13.0": {
       "aurelia-templating": "github:aurelia/templating@0.13.14"
     },
@@ -172,7 +171,7 @@ System.config({
       "assert": "npm:assert@1.3.0"
     },
     "github:jspm/nodelibs-buffer@0.1.0": {
-      "buffer": "npm:buffer@3.2.2"
+      "buffer": "npm:buffer@3.3.1"
     },
     "github:jspm/nodelibs-constants@0.1.0": {
       "constants-browserify": "npm:constants-browserify@0.0.1"
@@ -266,9 +265,9 @@ System.config({
       "readable-stream": "npm:readable-stream@1.1.13",
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
-    "npm:buffer@3.2.2": {
+    "npm:buffer@3.3.1": {
       "base64-js": "npm:base64-js@0.0.8",
-      "ieee754": "npm:ieee754@1.1.5",
+      "ieee754": "npm:ieee754@1.1.6",
       "is-array": "npm:is-array@1.0.1"
     },
     "npm:constants-browserify@0.0.1": {
