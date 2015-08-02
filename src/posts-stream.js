@@ -11,19 +11,29 @@ export class PostsStream {
 		this.api = api;
 		this.ea = ea;
 		this.posts = new PostsModel();
-		this.streamParams = { streammarker: this.streammarker, hashtag: this.hashtag }
+		this.setStreamParams(this.streammarker, this.hashtag, this.id);
 		this.postPosted = ea.subscribe(PostPosted, msg => this.loadStream(false, this.streamParams));
 		this.refreshView = ea.subscribe(RefreshView, msg => this.loadStream(false, this.streamParams));
 		this.loadMore = ea.subscribe(LoadMore, msg => this.loadStream(true, this.streamParams));
 	}
 
 	activate(params, query, route) {
-		this.hashtag = params.hashtag;
 		this.stream = route.config.settings.stream;
-		this.streammarker = route.config.settings.streammarker;
-		return this.loadStream(false, { streammarker: this.streammarker, hashtag: this.hashtag });
+		this.setStreamParams(route.config.settings.streammarker, params.hashtag, params.id);
+		return this.loadStream(false, this.streamParams);
 	}
-	
+
+	setStreamParams(streammarker, hashtag, id) {
+		this.streamParams = {
+			streammarker: streammarker,
+			hashtag: hashtag,
+			id: id
+		}
+		this.streammarker = streammarker;
+		this.hashtag = hashtag;
+		this.id = id;
+	}
+
 	deactivate() {
 		this.postPosted();
 		this.refreshView();
@@ -31,11 +41,13 @@ export class PostsStream {
 	}
 
 	loadStream(more, options) {
-		return this.api.load(this.stream, { more: more, hashtag: options.hashtag }).then(posts => {
-			if (options.streammarker===true) { this.posts.streamid = this.api.meta.marker.last_read_id; }
+		return this.api.load(this.stream, { more: more, hashtag: options.hashtag, id: options.id }).then(posts => {
+			if (options.streammarker === true) { this.posts.streamid = this.api.meta.marker.last_read_id; }
 			this.posts.more = more;
 			this.posts.addPosts(posts);
-			
+			if (this.stream === 'thread') { this.posts.threadPosts(); }
+			//TODO: Load until id
+
 		}).then(() => {
 			this.ea.publish(new RefreshedView());
 		});

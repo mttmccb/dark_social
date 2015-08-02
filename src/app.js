@@ -23,7 +23,7 @@ export class App {
 
       { route: ['niceglobal'], moduleId: './posts-stream', nav: true, title: 'Global', settings: { icon: 'thumbs-down', iconBack: 'globe', group: 'explore', groupStart: true, stream: 'global' } },
 
-      { route: ['profile/'], moduleId: './profile-router', nav: true, title: 'Profile', name: 'profile' },
+      { route: ['profile/'], moduleId: './profile-router', title: 'Profile', name: 'profile' },
       { route: ['profile/user/:user_id'], moduleId: './profile-router', title: 'Profile', name: 'userprofile' },
       { route: ['profile/random'], moduleId: './profile-router', title: 'Profile', name: 'randomprofile' },
 
