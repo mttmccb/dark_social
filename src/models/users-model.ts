@@ -4,8 +4,8 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 
 @autoinject
 export class UsersModel {
-	private users: any[] = 	[];
-	private more: boolean = false;
+	public users: any[] = 	[];
+	public more: boolean = false;
 	
 	constructor(private ea: EventAggregator) {
 	}
