@@ -7,14 +7,12 @@ import { PostsModel } from './models/posts-model';
 @autoinject
 export class Thread {
 	//TODO: Combine into post-stream
-	posts: PostsModel;
-	postPosted: any;
-	refreshView: any;
-	id: number;
+	private posts: PostsModel;
+	private postPosted: any;
+	private refreshView: any;
+	private id: number;
 	
 	constructor(private api: AdnAPI, private ea: EventAggregator) {
-		this.api = api;
-		this.ea = ea;
 		this.posts = new PostsModel(ea);
 		this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadStream(this.id));
 		this.refreshView = ea.subscribe(RefreshView, (msg: any) => this.loadStream(this.id));

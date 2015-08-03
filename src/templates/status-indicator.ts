@@ -7,10 +7,10 @@ import { ApiStatus } from '../resources/messages';
 @noView
 @autoinject
 export class StatusIndicator {
-  notify: any;
-  humane: humane;
+  private notify: any;
+  private humane: humane;
+  
   constructor(private ea: EventAggregator) {
-    this.ea = ea;
     ea.subscribe(ApiStatus, (msg: any) => this.showNotification(msg));
   }
 
@@ -25,7 +25,6 @@ export class StatusIndicator {
       error: { addnCls: 'humane-libnotify-error' }
     }
     var opt = notification.options.status !== '' ? status[notification.options.status] : {};
-    console.log(notification.message);
     this.notify.log(notification.message, opt);
   }
 }

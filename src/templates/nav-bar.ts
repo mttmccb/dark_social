@@ -10,13 +10,10 @@ export class NavBarCustomElement {
   @bindable router: any = null;
   theRouter: Router;
   toggleExplore: boolean;
+  
   constructor(private auth: AuthenticationService, router: Router, private ea: EventAggregator, private state: State) {
-    this.auth = auth;
-    this.theRouter = router;
-    this.ea = ea;
     ea.subscribe(LoggedIn, (msg: any) => this.showProfile());
     this.showProfile();
-    this.state = state;
     this.toggleExplore = false;
   }
 

@@ -6,7 +6,6 @@ export class TopMentionsCustomElement {
   @bindable posts: any = null;
 
   constructor(private router: Router) {
-    this.router = router;
   }
 
   loadUserRoute(user: number) {

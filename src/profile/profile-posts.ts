@@ -8,15 +8,13 @@ import { PostsModel } from '../models/posts-model';
 
 @autoinject
 export class ProfilePosts {
-  posts: PostsModel;
-  postPosted: any;
-  refreshView: any;
-  loadMore: any;
-  user_id: number;
+  private posts: PostsModel;
+  private postPosted: any;
+  private refreshView: any;
+  private loadMore: any;
+  private user_id: number;
+  
   constructor(private api: AdnAPI, private state: State, private ea: EventAggregator) {
-    this.api = api;
-    this.state = state;
-    this.ea = ea;
     this.posts = new PostsModel(ea);
     this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadPosts({ user: this.state.user_id, more: false }));
     this.refreshView = ea.subscribe(RefreshView, (msg: any) => this.loadPosts({ user: this.state.user_id, more: false }));

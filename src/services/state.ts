@@ -1,7 +1,8 @@
 export class State {
-	user_id: number;
-	token: string;
-	tokenReturned: any;
+	public user_id: number;
+	public token: string;
+	public tokenReturned: any;
+	
 	constructor() {
 		this.user_id = null;
 		this.token = null || localStorage.getItem('access_token');

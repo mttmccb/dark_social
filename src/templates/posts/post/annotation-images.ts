@@ -5,8 +5,8 @@ import { ImageViewed, ApiStatus } from '../../../resources/messages';
 @autoinject
 export class AnnotationImagesCustomElement {
   @bindable annotations : any = null;
+  
   constructor(private ea: EventAggregator) {
-    this.ea = ea;
   }
 
   openImage(image: any) {

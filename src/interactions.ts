@@ -7,16 +7,14 @@ import { activationStrategy } from 'aurelia-router';
 @autoinject
 export class Interactions {
   //TODO: Great Interactions Model
-  interactions: any[];
-  postPosted: any;
-  refreshView: any;
-  loadMore: any;
-  action: string;
+  private interactions: any[];
+  private postPosted: any;
+  private refreshView: any;
+  private loadMore: any;
+  private action: string;
   
   constructor(private api: AdnAPI, private ea: EventAggregator) {
-    this.api = api;
     this.interactions = [];
-    this.ea = ea;
     this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadInteractions(this.action, false));
     this.loadMore = ea.subscribe(LoadMore, (msg: any) => this.loadInteractions(this.action, false));
     this.refreshView = ea.subscribe(RefreshView, (msg: any) => this.loadInteractions(this.action, false));

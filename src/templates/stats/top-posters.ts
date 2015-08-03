@@ -6,7 +6,6 @@ export class TopPostersCustomElement {
   @bindable posts: any = null;
 
   constructor(private router: Router) {
-    this.router = router;
   }
 
   loadUserRoute(user: any) {

@@ -5,8 +5,8 @@ import { Router } from 'aurelia-router';
 export class ProfileStatsCustomElement {
   @bindable posts: any = null;
   numberOfTopMentions: number;
+  
   constructor(private router: Router) {
-    this.router = router;
     this.numberOfTopMentions = 5;
   }
 

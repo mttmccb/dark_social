@@ -6,14 +6,12 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import { RefreshedView, LoadMore, ApiStatus } from '../resources/messages';
 import { UsersModel } from '../models/users-model';
 
+@autoinject
 export class Followers {
-  users: UsersModel;
-  loadMore: any;
+  private users: UsersModel;
+  private loadMore: any;
 
   constructor(private api: AdnAPI, private state: State, private ea: EventAggregator) {
-    this.api = api;
-    this.state = state;
-    this.ea = ea;
     this.users = new UsersModel(ea);
     this.loadMore = ea.subscribe(LoadMore, (msg: any) => this.loadFollowers(this.state.user_id, true));
   }

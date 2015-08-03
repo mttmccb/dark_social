@@ -5,11 +5,11 @@ import { PostReply } from '../../../resources/messages';
 @autoinject
 export class PostCustomElement {
   @bindable post : any = null;
-  replyTo: boolean;
-  postReply: any;
-  thisPost: any;
+  private replyTo: boolean;
+  private postReply: any;
+  private thisPost: any;
+  
   constructor(private ea: EventAggregator) {
-    this.ea = ea;
     this.replyTo = false;
     this.postReply = ea.subscribe(PostReply, (msg: any) => this.setupReply(msg.post));
   }

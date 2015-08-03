@@ -1,13 +1,10 @@
 import { inject } from 'aurelia-framework';
-import { AdnAPI } from './services/adn-api';
 import { Redirect, Router } from 'aurelia-router';
 import { AuthenticationService } from './services/auth';
 
 @inject(Router)
 export class App {
-  
-  api: AdnAPI;
-  router: Router;
+  private router: Router;
   
   configureRouter(config: any, router: Router) {
     config.title = 'Dark Social';
@@ -46,9 +43,7 @@ export class App {
 
 @inject(AuthenticationService)
 class HashRedirectStep {
-  auth: AuthenticationService;
-  constructor(auth: AuthenticationService) {
-    this.auth = auth;
+  constructor(private auth: AuthenticationService) {
     console.log("Pipeline step");
   }
 

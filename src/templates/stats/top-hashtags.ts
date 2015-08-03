@@ -6,7 +6,6 @@ export class TopHashtagsCustomElement {
   @bindable posts: any = null;
 
   constructor(private router: Router) {
-    this.router = router;
   }
 
   loadUserRoute(hashtag: string) {

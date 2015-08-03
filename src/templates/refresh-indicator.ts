@@ -6,8 +6,8 @@ import { RefreshView, ApiStatus, StopAutoRefresh } from '../resources/messages';
 export class RefreshIndicator {
 	_autorefresh: boolean;
 	autorefreshon: any;
+	
 	constructor(private ea: EventAggregator) {
-		this.ea = ea;
 		this._autorefresh = false;
 		ea.subscribe(StopAutoRefresh, (msg: any) => this._autorefresh = false);
 	}

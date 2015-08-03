@@ -5,7 +5,6 @@ import { activationStrategy } from 'aurelia-router';
 @autoinject
 export class Choose {
 	constructor(private router: Router) {
-		this.router = router;
 	}
 	
 	determineActivationStrategy() {

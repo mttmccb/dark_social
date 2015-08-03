@@ -4,8 +4,8 @@ import { AdnAPI } from './adn-api';
 import { State } from './state';
 
 class User {
-  id: number;
-  followingLimit: number;
+  public id: number;
+  public followingLimit: number;
   
   constructor(user: any) {
     this.id = user.user ? user.user.id: '';
@@ -16,8 +16,6 @@ class User {
 @autoinject
 export class AuthenticationService {
   constructor(private api: AdnAPI, private state: State) {
-    this.api = api;
-    this.state = state;
   }
 
   checkLogin() {

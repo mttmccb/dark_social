@@ -5,7 +5,6 @@ import { LoadMore, ApiStatus } from '../resources/messages';
 @autoinject
 export class GetMore {
 	constructor(private ea: EventAggregator) {
-		this.ea = ea;
 	}
 
 	getSomeMore() {

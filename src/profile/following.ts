@@ -8,13 +8,10 @@ import { UsersModel } from '../models/users-model';
 
 @autoinject
 export class Following {
-  users: UsersModel;
-  loadMore: any;
+  private users: UsersModel;
+  private loadMore: any;
 
   constructor(private api: AdnAPI, private state: State, private ea: EventAggregator) {
-    this.api = api;
-    this.state = state;
-    this.ea = ea;
     this.users = new UsersModel(ea);
     this.loadMore = ea.subscribe(LoadMore, (msg: any) => this.loadFollowing(this.state.user_id, true));
   }

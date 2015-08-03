@@ -7,11 +7,12 @@ import { PostPosted, GetRandomUser } from './resources/messages';
 
 @inject(AdnAPI, State, EventAggregator, Router)
 export class ProfileRouter {
-  user: any;
-  postPosted: any;
-  router: Router;
-  user_id: number;
-  showBanner: boolean;
+  private user: any = [];
+  private postPosted: any;
+  private router: Router;
+  private user_id: number;
+  private showBanner: boolean;
+  
   configureRouter(config: any, router:Router) {
     config.map([
       //{ route: ['', 'profile'], name: 'profile', moduleId: './profile', nav: true, title: 'Profile' },
@@ -29,10 +30,7 @@ export class ProfileRouter {
   }
 
   constructor(private api: AdnAPI, private state: State, private ea: EventAggregator) {
-    this.api = api;
     this.user = [];
-    this.state = state;
-    this.ea = ea;
     this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadUser(this.user_id));
   }
 

@@ -42,9 +42,7 @@ let clientList = [
 ];
 
 export class ExploreModel {
-	endPoint: string;
-	
-	constructor(endPoint: string) {
+	constructor(public endPoint: string) {
 		this.endPoint = endPoint;
 	}
 	

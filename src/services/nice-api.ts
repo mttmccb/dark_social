@@ -4,7 +4,8 @@ import { randomInteger } from '../resources/utility';
 
 @autoinject
 export class NiceAPI {
-  isRequesting: boolean;
+  public isRequesting: boolean;
+  
   constructor(private http: HttpClient) {
     this.http = http.configure((x: any) => {
       x.withBaseUrl('https://api.nice.social/');

@@ -4,8 +4,8 @@ import { Router } from 'aurelia-router';
 @autoinject
 export class FollowingProfiles {
   @bindable profiles: any = null;
+  
   constructor(private router: Router) {
-    this.router = router;
   }
 
   loadUserRoute(user: number) {

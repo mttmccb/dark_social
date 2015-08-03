@@ -5,14 +5,13 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 
 @autoinject
 export class PostsModel {
-	more: boolean;
-	showAvatars: boolean;
-	avatar: boolean; 
-	posts: any[];
-	streamid: number;
+	private more: boolean;
+	private showAvatars: boolean;
+	private avatar: boolean; 
+	private posts: any[];
+	private streamid: number;
 	
 	constructor(private ea: EventAggregator) {
-		this.ea = ea;
 		this.posts = [];
 		this.streamid = null;
 		this.more = false;

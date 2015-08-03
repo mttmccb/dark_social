@@ -16,8 +16,6 @@ export class Explore {
   private exploreModel: ExploreModel;
   
   constructor(private api: AdnAPI, private ea: EventAggregator) {
-    this.api = api;
-    this.ea = ea;
 		this.posts = new PostsModel(ea);
     this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadPosts(false));	    
     this.refreshView = ea.subscribe(RefreshView, (msg: any) => this.loadPosts(false));

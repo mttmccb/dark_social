@@ -7,12 +7,10 @@ import { PostsModel } from '../models/posts-model';
 
 @autoinject
 export class Stars {
-  posts: PostsModel;
-  loadMore: any;
+  private posts: PostsModel;
+  private loadMore: any;
   
   constructor(private api: AdnAPI, private state: State, private ea: EventAggregator) {	
-    this.api = api;
-    this.state = state;
 		this.posts = new PostsModel(ea);
   }
   

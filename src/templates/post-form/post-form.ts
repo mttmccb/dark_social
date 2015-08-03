@@ -7,22 +7,23 @@ import { State } from '../../services/state';
 
 @autoinject
 export class PostFormCustomElement {
+	//TODO: Fix this, way too much going on
 	@bindable post: any = { data: null, reply: false };
-	submitting: boolean;
-	editPost: boolean;
-	postText: string;
-	lastPost: string;
-	matchedMentions: any[];
-	mentionSearch: boolean;
-	showPostPreview: boolean;
-	showLastPost: boolean;
-	postdata: any;
-	replyTo: any;
-	postPreview: any;
-	isReply: boolean;
-	allUsers: any;
+	private submitting: boolean;
+	private editPost: boolean;
+	private postText: string;
+	private lastPost: string;
+	private matchedMentions: any[];
+	private mentionSearch: boolean;
+	private showPostPreview: boolean;
+	private showLastPost: boolean;
+	private postdata: any;
+	private replyTo: any;
+	private postPreview: any;
+	private isReply: boolean;
+	private allUsers: any;
+
 	constructor(private api: AdnAPI, private validation: Validation, private ea: EventAggregator, private state: State) {
-		this.api = api;
 		this.validation = validation.on(this)
 			.ensure('postText')
 			.isNotEmpty()
@@ -31,8 +32,6 @@ export class PostFormCustomElement {
 			(newValue: any) => {
 				return this.postText.replace(/([^"])(https?:\/\/([^\s"]+))/g, '').replace('[', '').replace(']', '').length <= 256;
 			});
-		this.ea = ea;
-		this.state = state;
 		this.submitting = false;
 		this.editPost = false;
 		this.postText = '';

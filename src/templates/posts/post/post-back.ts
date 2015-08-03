@@ -6,11 +6,9 @@ import { State } from '../../../services/state';
 @autoinject
 export class PostBackCustomElement {
   @bindable post: any = null;
-  reported: boolean;
+  private reported: boolean;
+  
   constructor(private router: Router, private api: AdnAPI, private state: State) {
-    this.router = router;
-    this.api = api;
-    this.state = state;
     this.reported = false
   }
 

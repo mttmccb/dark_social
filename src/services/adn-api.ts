@@ -74,13 +74,10 @@ let count = 20;
 
 @autoinject
 export class AdnAPI {
-  meta: any;
-  isRequesting: boolean;
+  public meta: any;
+  public isRequesting: boolean;
   
   constructor(private http: HttpClient, private state: State, private ea: EventAggregator) {
-    this.http = http;
-    this.state = state;
-    this.ea = ea;
     this.meta = [];
   }
 

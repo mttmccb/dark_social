@@ -8,10 +8,6 @@ import { State } from '../services/state';
 @autoinject
 export class HandleOAuth {
 	constructor(private authService: AuthenticationService, private router: Router, private ea: EventAggregator, private state: State) {
-		this.authService = authService;
-		this.router = router;
-		this.state = state;
-		this.ea = ea;
 	}
 
 	activate(params: any, queryString: any, routeConfig: any) {
