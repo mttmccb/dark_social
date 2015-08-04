@@ -32,9 +32,7 @@ export class ProfilePosts {
     this.loadMore();
   }
 
-  refresh() {
-    return this.loadPosts({ user: this.user_id });
-  }
+  refresh = () => { this.loadPosts({ user: this.user_id }); }
 
   loadPosts(params: any) {
     return this.api.loadPosts(params.user, false).then((data: any) => {

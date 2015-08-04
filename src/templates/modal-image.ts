@@ -5,18 +5,17 @@ import { ADNImage } from '../models/adn-image';
 
 @autoinject
 export class ModalImageCustomElement {
-  showing: boolean;
   adnimage: ADNImage;
   
-  constructor(private ea: EventAggregator) {
+  constructor(private ea: EventAggregator, private showing : boolean) {
     this.showing = false;
     this.adnimage = new ADNImage();
     ea.subscribe(ImageViewed, (msg: any) => this.showModal(msg.image));
   }
 
   showModal(image: ADNImage) {
-    this.adnimage = image;
     this.showing = true;
+    this.adnimage = image;
   }
 
   hideModal() {

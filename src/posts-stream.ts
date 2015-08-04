@@ -17,10 +17,10 @@ export class PostsStream {
 	private id: number;
 	private streamParams: any;
 	private stream: string;
-	
+
 	constructor(private api: AdnAPI, private ea: EventAggregator) {
 		this.posts = new PostsModel(ea);
-		let streamParams = { streammarker: this.streammarker, hashtag: this.hashtag, id: this.id};
+		let streamParams = { streammarker: this.streammarker, hashtag: this.hashtag, id: this.id };
 		this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadStream(false, streamParams));
 		this.refreshView = ea.subscribe(RefreshView, (msg: any) => this.loadStream(false, streamParams));
 		this.loadMore = ea.subscribe(LoadMore, (msg: any) => this.loadStream(true, streamParams));
@@ -28,13 +28,11 @@ export class PostsStream {
 
 	activate(params: any, query: any, route: any) {
 		this.stream = route.config.settings.stream;
-		return this.loadStream(false, { streammarker: route.config.settings.streammarker, hashtag: params.hashtag, id: params.id});
+		return this.loadStream(false, { streammarker: route.config.settings.streammarker, hashtag: params.hashtag, id: params.id });
 	}
 
-	determineActivationStrategy() {
-		return activationStrategy.replace;
-	}
-	
+	determineActivationStrategy() { return activationStrategy.replace; }
+
 	deactivate() {
 		this.postPosted();
 		this.refreshView();

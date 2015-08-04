@@ -50,7 +50,7 @@ export class ExploreModel {
 		return `${this.endPoint.charAt(0).toUpperCase()}${this.endPoint.substr(1).toLowerCase()}`;
 	}
 
-	getClients() {
+	getClients = () => {
 		return clientList.filter((a) => {
 			return a.features.indexOf(this.endPoint) !== -1;
 		});

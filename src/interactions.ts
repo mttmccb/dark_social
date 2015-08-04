@@ -7,31 +7,25 @@ import { activationStrategy } from 'aurelia-router';
 @autoinject
 export class Interactions {
   //TODO: Great Interactions Model
-  private interactions: any[];
   private postPosted: any;
   private refreshView: any;
   private loadMore: any;
   private action: string;
-  
-  constructor(private api: AdnAPI, private ea: EventAggregator) {
-    this.interactions = [];
+
+  constructor(private api: AdnAPI, private ea: EventAggregator, private interactions: any[]) {
     this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadInteractions(this.action, false));
     this.loadMore = ea.subscribe(LoadMore, (msg: any) => this.loadInteractions(this.action, false));
     this.refreshView = ea.subscribe(RefreshView, (msg: any) => this.loadInteractions(this.action, false));
   }
 
-  determineActivationStrategy() {
-    return activationStrategy.replace;
-  }
+  determineActivationStrategy() { return activationStrategy.replace; }
 
   activate(params: any, query: any, route: any) {
     this.action = route.config.settings.action;
     return this.loadInteractions(route.config.settings.action, false);
   }
 
-  refresh() {
-    return this.loadInteractions(this.action, false);
-  }
+  refresh = () => { this.loadInteractions(this.action, false); }
 
   deactivate() {
     this.postPosted();

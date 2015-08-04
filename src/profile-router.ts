@@ -25,9 +25,7 @@ export class ProfileRouter {
     this.router = router;
   }
 
-  determineActivationStrategy() {
-    return activationStrategy.replace;
-  }
+  determineActivationStrategy() { return activationStrategy.replace; }
 
   constructor(private api: AdnAPI, private state: State, private ea: EventAggregator) {
     this.user = [];
@@ -39,9 +37,7 @@ export class ProfileRouter {
     return this.loadUser(this.state.user_id);
   }
 
-  refresh() {
-    return this.loadUser(this.user_id);
-  }
+  refresh = () => { this.loadUser(this.user_id); }
 
   deactivate() {
     this.postPosted();

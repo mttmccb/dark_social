@@ -28,9 +28,7 @@ export class Explore {
     return this.loadPosts(false);
   }
   
-	determineActivationStrategy() {
-		return activationStrategy.replace;
-	}
+	determineActivationStrategy = () => activationStrategy.replace;
 
   deactivate() {
     this.postPosted();
@@ -38,9 +36,7 @@ export class Explore {
     this.loadMore();
   }  
 
-  refresh() {
-    return this.loadPosts(false);
-  }
+  refresh = () => this.loadPosts(false);
   
   loadPosts(more: boolean) {
     return this.api.load(this.view, { more: more }).then((posts: any) => {

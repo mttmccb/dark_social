@@ -4,12 +4,11 @@ import { PostReply } from '../../../resources/messages';
 
 @autoinject
 export class PostCustomElement {
-  @bindable post : any = null;
-  private replyTo: boolean;
+  @bindable post: any = null;
   private postReply: any;
   private thisPost: any;
-  
-  constructor(private ea: EventAggregator) {
+
+  constructor(private ea: EventAggregator, private replyTo: boolean) {
     this.replyTo = false;
     this.postReply = ea.subscribe(PostReply, (msg: any) => this.setupReply(msg.post));
   }
@@ -17,7 +16,7 @@ export class PostCustomElement {
   postChanged(newValue: any) {
     this.thisPost = newValue;
   }
-  
+
   detached() {
     this.postReply();
   }

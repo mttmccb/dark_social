@@ -4,7 +4,7 @@ import { AuthenticationService } from './services/auth';
 
 @inject(Router)
 export class App {
-  private router: Router;
+  router: Router;
   
   configureRouter(config: any, router: Router) {
     config.title = 'Dark Social';

@@ -7,12 +7,11 @@ import { RefreshedView } from '../../resources/messages';
 export class PostListCustomElement {
   @bindable posts = {};
   private viewRefreshed: any;
-  private isAttached: boolean;
-  private msnry: any;
+  msnry: any;
 
-  constructor(private ea: EventAggregator) {
-    this.viewRefreshed = ea.subscribe(RefreshedView, (msg: any) => this.createMasonry());
+  constructor(private ea: EventAggregator, private isAttached: boolean) {
     this.isAttached = false;
+    this.viewRefreshed = ea.subscribe(RefreshedView, (msg: any) => this.createMasonry());
   }
 
   attached() {

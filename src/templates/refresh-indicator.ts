@@ -32,8 +32,8 @@ export class RefreshIndicator {
 			clearInterval(this.autorefreshon);
 	}
 
-	timedRefresh(t: number) {
-		return setInterval(() => {
+	timedRefresh = (t: number) => {
+		setInterval(() => {
 			this.refresh();
 		}, t);
 	}

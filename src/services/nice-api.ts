@@ -14,9 +14,11 @@ export class NiceAPI {
 
   getRandomUserId() {
     this.isRequesting = true;
+    
     return this.http.get('user/nicesummary').then((response: any) => {
         this.isRequesting = false;
         return response.content.data[randomInteger(response.content.data.length)].name;
+        
     }).catch((err: any) => {
         console.log("Nice.Social API Issue");
         this.isRequesting = false;

@@ -82,7 +82,7 @@ export class AdnAPI {
   }
 
   getToken(token: any) {
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
       token ? resolve(token) : reject();
       
     }).then((token) => {

@@ -111,9 +111,9 @@ export class PostFormCustomElement {
 			this.mentionSearch = true;
 			var fragment = match[0].replace('@', '');
 
-			this.matchedMentions = [].filter.call(this.allUsers, function (item: any) {
+			this.matchedMentions = [].filter.call(this.allUsers, (item: any) => {
 				return typeof item.name == 'string' && item.name.indexOf(fragment) > -1;
-			}).sort(function (a: any, b: any) {
+			}).sort((a: any, b: any) => {
 				if (a.rank < b.rank) return 1;
 				if (a.rank > b.rank) return -1;
 				return 0;

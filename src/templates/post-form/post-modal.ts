@@ -4,9 +4,10 @@ import { NewPost } from '../../resources/messages';
 
 @autoinject
 export class PostModalCustomElement {
-  private showing : boolean = false;
+  showing : boolean;
   
   constructor(private ea: EventAggregator) {
+    this.showing = false;
     ea.subscribe(NewPost, (msg: any) => this.showModal());
   }
 

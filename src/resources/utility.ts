@@ -28,11 +28,11 @@ export function treeify(list: any[], idAttr?: string, parentAttr?: string, child
 
   var treeList: any[] = [];
   var lookup: any = {};
-  list.forEach(function(obj: any) {
+  list.forEach((obj: any) => {
     lookup[obj[idAttr]] = obj;
     obj[childrenAttr] = [];
   });
-  list.forEach(function(obj: any) {
+  list.forEach((obj: any) => {
     if (obj[parentAttr] != null) {
       lookup[obj[parentAttr]][childrenAttr].push(obj);
     } else {

@@ -21,9 +21,7 @@ export class Followers {
     return this.loadFollowers(this.state.user_id, false);
   }
 
-  refresh() {
-    return this.loadFollowers(this.state.user_id, false);
-  }
+  refresh = () => { this.loadFollowers(this.state.user_id, false); }
 
   deactivate() {
     this.loadMore();

@@ -6,19 +6,18 @@ import { State } from '../../../services/state';
 @autoinject
 export class PostBackCustomElement {
   @bindable post: any = null;
-  private reported: boolean;
-  
-  constructor(private router: Router, private api: AdnAPI, private state: State) {
-    this.reported = false
+
+  constructor(private router: Router, private api: AdnAPI, private state: State, private reported: boolean) {
+    this.reported = false;
   }
 
   loadUserRoute(user: number) {
     this.router.navigateToRoute("userprofile", { user_id: user });
   }
-  
+
   reportPost(post: any) {
-		return this.api.reportPost(post.id).then(() => {
-			this.reported = true;
-		});
+    return this.api.reportPost(post.id).then(() => {
+      this.reported = true;
+    });
   }
 }

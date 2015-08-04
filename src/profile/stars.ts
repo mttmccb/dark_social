@@ -19,12 +19,10 @@ export class Stars {
     return this.loadStars(this.state.user_id);
   }
 
-  refresh() {
-    return this.loadStars(this.state.user_id);
-  }
+  refresh = () => { this.loadStars(this.state.user_id); }
 
-  loadStars(user_id: number) {
-    return this.api.load('stars', { id: user_id, more: false }).then((data: any) => {
+  loadStars = (user_id: number) => {
+    this.api.load('stars', { id: user_id, more: false }).then((data: any) => {
 			this.posts.addPosts(data);
     });
   }

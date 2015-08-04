@@ -8,12 +8,11 @@ import { Router } from 'aurelia-router';
 export class InteractionListCustomElement {
   @bindable interactions: any = null;
   public viewRefreshed: any;
-  public isAttached: boolean;
   public msnry: any;
   
-  constructor(private ea: EventAggregator, private router: Router) {
-    this.viewRefreshed = ea.subscribe(RefreshedView, (msg: any) => this.createMasonry());
+  constructor(private ea: EventAggregator, private router: Router, private isAttached: boolean) {
     this.isAttached = false;
+    this.viewRefreshed = ea.subscribe(RefreshedView, (msg: any) => this.createMasonry());
   }
 
   attached() {

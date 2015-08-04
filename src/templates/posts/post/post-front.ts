@@ -9,13 +9,12 @@ import { Router } from 'aurelia-router';
 @autoinject
 export class PostFrontCustomElement {
   @bindable post: any = null;
-  private toggleReply: boolean;
   private postReply: any;
   private streamMarker: any;
   private thisPost: any;
-  
-  constructor(private postclicks : PostClicks, private api: AdnAPI, 
-    private ea: EventAggregator, private state: State, private router: Router) {
+
+  constructor(private postclicks: PostClicks, private api: AdnAPI, private ea: EventAggregator,
+    private state: State, private router: Router, private toggleReply: boolean) {
     this.toggleReply = false;
     this.postReply = ea.subscribe(PostReply, (msg: any) => this.killReplies(msg.post));
     this.streamMarker = ea.subscribe(StreamMarkerUpdated, (msg: any) => this.updateStreamMarker(msg.id));

@@ -7,9 +7,7 @@ export class Choose {
 	constructor(private router: Router) {
 	}
 	
-	determineActivationStrategy() {
-		return activationStrategy.replace;
-	}
+	determineActivationStrategy = () => { activationStrategy.replace; }
 
 	openProfile(name: number) {
 		this.router.navigateToRoute("userprofile", { user_id: name }, 1);
