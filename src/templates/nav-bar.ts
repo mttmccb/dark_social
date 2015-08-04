@@ -1,8 +1,8 @@
-import { State } from '../services/state';
-import { bindable, autoinject } from 'aurelia-framework';
-import { AuthenticationService } from '../services/auth';
+import { autoinject, bindable } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { EventAggregator } from 'aurelia-event-aggregator';
+import { State } from '../services/state';
+import { AuthenticationService } from '../services/auth';
 import { LoggedIn, NewPost } from '../resources/messages';
 
 @autoinject
@@ -27,9 +27,7 @@ export class NavBarCustomElement {
     }
   }
   
-  get isLoggedIn(){
-    return this.state.token !== null;
-  } 
+  get isLoggedIn(){ return this.state.token !== null; } 
   
   showNewPost() { this.ea.publish(new NewPost()); }
   

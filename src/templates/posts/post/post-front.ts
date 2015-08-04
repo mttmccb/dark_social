@@ -48,10 +48,7 @@ export class PostFrontCustomElement {
 
   thread(post: any) { this.router.navigateToRoute("thread", { id: post.id }); }
 
-  updateStreamMarker(id: number) {
-    console.log(id);
-    this.thisPost.streamid = id;
-  }
+  updateStreamMarker(id: number) { this.thisPost.streamid = id; }
 
   setStreamMarker(e: Event, post: any) {
     return this.api.setMarker(post.id + 1).then(() => {

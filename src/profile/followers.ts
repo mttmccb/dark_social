@@ -29,6 +29,7 @@ export class Followers {
     return this.api.load('followers', { id: user, more: more }).then((data: any) => {
       this.users.more = more;
       this.users.addUsers(data);
+      
     }).then(() => {
       this.ea.publish(new RefreshedView());
     });

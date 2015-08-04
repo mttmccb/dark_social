@@ -1,6 +1,6 @@
 import { autoinject } from 'aurelia-framework';
-import { AdnAPI } from './services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
+import { AdnAPI } from './services/adn-api';
 import { PostPosted, RefreshView, RefreshedView, LoadMore, ApiStatus } from './resources/messages';
 import { ExploreModel } from './models/explore-model';
 import { PostsModel } from './models/posts-model';
@@ -22,14 +22,14 @@ export class Explore {
 		this.loadMore = ea.subscribe(LoadMore, (msg: any) => this.loadPosts(true));    	
   }
 
+	determineActivationStrategy() { return activationStrategy.replace};
+
   activate(params: any, query: any, route: any) {
     this.view = route.config.settings.view;
     this.exploreModel = new ExploreModel(this.view);
     return this.loadPosts(false);
   }
   
-	determineActivationStrategy() { return activationStrategy.replace};
-
   deactivate() {
     this.postPosted();
     this.refreshView();

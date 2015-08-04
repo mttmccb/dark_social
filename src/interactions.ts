@@ -1,8 +1,8 @@
 import { autoinject } from 'aurelia-framework';
-import { AdnAPI } from './services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted, LoadMore, RefreshView, RefreshedView, ApiStatus } from './resources/messages';
 import { activationStrategy } from 'aurelia-router';
+import { AdnAPI } from './services/adn-api';
+import { PostPosted, LoadMore, RefreshView, RefreshedView, ApiStatus } from './resources/messages';
 
 @autoinject
 export class Interactions {

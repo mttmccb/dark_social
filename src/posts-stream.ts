@@ -1,6 +1,6 @@
 import { autoinject } from 'aurelia-framework';
-import { AdnAPI } from './services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
+import { AdnAPI } from './services/adn-api';
 import { PostPosted, RefreshView, RefreshedView, LoadMore } from './resources/messages';
 import { PostsModel } from './models/posts-model';
 import { activationStrategy } from 'aurelia-router';

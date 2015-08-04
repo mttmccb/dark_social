@@ -1,9 +1,9 @@
 import { inject } from 'aurelia-framework';
-import { AdnAPI } from './services/adn-api';
-import { activationStrategy, Router } from 'aurelia-router';
-import { State } from './services/state';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostPosted, GetRandomUser } from './resources/messages';
+import { activationStrategy, Router } from 'aurelia-router';
+import { AdnAPI } from './services/adn-api';
+import { State } from './services/state';
+import { PostPosted } from './resources/messages';
 
 @inject(AdnAPI, State, EventAggregator, Router)
 export class ProfileRouter {
@@ -25,23 +25,21 @@ export class ProfileRouter {
     this.router = router;
   }
 
-  determineActivationStrategy() { return activationStrategy.replace; }
-
   constructor(private api: AdnAPI, private state: State, private ea: EventAggregator) {
     this.user = [];
     this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadUser(this.user_id));
   }
+
+  determineActivationStrategy() { return activationStrategy.replace; }
 
   activate(params: any, query: any, route: any) {
     if (this.state.user_id===null || params.user_id) { this.state.user_id = params.user_id; }
     return this.loadUser(this.state.user_id);
   }
 
-  refresh = () => { this.loadUser(this.user_id); }
+  deactivate() { this.postPosted(); }
 
-  deactivate() {
-    this.postPosted();
-  }
+  refresh = () => { this.loadUser(this.user_id); }
 
   loadUser(id: number) {
     return this.api.loadProfile(id, false).then((data: any) => {
@@ -51,9 +49,7 @@ export class ProfileRouter {
     });
   }
 
-  toggleVisible() {
-    this.showBanner = !this.showBanner;
-  }
+  toggleVisible() { this.showBanner = !this.showBanner; }
 
   //TODO: Move into API? not really specific to profiles
   toggleFollow(user: any, e: Event) {

@@ -21,7 +21,5 @@ export class PostCustomElement {
     this.replyTo = this.replyTo ? false : triggerPost.id === this.thisPost.data.id;
   }
 
-  toggleDetails(e: Event, post: any) {
-    post.hidePost = post.hidePost ? false : true;
-  }
+  toggleDetails(e: Event, post: any) { post.hidePost = post.hidePost ? false : true; }
 }

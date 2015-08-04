@@ -1,6 +1,6 @@
-import { bindable, autoinject } from 'aurelia-framework';
-import * as Masonry from 'masonry-layout';
+import { autoinject, bindable } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
+import * as Masonry from 'masonry-layout';
 import { RefreshedView } from '../../resources/messages';
 
 @autoinject

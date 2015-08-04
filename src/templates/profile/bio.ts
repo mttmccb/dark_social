@@ -1,4 +1,4 @@
-import { bindable, autoinject } from 'aurelia-framework';
+import { autoinject, bindable } from 'aurelia-framework';
 import { PostClicks } from '../../resources/post-clicks';
 
 @autoinject
