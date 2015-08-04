@@ -35,7 +35,5 @@ export class PostListCustomElement {
     });
   }
 
-  postsChanged() {
-    if (this.isAttached) { this.createMasonry(); }
-  }
+  postsChanged() { if (this.isAttached) { this.createMasonry(); } }
 }

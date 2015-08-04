@@ -2,7 +2,7 @@
 	<require from='./post-form'></require>
 	<div id="openModal" class="fadeInDownBig modalDialog ${showing? 'open': ''}">
 		<div>
-			<a href="#" click.delegate="hideModal()" title="Close" class="close">&times;</a>
+			<a href="#" click.delegate="toggleModal()" title="Close" class="close">&times;</a>
 		 	<post-form if.bind="showing" post="{ data: null, isReply: false }"></post-form>
 		</div>
 	</div>	

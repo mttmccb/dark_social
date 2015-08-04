@@ -40,6 +40,7 @@ export class Interactions {
       } else {
         this.interactions = more ? this.interactions.concat(interactions) : interactions;
       }
+      
     }).then(() => {
       this.ea.publish(new RefreshedView());
     });

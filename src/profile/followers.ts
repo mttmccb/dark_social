@@ -21,11 +21,9 @@ export class Followers {
     return this.loadFollowers(this.state.user_id, false);
   }
 
-  refresh = () => { this.loadFollowers(this.state.user_id, false); }
+  deactivate() { this.loadMore(); }
 
-  deactivate() {
-    this.loadMore();
-  }
+  refresh = () => { this.loadFollowers(this.state.user_id, false); }
 
   loadFollowers(user: number, more: boolean) {
     return this.api.load('followers', { id: user, more: more }).then((data: any) => {

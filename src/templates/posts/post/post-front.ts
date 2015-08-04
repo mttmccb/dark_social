@@ -35,9 +35,7 @@ export class PostFrontCustomElement {
     this.streamMarker();
   }
 
-  postChanged(newValue: any) {
-    this.thisPost = newValue;
-  }
+  postChanged(newValue: any) { this.thisPost = newValue; }
 
   killReplies(triggerPost: any) {
     if (triggerPost.id !== this.thisPost.data.id) { this.toggleReply = false; }
@@ -48,9 +46,7 @@ export class PostFrontCustomElement {
     this.ea.publish(new PostReply(post));
   }
 
-  thread(post: any) {
-    this.router.navigateToRoute("thread", { id: post.id });
-  }
+  thread(post: any) { this.router.navigateToRoute("thread", { id: post.id }); }
 
   updateStreamMarker(id: number) {
     console.log(id);

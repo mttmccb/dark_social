@@ -25,9 +25,7 @@ export class InteractionListCustomElement {
     this.msnry.destroy();
   }
 
-  loadUserRoute(user: number) {
-    this.router.navigateToRoute("userprofile", { user_id: user });
-  }
+  loadUserRoute(user: number) { this.router.navigateToRoute("userprofile", { user_id: user }); }
 
   createMasonry() {
     var container = document.querySelector('#posts');
@@ -40,9 +38,5 @@ export class InteractionListCustomElement {
     });
   }
 
-  postsChanged() {
-    if (this.isAttached) {
-      this.createMasonry();
-    }
-  }
+  postsChanged() { if (this.isAttached) { this.createMasonry(); } }
 }

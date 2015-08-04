@@ -8,7 +8,7 @@ export class TopPostersCustomElement {
   constructor(private router: Router) {
   }
 
-  loadUserRoute(user: any) {
+  loadUserRoute(user: number) {
     this.router.navigateToRoute("userprofile", { user_id: user });
   }
 }

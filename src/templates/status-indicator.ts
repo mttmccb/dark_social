@@ -9,22 +9,21 @@ import { ApiStatus } from '../resources/messages';
 export class StatusIndicator {
   private notify: any;
   private humane: humane;
-  
+  private status: any;
+    
   constructor(private ea: EventAggregator) {
     ea.subscribe(ApiStatus, (msg: any) => this.showNotification(msg));
-  }
-
-  attached() {
-    this.notify = humane.create({ baseCls: 'humane-libnotify', timeout: 1250 });
-  }
-
-  showNotification(notification: any) {
-    var status: any = {
+    this.status = {
       info: { addnCls: 'humane-libnotify-info' },
       success: { addnCls: 'humane-libnotify-success' },
       error: { addnCls: 'humane-libnotify-error' }
     }
-    var opt = notification.options.status !== '' ? status[notification.options.status] : {};
+  }
+
+  attached() { this.notify = humane.create({ baseCls: 'humane-libnotify', timeout: 1250 }); }
+
+  showNotification(notification: any) {
+    var opt = notification.options.status !== '' ? this.status[notification.options.status] : {};
     this.notify.log(notification.message, opt);
   }
 }

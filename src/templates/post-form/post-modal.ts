@@ -8,14 +8,8 @@ export class PostModalCustomElement {
   
   constructor(private ea: EventAggregator) {
     this.showing = false;
-    ea.subscribe(NewPost, (msg: any) => this.showModal());
+    ea.subscribe(NewPost, (msg: any) => this.toggleModal());
   }
 
-  showModal() {
-    this.showing = true;
-  }
-
-  hideModal() {
-    this.showing = false;
-  }	
+  toggleModal() { this.showing = !this.showing; }
 }

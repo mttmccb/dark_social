@@ -17,9 +17,7 @@ export class RefreshIndicator {
 		this.ea.publish(new ApiStatus(`Refreshing`, { status: 'info' }));
 	}
 
-	detached() {
-		clearInterval(this.autorefreshon);
-	}
+	detached() { clearInterval(this.autorefreshon); }
 
 	get autorefresh() {
 		return this._autorefresh;

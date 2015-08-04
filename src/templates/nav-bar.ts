@@ -31,19 +31,13 @@ export class NavBarCustomElement {
     return this.state.token !== null;
   } 
   
-  showNewPost() {
-    this.ea.publish(new NewPost());
-  }
+  showNewPost() { this.ea.publish(new NewPost()); }
   
-  showExplore() {
-    this.toggleExplore = !this.toggleExplore;
-  }
+  showExplore() { this.toggleExplore = !this.toggleExplore; }
   
   showProfile() {
     this.auth.checkLogin().then(user => {
-      if (user.id>0) {
-        this.LogInOutText = `Logout`;
-      }
+      if (user.id>0) { this.LogInOutText = `Logout`; }
     }).catch(() => {
       console.log("error");
     });    
