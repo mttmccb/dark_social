@@ -1,10 +1,10 @@
 import { bindable, autoinject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostReply } from '../../../resources/messages';
+import { PostReply } from '../../resources/messages';
 
 @autoinject
 export class PostCustomElement {
-  @bindable post: any = null;
+  @bindable post: any;
   private postReply: any;
   private thisPost: any;
 

@@ -1,14 +1,14 @@
 import { bindable, autoinject } from 'aurelia-framework';
-import { PostClicks } from '../../../resources/post-clicks';
-import { AdnAPI } from '../../../services/adn-api';
+import { PostClicks } from '../../resources/post-clicks';
+import { AdnAPI } from '../../services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import { PostReply, ApiStatus, StreamMarkerUpdated } from '../../../resources/messages';
-import { State } from '../../../services/state';
+import { PostReply, ApiStatus, StreamMarkerUpdated } from '../../resources/messages';
+import { State } from '../../services/state';
 import { Router } from 'aurelia-router';
 
 @autoinject
 export class PostFrontCustomElement {
-  @bindable post: any = null;
+  @bindable post: any;
   private postReply: any;
   private streamMarker: any;
   private thisPost: any;
