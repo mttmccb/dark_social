@@ -3,9 +3,10 @@
 		<div class="pure-u-1 pure-u-sm-1-3">
 			<form class="pure-form" submit.delegate="getSomeMore()">
 				<fieldset>
-					<button type="submit" class="pure-button">
-						<i  class="fa fa-caret-down"></i> Get More</button>
-					<label>
+					<a type="submit" class="pure-button" click.delegate="getMore()">
+						<i  class="fa fa-caret-down"></i> Get More</a>
+					<a type="submit" class="pure-button" click.delegate="getUntilStreamMarker()">
+						<i  class="fa fa-caret-down"></i> Load Until Stream Marker</a>
 				</fieldset>
 			</form>
 		</div>

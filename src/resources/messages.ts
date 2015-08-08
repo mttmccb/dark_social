@@ -40,6 +40,8 @@ export class RefreshedView {}
 
 export class LoadMore {}
 
+export class LoadUntilStreamMarker {}
+
 export class StopAutoRefresh {}
 
 export class StreamMarkerUpdated {
