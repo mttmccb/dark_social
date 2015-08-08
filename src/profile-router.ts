@@ -7,7 +7,7 @@ import { PostPosted } from './resources/messages';
 
 @inject(AdnAPI, State, EventAggregator, Router)
 export class ProfileRouter {
-  private user: any = [];
+  private user: any;
   private postPosted: any;
   private router: Router;
   private user_id: number;
@@ -15,7 +15,6 @@ export class ProfileRouter {
   
   configureRouter(config: any, router:Router) {
     config.map([
-      //{ route: ['', 'profile'], name: 'profile', moduleId: './profile', nav: true, title: 'Profile' },
       { route: 'following', name: 'following/:user_id', moduleId: './profile/following', title: 'Following', nav: true },
       { route: 'followers', name: 'followers/:user_id', moduleId: './profile/followers', title: 'Followers', nav: true },
       { route: ['', 'posts'], name: 'posts/:user_id', moduleId: './profile/profile-posts', title: 'Posts', nav: true },
@@ -33,6 +32,7 @@ export class ProfileRouter {
   determineActivationStrategy() { return activationStrategy.replace; }
 
   activate(params: any, query: any, route: any) {
+    //TODO: Refactor this, it's messy
     if (this.state.user_id===null || params.user_id) { this.state.user_id = params.user_id; }
     return this.loadUser(this.state.user_id);
   }
@@ -50,23 +50,4 @@ export class ProfileRouter {
   }
 
   toggleVisible() { this.showBanner = !this.showBanner; }
-
-  //TODO: Move into API? not really specific to profiles
-  toggleFollow(user: any, e: Event) {
-    e.preventDefault();
-    user.you_follow = !user.you_follow;
-    this.api.toggleFollow(user, user.you_follow);
-  }
-
-  toggleMute(user: any, e: Event) {
-    e.preventDefault();
-    user.you_muted = !user.you_muted;
-    this.api.toggleMute(user, user.you_muted);
-  }
-
-  toggleBlock(user: any, e: Event) {
-    e.preventDefault();
-    user.you_blocked = !user.you_blocked;
-    this.api.toggleBlock(user, user.you_blocked);
-  }
 }

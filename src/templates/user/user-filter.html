@@ -1,0 +1,8 @@
+<template>
+              <div class="is-center is-icons">
+                <i class="fa clickable fa-user-plus fa-lg ${user.you_follow? 'actioned' : ''}" click.delegate="toggleFollow(user, $event)"></i>
+                <i class="fa clickable fa-microphone-slash fa-lg ${user.you_muted? 'actioned' : ''}" click.delegate="toggleMute(user, $event)"></i>
+                <i class="fa clickable fa-ban fa-lg ${user.you_blocked? 'actioned' : ''}" click.delegate="toggleBlock(user, $event)"></i>
+              </div>
+	
+</template>

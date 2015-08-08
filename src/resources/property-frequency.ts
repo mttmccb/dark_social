@@ -14,7 +14,7 @@ export class PropertyFrequencyValueConverter {
         if (index === -1) {
           item = { name: mention[property], count: 1 };
           if (additionalProperty) {
-            item[additionalProperty] = array[0][additionalProperty];
+            item[additionalProperty] = mention[additionalProperty];
           }
           mentionMap.push(item);
         } else {

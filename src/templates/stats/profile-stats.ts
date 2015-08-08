@@ -3,7 +3,7 @@ import { Router } from 'aurelia-router';
 
 @autoinject
 export class ProfileStatsCustomElement {
-  @bindable posts: any = null;
+  @bindable posts: any;
   numberOfTopMentions: number;
   
   constructor(private router: Router) {

@@ -7,6 +7,10 @@ import { PostsModel } from './models/posts-model';
 @autoinject
 export class Thread {
 	//TODO: Combine into post-stream
+	// Main problem is that loading a thread required posts to loaded in a different order, currently they aren't
+	// instead 200 posts are loaded, for most conversations this is fine but it will break for larger ones.
+	// The better option would be to load the first 20 in the conversation so the load/more and potentially load 
+	// to a particular post, e.g. the latest would be possible.
 	private posts: PostsModel;
 	private postPosted: any;
 	private refreshView: any;
