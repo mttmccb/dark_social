@@ -19,11 +19,9 @@ export class AuthenticationService {
   }
 
   checkLogin() {
-    return this.api.getToken(this.state.token).then((tokenUser) => {
-      return new User(tokenUser);
-    }).catch(() => {
-      return new User({ user: null, limits: { following: 0}});
-    });
+    return this.api.getToken(this.state.token)
+      .then((tokenUser) => new User(tokenUser))
+      .catch(() => new User({ user: null, limits: { following: 0}}));
   }
 
   handleLogin(accessToken: any) {

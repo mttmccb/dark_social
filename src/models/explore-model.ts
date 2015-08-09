@@ -51,8 +51,6 @@ export class ExploreModel {
 	}
 
 	getClients = () => {
-		return clientList.filter((a) => {
-			return a.features.indexOf(this.endPoint) !== -1;
-		});
+		return clientList.filter((a) => a.features.indexOf(this.endPoint) !== -1);
 	}
 }

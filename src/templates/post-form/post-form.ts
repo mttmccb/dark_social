@@ -145,16 +145,11 @@ export class PostFormCustomElement {
 			var loggedInUser = null || this.state.tokenReturned.user;
 			var postUser = null || post.user;
 			this.replyTo = post.id;
-			var mentionText = post.entities.mentions.map((mention: any) => {
-				return `@${mention.name}`;
-
-			}).filter((v: any, i: any, a: any) => {
-				return a.indexOf(v) == i;
-
-			}).filter((mention: any) => {
-				return mention !== `@${loggedInUser.username}`;
-
-			}).join(' ');
+			var mentionText = post.entities.mentions
+				.map((mention: any) => `@${mention.name}`)
+				.filter((v: any, i: any, a: any) => a.indexOf(v) == i)
+				.filter((mention: any) => mention !== `@${loggedInUser.username}`)
+				.join(' ');
 
 			if (postUser.id !== loggedInUser.id) {
 				mentionText = `@${postUser.username} ` + mentionText;

@@ -19,9 +19,8 @@ export class RefreshIndicator {
 
 	detached() { clearInterval(this.autorefreshon); }
 
-	get autorefresh() {
-		return this._autorefresh;
-	}
+	get autorefresh() { return this._autorefresh; }
+	
 	set autorefresh(newValue: any) {
 		this._autorefresh = newValue;
 

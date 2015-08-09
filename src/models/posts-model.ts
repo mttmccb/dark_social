@@ -22,6 +22,7 @@ export class PostsModel {
 	addPosts(newPosts: any[]) {
 		this.postsDataIsUnchanged(newPosts) ?
 			this.ea.publish(new ApiStatus(`No New Posts`, { status: 'info' })) :
+			//TODO: Add extra options into adding and checking posts
 			this.posts = this.more ? this.posts.concat(newPosts) : newPosts;
 	}
 
