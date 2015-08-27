@@ -7,30 +7,31 @@ import { activationStrategy } from 'aurelia-router';
 
 @autoinject
 export class PostsStream {
-	// This smells a bit, especially the way the settings are done
 	private posts: PostsModel;
 	private postPosted: any;
 	private refreshView: any;
 	private loadMore: any;
 	private loadUntilStreamMarker: any;
-	private streammarker: boolean;
-	private hashtag: string;
-	private id: number;
-	private streamParams: any;
+	private streamOptions: StreamOptions;
 	private stream: string;
 
 	constructor(private api: AdnAPI, private ea: EventAggregator) {
 		this.posts = new PostsModel(ea);
-		let streamParams = { streammarker: this.streammarker, hashtag: this.hashtag, id: this.id, loadToStreamMarker: false };
-		this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadStream(false, streamParams));
-		this.refreshView = ea.subscribe(RefreshView, (msg: any) => this.loadStream(false, streamParams));
-		this.loadMore = ea.subscribe(LoadMore, (msg: any) => this.loadStream(true, streamParams));
-		this.loadUntilStreamMarker = ea.subscribe(LoadUntilStreamMarker, (msg: any) => this.loadStream(true, { streammarker: this.streammarker, hashtag: this.hashtag, id: this.id, loadToStreamMarker: true }));
+		this.streamOptions = new StreamOptions(false,'',0,false);
+		this.postPosted = ea.subscribe(PostPosted, () => this.loadStream(false));
+		this.refreshView = ea.subscribe(RefreshView, () => this.loadStream(false));
+		this.loadMore = ea.subscribe(LoadMore, () => this.loadStream(true));
+		this.streamOptions.loadToStreamMarker = false;
+		this.loadUntilStreamMarker = ea.subscribe(LoadUntilStreamMarker, () => this.loadStream(true));
 	}
 
 	activate(params: any, query: any, route: any) {
 		this.stream = route.config.settings.stream;
-		return this.loadStream(false, { streammarker: route.config.settings.streammarker, hashtag: params.hashtag, id: params.id, loadToStreamMarker: false });
+		this.streamOptions.streammarker = route.config.settings.streammarker;
+		this.streamOptions.hashtag = params.hashtag;
+		this.streamOptions.id = params.id;
+		this.streamOptions.loadToStreamMarker = false;
+		return this.loadStream(false);
 	}
 
 	determineActivationStrategy() { return activationStrategy.replace; }
@@ -42,20 +43,45 @@ export class PostsStream {
 		this.loadUntilStreamMarker();
 	}
 
-	loadStream(more: boolean, options: { streammarker: boolean, hashtag: string, id: number, loadToStreamMarker: boolean }) {
-		return this.api.load(this.stream, { more: more, hashtag: options.hashtag, id: options.id }).then((posts: any) => {
-			if (options.streammarker === true) { this.posts.streamid = this.api.meta.marker.last_read_id; }
+	loadStream(more: boolean) {
+		let apiOptions = {
+			more: more,
+			hashtag: this.streamOptions.hashtag,
+			id: this.streamOptions.id
+		};
+		return this.api.load(this.stream, apiOptions).then((posts: any) => {
+			if (this.streamOptions.streammarker === true) { this.posts.streamid = this.api.meta.marker.last_read_id; }
 			this.posts.more = more;
 			this.posts.addPosts(posts);
 			if (this.stream === 'thread') { this.posts.threadPosts(); }
-			this.streammarker = options.streammarker;
-			this.hashtag = options.hashtag;
-			this.id = options.id;
-			
+
 		}).then(() => {
-			(options.loadToStreamMarker && this.api.meta.min_id>this.api.meta.marker.last_read_id) ?
-				this.loadStream(true, { streammarker: this.streammarker, hashtag: this.hashtag, id: this.id, loadToStreamMarker: true }) :
-				this.ea.publish(new RefreshedView());				
+			if (this.streamOptions.loadToStreamMarker && this.api.meta.min_id > this.api.meta.marker.last_read_id) {
+				this.loadStream(true);
+			} else {
+				this.ea.publish(new RefreshedView());
+			}
 		});
+	}
+}
+
+export interface IStreamOptions {
+	streammarker: boolean;
+	hashtag: string;
+	id: number;
+	loadToStreamMarker: boolean;
+}
+
+export class StreamOptions implements IStreamOptions {
+	public streammarker: boolean;
+	public hashtag: string;
+	public id: number;
+	public loadToStreamMarker: boolean;
+
+	constructor(streammarker: boolean, hashtag: string, id: number, loadToStreamMarker: boolean) {
+		this.streammarker = streammarker;
+		this.hashtag = hashtag;
+		this.id = id;
+		this.loadToStreamMarker = loadToStreamMarker;
 	}
 }

@@ -12,7 +12,7 @@ export class InteractionListCustomElement {
   
   constructor(private ea: EventAggregator, private router: Router, private isAttached: boolean) {
     this.isAttached = false;
-    this.viewRefreshed = ea.subscribe(RefreshedView, (msg: any) => this.createMasonry());
+    this.viewRefreshed = ea.subscribe(RefreshedView, () => this.createMasonry());
   }
 
   attached() {

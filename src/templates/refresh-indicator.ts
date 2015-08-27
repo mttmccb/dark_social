@@ -9,7 +9,7 @@ export class RefreshIndicator {
 	
 	constructor(private ea: EventAggregator) {
 		this._autorefresh = false;
-		ea.subscribe(StopAutoRefresh, (msg: any) => this._autorefresh = false);
+		ea.subscribe(StopAutoRefresh, () => this._autorefresh = false);
 	}
 
 	refresh() {

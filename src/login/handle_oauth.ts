@@ -7,8 +7,7 @@ import { State } from '../services/state';
 
 @autoinject
 export class HandleOAuth {
-	constructor(private authService: AuthenticationService, private router: Router, private ea: EventAggregator, private state: State) {
-	}
+	constructor(private authService: AuthenticationService, private router: Router, private ea: EventAggregator, private state: State) { }
 
 	activate(params: any, queryString: any, routeConfig: any) {
 		this.state.token = params.access_token;

@@ -13,7 +13,7 @@ export class Followers {
 
   constructor(private api: AdnAPI, private state: State, private ea: EventAggregator) {
     this.users = new UsersModel(ea);
-    this.loadMore = ea.subscribe(LoadMore, (msg: any) => this.loadFollowers(this.state.user_id, true));
+    this.loadMore = ea.subscribe(LoadMore, () => this.loadFollowers(this.state.user_id, true));
   }
 
   activate(params: any, query: any, route: any) {

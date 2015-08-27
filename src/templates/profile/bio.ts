@@ -5,6 +5,5 @@ import { PostClicks } from '../../resources/post-clicks';
 export class BioCustomElement {
   @bindable user: any = null;
 
-  constructor(private postclicks: PostClicks) {
-  }  
+  constructor(private postclicks: PostClicks) { }  
 }

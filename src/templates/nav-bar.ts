@@ -12,7 +12,7 @@ export class NavBarCustomElement {
   toggleExplore: boolean;
 
   constructor(private auth: AuthenticationService, router: Router, private ea: EventAggregator, private state: State) {
-    ea.subscribe(LoggedIn, (msg: any) => this.showProfile());
+    ea.subscribe(LoggedIn, () => this.showProfile());
     this.showProfile();
     this.toggleExplore = false;
   }

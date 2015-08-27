@@ -17,9 +17,9 @@ export class Explore {
   
   constructor(private api: AdnAPI, private ea: EventAggregator) {
 		this.posts = new PostsModel(ea);
-    this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadPosts(false));	    
-    this.refreshView = ea.subscribe(RefreshView, (msg: any) => this.loadPosts(false));
-		this.loadMore = ea.subscribe(LoadMore, (msg: any) => this.loadPosts(true));    	
+    this.postPosted = ea.subscribe(PostPosted, () => this.loadPosts(false));	    
+    this.refreshView = ea.subscribe(RefreshView, () => this.loadPosts(false));
+		this.loadMore = ea.subscribe(LoadMore, () => this.loadPosts(true));    	
   }
 
 	determineActivationStrategy() { return activationStrategy.replace};

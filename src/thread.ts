@@ -17,8 +17,8 @@ export class Thread {
 	
 	constructor(private api: AdnAPI, private ea: EventAggregator, private id: number) {
 		this.posts = new PostsModel(ea);
-		this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadStream(this.id));
-		this.refreshView = ea.subscribe(RefreshView, (msg: any) => this.loadStream(this.id));
+		this.postPosted = ea.subscribe(PostPosted, () => this.loadStream(this.id));
+		this.refreshView = ea.subscribe(RefreshView, () => this.loadStream(this.id));
 	}
 
 	activate = (params: any, query: any, route: any) => { this.loadStream(params.id) };	

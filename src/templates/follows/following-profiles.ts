@@ -5,8 +5,7 @@ import { Router } from 'aurelia-router';
 export class FollowingProfiles {
   @bindable profiles: any = null;
   
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) { }
 
   loadUserRoute(user: number) { this.router.navigateToRoute("userprofile", { user_id: user }); }
 }

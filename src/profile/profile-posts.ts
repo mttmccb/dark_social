@@ -16,9 +16,9 @@ export class ProfilePosts {
   
   constructor(private api: AdnAPI, private state: State, private ea: EventAggregator) {
     this.posts = new PostsModel(ea);
-    this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadPosts({ user: this.state.user_id, more: false }));
-    this.refreshView = ea.subscribe(RefreshView, (msg: any) => this.loadPosts({ user: this.state.user_id, more: false }));
-    this.loadMore = ea.subscribe(LoadMore, (msg: any) => this.loadPosts({ user: this.state.user_id, more: true }));
+    this.postPosted = ea.subscribe(PostPosted, () => this.loadPosts({ user: this.state.user_id, more: false }));
+    this.refreshView = ea.subscribe(RefreshView, () => this.loadPosts({ user: this.state.user_id, more: false }));
+    this.loadMore = ea.subscribe(LoadMore, () => this.loadPosts({ user: this.state.user_id, more: true }));
   }
 
   activate(params: any, query: any, route: any) {

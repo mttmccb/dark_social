@@ -4,8 +4,7 @@ import { LoadMore, ApiStatus, LoadUntilStreamMarker } from '../resources/message
 
 @autoinject
 export class GetMore {
-	constructor(private ea: EventAggregator) {
-	}
+	constructor(private ea: EventAggregator) { }
 
 	getMore() {
 		this.ea.publish(new ApiStatus(`Retrieving More`, { status: 'info' }));

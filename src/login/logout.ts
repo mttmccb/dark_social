@@ -3,8 +3,7 @@ import {AuthenticationService} from '../services/auth';
 
 @autoinject
 export class Logout {
-    constructor(private authService: AuthenticationService) {
-    }
+    constructor(private authService: AuthenticationService) { }
 
     activate() { this.authService.logout(); }
 }

@@ -7,8 +7,7 @@ export class UsersModel {
 	public users: any[] = 	[];
 	public more: boolean = false;
 	
-	constructor(private ea: EventAggregator) {
-	}
+	constructor(private ea: EventAggregator) { }
 
 	addUsers(newUsers: any[]) {
 		this.usersDataIsUnchanged(newUsers) ?

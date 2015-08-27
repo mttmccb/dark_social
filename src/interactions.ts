@@ -13,9 +13,9 @@ export class Interactions {
   private action: string;
 
   constructor(private api: AdnAPI, private ea: EventAggregator, private interactions: any[]) {
-    this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadInteractions(this.action, false));
-    this.loadMore = ea.subscribe(LoadMore, (msg: any) => this.loadInteractions(this.action, false));
-    this.refreshView = ea.subscribe(RefreshView, (msg: any) => this.loadInteractions(this.action, false));
+    this.postPosted = ea.subscribe(PostPosted, () => this.loadInteractions(this.action, false));
+    this.loadMore = ea.subscribe(LoadMore, () => this.loadInteractions(this.action, false));
+    this.refreshView = ea.subscribe(RefreshView, () => this.loadInteractions(this.action, false));
   }
 
   determineActivationStrategy() { return activationStrategy.replace; }

@@ -5,8 +5,7 @@ import { Router } from 'aurelia-router';
 export class TopHashtagsCustomElement {
   @bindable posts: any = null;
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) { }
 
   loadUserRoute(hashtag: string) {
     this.router.navigateToRoute("hashtag", { hashtag: hashtag });

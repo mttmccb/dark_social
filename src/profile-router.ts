@@ -26,7 +26,7 @@ export class ProfileRouter {
 
   constructor(private api: AdnAPI, private state: State, private ea: EventAggregator) {
     this.user = [];
-    this.postPosted = ea.subscribe(PostPosted, (msg: any) => this.loadUser(this.user_id));
+    this.postPosted = ea.subscribe(PostPosted, () => this.loadUser(this.user_id));
   }
 
   determineActivationStrategy() { return activationStrategy.replace; }

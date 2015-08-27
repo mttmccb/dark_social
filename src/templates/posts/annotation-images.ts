@@ -6,8 +6,7 @@ import { ImageViewed, ApiStatus } from '../../resources/messages';
 export class AnnotationImagesCustomElement {
   @bindable annotations : any;
   
-  constructor(private ea: EventAggregator) {
-  }
+  constructor(private ea: EventAggregator) { }
 
   openImage(image: any) {
     this.ea.publish(new ApiStatus('Loading Image', { status: 'info'}));
