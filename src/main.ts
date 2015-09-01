@@ -4,7 +4,7 @@ export function configure(aurelia: any) {
     .developmentLogging()
     .plugin('aurelia-validation');
     
-  aurelia.globalizeResources(['resources/date-format','resources/sum','resources/timeago','resources/timeto']);
+  aurelia.use.globalResources(['resources/date-format','resources/sum','resources/timeago','resources/timeto']);
 
   aurelia.start().then((a: any) => a.setRoot());
 }
