@@ -18,11 +18,11 @@ export class PostsStream {
 	constructor(private api: AdnAPI, private ea: EventAggregator) {
 		this.posts = new PostsModel(ea);
 		this.streamOptions = new StreamOptions(false,'',0,false);
-		this.postPosted = ea.subscribe(PostPosted, () => this.loadStream(false));
-		this.refreshView = ea.subscribe(RefreshView, () => this.loadStream(false));
-		this.loadMore = ea.subscribe(LoadMore, () => this.loadStream(true));
+		this.postPosted = ea.subscribe(PostPosted, () => this.loadStream(this.streamOptions, false));
+		this.refreshView = ea.subscribe(RefreshView, () => this.loadStream(this.streamOptions, false));
+		this.loadMore = ea.subscribe(LoadMore, () => this.loadStream(this.streamOptions, true));
 		this.streamOptions.loadToStreamMarker = false;
-		this.loadUntilStreamMarker = ea.subscribe(LoadUntilStreamMarker, () => this.loadStream(true));
+		this.loadUntilStreamMarker = ea.subscribe(LoadUntilStreamMarker, () => this.loadStream(this.streamOptions, true));
 	}
 
 	activate(params: any, query: any, route: any) {
@@ -31,7 +31,7 @@ export class PostsStream {
 		this.streamOptions.hashtag = params.hashtag;
 		this.streamOptions.id = params.id;
 		this.streamOptions.loadToStreamMarker = false;
-		return this.loadStream(false);
+		return this.loadStream(this.streamOptions, false);
 	}
 
 	determineActivationStrategy() { return activationStrategy.replace; }
@@ -43,21 +43,21 @@ export class PostsStream {
 		this.loadUntilStreamMarker();
 	}
 
-	loadStream(more: boolean) {
+	loadStream(so: StreamOptions, more: boolean) {
 		let apiOptions = {
 			more: more,
-			hashtag: this.streamOptions.hashtag,
-			id: this.streamOptions.id
+			hashtag: so.hashtag,
+			id: so.id
 		};
 		return this.api.load(this.stream, apiOptions).then((posts: any) => {
-			if (this.streamOptions.streammarker === true) { this.posts.streamid = this.api.meta.marker.last_read_id; }
+			if (so.streammarker === true) { this.posts.streamid = this.api.meta.marker.last_read_id; }
 			this.posts.more = more;
 			this.posts.addPosts(posts);
 			if (this.stream === 'thread') { this.posts.threadPosts(); }
 
 		}).then(() => {
-			if (this.streamOptions.loadToStreamMarker && this.api.meta.min_id > this.api.meta.marker.last_read_id) {
-				this.loadStream(true);
+			if (so.loadToStreamMarker && this.api.meta.min_id > this.api.meta.marker.last_read_id) {
+				this.loadStream(this.streamOptions, true);
 			} else {
 				this.ea.publish(new RefreshedView());
 			}
