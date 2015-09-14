@@ -12,8 +12,8 @@ export class ProfileRouter {
   private router: Router;
   private user_id: number;
   private showBanner: boolean;
-  
-  configureRouter(config: any, router:Router) {
+
+  configureRouter(config: any, router: Router) {
     config.map([
       { route: 'following', name: 'following/:user_id', moduleId: './profile/following', title: 'Following', nav: true },
       { route: 'followers', name: 'followers/:user_id', moduleId: './profile/followers', title: 'Followers', nav: true },
@@ -33,7 +33,7 @@ export class ProfileRouter {
 
   activate(params: any, query: any, route: any) {
     //TODO: Refactor this, it's messy
-    if (this.state.user_id===null || params.user_id) { this.state.user_id = params.user_id; }
+    if (this.state.user_id === null || params.user_id) { this.state.user_id = params.user_id; }
     return this.loadUser(this.state.user_id);
   }
 
@@ -42,11 +42,12 @@ export class ProfileRouter {
   refresh = () => { this.loadUser(this.user_id); }
 
   loadUser(id: number) {
-    return this.api.loadProfile(id, false).then((data: any) => {
-      this.user = data;
-      this.state.user_id = this.user.id;
-      this.user_id = this.user.id;
-    });
+    return this.api.loadProfile(id, false)
+      .then((data: any) => {
+        this.user = data;
+        this.state.user_id = this.user.id;
+        this.user_id = this.user.id;
+      });
   }
 
   toggleVisible() { this.showBanner = !this.showBanner; }

@@ -14,14 +14,14 @@ export class Thread {
 	private posts: PostsModel;
 	private postPosted: any;
 	private refreshView: any;
-	
+
 	constructor(private api: AdnAPI, private ea: EventAggregator, private id: number) {
 		this.posts = new PostsModel(ea);
 		this.postPosted = ea.subscribe(PostPosted, () => this.loadStream(this.id));
 		this.refreshView = ea.subscribe(RefreshView, () => this.loadStream(this.id));
 	}
 
-	activate = (params: any, query: any, route: any) => { this.loadStream(params.id) };	
+	activate = (params: any, query: any, route: any) => { this.loadStream(params.id) };
 
 	deactivate() {
 		this.postPosted();
@@ -30,10 +30,11 @@ export class Thread {
 
 	loadStream(id: number) {
 		this.id = id;
-		return this.api.load('thread', { count: 200, more: false, id: id }).then((posts: any) => {
-			this.posts.more = false;
-			this.posts.addPosts(posts);
-			this.posts.threadPosts();
-		});
+		return this.api.load('thread', { count: 200, more: false, id: id })
+			.then((posts: any) => {
+				this.posts.more = false;
+				this.posts.addPosts(posts);
+				this.posts.threadPosts();
+			});
 	}
 }

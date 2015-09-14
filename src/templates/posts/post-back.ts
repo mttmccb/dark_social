@@ -14,8 +14,9 @@ export class PostBackCustomElement {
   loadUserRoute(user: number) { this.router.navigateToRoute("userprofile", { user_id: user }); }
 
   reportPost(post: any) {
-    return this.api.reportPost(post.id).then(() => {
-      this.reported = true;
-    });
+    return this.api.reportPost(post.id)
+      .then(() => {
+        this.reported = true;
+      });
   }
 }

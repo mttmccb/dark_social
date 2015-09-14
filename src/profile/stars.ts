@@ -9,21 +9,22 @@ import { PostsModel } from '../models/posts-model';
 export class Stars {
   private posts: PostsModel;
   private loadMore: any;
-  
-  constructor(private api: AdnAPI, private state: State, private ea: EventAggregator) {	
-		this.posts = new PostsModel(ea);
+
+  constructor(private api: AdnAPI, private state: State, private ea: EventAggregator) {
+    this.posts = new PostsModel(ea);
   }
-  
+
   activate(params: any, query: any, route: any) {
-    if (this.state.user_id===null || params.user_id) { this.state.user_id = params.user_id; }
+    if (this.state.user_id === null || params.user_id) { this.state.user_id = params.user_id; }
     return this.loadStars(this.state.user_id);
   }
 
   refresh = () => { this.loadStars(this.state.user_id); }
 
   loadStars = (user_id: number) => {
-    this.api.load('stars', { id: user_id, more: false }).then((data: any) => {
-			this.posts.addPosts(data);
-    });
+    this.api.load('stars', { id: user_id, more: false })
+      .then((data: any) => {
+        this.posts.addPosts(data);
+      });
   }
 }

@@ -29,9 +29,9 @@ export class PostFormCustomElement {
 			.isNotEmpty()
 			.hasMinLength(1)
 			.passes(
-			(newValue: any) => {
-				return this.postText.replace(/([^"])(https?:\/\/([^\s"]+))/g, '').replace('[', '').replace(']', '').length <= 256;
-			});
+				(newValue: any) => {
+					return this.postText.replace(/([^"])(https?:\/\/([^\s"]+))/g, '').replace('[', '').replace(']', '').length <= 256;
+				});
 		this.submitting = false;
 		this.editPost = false;
 		this.postText = '';
@@ -55,7 +55,7 @@ export class PostFormCustomElement {
 
 	attached() {
 		this.setupReply(this.postdata);
-		return this.api.getAllUsers().then((data:any)=> {
+		return this.api.getAllUsers().then((data: any) => {
 			this.allUsers = data;
 			if (!this.isReply) {
 				this.api.loadLastPost().then(data => {
@@ -73,17 +73,18 @@ export class PostFormCustomElement {
 
 	submit(id: number) {
 		this.submitting = true;
-		this.validation.validate().then(() => {
-			this.api.createPost(this.postText,(id ? { reply_to: id } : {})).then((data: any) => {
+		this.validation.validate()
+			.then(() => {
+				this.api.createPost(this.postText, (id ? { reply_to: id } : {})).then((data: any) => {
+					this.submitting = false;
+					this.lastPost = data;
+					this.resetPost();
+					this.ea.publish(new PostPosted());
+				});
+			}).catch(() => {
 				this.submitting = false;
-				this.lastPost = data;
-				this.resetPost();
-				this.ea.publish(new PostPosted());
+				this.ea.publish(new ApiStatus('Something went wrong... :(', { status: 'error' }));
 			});
-		}).catch(() => {
-			this.submitting = false;
-			this.ea.publish(new ApiStatus('Something went wrong... :(', { status: 'error' }));
-		});
 	}
 
 	resetPost() {
@@ -94,14 +95,15 @@ export class PostFormCustomElement {
 	}
 
 	preview(id: number) {
-		this.validation.validate().then(() => {
-			this.api.textProcess(this.postText).then((data: any) => {
-				this.showPostPreview = true;
-				this.postPreview = data;
+		this.validation.validate()
+			.then(() => {
+				this.api.textProcess(this.postText).then((data: any) => {
+					this.showPostPreview = true;
+					this.postPreview = data;
+				});
+			}).catch(() => {
+				this.ea.publish(new ApiStatus('Something went wrong... :(', { status: 'error' }));
 			});
-		}).catch(() => {
-			this.ea.publish(new ApiStatus('Something went wrong... :(', { status: 'error' }));
-		});
 	}
 
 	keyUp(e: KeyboardEvent) {
@@ -155,7 +157,7 @@ export class PostFormCustomElement {
 				mentionText = `@${postUser.username} ` + mentionText;
 			}
 
-			this.postText = mentionText.length > 0 ? `${mentionText.trim()} ` : '';
+			this.postText = mentionText.length > 0 ? `${mentionText.trim() } ` : '';
 		}
 		this.hasFocus = true;
 	}

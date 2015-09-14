@@ -11,9 +11,10 @@ export class HandleOAuth {
 
 	activate(params: any, queryString: any, routeConfig: any) {
 		this.state.token = params.access_token;
-		this.authService.handleLogin(params.access_token).then((token) => {
-			this.router.navigate("");
-			this.ea.publish(new LoggedIn(true));
-		});
+		this.authService.handleLogin(params.access_token)
+			.then((token) => {
+				this.router.navigate("");
+				this.ea.publish(new LoggedIn(true));
+			});
 	}
 }

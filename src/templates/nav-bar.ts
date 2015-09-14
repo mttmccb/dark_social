@@ -34,10 +34,11 @@ export class NavBarCustomElement {
   showExplore() { this.toggleExplore = !this.toggleExplore; }
 
   showProfile() {
-    this.auth.checkLogin().then(user => {
-      if (user.id > 0) { this.LogInOutText = `Logout`; }
-    }).catch(() => {
-      console.log("error");
-    });
+    this.auth.checkLogin()
+      .then(user => {
+        if (user.id > 0) { this.LogInOutText = `Logout`; }
+      }).catch(() => {
+        console.log("error");
+      });
   }
 }

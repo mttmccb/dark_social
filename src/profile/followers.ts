@@ -26,12 +26,13 @@ export class Followers {
   refresh = () => { this.loadFollowers(this.state.user_id, false); }
 
   loadFollowers(user: number, more: boolean) {
-    return this.api.load('followers', { id: user, more: more }).then((data: any) => {
-      this.users.more = more;
-      this.users.addUsers(data);
-      
-    }).then(() => {
-      this.ea.publish(new RefreshedView());
-    });
+    return this.api.load('followers', { id: user, more: more })
+      .then((data: any) => {
+        this.users.more = more;
+        this.users.addUsers(data);
+
+      }).then(() => {
+        this.ea.publish(new RefreshedView());
+      });
   }
 }

@@ -13,7 +13,7 @@ export class ProfilePosts {
   private refreshView: any;
   private loadMore: any;
   private user_id: number;
-  
+
   constructor(private api: AdnAPI, private state: State, private ea: EventAggregator) {
     this.posts = new PostsModel(ea);
     this.postPosted = ea.subscribe(PostPosted, () => this.loadPosts({ user: this.state.user_id, more: false }));
@@ -35,11 +35,12 @@ export class ProfilePosts {
   refresh = () => { this.loadPosts({ user: this.user_id }); }
 
   loadPosts(params: any) {
-    return this.api.loadPosts(params.user, false).then((data: any) => {
-      this.posts.avatar = false;
-      this.posts.addPosts(data);
-    }).then(() => {
-      this.ea.publish(new RefreshedView());
-    });
+    return this.api.loadPosts(params.user, false)
+      .then((data: any) => {
+        this.posts.avatar = false;
+        this.posts.addPosts(data);
+      }).then(() => {
+        this.ea.publish(new RefreshedView());
+      });
   }
 }

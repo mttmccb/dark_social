@@ -17,7 +17,7 @@ export class PostsStream {
 
 	constructor(private api: AdnAPI, private ea: EventAggregator) {
 		this.posts = new PostsModel(ea);
-		this.streamOptions = new StreamOptions(false,'',0,false);
+		this.streamOptions = new StreamOptions(false, '', 0, false);
 		this.postPosted = ea.subscribe(PostPosted, () => this.loadStream(this.streamOptions, false));
 		this.refreshView = ea.subscribe(RefreshView, () => this.loadStream(this.streamOptions, false));
 		this.loadMore = ea.subscribe(LoadMore, () => this.loadStream(this.streamOptions, true));
@@ -49,19 +49,20 @@ export class PostsStream {
 			hashtag: so.hashtag,
 			id: so.id
 		};
-		return this.api.load(this.stream, apiOptions).then((posts: any) => {
-			if (so.streammarker === true) { this.posts.streamid = this.api.meta.marker.last_read_id; }
-			this.posts.more = more;
-			this.posts.addPosts(posts);
-			if (this.stream === 'thread') { this.posts.threadPosts(); }
+		return this.api.load(this.stream, apiOptions)
+			.then((posts: any) => {
+				if (so.streammarker === true) { this.posts.streamid = this.api.meta.marker.last_read_id; }
+				this.posts.more = more;
+				this.posts.addPosts(posts);
+				if (this.stream === 'thread') { this.posts.threadPosts(); }
 
-		}).then(() => {
-			if (so.loadToStreamMarker && this.api.meta.min_id > this.api.meta.marker.last_read_id) {
-				this.loadStream(this.streamOptions, true);
-			} else {
-				this.ea.publish(new RefreshedView());
-			}
-		});
+			}).then(() => {
+				if (so.loadToStreamMarker && this.api.meta.min_id > this.api.meta.marker.last_read_id) {
+					this.loadStream(this.streamOptions, true);
+				} else {
+					this.ea.publish(new RefreshedView());
+				}
+			});
 	}
 }
 

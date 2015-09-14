@@ -51,8 +51,9 @@ export class PostFrontCustomElement {
   updateStreamMarker(id: number) { this.thisPost.streamid = id; }
 
   setStreamMarker(e: Event, post: any) {
-    return this.api.setMarker(post.id + 1).then(() => {
-      if (post.id) { this.ea.publish(new StreamMarkerUpdated(post.id + 1)); }
-    });
+    return this.api.setMarker(post.id + 1)
+      .then(() => {
+        if (post.id) { this.ea.publish(new StreamMarkerUpdated(post.id + 1)); }
+      });
   }
 }

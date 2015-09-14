@@ -14,37 +14,38 @@ export class Explore {
   private loadMore: any;
   private view: string;
   private exploreModel: ExploreModel;
-  
+
   constructor(private api: AdnAPI, private ea: EventAggregator) {
-		this.posts = new PostsModel(ea);
-    this.postPosted = ea.subscribe(PostPosted, () => this.loadPosts(false));	    
+    this.posts = new PostsModel(ea);
+    this.postPosted = ea.subscribe(PostPosted, () => this.loadPosts(false));
     this.refreshView = ea.subscribe(RefreshView, () => this.loadPosts(false));
-		this.loadMore = ea.subscribe(LoadMore, () => this.loadPosts(true));    	
+    this.loadMore = ea.subscribe(LoadMore, () => this.loadPosts(true));
   }
 
-	determineActivationStrategy() { return activationStrategy.replace};
+  determineActivationStrategy() { return activationStrategy.replace };
 
   activate(params: any, query: any, route: any) {
     this.view = route.config.settings.view;
     this.exploreModel = new ExploreModel(this.view);
     return this.loadPosts(false);
   }
-  
+
   deactivate() {
     this.postPosted();
     this.refreshView();
     this.loadMore();
-  }  
+  }
 
   refresh = () => this.loadPosts(false);
-  
+
   loadPosts(more: boolean) {
-    return this.api.load(this.view, { more: more }).then((posts: any) => {
-    		this.posts.more = more;
-    		this.posts.addPosts(posts);
-        
-    	}).then(() => {
-    		this.ea.publish(new RefreshedView());
-    	});
+    return this.api.load(this.view, { more: more })
+      .then((posts: any) => {
+        this.posts.more = more;
+        this.posts.addPosts(posts);
+
+      }).then(() => {
+        this.ea.publish(new RefreshedView());
+      });
   }
 }

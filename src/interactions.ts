@@ -34,15 +34,16 @@ export class Interactions {
   }
 
   loadInteractions(action: string, more: boolean) {
-    return this.api.load('interactions', { more: more, action: action }).then((interactions: any) => {
-      if (this.interactions.length > 0 && this.interactions[0].id === interactions[0].id) {
-        this.ea.publish(new ApiStatus(`No New Interactions`, { status: 'info' }));
-      } else {
-        this.interactions = more ? this.interactions.concat(interactions) : interactions;
-      }
-      
-    }).then(() => {
-      this.ea.publish(new RefreshedView());
-    });
+    return this.api.load('interactions', { more: more, action: action })
+      .then((interactions: any) => {
+        if (this.interactions.length > 0 && this.interactions[0].id === interactions[0].id) {
+          this.ea.publish(new ApiStatus(`No New Interactions`, { status: 'info' }));
+        } else {
+          this.interactions = more ? this.interactions.concat(interactions) : interactions;
+        }
+
+      }).then(() => {
+        this.ea.publish(new RefreshedView());
+      });
   }
 }
