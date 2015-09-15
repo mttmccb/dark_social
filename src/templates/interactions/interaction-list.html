@@ -10,7 +10,7 @@
 			</div>
 			<div class="post-details pure-u-4-5 showMe">
 				<p>${interaction.users[0].name}
-					<a href="#" click.delegate="$parent.loadUserRoute(interaction.users[0].id)">@${interaction.users[0].username}</a>
+					<a href="#" click.delegate="$parent.profileRoute.openProfile(interaction.users[0].id)">@${interaction.users[0].username}</a>
 				</p>
 				<p>${interaction.action | action}</p>
 				<div class="pure-g post-footer">

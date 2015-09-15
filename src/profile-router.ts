@@ -31,7 +31,7 @@ export class ProfileRouter {
 
   determineActivationStrategy() { return activationStrategy.replace; }
 
-  activate(params: any, query: any, route: any) {
+  activate(params: any) {
     //TODO: Refactor this, it's messy
     if (this.state.user_id === null || params.user_id) { this.state.user_id = params.user_id; }
     return this.loadUser(this.state.user_id);
@@ -39,7 +39,7 @@ export class ProfileRouter {
 
   deactivate() { this.postPosted(); }
 
-  refresh = () => { this.loadUser(this.user_id); }
+  refresh() { return this.loadUser(this.user_id); }
 
   loadUser(id: number) {
     return this.api.loadProfile(id, false)

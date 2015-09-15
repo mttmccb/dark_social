@@ -1,16 +1,10 @@
-import { bindable, autoinject } from 'aurelia-framework';
-import { Router } from 'aurelia-router'; 
+import { bindable } from 'aurelia-framework';
 
-@autoinject
 export class ProfileStatsCustomElement {
   @bindable posts: any;
   numberOfTopMentions: number;
   
-  constructor(private router: Router) {
-    this.numberOfTopMentions = 5;
-  }
-
-  loadUserRoute(user: number) {
-    this.router.navigateToRoute("userprofile", { user_id: user });
+  constructor() { 
+    this.numberOfTopMentions = 5;   
   }
 }

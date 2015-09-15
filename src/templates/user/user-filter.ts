@@ -4,10 +4,9 @@ import { AdnAPI } from '../../services/adn-api';
 @autoinject
 export class UserFilter {
   @bindable user: any;
-  
-  constructor(private api: AdnAPI) {
-  }
-  
+
+  constructor(private api: AdnAPI) { }
+  //TODO: Refactor this, the methods are all nearly the same
   toggleFollow(user: any, e: Event) {
     e.preventDefault();
     user.you_follow = !user.you_follow;
@@ -24,5 +23,5 @@ export class UserFilter {
     e.preventDefault();
     user.you_blocked = !user.you_blocked;
     this.api.toggleBlock(user, user.you_blocked);
-  }	
+  }
 }

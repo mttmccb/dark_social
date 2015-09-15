@@ -1,13 +1,1 @@
-import { autoinject } from 'aurelia-framework';
-import { Router } from 'aurelia-router';
-import { activationStrategy } from 'aurelia-router';
-
-@autoinject
-export class Choose {
-	constructor(private router: Router) {
-	}
-	
-	determineActivationStrategy() { return activationStrategy.replace; }
-	//TODO: Refactor this, it's all over the place
-	openProfile(name: number) { this.router.navigateToRoute("userprofile", { user_id: name }, 1); }
-}
+export class Choose { }

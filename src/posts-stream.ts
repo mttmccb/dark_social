@@ -21,7 +21,7 @@ export class PostsStream {
 		this.postPosted = ea.subscribe(PostPosted, () => this.loadStream(this.streamOptions, false));
 		this.refreshView = ea.subscribe(RefreshView, () => this.loadStream(this.streamOptions, false));
 		this.loadMore = ea.subscribe(LoadMore, () => this.loadStream(this.streamOptions, true));
-		this.streamOptions.loadToStreamMarker = false;
+		this.streamOptions.loadToStreamMarker = true;
 		this.loadUntilStreamMarker = ea.subscribe(LoadUntilStreamMarker, () => this.loadStream(this.streamOptions, true));
 	}
 

@@ -20,7 +20,7 @@
 				<div class="pure-u-3-4">
 					<div class="post-details showMe">
 						<p>${profile.name}
-							<a href="#" click.delegate="$parent.loadUserRoute(profile.id)">@${profile.username}</a>
+							<a href="#" click.delegate="$parent.profileRoute.openProfile(profile.id)">@${profile.username}</a>
 						</p>
 						<p if.bind="profile.follows_you">
 							<strong>Follows you</strong>

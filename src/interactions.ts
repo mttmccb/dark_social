@@ -6,7 +6,7 @@ import { PostPosted, LoadMore, RefreshView, RefreshedView, ApiStatus } from './r
 
 @autoinject
 export class Interactions {
-  //TODO: Great Interactions Model
+  //TODO: Create Interactions Model
   private postPosted: any;
   private refreshView: any;
   private loadMore: any;
@@ -25,7 +25,7 @@ export class Interactions {
     return this.loadInteractions(route.config.settings.action, false);
   }
 
-  refresh = () => { this.loadInteractions(this.action, false); }
+  refresh() { return this.loadInteractions(this.action, false); }
 
   deactivate() {
     this.postPosted();

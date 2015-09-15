@@ -10,5 +10,4 @@ export class TopHashtagsCustomElement {
   loadUserRoute(hashtag: string) {
     this.router.navigateToRoute("hashtag", { hashtag: hashtag });
   }
-
 }

@@ -1,8 +1,8 @@
+import { ProfileRoute } from '../../resources/profile-route';
 import { bindable, autoinject } from 'aurelia-framework';
 import * as Masonry from 'masonry-layout';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { RefreshedView } from '../../resources/messages';
-import { Router } from 'aurelia-router';
 
 @autoinject
 export class InteractionListCustomElement {
@@ -10,7 +10,7 @@ export class InteractionListCustomElement {
   public viewRefreshed: any;
   public msnry: any;
   
-  constructor(private ea: EventAggregator, private router: Router, private isAttached: boolean) {
+	constructor(private profileRoute: ProfileRoute, private ea: EventAggregator, private isAttached: boolean) {
     this.isAttached = false;
     this.viewRefreshed = ea.subscribe(RefreshedView, () => this.createMasonry());
   }
@@ -24,8 +24,6 @@ export class InteractionListCustomElement {
     this.viewRefreshed();
     this.msnry.destroy();
   }
-
-  loadUserRoute(user: number) { this.router.navigateToRoute("userprofile", { user_id: user }); }
 
   createMasonry() {
     var container = document.querySelector('#posts');

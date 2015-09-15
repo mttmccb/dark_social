@@ -1,30 +1,23 @@
 import { autoinject } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { State } from '../services/state';
+import { ProfileRoute } from './profile-route';
 
 @autoinject
 export class PostClicks {
-  constructor(private router: Router, private state: State) {
-    this.router = router;
-    this.state = state;
-  }
-
-	openProfile(name: number) {
-    this.state.user_id = name;
-		this.router.navigateToRoute("userprofile", {user_id: name});  
-	}
+  constructor(private router: Router, private state: State, private profileRoute: ProfileRoute) { }
 
 	openHashtag(hashtag: string) {
 		this.router.navigateToRoute("hashtag", {hashtag: hashtag});  
 	}
 
   handler(e: MouseEvent) {
-    let node: Element = e.target;
+    let node: Element = <Element>e.target;
     let nodeType: string = node.getAttribute('itemprop');
 
     if (nodeType === 'mention') {
       let mentionName: number = Number(node.getAttribute('data-mention-id'));
-      this.openProfile(mentionName);
+      this.profileRoute.openProfile(mentionName);
 
     } else if (nodeType === 'hashtag') {
       let hashtagName = node.getAttribute('data-hashtag-name');
