@@ -1,22 +1,18 @@
-var gulp = require('gulp');  
-var paths = require('../paths');  
-var jspm = require('jspm/api');
+var gulp = require('gulp');
+var bundler = require('aurelia-bundler');
+var bundles = require('../bundles.js');
 
-gulp.task('bundle', function (done) {  
-  jspm.bundle(
-    [
-      'dist/*.js',
-      'aurelia-skeleton-navigation/*',
-      'aurelia-bootstrapper',
-      'aurelia-http-client',
-      'aurelia-dependency-injection',
-      'aurelia-router'
-    ].join(' + '),
-    'app-bundle.js',
-    {inject:true, minify: true}
-  ).then(function () {
-    gulp.src('./app-bundle.js')
-      .pipe(gulp.dest(paths.output));
-    done();
-  });
+var config = {
+  force: true,
+  baseURL: '.',
+  configPath: './config.js',
+  bundles: bundles.bundles
+};
+
+gulp.task('bundle', ['build'], function() {
+  return bundler.bundle(config);
+});
+
+gulp.task('unbundle', function() {
+  return bundler.unbundle(config);
 });

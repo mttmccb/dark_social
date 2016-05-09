@@ -2,62 +2,47 @@ var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var changed = require('gulp-changed');
 var plumber = require('gulp-plumber');
-var to5 = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
 var paths = require('../paths');
-var compilerOptions = require('../babel-options');
 var assign = Object.assign || require('object.assign');
+var notify = require('gulp-notify');
+var typescript = require('gulp-tsb');
 var sass = require('gulp-sass');
-var ts = require('gulp-typescript');
-var Typescript = require("typescript");
-
-// compiles the typescript files to js
-gulp.task('build-ts', function () {
-  var tsResult = gulp.src([paths.source, paths.typings])
-    .pipe(plumber())
-    .pipe(ts({
-      target: "es5",
-      module: "amd",
-      removeComments: true,
-      declarationFiles: false,
-      noExternalResolve: true,
-      emitDecoratorMetadata: true,
-      experimentalDecorators: true,
-      //typescript: Typescript
-    }));
-  return tsResult.js.pipe(gulp.dest(paths.output));
-});
 
 // transpiles changed es6 files to SystemJS format
 // the plumber() call prevents 'pipe breaking' caused
 // by errors from other gulp plugins
 // https://www.npmjs.com/package/gulp-plumber
-gulp.task('build-system', function () {
-  return gulp.src(paths.source)
+var typescriptCompiler = typescriptCompiler || null;
+gulp.task('build-system', function() {
+  if(!typescriptCompiler) {
+    typescriptCompiler = typescript.create(require('../../tsconfig.json').compilerOptions);
+  }
+  return gulp.src(paths.dtsSrc.concat(paths.source))
     .pipe(plumber())
-    .pipe(changed(paths.output, {extension: '.js'}))
     .pipe(sourcemaps.init({loadMaps: true}))
-    .pipe(to5(assign({}, compilerOptions, {modules:'system'})))
-    .pipe(sourcemaps.write({includeContent: false, sourceRoot: paths.sourceMapRelativePath }))
+    .pipe(typescriptCompiler())
+    .pipe(sourcemaps.write({includeContent: false, sourceRoot: '/src'}))
     .pipe(gulp.dest(paths.output));
 });
 
 // copies changed html files to the output directory
-gulp.task('build-html', function () {
+gulp.task('build-html', function() {
   return gulp.src(paths.html)
     .pipe(changed(paths.output, {extension: '.html'}))
     .pipe(gulp.dest(paths.output));
 });
 
+// copies changed css files to the output directory
 gulp.task('build-css', function() {
-
-  return gulp.src(paths.style)
-    .pipe(plumber())
-    .pipe(changed(paths.output, {extension: '.css'}))
+  return gulp.src(paths.css)
     .pipe(sourcemaps.init())
-    .pipe(sass())
+    .pipe(sass({
+      includePaths: require("bourbon").includePaths
+    }))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(paths.output));
+    .pipe(changed(paths.cssDist, {extension: '.css'}))
+    .pipe(gulp.dest(paths.cssDist));
 });
 
 // this task calls the clean task (located
@@ -67,8 +52,7 @@ gulp.task('build-css', function() {
 gulp.task('build', function(callback) {
   return runSequence(
     'clean',
-    ['build-ts', 'build-css', 'build-html' ],
-//    ['build-system', 'build-html', 'build-css', 'bundle'],
+    ['build-system', 'build-html', 'build-css'],
     callback
   );
 });

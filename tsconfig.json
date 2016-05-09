@@ -1,17 +1,30 @@
 {
-  "version": "1.5.0",
+  "version": "1.7.3",
+  "compileOnSave": false,
   "compilerOptions": {
+    "rootDir": "src/",
+    "sourceMap": true,
     "target": "es5",
     "module": "amd",
-    "declaration": true,
-    "noImplicitAny": true,
+    "declaration": false,
+    "noImplicitAny": false,
+    "noResolve": true,
     "removeComments": true,
-    "preserveConstEnums": true,
     "noLib": false,
     "emitDecoratorMetadata": true,
-    "sourceMap": true,
-    "listFiles": true,
-    "outDir": "dist",
     "experimentalDecorators": true
+  },
+  "filesGlob": [
+    "./src/**/*.ts",
+    "./test/**/*.ts",
+    "./typings/browser.d.ts",
+    "./custom_typings/**/*.d.ts",
+    "./jspm_packages/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "atom": {
+    "rewriteTsconfig": false
   }
 }
