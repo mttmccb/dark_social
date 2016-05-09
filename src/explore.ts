@@ -31,9 +31,9 @@ export class Explore {
   }
 
   deactivate() {
-    this.postPosted();
-    this.refreshView();
-    this.loadMore();
+    this.postPosted.dispose();
+    this.refreshView.dispose();
+    this.loadMore.dispose();
   }
 
   refresh = () => this.loadPosts(false);

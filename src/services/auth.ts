@@ -33,7 +33,7 @@ export class AuthenticationService {
   }
 
   login() {
-    window.location = "https://account.app.net/oauth/authorize?client_id=8uquHpRU2YLLB2vHHPkQXqa3tejYwDPC&response_type=token&redirect_uri=http://localhost:9000/handle_oauth?&scope=basic stream write_post follow update_profile public_messages messages files";
+    window.location.href = "https://account.app.net/oauth/authorize?client_id=8uquHpRU2YLLB2vHHPkQXqa3tejYwDPC&response_type=token&redirect_uri=http://localhost:9000/handle_oauth?&scope=basic stream write_post follow update_profile public_messages messages files";
   }
 
   logout() {

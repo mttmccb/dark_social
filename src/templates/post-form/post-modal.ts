@@ -11,5 +11,7 @@ export class PostModalCustomElement {
     ea.subscribe(NewPost, () => this.toggleModal());
   }
 
-  toggleModal() { this.showing = !this.showing; }
+  toggleModal() { 
+    this.showing = !this.showing;
+  }
 }

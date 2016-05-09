@@ -37,10 +37,10 @@ export class PostsStream {
     determineActivationStrategy() { return activationStrategy.replace; }
 
     deactivate() {
-        this.postPosted();
-        this.refreshView();
-        this.loadMore();
-        this.loadUntilStreamMarker();
+        this.postPosted.dispose();
+        this.refreshView.dispose();
+        this.loadMore.dispose();
+        this.loadUntilStreamMarker.dispose();
     }
 
     loadStream(so: StreamOptions, more: boolean) {

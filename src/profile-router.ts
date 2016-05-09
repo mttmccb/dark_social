@@ -37,7 +37,9 @@ export class ProfileRouter {
     return this.loadUser(this.state.user_id);
   }
 
-  deactivate() { this.postPosted(); }
+  deactivate() { 
+    this.postPosted.dispose();
+  }
 
   refresh() { return this.loadUser(this.user_id); }
 

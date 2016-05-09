@@ -15,7 +15,7 @@ export class ModalImageCustomElement {
   }
 
   detached() {
-    this.imageViewed();
+    this.imageViewed.dispose();
   }
   
   showModal(image: ADNImage) {

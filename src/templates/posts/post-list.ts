@@ -1,13 +1,13 @@
 import { autoinject, bindable } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
-import * as Masonry from 'masonry-layout';
+//import * as Masonry from 'masonry-layout';
 import { RefreshedView } from '../../resources/messages';
 
 @autoinject
 export class PostListCustomElement {
   @bindable posts = {};
   private viewRefreshed: any;
-  msnry: any;
+  //msnry: any;
 
   constructor(private ea: EventAggregator, private isAttached: boolean) {
     this.isAttached = false;
@@ -16,24 +16,26 @@ export class PostListCustomElement {
 
   attached() {
     this.isAttached = true;
-    this.createMasonry();
+  //  this.createMasonry();
   }
 
   detached() {
-    this.viewRefreshed();
-    this.msnry.destroy();
+    this.viewRefreshed.dispose();
+  //  this.msnry.destroy();
   }
 
   createMasonry() {
     var container = document.querySelector('#posts');
 
-    this.msnry = new Masonry(container, {
-      columnWidth: ".post",
-      itemSelector: '.post',
-      percentPosition: true,
-      gutter: 10
-    });
+    // this.msnry = new Masonry(container, {
+    //   columnWidth: ".post",
+    //   itemSelector: '.post',
+    //   percentPosition: true,
+    //   gutter: 10
+    // });
   }
 
-  postsChanged() { if (this.isAttached) { this.createMasonry(); } }
+  postsChanged() { 
+  //  if (this.isAttached) { this.createMasonry(); }
+  }
 }

@@ -1,18 +1,19 @@
 import { autoinject, noView} from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { ApiStatus } from '../resources/messages';
-import * as humane from 'humane-js';
-import 'humane-js/themes/libnotify.css!';
+//import 'humane-js/themes/libnotify.css!';
+//import * as Humane from 'humane-js';
 
 @noView
 @autoinject
 export class StatusIndicator {
-  private notify: any;
-  private humane: humane;
+  //private notify: any;
   private status: any;
+  //private humane: Humane;
     
-  constructor(private ea: EventAggregator) {
+  constructor(humane, private ea: EventAggregator) {
     ea.subscribe(ApiStatus, (msg: any) => this.showNotification(msg));
+    //this.humane = humane.create();
     this.status = {
       info: { addnCls: 'humane-libnotify-info' },
       success: { addnCls: 'humane-libnotify-success' },
@@ -20,10 +21,12 @@ export class StatusIndicator {
     }
   }
 
-  attached() { this.notify = humane.create({ baseCls: 'humane-libnotify', timeout: 1250 }); }
+  attached() { 
+    //this.notify = humane.create({ baseCls: 'humane-libnotify', timeout: 1250 }); 
+  }
 
   showNotification(notification: any) {
-    var opt = notification.options.status !== '' ? this.status[notification.options.status] : {};
-    this.notify.log(notification.message, opt);
+    //var opt = notification.options.status !== '' ? this.status[notification.options.status] : {};
+    //this.notify.log(notification.message, opt);
   }
 }

@@ -1,4 +1,3 @@
-import { Validation } from 'aurelia-validation';
 import { autoinject, bindable } from 'aurelia-framework';
 import { AdnAPI } from '../../services/adn-api';
 import { EventAggregator } from 'aurelia-event-aggregator';
@@ -23,15 +22,15 @@ export class PostFormCustomElement {
 	private isReply: boolean;
 	private allUsers: any;
 
-	constructor(private api: AdnAPI, private validation: Validation, private ea: EventAggregator, private state: State) {
-		this.validation = validation.on(this)
-			.ensure('postText')
-			.isNotEmpty()
-			.hasMinLength(1)
-			.passes(
-				(newValue: any) => {
-					return this.postText.replace(/([^"])(https?:\/\/([^\s"]+))/g, '').replace('[', '').replace(']', '').length <= 256;
-				});
+	constructor(private api: AdnAPI, private ea: EventAggregator, private state: State) {
+		// this.validation = validation.on(this)
+		// 	.ensure('postText')
+		// 	.isNotEmpty()
+		// 	.hasMinLength(1)
+		// 	.passes(
+		// 		(newValue: any) => {
+		// 			return this.postText.replace(/([^"])(https?:\/\/([^\s"]+))/g, '').replace('[', '').replace(']', '').length <= 256;
+		// 		});
 		this.submitting = false;
 		this.editPost = false;
 		this.postText = '';
@@ -59,7 +58,7 @@ export class PostFormCustomElement {
 			this.allUsers = data;
 			if (!this.isReply) {
 				this.api.loadLastPost().then(data => {
-					this.lastPost = data[0];
+					this.lastPost = data[0].toString();
 					this.showLastPost = true;
 					console.log(data[0]);
 				}).catch(() => {
@@ -73,18 +72,18 @@ export class PostFormCustomElement {
 
 	submit(id: number) {
 		this.submitting = true;
-		this.validation.validate()
-			.then(() => {
+		// this.validation.validate()
+		// 	.then(() => {
 				this.api.createPost(this.postText, (id ? { reply_to: id } : {})).then((data: any) => {
 					this.submitting = false;
 					this.lastPost = data;
 					this.resetPost();
 					this.ea.publish(new PostPosted());
 				});
-			}).catch(() => {
-				this.submitting = false;
-				this.ea.publish(new ApiStatus('Something went wrong... :(', { status: 'error' }));
-			});
+		// 	}).catch(() => {
+		// 		this.submitting = false;
+		// 		this.ea.publish(new ApiStatus('Something went wrong... :(', { status: 'error' }));
+		// 	});
 	}
 
 	resetPost() {
@@ -95,15 +94,15 @@ export class PostFormCustomElement {
 	}
 
 	preview(id: number) {
-		this.validation.validate()
-			.then(() => {
-				this.api.textProcess(this.postText).then((data: any) => {
-					this.showPostPreview = true;
-					this.postPreview = data;
-				});
-			}).catch(() => {
-				this.ea.publish(new ApiStatus('Something went wrong... :(', { status: 'error' }));
-			});
+		// this.validation.validate()
+		// 	.then(() => {
+		// 		this.api.textProcess(this.postText).then((data: any) => {
+		// 			this.showPostPreview = true;
+		// 			this.postPreview = data;
+		// 		});
+		// 	}).catch(() => {
+		// 		this.ea.publish(new ApiStatus('Something went wrong... :(', { status: 'error' }));
+		// 	});
 	}
 
 	keyUp(e: KeyboardEvent) {

@@ -24,8 +24,8 @@ export class Thread {
 	activate = (params: any, query: any, route: any) => { this.loadStream(params.id) };
 
 	deactivate() {
-		this.postPosted();
-		this.refreshView();
+		this.postPosted.dispose();
+		this.refreshView.dispose();
 	}
 
 	loadStream(id: number) {

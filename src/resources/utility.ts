@@ -2,10 +2,6 @@ export function areEqual(obj1: any, obj2: any) {
   return Object.keys(obj1).every((key) => obj2.hasOwnProperty(key) && (obj1[key] === obj2[key]));
 }
 
-export function parseDate(dateToParse: string) {
-  return Math.round((new Date() - Date.parse(dateToParse)) / 3600000);
-}
-
 export function findIndexByKeyValue(arraytosearch: any[], key: string, valuetosearch: any) {
 
   for (var i = 0; i < arraytosearch.length; i++) {

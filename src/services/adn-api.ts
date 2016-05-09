@@ -165,10 +165,11 @@ export class AdnAPI {
     this.ea.publish(new ApiStatus('Reporting Post', { status: 'info' }));
     this.isRequesting = true;
 
-    return this.http.configure((x: any) => {
-      x.withHeader('Authorization', 'Bearer ' + this.state.token);
-      x.withHeader('Content-Type', 'application/json');
-    }).post(`https://api.app.net/posts/${id}/report`)
+    return this.http.createRequest(`https://api.app.net/posts/${id}/report`)
+      .asPost()
+      .withHeader('Authorization', 'Bearer ' + this.state.token)
+      .withHeader('Content-Type', 'application/json')
+      .send()
       .then((response: any) => {
         this.meta = response.content.meta;
         this.isRequesting = false;

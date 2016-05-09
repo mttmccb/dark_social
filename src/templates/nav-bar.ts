@@ -27,11 +27,17 @@ export class NavBarCustomElement {
     }
   }
 
-  get isLoggedIn() { return this.state.token !== null; }
+  get isLoggedIn() {
+    return this.state.token !== null;
+  }
 
-  showNewPost() { this.ea.publish(new NewPost()); }
+  showNewPost() {
+    this.ea.publish(new NewPost());
+  }
 
-  showExplore() { this.toggleExplore = !this.toggleExplore; }
+  showExplore() {
+    this.toggleExplore = !this.toggleExplore;
+  }
 
   showProfile() {
     this.auth.checkLogin()

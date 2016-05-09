@@ -15,7 +15,9 @@ export class PostCustomElement {
 
   postChanged(newValue: any) { this.thisPost = newValue; }
 
-  detached() { this.postReply(); }
+  detached() { 
+    this.postReply.dispose();
+  }
 
   setupReply(triggerPost: any) {
     this.replyTo = this.replyTo ? false : triggerPost.id === this.thisPost.data.id;

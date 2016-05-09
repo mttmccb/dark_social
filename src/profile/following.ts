@@ -21,7 +21,9 @@ export class Following {
     return this.loadFollowing(this.state.user_id, false);
   }
 
-  deactivate() { this.loadMore(); }
+  deactivate() { 
+    this.loadMore.dispose();
+  }
 
   refresh = () => { this.loadFollowing(this.state.user_id, false); }
 

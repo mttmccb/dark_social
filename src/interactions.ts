@@ -28,9 +28,9 @@ export class Interactions {
   refresh() { return this.loadInteractions(this.action, false); }
 
   deactivate() {
-    this.postPosted();
-    this.loadMore();
-    this.refreshView();
+    this.postPosted.dispose();
+    this.loadMore.dispose();
+    this.refreshView.dispose();
   }
 
   loadInteractions(action: string, more: boolean) {

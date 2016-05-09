@@ -31,8 +31,8 @@ export class PostFrontCustomElement {
   }
 
   detached() {
-    this.postReply();
-    this.streamMarker();
+    this.postReply.dispose();
+    this.streamMarker.dispose();
   }
 
   postChanged(newValue: any) { this.thisPost = newValue; }
